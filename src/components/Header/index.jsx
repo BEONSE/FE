@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Logo from "../../src/assets/Logo.png";
-import Hamberger from "../../src/assets/hambuger_button.png";
+import Logo from "../../../src/assets/Logo.png";
+import Hamburger from "../../../src/assets/hamburger_button.png";
 
 const Header = () => {
   /* Styled Component */
@@ -14,20 +14,21 @@ const Header = () => {
 
   // Logo Image Style
   const LogoImg = styled.div`
-    width: 63%;
-    text-align: right;
+    width: 100%;
     & > img {
       @media (max-width: 360px) {
         width: 30vw;
       }
-      width: 25vw;
+      width: 18vw;
     }
   `;
 
   // Hamberger Button Style
   const HambergerBtn = styled.div`
-    width: 30%;
-    margin: auto;
+    width: 20%;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 2%;
     text-align: right;
     & > img {
       @media (max-width: 360px) {
@@ -44,7 +45,7 @@ const Header = () => {
           <img src={Logo} alt="LogoImage" />
         </LogoImg>
         <HambergerBtn>
-          <img src={Hamberger} alt="Menu button" onClick={() => {}} />
+          <img src={Hamburger} alt="Menu button" onClick={() => {}} />
         </HambergerBtn>
       </HeaderBox>
     </>
