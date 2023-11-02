@@ -1,25 +1,5 @@
 import styled from "styled-components";
 import GlobalStyle from "../GlobalStyle";
-/**Styled Component */
-// Footer 전체 Style
-const FooterBox = styled.div`
-  width: 100%;
-
-  padding-left: 2%;
-  padding-right: 2%;
-  padding-top: 5%;
-  padding-bottom: 5%;
-
-  background-color: black;
-`;
-
-// P태그 Style
-const CompanyInfo = styled.p`
-  color: white;
-
-  text-align: center;
-  font-size: 12px;
-`;
 
 const Footer = () => {
   return (
@@ -42,3 +22,24 @@ const Footer = () => {
 };
 
 export default Footer;
+
+/**Styled Component */
+// Footer 전체 Style
+const FooterBox = styled.div`
+  width: 100%;
+
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+
+  background-color: black;
+`;
+
+// P태그 Style
+const CompanyInfo = styled.p`
+  color: white;
+
+  text-align: center;
+  font-size: 12px;
+`;
