@@ -37,6 +37,7 @@ export default Header;
 /* Styled Component */
 // Header All Style
 const HeaderBox = styled.div`
+  position: fixed;
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
