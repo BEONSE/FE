@@ -3,33 +3,34 @@ import styled from "styled-components";
 import GlobalStyle from "../../components/GlobalStyle";
 
 import MainImage from "../../assets/MainBackgroundImage.png";
-import SearchIcon from "../../assets/magnifier.png";
 import ArrowImg from "../../assets/arrow.png";
 
 const Home = () => {
   return (
     <>
       <GlobalStyle />
-      <MainDiv>
-        <h1>BEONSE</h1>
-        <p>
-          <span>비온</span> 후에 <span>세</span>차하자
-        </p>
-      </MainDiv>
+      <HomeAllDiv>
+        <MainDiv>
+          <h1>BEONSE</h1>
+          <p>
+            <span>비온</span> 후에 <span>세</span>차하자
+          </p>
+        </MainDiv>
 
-      <MainItems>
-        <MainItem>날씨 추천 API</MainItem>
-        <MainItem>이달의 세차왕</MainItem>
-      </MainItems>
+        <MainItems>
+          <MainItem>날씨 추천 API</MainItem>
+          <MainItem>이달의 세차왕</MainItem>
+        </MainItems>
 
-      <ReservationDiv
-        onClick={() => {
-          alert("안녕");
-        }}
-      >
-        <ResButton>지점 예약 하러가기</ResButton>
-        <img src={ArrowImg} alt="ArrowImage" />
-      </ReservationDiv>
+        <ReservationDiv
+          onClick={() => {
+            alert("안녕");
+          }}
+        >
+          <ResButton>지점 예약 하러가기</ResButton>
+          <img src={ArrowImg} alt="ArrowImage" />
+        </ReservationDiv>
+      </HomeAllDiv>
     </>
   );
 };
@@ -37,39 +38,40 @@ const Home = () => {
 export default Home;
 
 /* Styled Component*/
+// Home 전체 div
+const HomeAllDiv = styled.div`
+  padding-top: 13.1%;
+`;
+
 // 메인 화면 요소
 const MainDiv = styled.div`
-  @media (max-width: 1170px) {
-    background-image: url(${MainImage});
-    background-repeat: no-repeat;
-    background-size: cover;
+  background-image: url(${MainImage});
+  background-repeat: no-repeat;
+  background-size: cover;
 
-    width: 100vw;
-    height: 40vh;
+  width: 100vw;
+  height: 40vh;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-    margin-bottom: 30px;
+  color: #99e8f8;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  & > h1 {
+    font-size: 50px;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
 
-    color: #99e8f8;
+  & > p {
+    font-size: 20px;
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
+  }
 
-    & > h1 {
-      font-size: 50px;
-      margin-bottom: 10px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    & > p {
-      font-size: 20px;
-      text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
-    }
-
-    & > p > span {
-      color: #ffee00;
-    }
+  & > p > span {
+    color: #ffee00;
   }
 `;
 
@@ -77,15 +79,13 @@ const MainDiv = styled.div`
 const MainItems = styled.div``;
 const MainItem = styled.div`
   margin: auto;
-  @media (max-width: 1170px) {
-    width: 90%;
-    height: 40%;
-    background-color: #ffffff;
-    padding: 45px;
-    border-radius: 25px;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
-    margin-bottom: 30px;
-  }
+  width: 90%;
+  height: 40%;
+  background-color: #ffffff;
+  padding: 45px;
+  border-radius: 25px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+  margin-bottom: 30px;
 `;
 
 // 예약하러가기 button
@@ -105,6 +105,7 @@ const ReservationDiv = styled.div`
   background-color: #99e8f8;
 
   margin: auto;
+  margin-bottom: 10px;
   transition: background-color 0.3s ease;
   transition: transform 0.1s ease;
   &:hover {
