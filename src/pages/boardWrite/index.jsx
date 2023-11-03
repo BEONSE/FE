@@ -17,7 +17,7 @@ const BoardWrite = () => {
 
 export default BoardWrite;
 
-/* 리뷰 제목 Style */
+/* 페이지 종류 Style */
 const PageTitle = styled.h2`
   margin: 5vh 0 5vh 0;
   text-align: center;
