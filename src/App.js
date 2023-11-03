@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Payment from "./pages/payment";
 import Home from "./pages/home";
 import BranchReservation from "./pages/branchReservation";
+import BoardWrite from "./pages/boardWrite";
 
 function App() {
   return (
@@ -14,8 +15,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/"></Route>
-          <Route path="/payment" element={<Payment />} />
-          <Route path="/branch" element={<BranchReservation />} />
+          <Route path="/payments" element={<Payment />} />
+          <Route path="/branchies" element={<BranchReservation />} />
+          <Route path="/reviews" element={<BoardWrite />} />
         </Routes>
       </BrowserRouter>
       <Footer />
