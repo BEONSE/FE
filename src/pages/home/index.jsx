@@ -4,8 +4,10 @@ import GlobalStyle from "../../components/GlobalStyle";
 
 import MainImage from "../../assets/MainBackgroundImage.png";
 import ArrowImg from "../../assets/arrow.png";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <>
       <GlobalStyle />
@@ -24,7 +26,7 @@ const Home = () => {
 
         <ReservationDiv
           onClick={() => {
-            alert("안녕");
+            navigate("/branchies");
           }}
         >
           <ResButton>지점 예약 하러가기</ResButton>
@@ -39,9 +41,7 @@ export default Home;
 
 /* Styled Component*/
 // Home 전체 div
-const HomeAllDiv = styled.div`
-  padding-top: 13.1%;
-`;
+const HomeAllDiv = styled.div``;
 
 // 메인 화면 요소
 const MainDiv = styled.div`
@@ -84,7 +84,7 @@ const MainItem = styled.div`
   background-color: #ffffff;
   padding: 45px;
   border-radius: 25px;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+  box-shadow: 8px 2px 62px 0px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
 `;
 
@@ -106,8 +106,7 @@ const ReservationDiv = styled.div`
 
   margin: auto;
   margin-bottom: 10px;
-  transition: background-color 0.3s ease;
-  transition: transform 0.1s ease;
+  transition: background-color 0.5s ease, transform 0.1s ease;
   &:hover {
     background-color: #68d0f3;
     & > img {
