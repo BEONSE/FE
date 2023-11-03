@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import MainImage from "./assets/MainBackgroundImage.png";
 import Payment from "./pages/payment";
+import BranchReservation from "./pages/branchReservation";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/"></Route>
           <Route path="/payment" element={<Payment />} />
+          <Route path="/branch" element={<BranchReservation />} />
         </Routes>
       </BrowserRouter>
       <Footer />
