@@ -1,9 +1,10 @@
+import { ConmmonButton } from "../../components/CommonButton";
 import styled from "styled-components";
+import GlobalStyle from "../../components/GlobalStyle";
 
 import MainImage from "../../assets/MainBackgroundImage.png";
 import SearchIcon from "../../assets/magnifier.png";
-import { ConmmonButton } from "../../components/CommonButton";
-import GlobalStyle from "../../components/GlobalStyle";
+import ArrowImg from "../../assets/arrow.png";
 
 const Home = () => {
   return (
@@ -15,16 +16,19 @@ const Home = () => {
           <span>비온</span> 후에 <span>세</span>차하자
         </p>
       </MainDiv>
+
       <MainItems>
         <MainItem>날씨 추천 API</MainItem>
         <MainItem>이달의 세차왕</MainItem>
       </MainItems>
-      <SearchBar>
-        <input placeholder="지점 검색하기" />
-        <img src={SearchIcon} alt="SearchIconImage" />
-      </SearchBar>
-      <ReservationDiv>
-        <ResButton>예약하러가기</ResButton>
+
+      <ReservationDiv
+        onClick={() => {
+          alert("안녕");
+        }}
+      >
+        <ResButton>지점 예약 하러가기</ResButton>
+        <img src={ArrowImg} alt="ArrowImage" />
       </ReservationDiv>
     </>
   );
@@ -84,44 +88,39 @@ const MainItem = styled.div`
   }
 `;
 
-// 지점 검색 바
-const SearchBar = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: auto;
-  border: 1px solid #a0a0a0;
-  border-radius: 5px;
-  padding: 8px;
-  @media (max-width: 1170px) {
-    width: 90vw;
-    & > input {
-      font-family: "S-CoreDream-light", sans-serif;
-      font-size: 16px;
-
-      width: 90%;
-      height: 30px;
-
-      border: none;
-    }
-
-    & > img {
-      cursor: pointer;
-      width: 30px;
-    }
-  }
+// 예약하러가기 button
+const ResButton = styled(ConmmonButton)`
+  background-color: rgba(255, 255, 255, 0);
+  width: 80%;
 `;
 
 // 예약하러가기 div
 const ReservationDiv = styled.div`
-  text-align: center;
-  & :hover {
-    background-color: #6dc3d4;
-  }
-`;
-// 예약하러가기 button
-const ResButton = styled(ConmmonButton)`
+  display: flex;
+  justify-content: center;
+
   width: 90vw;
+
+  border-radius: 8px;
   background-color: #99e8f8;
+
+  margin: auto;
+  transition: background-color 0.3s ease;
+  transition: transform 0.1s ease;
+  &:hover {
+    background-color: #68d0f3;
+    & > img {
+      filter: brightness(0.8);
+    }
+  }
+
+  &:active {
+    transform: translate(1px, 1px);
+  }
+
+  & > img {
+    width: 30px;
+  }
 `;
 
 /* <a href="https://www.flaticon.com/kr/free-icons/" title="확대경 아이콘">확대경 아이콘  제작자: Freepik - Flaticon</a> */
