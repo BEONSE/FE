@@ -1,29 +1,22 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import styled from "styled-components";
 import "./App.css";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import BoardWrite from "./pages/boardWrite";
-import BranchReservation from "./pages/branchReservation";
-import MateList from "./pages/mateList";
-import Payment from "./pages/payment";
+import Footer from "./components/footer";
+import Header from "./components/header";
+import AppRoute from "./pages/AppRoute";
 
 function App() {
   return (
     <div className="App">
       <Header />
-      {/* <Home /> */}
-      <BrowserRouter>
-        <Routes>
-          <Route path="/"></Route>
-          <Route path="/payments" element={<Payment />} />
-          <Route path="/branchies" element={<BranchReservation />} />
-          <Route path="/reviews" element={<BoardWrite />} />
-          <Route path="/reviews/list" element={<MateList />} />
-        </Routes>
-      </BrowserRouter>
+      <BlankDiv />
+      <AppRoute />
       <Footer />
     </div>
   );
 }
 
 export default App;
+
+const BlankDiv = styled.div`
+  height: 7.5vh;
+`;
