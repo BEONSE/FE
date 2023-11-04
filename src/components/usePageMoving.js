@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 export const usePageMoving = () => {
   const navigate = useNavigate();
 
+  // 메인 페이지
+  const moveToHome = () => navigate("/");
+
   // 로그인 페이지
   const moveToLogin = () => navigate("/login");
 
@@ -56,5 +59,6 @@ export const usePageMoving = () => {
     moveToBuyCoupon,
     moveToReview,
     moveToMate,
+    moveToHome,
   };
 };

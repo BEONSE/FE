@@ -3,14 +3,17 @@ import "./App.css";
 import Footer from "./components/footer";
 import Header from "./components/header";
 import AppRoute from "./pages/AppRoute";
+import { useState } from "react";
 
 function App() {
+  const [hideHeaderFooter, setHideHeaderFooter] = useState(false);
+
   return (
     <div className="App">
-      <Header />
-      <BlankDiv />
-      <AppRoute />
-      <Footer />
+      {!hideHeaderFooter && <Header />}
+      {!hideHeaderFooter && <BlankDiv />}
+      <AppRoute setHideHeaderFooter={setHideHeaderFooter} />
+      {!hideHeaderFooter && <Footer />}
     </div>
   );
 }
