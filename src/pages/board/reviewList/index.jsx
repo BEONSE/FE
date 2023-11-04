@@ -1,7 +1,7 @@
 const ReviewList = () => {
   return (
     <>
-      <p>dd</p>
+      <p>리뷰게시판</p>
     </>
   );
 };

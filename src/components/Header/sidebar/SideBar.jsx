@@ -1,9 +1,18 @@
-import { useNavigate } from "react-router";
 import styled from "styled-components";
 import Dropdown from "./Dropdown";
+import { usePageMoving } from "../../usePageMoving";
 
 const Sidebar = ({ clicked }) => {
-  const navigate = useNavigate();
+  const {
+    moveToLogin,
+    moveToBranchies,
+    moveToPayment,
+    moveToMyCoupon,
+    moveToMyInfo,
+    moveToMyPayment,
+    moveToMyBoard,
+    moveToBuyCoupon,
+  } = usePageMoving();
   return (
     <>
       <ModalBackground onClick={clicked}>
@@ -14,7 +23,7 @@ const Sidebar = ({ clicked }) => {
           <LoginPositon>
             <h1
               onClick={() => {
-                navigate("/login");
+                moveToLogin();
                 clicked();
               }}
             >
@@ -26,7 +35,7 @@ const Sidebar = ({ clicked }) => {
           <ModalList>
             <p
               onClick={() => {
-                navigate("/coupon/mycoupon");
+                moveToMyCoupon();
                 clicked();
               }}
             >
@@ -34,7 +43,7 @@ const Sidebar = ({ clicked }) => {
             </p>
             <p
               onClick={() => {
-                navigate("/payments");
+                moveToPayment();
                 clicked();
               }}
             >
@@ -42,7 +51,7 @@ const Sidebar = ({ clicked }) => {
             </p>
             <p
               onClick={() => {
-                navigate("/coupon/purchasecoupon");
+                moveToBuyCoupon();
                 clicked();
               }}
             >
@@ -50,7 +59,7 @@ const Sidebar = ({ clicked }) => {
             </p>
             <p
               onClick={() => {
-                navigate("/mypages/myinfo");
+                moveToMyInfo();
                 clicked();
               }}
             >
@@ -58,7 +67,7 @@ const Sidebar = ({ clicked }) => {
             </p>
             <p
               onClick={() => {
-                navigate("/mypages/myboard");
+                moveToMyBoard();
                 clicked();
               }}
             >
@@ -66,7 +75,7 @@ const Sidebar = ({ clicked }) => {
             </p>
             <p
               onClick={() => {
-                navigate("/mypages/mypayment");
+                moveToMyPayment();
                 clicked();
               }}
             >
@@ -74,7 +83,7 @@ const Sidebar = ({ clicked }) => {
             </p>
             <p
               onClick={() => {
-                navigate("/branchies");
+                moveToBranchies();
                 clicked();
               }}
             >
@@ -82,13 +91,13 @@ const Sidebar = ({ clicked }) => {
             </p>
             <p
               onClick={() => {
-                navigate("/branchies");
+                moveToBranchies();
                 clicked();
               }}
             >
               지점 검색
             </p>
-            <Dropdown />
+            <Dropdown clicked={clicked} />
           </ModalList>
         </ModalContent>
       </ModalBackground>
@@ -112,6 +121,9 @@ const ModalBackground = styled.div`
 `;
 // 사이드바 내용
 const ModalContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   @media (max-width: 1170px) {
     width: 70vw;
     font-size: 9px;

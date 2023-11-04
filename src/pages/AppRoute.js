@@ -2,11 +2,11 @@ import { Navigate, Route, Routes } from "react-router";
 import Home from "./home";
 import Payment from "./payment";
 import BranchReservation from "./branchReservation";
-import BoardWrite from "./board/boardWrite";
 import MateList from "./board/mateList";
 import Login from "./login";
 import Coupon from "./coupon";
 import MyPages from "./myPages";
+import ReviewList from "./board/reviewList";
 
 const AppRoute = () => {
   return (
@@ -18,7 +18,7 @@ const AppRoute = () => {
         <Route path="/payments/*" element={<Payment />} />
         <Route path="/mypages/*" element={<MyPages />} />
         <Route path="/coupon/*" element={<Coupon />} />
-        <Route path="/reviews/*" element={<BoardWrite />} />
+        <Route path="/reviews/*" element={<ReviewList />} />
         <Route path="/mate/*" element={<MateList />} />
 
         <Route path="*" element={<Navigate to="/" />} />

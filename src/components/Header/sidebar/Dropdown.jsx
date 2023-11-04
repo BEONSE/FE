@@ -1,11 +1,15 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { usePageMoving } from "../../usePageMoving";
+
 import styled from "styled-components";
 
-const Dropdown = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const navigate = useNavigate();
+const Dropdown = ({ clicked }) => {
+  const [isOpen, setIsOpen] = useState(false); // 게시판 종류 클릭
+  const {
+    // 페이지 이동 hooks
+    moveToReview,
+    moveToMate,
+  } = usePageMoving();
 
   return (
     <>
@@ -18,7 +22,8 @@ const Dropdown = () => {
             <DropdownItem
               isOpen={isOpen}
               onClick={() => {
-                navigate("/");
+                moveToReview();
+                clicked();
               }}
             >
               지점 리뷰
@@ -26,7 +31,8 @@ const Dropdown = () => {
             <DropdownItem
               isOpen={isOpen}
               onClick={() => {
-                navigate("/");
+                moveToMate();
+                clicked();
               }}
             >
               세차 메이트
@@ -53,7 +59,7 @@ const DropdownHeader = styled.div`
   & > span {
     display: inline-block;
     transform: ${(props) => (props.isOpen ? "rotate(90deg)" : "none")};
-    transition: transform 0.7s ease; // 부드러운 회전 효과 추가
+    transition: transform 0.7s ease;
   }
 `;
 
