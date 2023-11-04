@@ -8,12 +8,12 @@ import Coupon from "./coupon";
 import MyPages from "./myPages";
 import ReviewList from "./board/reviewList";
 
-const AppRoute = () => {
+const AppRoute = ({ setHideHeaderFooter }) => {
   return (
     <>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setHideHeaderFooter={setHideHeaderFooter} />} />
         <Route path="/branchies/*" element={<BranchReservation />} />
         <Route path="/payments/*" element={<Payment />} />
         <Route path="/mypages/*" element={<MyPages />} />
