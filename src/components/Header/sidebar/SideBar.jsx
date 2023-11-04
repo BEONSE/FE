@@ -33,14 +33,7 @@ const Sidebar = ({ clicked }) => {
           </LoginPositon>
 
           <ModalList>
-            <p
-              onClick={() => {
-                moveToMyCoupon();
-                clicked();
-              }}
-            >
-              보유/사용 쿠폰 조회
-            </p>
+            <hr />
             <p
               onClick={() => {
                 moveToPayment();
@@ -56,6 +49,15 @@ const Sidebar = ({ clicked }) => {
               }}
             >
               쿠폰 구매하기
+            </p>
+            <hr />
+            <p
+              onClick={() => {
+                moveToMyCoupon();
+                clicked();
+              }}
+            >
+              보유/사용 쿠폰 조회
             </p>
             <p
               onClick={() => {
@@ -81,6 +83,7 @@ const Sidebar = ({ clicked }) => {
             >
               결제 내역
             </p>
+            <hr />
             <p
               onClick={() => {
                 moveToBranchies();
@@ -97,6 +100,7 @@ const Sidebar = ({ clicked }) => {
             >
               지점 검색
             </p>
+            <hr />
             <Dropdown clicked={clicked} />
           </ModalList>
         </ModalContent>
@@ -149,16 +153,25 @@ const ModalList = styled.div`
   & > p {
     cursor: pointer;
     font-size: 16px;
-    margin-bottom: 35px;
+    margin-bottom: 8%;
+    margin-left: 3%;
     &:hover {
       color: #99e8f8;
     }
+  }
+
+  & > hr {
+    width: 95%;
+    border: none;
+    border-top: 1px solid #646464;
+    padding-bottom: 8%;
   }
 `;
 
 // 사이드바 로그인 영역 div
 const LoginPositon = styled.div`
   & > h1 {
+    margin-left: 3%;
     cursor: pointer;
     &:hover {
       color: #99e8f8;
