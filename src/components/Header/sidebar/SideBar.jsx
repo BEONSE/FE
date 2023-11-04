@@ -163,7 +163,7 @@ const ModalList = styled.div`
   & > hr {
     width: 95%;
     border: none;
-    border-top: 1px solid #646464;
+    border-top: 1px solid #494949;
     padding-bottom: 8%;
   }
 `;

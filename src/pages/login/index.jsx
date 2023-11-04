@@ -10,7 +10,7 @@ import { ConmmonButton } from "../../components/CommonButton";
 import { useEffect } from "react";
 
 const Login = ({ setHideHeaderFooter }) => {
-  const { moveToHome } = usePageMoving();
+  const { moveToHome, moveToRegister } = usePageMoving();
 
   // Header Footer 숨기기
   useEffect(() => {
@@ -48,7 +48,13 @@ const Login = ({ setHideHeaderFooter }) => {
         <AddService>
           <span onClick={() => {}}>아이디찾기 | </span>
           <span onClick={() => {}}>비밀번호찾기 | </span>
-          <span onClick={() => {}}>회원가입</span>
+          <span
+            onClick={() => {
+              moveToRegister();
+            }}
+          >
+            회원가입
+          </span>
         </AddService>
       </LoginAllDiv>
     </>
@@ -107,6 +113,7 @@ const LoginForm = styled.div`
 const LoginAllDiv = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   & > img {
     @media (min-width: 1171px) {
