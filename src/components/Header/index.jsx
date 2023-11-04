@@ -1,14 +1,18 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
 
 import Logo from "../../../src/assets/Logo.png";
 import Hamburger from "../../../src/assets/hamburger_button.png";
-import Sidebar from "./Sidebar";
+import Sidebar from "./sidebar/SideBar";
 
 const Header = () => {
   // State
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+
+  // useNavigate
+  const navigate = useNavigate();
 
   // Modal Click Event
   const openSidebar = () => {
@@ -21,7 +25,13 @@ const Header = () => {
     <>
       <HeaderBox>
         <LogoImg>
-          <img src={Logo} alt="LogoImage" />
+          <img
+            src={Logo}
+            alt="LogoImage"
+            onClick={() => {
+              navigate("/");
+            }}
+          />
         </LogoImg>
         <HambergerBtn>
           <img src={Hamburger} alt="SideMenu button" onClick={openSidebar} />
@@ -39,6 +49,7 @@ export default Header;
 const HeaderBox = styled.div`
   position: fixed;
   width: 100vw;
+  height: 7.5vh;
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: space-around;
@@ -48,10 +59,8 @@ const HeaderBox = styled.div`
 const LogoImg = styled.div`
   width: 100%;
   & > img {
-    @media (max-width: 1170px) {
-      width: 30vw;
-    }
-    width: 18vw;
+    height: 7.5vh;
+    cursor: pointer;
   }
 `;
 
@@ -64,9 +73,6 @@ const HambergerBtn = styled.div`
   text-align: right;
   & > img {
     cursor: pointer;
-    @media (max-width: 360px) {
-      width: 35%;
-    }
-    width: 20%;
+    height: 5vh;
   }
 `;
