@@ -1,4 +1,4 @@
-import { ConmmonButton } from "../../components/CommonButton";
+import { CommonButton } from "../../components/CommonButton";
 import styled from "styled-components";
 import GlobalStyle from "../../components/GlobalStyle";
 
@@ -89,7 +89,7 @@ const MainItem = styled.div`
 `;
 
 // 예약하러가기 button
-const ResButton = styled(ConmmonButton)`
+const ResButton = styled(CommonButton)`
   background-color: rgba(255, 255, 255, 0);
   width: 80%;
 `;

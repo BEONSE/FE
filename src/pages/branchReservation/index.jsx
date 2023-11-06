@@ -8,12 +8,14 @@ import BranchList from "./BrachList";
 const BranchReservation = () => {
   return (
     <>
-      <SearchBar>
-        <input placeholder="지점 검색하기" />
-        <img src={SearchIcon} alt="SearchIconImage" />
-      </SearchBar>
-      <hr />
-      <BranchList />
+      <SerachBranch>
+        <SearchBar>
+          <input placeholder="지점 검색하기" />
+          <img src={SearchIcon} alt="SearchIconImage" />
+        </SearchBar>
+        <hr />
+        <BranchList />
+      </SerachBranch>
 
       <Routes>
         <Route path="info" element={<BranchInfo />} />
@@ -51,4 +53,7 @@ const SearchBar = styled.div`
       width: 30px;
     }
   }
+`;
+
+const SerachBranch = styled.div`
 `;

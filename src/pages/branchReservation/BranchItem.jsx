@@ -1,19 +1,29 @@
-import { useNavigate } from "react-router-dom";
-import { ConmmonButton } from "../../components/CommonButton";
+import styled from "styled-components";
+import { CommonButton } from "../../components/CommonButton";
+import { usePageMoving } from "../../components/usePageMoving";
 
 const BranchItem = () => {
-  const navigate = useNavigate();
+  const { moveToBranchies } = usePageMoving();
   return (
     <>
-      <p>목록</p>
-      <ConmmonButton
-        onClick={() => {
-          navigate("/branchies/info");
-        }}
-      >
-        상세보기 ▶
-      </ConmmonButton>
+      <BranchIntro>
+        <p>XX점</p>
+        <CommonButton
+          onClick={() => {
+            moveToBranchies();
+          }}
+        >
+          상세보기 ▶
+        </CommonButton>
+      </BranchIntro>
     </>
   );
 };
 export default BranchItem;
+
+const BranchIntro = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const DetailButton = styled();
