@@ -19,8 +19,8 @@ const AdminManager = () => {
           className={selectedMenu === "approval" ? "selected" : ""}
           onClick={() => {
             setSelectedMenu("approval");
-            setApproval(true);
             setAccept(false);
+            setApproval(true);
             setMemberList(false);
             setPaymentList(false);
           }}
