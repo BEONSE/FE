@@ -15,6 +15,9 @@ export const usePageMoving = () => {
   // 지점 목록/검색 페이지
   const moveToSearch = () => navigate("/search");
 
+  // 지점 예약하기
+  const moveToReservation = () => navigate("/reservation");
+
   // 포인트 충전 페이지
   const moveToPayment = () => navigate("/payments");
 
@@ -60,5 +63,6 @@ export const usePageMoving = () => {
     moveToMate,
     moveToHome,
     moveToSearch,
+    moveToReservation,
   };
 };

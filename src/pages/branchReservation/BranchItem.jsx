@@ -1,16 +1,14 @@
 import styled from "styled-components";
 import { CommonButton } from "../../components/CommonButton";
-import { usePageMoving } from "../../components/usePageMoving";
 
-const BranchItem = () => {
-  const { moveToBranchies } = usePageMoving();
+const BranchItem = ({ setDetailClick }) => {
   return (
     <>
       <BranchIntro>
-        <p>XX점</p>
+        <p>BESONSE XX점</p>
         <DetailButton
           onClick={() => {
-            moveToBranchies();
+            setDetailClick(false);
           }}
         >
           상세보기 ▶
@@ -28,9 +26,14 @@ const BranchIntro = styled.div`
   margin-left: 5%;
   margin-right: 5%;
 
+  margin-bottom: 4%;
+
   padding: 20px;
 
-  border: 1px solid black;
+  border: 1px solid #c4c4c4;
+  border-radius: 5px;
+
+  box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.1);
 `;
 
 const DetailButton = styled(CommonButton)`
