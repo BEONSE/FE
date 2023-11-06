@@ -8,6 +8,7 @@ import Coupon from "./coupon";
 import MyPages from "./myPages";
 import ReviewList from "./board/reviewList";
 import Register from "./register";
+import BranchReserve from "./branchReservation/BranchReserve";
 import AdminManager from "./adminManager";
 
 const AppRoute = ({ setHideHeaderFooter }) => {
@@ -17,7 +18,8 @@ const AppRoute = ({ setHideHeaderFooter }) => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login setHideHeaderFooter={setHideHeaderFooter} />} />
         <Route path="/register" element={<Register setHideHeaderFooter={setHideHeaderFooter} />} />
-        <Route path="/branchies/*" element={<BranchReservation />} />
+        <Route path="/search/*" element={<BranchReservation />} />
+        <Route path="/reservation/*" element={<BranchReserve />} />
         <Route path="/payments/*" element={<Payment />} />
         <Route path="/mypages/*" element={<MyPages />} />
         <Route path="/coupon/*" element={<Coupon />} />

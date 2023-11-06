@@ -13,7 +13,10 @@ export const usePageMoving = () => {
   const moveToRegister = () => navigate("/register");
 
   // 지점 목록/검색 페이지
-  const moveToBranchies = () => navigate("/branchies/info");
+  const moveToSearch = () => navigate("/search");
+
+  // 지점 예약하기
+  const moveToReservation = () => navigate("/reservation");
 
   // 포인트 충전 페이지
   const moveToPayment = () => navigate("/payments");
@@ -48,7 +51,6 @@ export const usePageMoving = () => {
   return {
     moveToLogin,
     moveToRegister,
-    moveToBranchies,
     moveToPayment,
     moveToMyCoupon,
     moveToMyInfo,
@@ -60,5 +62,7 @@ export const usePageMoving = () => {
     moveToReview,
     moveToMate,
     moveToHome,
+    moveToSearch,
+    moveToReservation,
   };
 };
