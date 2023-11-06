@@ -59,20 +59,20 @@ const HeaderBox = styled.div`
 const LogoImg = styled.div`
   width: 100%;
   & > img {
-    height: 7.5vh;
+    height: 7vh;
     cursor: pointer;
   }
 `;
 
 // Hamberger Button Style
 const HambergerBtn = styled.div`
-  width: 20%;
+  width: 15%;
   margin-top: auto;
   margin-bottom: auto;
   margin-right: 2%;
   text-align: right;
   & > img {
     cursor: pointer;
-    height: 5vh;
+    height: 4vh;
   }
 `;
