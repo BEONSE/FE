@@ -8,6 +8,7 @@ import Coupon from "./coupon";
 import MyPages from "./myPages";
 import ReviewList from "./board/reviewList";
 import Register from "./register";
+import AdminManager from "./adminManager";
 
 const AppRoute = ({ setHideHeaderFooter }) => {
   return (
@@ -22,6 +23,7 @@ const AppRoute = ({ setHideHeaderFooter }) => {
         <Route path="/coupon/*" element={<Coupon />} />
         <Route path="/reviews/*" element={<ReviewList />} />
         <Route path="/mate/*" element={<MateList />} />
+        <Route path="/admin/*" element={<AdminManager />} />
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
