@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ConmmonButton = styled.button`
+export const CommonButton = styled.button`
   font-family: "S-CoreDream-medium", sans-serif;
   color: black;
   text-decoration: none;

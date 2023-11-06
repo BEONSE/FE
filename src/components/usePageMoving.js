@@ -13,7 +13,7 @@ export const usePageMoving = () => {
   const moveToRegister = () => navigate("/register");
 
   // 지점 목록/검색 페이지
-  const moveToBranchies = () => navigate("/branchies");
+  const moveToBranchies = () => navigate("/branchies/info");
 
   // 포인트 충전 페이지
   const moveToPayment = () => navigate("/payments");
