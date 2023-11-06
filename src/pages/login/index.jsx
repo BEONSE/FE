@@ -6,7 +6,7 @@ import Key from "../../assets/key.png";
 import GlobalStyle from "../../components/GlobalStyle";
 
 import { usePageMoving } from "../../components/usePageMoving";
-import { ConmmonButton } from "../../components/CommonButton";
+import { CommonButton } from "../../components/CommonButton";
 import { useEffect } from "react";
 
 const Login = ({ setHideHeaderFooter }) => {
@@ -148,7 +148,7 @@ export const LoginButtonDiv = styled.div`
   }
 `;
 // 로그인 버튼
-export const LoginBtn = styled(ConmmonButton)`
+export const LoginBtn = styled(CommonButton)`
   padding-top: 15px;
   padding-bottom: 15px;
   font-size: 15px;
