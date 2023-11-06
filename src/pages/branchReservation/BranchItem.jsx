@@ -26,4 +26,4 @@ const BranchIntro = styled.div`
   justify-content: space-between;
 `;
 
-const DetailButton = styled();
+//const DetailButton = styled();
