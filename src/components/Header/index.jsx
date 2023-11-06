@@ -13,7 +13,6 @@ const Header = () => {
 
   // useNavigate
   const navigate = useNavigate();
-
   // Modal Click Event
   const openSidebar = () => {
     setSidebarOpen(true);
@@ -53,6 +52,7 @@ const HeaderBox = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: space-around;
+  z-index: 2;
 `;
 
 // Logo Image Style
