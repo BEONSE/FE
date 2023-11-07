@@ -4,7 +4,7 @@ import MyReviewItem from "./MyReviewItem";
 const MyReview = () => {
   return (
     <>
-      <PageTitle>내가 쓴 리뷰</PageTitle>
+      <Title>내가 쓴 리뷰</Title>
       <ButtonDiv>
         <Button>글 작성</Button>
       </ButtonDiv>
@@ -23,9 +23,10 @@ const MyReview = () => {
 export default MyReview;
 
 /* 페이지 종류 Style */
-const PageTitle = styled.h2`
-  margin-top: 2vh;
+const Title = styled.h2`
   text-align: center;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
 `;
 
 /* 버튼 정렬  */

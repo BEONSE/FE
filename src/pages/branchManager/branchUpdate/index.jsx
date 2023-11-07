@@ -5,11 +5,14 @@ import { CommonButton } from "../../../components/CommonButton";
 
 import Person from "../../../assets/person.png";
 
-const MyInfoItem = () => {
+const BranchUpdate = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { moveToHome } = usePageMoving();
+
   return (
     <>
-      <PageTitle>회원정보수정</PageTitle>
+      <Title>가맹점 정보수정</Title>
+      <br />
       <EditForm>
         <LoginForm>
           <span>
@@ -34,25 +37,34 @@ const MyInfoItem = () => {
         <br />
         <LoginForm>
           <span>
-            <img src={Person} alt="PasswordImage" />
+            <img src={Person} alt="IDImage" />
           </span>
-          <input type="text" placeholder="이름" readOnly required />
+          <input type="text" placeholder="지점명" readOnly required />
+          {/* 닉네임이 NOT NULL이라서 추후에 닉네임=지점명 처리 해줘야됌 */}
         </LoginForm>
         <br />
         <LoginForm>
           <span>
-            <img src={Person} alt="PasswordImage" />
+            <img src={Person} alt="IDImage" />
           </span>
-          <input type="text" placeholder="닉네임" required />
+          <input type="text" placeholder="대표자명" readOnly required />
         </LoginForm>
         <br />
         <LoginForm>
           <span>
-            <img src={Person} alt="PasswordImage" />
+            <img src={Person} alt="IDImage" />
           </span>
-          <input type="text" placeholder="거주지" required />
+          <input type="text" placeholder="지점 소개" />
         </LoginForm>
-
+        <br />
+        <LoginForm>
+          <span>
+            <img src={Person} alt="IDImage" />
+          </span>
+          {/* 주소 API 연결하고, 여기만 태그 사이즈 변경하기 */}
+          <input type="text" placeholder="지점 주소" />
+        </LoginForm>
+        <br />
         <LoginButtonDiv>
           {/* 입력 폼 다 안맞으면 버튼 안눌리게 만들기 */}
           <LoginBtn
@@ -61,15 +73,16 @@ const MyInfoItem = () => {
               moveToHome();
             }}
           >
-            회원수정 완료
+            수정 완료
           </LoginBtn>
         </LoginButtonDiv>
+        <br />
       </EditForm>
     </>
   );
 };
 
-export default MyInfoItem;
+export default BranchUpdate;
 
 // 로그인 입력 폼
 const EditForm = styled.div`
@@ -119,10 +132,10 @@ export const LoginForm = styled.div`
   }
 `;
 
-/* 페이지 종류 Style */
-const PageTitle = styled.h2`
-  margin-top: 2vh;
+const Title = styled.h2`
   text-align: center;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
 `;
 
 // 로그인 전체 DIV
