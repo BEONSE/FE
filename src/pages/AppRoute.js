@@ -17,6 +17,7 @@ import CouponList from "./branchManager/coupon";
 import BranchUpdate from "./branchManager/branchUpdate";
 import BranchReview from "./branchManager/review";
 import Item from "./branchManager/review/reviewDetail";
+import MateDetail from "./board/mateDetail";
 
 const AppRoute = ({ setHideHeaderFooter }) => {
   return (
@@ -40,6 +41,7 @@ const AppRoute = ({ setHideHeaderFooter }) => {
         <Route path="/branch/update" element={<BranchUpdate />} />
         <Route path="/branch/review" element={<BranchReview />} />
         <Route path="/reviewitem" element={<Item />} />
+        <Route path="/mate/1" element={<MateDetail />} />
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
