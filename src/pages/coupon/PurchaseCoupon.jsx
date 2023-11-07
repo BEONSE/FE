@@ -63,7 +63,7 @@ const CouponAllDiv = styled.div`
 `;
 
 // 쿠폰 정보
-const CouponItem = styled.div`
+export const CouponItem = styled.div`
   width: 100%;
 
   background-color: #c1f5ff;
