@@ -13,7 +13,6 @@ const Header = () => {
 
   // useNavigate
   const navigate = useNavigate();
-
   // Modal Click Event
   const openSidebar = () => {
     setSidebarOpen(true);
@@ -53,26 +52,27 @@ const HeaderBox = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: space-around;
+  z-index: 2;
 `;
 
 // Logo Image Style
 const LogoImg = styled.div`
   width: 100%;
   & > img {
-    height: 7.5vh;
+    height: 7vh;
     cursor: pointer;
   }
 `;
 
 // Hamberger Button Style
 const HambergerBtn = styled.div`
-  width: 20%;
+  width: 15%;
   margin-top: auto;
   margin-bottom: auto;
   margin-right: 2%;
   text-align: right;
   & > img {
     cursor: pointer;
-    height: 5vh;
+    height: 4vh;
   }
 `;

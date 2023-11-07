@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import PayModal from "./PayModal";
 import { useState } from "react";
+import { CommonButton } from "../../components/CommonButton";
 
 /* 결제 종류 컴포넌트 */
 const IterationPoint = ({ price }) => {
@@ -23,9 +24,8 @@ const IterationPoint = ({ price }) => {
   return (
     <>
       <Points onClick={openPay}>
-        <h2>
-          {formattedPoint}p<p>{price}만원</p>
-        </h2>
+        <h1>{formattedPoint}p</h1>
+        <p>{price}만원</p>
       </Points>
       {isPayModal && <PayModal clicked={closePay} price={formattedPrice} />}
     </>
@@ -35,23 +35,21 @@ const IterationPoint = ({ price }) => {
 export default IterationPoint;
 
 /* 포인트 Style */
-const Points = styled.div`
-  background-color: #99e8f8;
-  width: 60vw;
-  height: 90px;
+const Points = styled(CommonButton)`
+  width: 100%;
+  height: 120px;
   margin: auto;
   border-radius: 10px;
+  margin-bottom: 5vh;
 
-  & > h2 {
-    text-align: left;
-    padding-top: 30px;
-    margin-top: 30px;
-    margin-left: 30px;
-  }
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 
-  & > h2 > p {
-    font-size: large;
-    margin-left: 170px;
-    display: inline;
+  box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.1);
+
+  & > p {
+    font-size: 20px;
   }
 `;
+

@@ -1,26 +1,34 @@
-import { Route, Routes } from "react-router-dom";
 import styled from "styled-components";
-import BranchInfo from "./BranchInfo";
-import BranchReserve from "./BranchReserve";
+
 import SearchIcon from "../../assets/magnifier.png";
 import BranchList from "./BrachList";
 
+import { useState } from "react";
+import BranchInfo from "./BranchInfo";
+
 const BranchReservation = () => {
+  const [detailClick, setDetailClick] = useState(true);
+
   return (
     <>
       <SerachBranch>
+        <h1>지점 검색</h1>
         <SearchBar>
           <input placeholder="지점 검색하기" />
-          <img src={SearchIcon} alt="SearchIconImage" />
+          {/* 검색 누르고 input 태그 초기화 */}
+          {/* focus 색상 & 전체 태그로 변경 */}
+          <img
+            src={SearchIcon}
+            alt="SearchIconImage"
+            onClick={() => {
+              setDetailClick(true);
+            }}
+          />
         </SearchBar>
         <hr />
-        <BranchList />
+        {/* 검색 결과 없으면 없다고 띄우고, 이미지 클릭했을때 아래꺼 사라지는거 수정하기 */}
+        {detailClick ? <BranchList setDetailClick={setDetailClick} /> : <BranchInfo />}
       </SerachBranch>
-
-      <Routes>
-        <Route path="info" element={<BranchInfo />} />
-        <Route path="reservation" element={<BranchReserve />} />
-      </Routes>
     </>
   );
 };
@@ -56,4 +64,18 @@ const SearchBar = styled.div`
 `;
 
 const SerachBranch = styled.div`
+  margin-top: 3vh;
+  text-align: center;
+  & > hr {
+    outline: none;
+    border: 1px solid #ececec;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    margin-left: 3vw;
+    margin-right: 3vw;
+  }
+
+  & > h1 {
+    margin-bottom: 3vh;
+  }
 `;

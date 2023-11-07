@@ -5,7 +5,7 @@ import { usePageMoving } from "../../usePageMoving";
 const Sidebar = ({ clicked }) => {
   const {
     moveToLogin,
-    moveToBranchies,
+    moveToSearch,
     moveToPayment,
     moveToMyCoupon,
     moveToMyInfo,
@@ -86,7 +86,7 @@ const Sidebar = ({ clicked }) => {
             <hr />
             <p
               onClick={() => {
-                moveToBranchies();
+                moveToSearch();
                 clicked();
               }}
             >
@@ -94,7 +94,7 @@ const Sidebar = ({ clicked }) => {
             </p>
             <p
               onClick={() => {
-                moveToBranchies();
+                moveToSearch();
                 clicked();
               }}
             >
@@ -122,6 +122,7 @@ const ModalBackground = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: right;
+  z-index: 2;
 `;
 // 사이드바 내용
 const ModalContent = styled.div`
