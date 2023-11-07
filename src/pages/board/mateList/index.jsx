@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import MateItem from "./MateItem";
-import { Route, Routes, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { CommonButton } from "../../../components/CommonButton";
 
 /* 메이트 게시판 List 컴포넌트 */
@@ -10,6 +10,7 @@ const MateList = () => {
   const moveToWrite = () => {
     navigate("/mate/write");
   };
+
   return (
     <>
       <PageTitle>세차 메이트</PageTitle>

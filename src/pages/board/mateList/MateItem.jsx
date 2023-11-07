@@ -1,10 +1,18 @@
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 /* 메이트 게시글 컴포넌트 */
 const MateItem = () => {
+  const navigate = useNavigate();
+
+  const moveToReviewDetail = () => {
+    navigate("1");
+  };
+
   return (
     <>
-      <MateGroup>
+      <Routes></Routes>
+      <MateGroup onClick={moveToReviewDetail}>
         <hr />
         <h2>제목</h2>
         <MateContent>
