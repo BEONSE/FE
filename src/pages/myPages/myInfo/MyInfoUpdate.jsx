@@ -1,58 +1,82 @@
 import styled from "styled-components";
 
-import BigLogoImg from "../../../assets/big_logo.png";
-import Person from "../../../assets/person.png";
-import Key from "../../../assets/key.png";
-import GlobalStyle from "../../../components/GlobalStyle";
-
-import { useNavigate } from "react-router";
 import { usePageMoving } from "../../../components/usePageMoving";
 import { CommonButton } from "../../../components/CommonButton";
 
-const MyInfo = () => {
+import Person from "../../../assets/person.png";
+
+const MyInfoUpdate = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { moveToHome } = usePageMoving();
-
-  const navigate = useNavigate();
-
-  const moveToUpdate = () => {
-    navigate("/myinfo/update");
-  };
-
   return (
     <>
-      <GlobalStyle />
-      <LoginAllDiv>
-        <img src={BigLogoImg} alt="BigLogoImage" onClick={() => moveToHome()} />
-        <h1>회원정보수정</h1>
-        <p>정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인합니다.</p>
-        <p>비밀번호가 타인에게 노출되지 않도록 항상 주의해주세요.</p>
+      <Title>회원정보수정</Title>
+      <EditForm>
+        <LoginForm>
+          <span>
+            <img src={Person} alt="IDImage" />
+          </span>
+          <input type="email" placeholder="아이디" readOnly required />
+        </LoginForm>
         <br />
         <LoginForm>
           <span>
-            <img src={Person} alt="personImage" />
+            <img src={Person} alt="PasswordImage" />
           </span>
-          <input type="email" value="beonse@gmail.com" readOnly />
+          <input type="password" placeholder="비밀번호" required />
         </LoginForm>
+        <br />
         <LoginForm>
           <span>
-            <img src={Key} alt="KeyImage" />
+            <img src={Person} alt="PasswordImage" />
           </span>
-          <input type="password" placeholder="*****" />
+          <input type="password" placeholder="비밀번호 확인" required />
         </LoginForm>
+        <br />
+        <LoginForm>
+          <span>
+            <img src={Person} alt="PasswordImage" />
+          </span>
+          <input type="text" placeholder="이름" readOnly required />
+        </LoginForm>
+        <br />
+        <LoginForm>
+          <span>
+            <img src={Person} alt="PasswordImage" />
+          </span>
+          <input type="text" placeholder="닉네임" required />
+        </LoginForm>
+        <br />
+        <LoginForm>
+          <span>
+            <img src={Person} alt="PasswordImage" />
+          </span>
+          <input type="text" placeholder="거주지" required />
+        </LoginForm>
+
         <LoginButtonDiv>
-          <LoginBtn onClick={moveToUpdate}>확인</LoginBtn>
+          {/* 입력 폼 다 안맞으면 버튼 안눌리게 만들기 */}
+          <LoginBtn
+            onClick={() => {
+              //navigator(-1); //이전 페이지 이동
+              moveToHome();
+            }}
+          >
+            수정 완료
+          </LoginBtn>
         </LoginButtonDiv>
-        <br />
-      </LoginAllDiv>
+      </EditForm>
     </>
   );
 };
 
-export default MyInfo;
-
-/* Styled Component */
+export default MyInfoUpdate;
 
 // 로그인 입력 폼
+const EditForm = styled.div`
+  display: grid;
+  justify-items: center;
+`;
 export const LoginForm = styled.div`
   width: 80%;
   display: flex;
@@ -94,6 +118,13 @@ export const LoginForm = styled.div`
   @media (min-width: 1171px) {
     width: 30%;
   }
+`;
+
+/* 페이지 종류 Style */
+const Title = styled.h2`
+  text-align: center;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
 `;
 
 // 로그인 전체 DIV

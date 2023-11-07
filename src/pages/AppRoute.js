@@ -11,6 +11,12 @@ import Register from "./register";
 import BranchReserve from "./branchReservation/BranchReserve";
 import AdminManager from "./adminManager";
 import BoardWrite from "./board/boardWrite";
+import MyInfoUpdate from "./myPages/myInfo/MyInfoUpdate";
+import BranchManager from "./branchManager";
+import CouponList from "./branchManager/coupon";
+import BranchUpdate from "./branchManager/branchUpdate";
+import BranchReview from "./branchManager/review";
+import Item from "./branchManager/review/reviewDetail";
 
 const AppRoute = ({ setHideHeaderFooter }) => {
   return (
@@ -28,6 +34,12 @@ const AppRoute = ({ setHideHeaderFooter }) => {
         <Route path="/mate/*" element={<MateList />} />
         <Route path="/admin/*" element={<AdminManager />} />
         <Route path="/mate/write" element={<BoardWrite />} />
+        <Route path="/myinfo/update" element={<MyInfoUpdate />} />
+        <Route path="/branch" element={<BranchManager />} />
+        <Route path="/branch/couponlist" element={<CouponList />} />
+        <Route path="/branch/update" element={<BranchUpdate />} />
+        <Route path="/branch/review" element={<BranchReview />} />
+        <Route path="/reviewitem" element={<Item />} />
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
