@@ -11,6 +11,7 @@ import Register from "./register";
 import BranchReserve from "./branchReservation/BranchReserve";
 import AdminManager from "./adminManager";
 import BoardWrite from "./board/boardWrite";
+import MateDetail from "./board/mateDetail";
 
 const AppRoute = ({ setHideHeaderFooter }) => {
   return (
@@ -28,6 +29,7 @@ const AppRoute = ({ setHideHeaderFooter }) => {
         <Route path="/mate/*" element={<MateList />} />
         <Route path="/admin/*" element={<AdminManager />} />
         <Route path="/mate/write" element={<BoardWrite />} />
+        <Route path="/mate/1" element={<MateDetail />} />
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
