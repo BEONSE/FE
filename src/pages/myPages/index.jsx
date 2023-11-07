@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router";
 
-import MyCoupon from "./MyCoupon"
-import MyInfo from "./MyInfo";
+import MyCoupon from "./MyCoupon";
+import MyInfo from "./myInfo";
 import MyPayment from "./MyPayment";
 import MyBoard from "./myboard";
-import MyInfo from "./myInfo/index";
+import MyReservation from "./myReservation";
 
 const MyPages = () => {
   return (
@@ -14,6 +14,7 @@ const MyPages = () => {
         <Route path="myinfo" element={<MyInfo />} />
         <Route path="mypayment" element={<MyPayment />} />
         <Route path="myboard" element={<MyBoard />} />
+        <Route path="myreservation" element={<MyReservation />} />
       </Routes>
     </>
   );
