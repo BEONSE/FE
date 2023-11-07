@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router";
-import MyCoupon from "./MyCoupon";
 
+import MyCoupon from "./MyCoupon"
 import MyPayment from "./MyPayment";
 import MyBoard from "./myboard";
-import MyInfo from "./myInfo/index";
+import MyInfo from "./myInfo";
 
 const MyPages = () => {
   return (

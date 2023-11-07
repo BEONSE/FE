@@ -4,7 +4,7 @@ import MyMateItem from "./MyMateItem";
 const MyMate = () => {
   return (
     <>
-      <PageTitle>내가 쓴 세차 메이트 글</PageTitle>
+      <Title>내가 쓴 세차 메이트 글</Title>
       <ButtonDiv>
         <Button>글 작성</Button>
       </ButtonDiv>
@@ -22,9 +22,10 @@ const MyMate = () => {
 export default MyMate;
 
 /* 페이지 종류 Style */
-const PageTitle = styled.h2`
-  margin-top: 2vh;
+const Title = styled.h2`
   text-align: center;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
 `;
 
 /* 버튼 정렬  */
