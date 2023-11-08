@@ -42,10 +42,11 @@ export default Home;
 /* Styled Component*/
 // Home 전체 div
 const HomeAllDiv = styled.div`
-  @media (min-width: 1171px) {
-    width: 40vw;
-    margin: auto;
+  width: 35vw;
+  @media (max-width: 1170px) {
+    width: 100vw;
   }
+  margin: auto;
 `;
 
 // 메인 화면 요소
@@ -54,11 +55,11 @@ const MainDiv = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
 
-  @media (min-width: 1171px) {
-    width: 40vw;
-    height: 40vh;
+  width: 35vw;
+  @media (max-width: 1170px) {
+    width: 100vw;
   }
-  width: 100vw;
+
   height: 40vh;
   margin-bottom: 30px;
   display: flex;
@@ -101,6 +102,7 @@ const MainItem = styled.div`
 const ResButton = styled(CommonButton)`
   background-color: rgba(255, 255, 255, 0);
   width: 80%;
+  font-size: 16px;
 `;
 
 // 예약하러가기 div
@@ -108,10 +110,9 @@ const ReservationDiv = styled.div`
   display: flex;
   justify-content: center;
 
-  width: 90vw;
-
-  @media (min-width: 1171px) {
-    width: 40vw;
+  width: 35vw;
+  @media (max-width: 1170px) {
+    width: 100vw;
   }
 
   border-radius: 8px;

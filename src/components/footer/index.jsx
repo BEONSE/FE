@@ -26,12 +26,16 @@ export default Footer;
 /**Styled Component */
 // Footer 전체 Style
 const FooterBox = styled.div`
-  width: 100%;
+  width: 35vw;
+  @media (max-width: 1170px) {
+    width: 100vw;
+  }
+  margin: auto;
 
-  padding-left: 2%;
-  padding-right: 2%;
-  padding-top: 5%;
-  padding-bottom: 5%;
+  padding-left: 1%;
+  padding-right: 1%;
+  padding-top: 3%;
+  padding-bottom: 3%;
 
   background-color: black;
 `;
