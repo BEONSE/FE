@@ -2,16 +2,16 @@ import styled from "styled-components";
 import { CommonButton } from "../../components/CommonButton";
 import { usePageMoving } from "../../components/usePageMoving";
 
-import Map from "./Map";
+import SingleMap from "../map/SingleMap";
 
 const BranchInfo = () => {
   const { moveToReservation } = usePageMoving();
   return (
     <>
       <BranchAllInfo>
-        <KakakoMap id="map">
-          <Map />
-        </KakakoMap>
+        <KakaoMap id="siglemap">
+          <SingleMap />
+        </KakaoMap>
         <Address>
           <h1>BEONSE XX점</h1>
           <p>서울특별시 금천구 가산동 2xx-x</p>
@@ -46,9 +46,10 @@ const BranchAllInfo = styled.div`
 `;
 
 /* 지도 Style */
-const KakakoMap = styled.div`
+export const KakaoMap = styled.div`
   width: 100%;
   height: 30vh;
+  margin-bottom: 2vh;
 `;
 
 /* 지점사 주소 Style */
