@@ -112,13 +112,16 @@ const Sidebar = ({ clicked }) => {
 export default Sidebar;
 
 /* Styled Component */
+
 // 사이드바 배경
 const ModalBackground = styled.div`
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100vw;
+  width: 35vw;
   height: 100vh;
+  @media (max-width: 1170px) {
+    width: 100vw;
+  }
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: right;
@@ -171,6 +174,7 @@ const ModalList = styled.div`
 
 // 사이드바 로그인 영역 div
 const LoginPositon = styled.div`
+  margin-top: 3vh;
   & > h1 {
     margin-left: 3%;
     cursor: pointer;
@@ -184,7 +188,10 @@ const LoginPositon = styled.div`
 // 사이드바 로그아웃 영역
 const LogoutPosition = styled.div`
   position: absolute;
-  width: 60vw;
+  @media (max-width: 1170px) {
+    width: 60vw;
+  }
+  width: 20vw;
   text-align: right;
   font-size: 15px;
   cursor: pointer;
