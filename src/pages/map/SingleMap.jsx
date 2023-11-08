@@ -1,18 +1,17 @@
 import { useEffect } from "react";
-import styled from "styled-components";
 import MarkerIcon from "../../assets/markerImg.png";
 
 const { kakao } = window;
 
-const Map = () => {
+const SingleMap = () => {
   useEffect(() => {
-    const mapContainer = document.getElementById("map"), // 지도 표시할 div
-      mapOption = {
+    const s_mapContainer = document.getElementById("siglemap"), // 지도 표시할 div
+      s_mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 중심 좌표
         level: 4, //지도의 레벨(확대, 축소 정도)
       };
 
-    const map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
+    const s_map = new kakao.maps.Map(s_mapContainer, s_mapOption); // 지도 생성
 
     // 마커 이미지
     const imageSrc = MarkerIcon, // 마커 이미지
@@ -32,7 +31,7 @@ const Map = () => {
     });
 
     // 마커 지도 위에 표시
-    marker.setMap(map);
+    marker.setMap(s_map);
 
     const content =
       '<div class="customoverlay" style="background-color: white; border: 2px solid #35cfee; border-radius:30px;">' +
@@ -43,20 +42,16 @@ const Map = () => {
 
     // 커스텀 오버레이를 생성합니다
     var customOverlay = new kakao.maps.CustomOverlay({
-      map: map,
+      map: s_map,
       position: position,
       content: content,
       yAnchor: 3.7,
     });
+
+    customOverlay.setMap(s_map);
   }, []);
 
-  return <MapDiv id="map" />;
+  return <div id="siglemap" />;
 };
 
-export default Map;
-
-/* 지도 Style */
-const MapDiv = styled.div`
-  width: 100%;
-  height: 100%;
-`;
+export default SingleMap;

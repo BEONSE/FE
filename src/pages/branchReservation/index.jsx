@@ -4,7 +4,8 @@ import SearchIcon from "../../assets/magnifier.png";
 import BranchList from "./BrachList";
 
 import { useState } from "react";
-import BranchInfo from "./BranchInfo";
+import BranchInfo, { KakaoMap } from "./BranchInfo";
+import MultiMap from "../map/MultiMap";
 
 const BranchReservation = () => {
   const [detailClick, setDetailClick] = useState(true);
@@ -13,6 +14,9 @@ const BranchReservation = () => {
     <>
       <SerachBranch>
         <h1>지점 검색</h1>
+        <KakaoMap id="multimap">
+          <MultiMap />
+        </KakaoMap>
         <SearchBar>
           <input placeholder="지점 검색하기" />
           {/* 검색 누르고 input 태그 초기화 */}
@@ -38,6 +42,7 @@ export default BranchReservation;
 //* StyledComponet */
 // 지점 검색 바
 const SearchBar = styled.div`
+  width: 90vw;
   display: flex;
   justify-content: space-between;
   margin: auto;
