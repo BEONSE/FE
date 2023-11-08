@@ -1,7 +1,27 @@
 import styled from "styled-components";
 import { CommonButton } from "../../components/CommonButton";
+import { useState } from "react";
 
 const PurchaseCoupon = () => {
+  const [press, setPress] = useState(1);
+  const [bubble, setBubble] = useState(1);
+
+  // 수량 증가 handler
+  const increasePressHandler = () => {
+    setPress((prevCount) => (prevCount < 5 ? prevCount + 1 : prevCount));
+  };
+
+  const increaseBubbleHandler = () => {
+    setBubble((prevCount) => (prevCount < 5 ? prevCount + 1 : prevCount));
+  };
+  // 수량 감소 handler
+  const decreasePressHandler = () => {
+    setPress((prevCount) => (prevCount > 1 ? prevCount - 1 : 1));
+  };
+  const decreaseBubbleHandler = () => {
+    setBubble((prevCount) => (prevCount > 1 ? prevCount - 1 : 1));
+  };
+
   return (
     <>
       <CouponAllDiv>
@@ -12,13 +32,14 @@ const PurchaseCoupon = () => {
             <p>XX점</p>
           </div>
           <h1>고압 샤워 쿠폰</h1>
+          <p>3,000p</p>
         </CouponItem>
         <QuantityAllDiv>
           <Quantity>
             <p>
-              <span>- </span>
-              <span> 1 </span>
-              <span> +</span>
+              <span onClick={decreasePressHandler}>- </span>
+              <span> {press} </span>
+              <span onClick={increasePressHandler}> +</span>
             </p>
           </Quantity>
           <PurchaseBtn>구 매</PurchaseBtn>
@@ -29,13 +50,14 @@ const PurchaseCoupon = () => {
             <p>XX점</p>
           </div>
           <h1>폼 샤워 쿠폰</h1>
+          <p>3,000p</p>
         </CouponItem>
         <QuantityAllDiv>
           <Quantity>
             <p>
-              <span>- </span>
-              <span> 1 </span>
-              <span> +</span>
+              <span onClick={decreaseBubbleHandler}>- </span>
+              <span> {bubble} </span>
+              <span onClick={increaseBubbleHandler}> +</span>
             </p>
           </Quantity>
           <PurchaseBtn>구 매</PurchaseBtn>
@@ -83,6 +105,12 @@ export const CouponItem = styled.div`
       font-size: 23px;
     }
   }
+
+  & > p {
+    text-align: right;
+    font-size: 20px;
+    font-weight: bold;
+  }
 `;
 // 구매 수량 & 구매 버튼 div
 const QuantityAllDiv = styled.div`
@@ -97,6 +125,9 @@ const Quantity = styled.div`
   & > p {
     font-size: 20px;
     font-weight: bold;
+    & > span {
+      cursor: pointer;
+    }
   }
 `;
 
