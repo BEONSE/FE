@@ -4,11 +4,6 @@ import MyReviewItem from "./MyReviewItem";
 const MyReview = () => {
   return (
     <>
-      <Title>내가 쓴 리뷰</Title>
-      <ButtonDiv>
-        <Button>글 작성</Button>
-      </ButtonDiv>
-
       <MyReviewItem />
       <MyReviewItem />
       <MyReviewItem />
@@ -22,30 +17,6 @@ const MyReview = () => {
 
 export default MyReview;
 
-/* 페이지 종류 Style */
-const Title = styled.h2`
-  text-align: center;
-  margin-top: 5vh;
-  margin-bottom: 5vh;
-`;
-
-/* 버튼 정렬  */
-const ButtonDiv = styled.div`
-  margin-left: 60%;
-  margin-top: 5%;
-  margin-bottom: 5%;
-`;
-
-/* 글작성 버튼 Style */
-const Button = styled.button`
-  text-align: center;
-  width: 20vw;
-  height: 4vh;
-  border: 0;
-  border-radius: 5px;
-  background-color: #99e8f8;
-  font-weight: bold;
-`;
 
 /* h4 Style */
 const H4 = styled.h4`
