@@ -4,10 +4,10 @@ import GlobalStyle from "../../components/GlobalStyle";
 
 import MainImage from "../../assets/MainBackgroundImage.png";
 import ArrowImg from "../../assets/arrow.png";
-import { useNavigate } from "react-router-dom";
+import { usePageMoving } from "../../components/usePageMoving";
 
 const Home = () => {
-  const navigate = useNavigate();
+  const { moveToSearch } = usePageMoving();
   return (
     <>
       <GlobalStyle />
@@ -26,7 +26,7 @@ const Home = () => {
 
         <ReservationDiv
           onClick={() => {
-            navigate("/branchies");
+            moveToSearch();
           }}
         >
           <ResButton>지점 예약 하러가기</ResButton>
@@ -41,7 +41,12 @@ export default Home;
 
 /* Styled Component*/
 // Home 전체 div
-const HomeAllDiv = styled.div``;
+const HomeAllDiv = styled.div`
+  @media (min-width: 1171px) {
+    width: 40vw;
+    margin: auto;
+  }
+`;
 
 // 메인 화면 요소
 const MainDiv = styled.div`
@@ -49,6 +54,10 @@ const MainDiv = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
 
+  @media (min-width: 1171px) {
+    width: 40vw;
+    height: 40vh;
+  }
   width: 100vw;
   height: 40vh;
   margin-bottom: 30px;
@@ -100,6 +109,10 @@ const ReservationDiv = styled.div`
   justify-content: center;
 
   width: 90vw;
+
+  @media (min-width: 1171px) {
+    width: 40vw;
+  }
 
   border-radius: 8px;
   background-color: #99e8f8;

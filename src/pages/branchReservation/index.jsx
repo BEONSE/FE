@@ -7,6 +7,7 @@ import { useState } from "react";
 import BranchInfo, { KakaoMap } from "./BranchInfo";
 import MultiMap from "../map/MultiMap";
 
+
 const BranchReservation = () => {
   const [detailClick, setDetailClick] = useState(true);
 
@@ -49,6 +50,7 @@ const SearchBar = styled.div`
   border: 1px solid #a0a0a0;
   border-radius: 5px;
   padding: 8px;
+
   @media (max-width: 1170px) {
     width: 90vw;
     & > input {
