@@ -76,17 +76,10 @@ const MultiMap = () => {
         yAnchor: 3.5,
       });
 
+      customOverlay.setMap(m_map); // 오버레이를 지도에 표시
       (function (m_marker, customOverlay) {
         kakao.maps.event.addListener(m_marker, "click", function () {
           navigate("/destination-path");
-        });
-
-        kakao.maps.event.addListener(m_marker, "mouseover", function () {
-          customOverlay.setMap(m_map); // 오버레이를 지도에 표시
-        });
-
-        kakao.maps.event.addListener(m_marker, "mouseout", function () {
-          customOverlay.setMap(null); // 오버레이를 제거
         });
       })(m_marker, customOverlay);
     }
@@ -112,15 +105,28 @@ const MultiMap = () => {
     };
 
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        let lat = position.coords.latitude, // 위도
-          lon = position.coords.longitude; // 경도
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // 위치 가져오기 성공 시 처리
+          let lat = position.coords.latitude, // 위도
+            lon = position.coords.longitude; // 경도
 
-        let locPosition = new kakao.maps.LatLng(lat, lon),
-          message = '<div style="padding:5px; font-size:16px;">📍 현 재 위 치 📍 </div>';
+          let locPosition = new kakao.maps.LatLng(lat, lon),
+            message = '<div style="padding:5px; font-size:16px;">📍 현 재 위 치 📍 </div>';
 
-        displayMarker(locPosition, message);
-      });
+          displayMarker(locPosition, message);
+        },
+        (error) => {
+          // 에러 처리
+          alert("현재 위치 못가져옴");
+          m_map.setCenter(positions[4].latlng);
+        },
+        {
+          timeout: 5000, // 5초 후 타임아웃
+          maximumAge: 60000, // 위치 캐시의 최대 수명
+          enableHighAccuracy: true, // 정확한 위치 정보 사용
+        },
+      );
     } else {
       var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
         message = "현재 위치를 불러올 수 없습니다...";

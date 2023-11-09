@@ -22,21 +22,23 @@ const Header = () => {
   };
   return (
     <>
-      <HeaderBox>
-        <LogoImg>
-          <img
-            src={Logo}
-            alt="LogoImage"
-            onClick={() => {
-              navigate("/");
-            }}
-          />
-        </LogoImg>
-        <HambergerBtn>
-          <img src={Hamburger} alt="SideMenu button" onClick={openSidebar} />
-        </HambergerBtn>
-      </HeaderBox>
-      {isSidebarOpen && <Sidebar clicked={closeSidebar} />}
+      <HeaderAllDiv>
+        <HeaderBox>
+          <LogoImg>
+            <img
+              src={Logo}
+              alt="LogoImage"
+              onClick={() => {
+                navigate("/");
+              }}
+            />
+          </LogoImg>
+          <HambergerBtn>
+            <img src={Hamburger} alt="SideMenu button" onClick={openSidebar} />
+          </HambergerBtn>
+        </HeaderBox>
+        {isSidebarOpen && <Sidebar clicked={closeSidebar} />}
+      </HeaderAllDiv>
     </>
   );
 };
@@ -45,9 +47,19 @@ export default Header;
 
 /* Styled Component */
 // Header All Style
+const HeaderAllDiv = styled.div`
+  width: 35vw;
+  @media (max-width: 1170px) {
+    width: 100vw;
+  }
+  margin: auto;
+`;
 const HeaderBox = styled.div`
   position: fixed;
-  width: 100vw;
+  width: 35vw;
+  @media (max-width: 1170px) {
+    width: 100vw;
+  }
   height: 7.5vh;
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
