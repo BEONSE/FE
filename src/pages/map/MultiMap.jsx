@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 const { kakao } = window;
 const MultiMap = () => {
   const navigate = useNavigate();
+  // test
   useEffect(() => {
     const m_mapContainer = document.getElementById("multimap"),
       m_mapOption = {
