@@ -5,6 +5,7 @@ import GlobalStyle from "../../components/GlobalStyle";
 import MainImage from "../../assets/MainBackgroundImage.png";
 import ArrowImg from "../../assets/arrow.png";
 import { usePageMoving } from "../../components/usePageMoving";
+import GetWeather from "../weather/GetWeather";
 
 const Home = () => {
   const { moveToSearch } = usePageMoving();
@@ -20,8 +21,8 @@ const Home = () => {
         </MainDiv>
 
         <MainItems>
-          <MainItem>날씨 추천 API</MainItem>
-          <MainItem>이달의 세차왕</MainItem>
+          <GetWeather />
+          {/* <MainItem>🏆이달의 세차왕</MainItem> */}
         </MainItems>
 
         <ReservationDiv
@@ -112,7 +113,7 @@ const ReservationDiv = styled.div`
 
   width: 35vw;
   @media (max-width: 1170px) {
-    width: 100vw;
+    width: 90vw;
   }
 
   border-radius: 8px;
