@@ -1,16 +1,9 @@
 import axios from "axios";
-import { useEffect, useReducer, useState } from "react";
 import styled from "styled-components";
 
-const initialState = { rainForecast: "비예보가 없어요😆" };
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "Clear":
-      return { rainForecast: "비예보가 없어요😆" };
-      defalut: return state;
-  }
-};
+import { useEffect, useState } from "react";
+import SunnyImg from "../../assets/sunnyborder.png";
+import RainyImg from "../../assets/rainyborder.png";
 
 const GetWeather = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -66,11 +59,34 @@ const GetWeather = () => {
   const renderForecast = (forecast) => {
     const { minTemp, maxTemp } = getTemperatureExtremes(forecast);
     const isClearOrCloudy = getSkyState(forecast);
+
+    // 날짜 포맷 변경 함수: 월/일 형식으로 변환
+    const formatDate = (dateString) => {
+      const date = new Date(dateString);
+      return date.toLocaleDateString("ko-KR", {
+        month: "long",
+        day: "numeric",
+      });
+    };
+
     return (
       <>
-        <p>최저 기온: {parseInt(minTemp)}°C</p>
-        <p>최고 기온: {parseInt(maxTemp)}°C</p>
-        {isClearOrCloudy ? "비예보가 없어요!😆" : "비예보가 있어요.."}
+        <WeatherInfo>
+          {isClearOrCloudy ? (
+            <WeatherImage src={SunnyImg} alt="Sun" />
+          ) : (
+            <WeatherImage src={RainyImg} alt="Rain" />
+          )}
+
+          <RainForecate>
+            <DateDiv>{forecast.length > 0 && <p>{formatDate(forecast[0].dt_txt)}</p>}</DateDiv>
+            {isClearOrCloudy ? <p>비예보가 없어요!</p> : <p>비예보가 있어요..</p>}
+            <TempInfo>
+              <p>최저 {parseInt(minTemp)}°C &nbsp;</p>
+              <p>최고 {parseInt(maxTemp)}°C</p>
+            </TempInfo>
+          </RainForecate>
+        </WeatherInfo>
       </>
     );
   };
@@ -80,22 +96,13 @@ const GetWeather = () => {
       {isLoading ? (
         <p>날씨 정보 불러오는 중...</p>
       ) : error ? (
-        <p>날씨 정보를 불러오는데 실패😢</p>
+        <p>날씨 정보를 불러오는데 실패 😢</p>
       ) : (
         <>
           <CardView>
-            <Card>
-              <h3>첫째 날</h3>
-              {renderForecast(firstDayForecast)}
-            </Card>
-            <Card>
-              <h3>둘째 날</h3>
-              {renderForecast(secondDayForecast)}
-            </Card>
-            <Card>
-              <h3>셋째 날</h3>
-              {renderForecast(thirdDayForecast)}
-            </Card>
+            <Card>{renderForecast(firstDayForecast)}</Card>
+            <Card>{renderForecast(secondDayForecast)}</Card>
+            <Card>{renderForecast(thirdDayForecast)}</Card>
           </CardView>
         </>
       )}
@@ -108,7 +115,8 @@ export default GetWeather;
 //Styled Component
 // 터치 스크롤 기능
 const CardView = styled.div`
-  width: 100%;
+  width: 90vw;
+  margin: auto;
   height: 100%;
   white-space: nowrap;
   overflow-x: auto;
@@ -118,9 +126,53 @@ const CardView = styled.div`
 `;
 
 const Card = styled.div`
-  width: 150px;
-  height: 200px;
+  width: 100%;
   margin-right: 10px;
   display: inline-block;
-  background-color: skyblue;
+  background-color: #22a6df57;
+  padding-top: 2.5vh;
+  padding-bottom: 2.5vh;
+  border-radius: 20px;
+`;
+
+// 날씨 정보 div
+const WeatherInfo = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin: 2vw;
+  & > div {
+    display: flex;
+  }
+`;
+
+// 비예보 정보 div
+const RainForecate = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  & > p {
+    font-size: 20px;
+    font-weight: bold;
+  }
+`;
+
+// 기온 정보 div
+const TempInfo = styled.div`
+  display: flex;
+  font-size: 12px;
+  margin-top: 1.5vh;
+`;
+
+// 날씨 이미지
+const WeatherImage = styled.img`
+  height: 10vh;
+`;
+
+// 날짜 div
+const DateDiv = styled.div`
+  font-weight: bold;
+  font-size: 17px;
+  align-items: flex-end;
+  margin-bottom: 1vh;
 `;

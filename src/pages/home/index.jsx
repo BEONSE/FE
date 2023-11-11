@@ -1,11 +1,12 @@
-import { CommonButton } from "../../components/CommonButton";
 import styled from "styled-components";
-import GlobalStyle from "../../components/GlobalStyle";
 
 import MainImage from "../../assets/MainBackgroundImage.png";
 import ArrowImg from "../../assets/arrow.png";
-import { usePageMoving } from "../../components/usePageMoving";
-import GetWeather from "../weather/GetWeather";
+
+import GetWeather from "pages/weather/GetWeather";
+import GlobalStyle from "components/GlobalStyle";
+import { usePageMoving } from "components/usePageMoving";
+import { CommonButton } from "components/CommonButton";
 
 const Home = () => {
   const { moveToSearch } = usePageMoving();
@@ -21,8 +22,8 @@ const Home = () => {
         </MainDiv>
 
         <MainItems>
-          <MainItem>날씨 추천 API</MainItem>
-          <MainItem>🏆이달의 세차왕</MainItem>
+          <GetWeather />
+          {/* <MainItem>🏆이달의 세차왕</MainItem> */}
         </MainItems>
 
         <ReservationDiv
@@ -33,7 +34,6 @@ const Home = () => {
           <ResButton>지점 예약 하러가기</ResButton>
           <img src={ArrowImg} alt="ArrowImage" />
         </ReservationDiv>
-        <GetWeather />
       </HomeAllDiv>
     </>
   );
