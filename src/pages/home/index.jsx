@@ -1,12 +1,11 @@
+import { CommonButton } from "../../components/CommonButton";
 import styled from "styled-components";
+import GlobalStyle from "../../components/GlobalStyle";
 
 import MainImage from "../../assets/MainBackgroundImage.png";
 import ArrowImg from "../../assets/arrow.png";
-
-import GetWeather from "pages/weather/GetWeather";
-import GlobalStyle from "components/GlobalStyle";
-import { usePageMoving } from "components/usePageMoving";
-import { CommonButton } from "components/CommonButton";
+import { usePageMoving } from "../../components/usePageMoving";
+import GetWeather from "../weather/GetWeather";
 
 const Home = () => {
   const { moveToSearch } = usePageMoving();
