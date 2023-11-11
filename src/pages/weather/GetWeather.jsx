@@ -117,8 +117,8 @@ export default GetWeather;
 const CardView = styled.div`
   width: 90vw;
   margin: auto;
-  height: 100%;
   white-space: nowrap;
+  margin-bottom: 2vh;
   overflow-x: auto;
   ::-webkit-scrollbar {
     display: none;
@@ -128,8 +128,9 @@ const CardView = styled.div`
 const Card = styled.div`
   width: 100%;
   margin-right: 10px;
+  margin-bottom: 2vh;
   display: inline-block;
-  background-color: #22a6df57;
+  border: 1px solid black;
   padding-top: 2.5vh;
   padding-bottom: 2.5vh;
   border-radius: 20px;
