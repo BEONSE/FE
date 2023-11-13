@@ -68,7 +68,7 @@ const MultiMap = () => {
         "</span>" +
         "</div>";
 
-      // 커스텀 오버레이를 생성합니다
+      // 커스텀 오버레이를 생성
       var customOverlay = new kakao.maps.CustomOverlay({
         map: null,
         position: positions[i].latlng,
