@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import BigLogoImg from "../../assets/big_logo.png";
 import Person from "../../assets/person.png";
-import Key from "../../assets/key.png";
+import Lock from "../../assets/lock.png";
 import GlobalStyle from "../../components/GlobalStyle";
 
 import { usePageMoving } from "../../components/usePageMoving";
@@ -32,7 +32,7 @@ const Login = ({ setHideHeaderFooter }) => {
         </LoginForm>
         <LoginForm>
           <span>
-            <img src={Key} alt="KeyImage" />
+            <img src={Lock} alt="KeyImage" />
           </span>
           <input type="password" placeholder="*****" />
         </LoginForm>
@@ -69,7 +69,7 @@ export default Login;
 export const LoginForm = styled.div`
   width: 80%;
   display: flex;
-
+  margin-top: 2vh;
   border: 1px solid #ececec;
   border-radius: 6px;
 
@@ -93,6 +93,7 @@ export const LoginForm = styled.div`
     }
     @media (max-width: 1170px) {
       padding: 12px;
+      margin-right: 5px;
     }
     img {
       width: 20px;

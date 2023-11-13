@@ -7,10 +7,10 @@ export const usePageMoving = () => {
   const moveToHome = () => navigate("/");
 
   // 로그인 페이지
-  const moveToLogin = () => navigate("/login");
+  const moveToLogin = () => navigate("/login", { replace: true });
 
   // 회원가입 페이지
-  const moveToRegister = () => navigate("/register");
+  const moveToRegister = () => navigate("/register", { replace: true });
 
   // 지점 목록/검색 페이지
   const moveToSearch = () => navigate("/search");
