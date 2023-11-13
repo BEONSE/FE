@@ -28,15 +28,15 @@ const GetWeather = () => {
   const getWeatherForecast = async (lat, lng) => {
     try {
       const resForecast = await axios.get(
-        `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&appid=${API_KEY}&units=metric`,
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&appid=${API_KEY}&units=metric`,
       );
-
-      console.log(resForecast);
 
       // 3일치 날짜 저장
       setFirstDayForecast(resForecast.data.list.slice(0, 8));
       setSecondDayForecast(resForecast.data.list.slice(8, 16));
       setThirdDayForecast(resForecast.data.list.slice(16, 24));
+
+      console.log(resForecast);
     } catch (error) {
       console.error("Forecast fetching error:", error);
       setError(true);
