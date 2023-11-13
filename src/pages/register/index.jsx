@@ -39,7 +39,7 @@ const Register = ({ setHideHeaderFooter }) => {
             <hr />
           </TypeItem>
           <TypeItem selected={selectedType === "branch"} onClick={() => setSelectedType("branch")}>
-            <span>지점사</span>
+            <span>가맹점</span>
             <hr />
           </TypeItem>
         </MemberType>

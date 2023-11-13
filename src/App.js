@@ -4,6 +4,7 @@ import Footer from "./components/footer";
 import Header from "./components/header";
 import AppRoute from "./pages/AppRoute";
 import { useState } from "react";
+import { addAuthHeader } from "./apis/axiosConfig";
 
 function App() {
   const [hideHeaderFooter, setHideHeaderFooter] = useState(false);
