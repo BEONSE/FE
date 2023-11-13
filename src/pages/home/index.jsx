@@ -2,10 +2,11 @@ import { CommonButton } from "../../components/CommonButton";
 import styled from "styled-components";
 import GlobalStyle from "../../components/GlobalStyle";
 
+import GetWeather from "../weather/GetWeather";
+import Rank from "./Rank";
 import MainImage from "../../assets/MainBackgroundImage.png";
 import ArrowImg from "../../assets/arrow.png";
 import { usePageMoving } from "../../components/usePageMoving";
-import GetWeather from "../weather/GetWeather";
 
 const Home = () => {
   const { moveToSearch } = usePageMoving();
@@ -22,7 +23,7 @@ const Home = () => {
 
         <MainItems>
           <GetWeather />
-          {/* <MainItem>🏆이달의 세차왕</MainItem> */}
+          <Rank />
         </MainItems>
 
         <ReservationDiv
@@ -83,20 +84,14 @@ const MainDiv = styled.div`
 
   & > p > span {
     color: #ffee00;
+    font-weight: bold;
   }
 `;
 
 // 날씨 추천 & 이달의 세차왕
-const MainItems = styled.div``;
-const MainItem = styled.div`
+const MainItems = styled.div`
+  width: 90vw;
   margin: auto;
-  width: 90%;
-  height: 40%;
-  background-color: #ffffff;
-  padding: 45px;
-  border-radius: 25px;
-  box-shadow: 8px 2px 62px 0px rgba(0, 0, 0, 0.1);
-  margin-bottom: 30px;
 `;
 
 // 예약하러가기 button
@@ -120,7 +115,8 @@ const ReservationDiv = styled.div`
   background-color: #99e8f8;
 
   margin: auto;
-  margin-bottom: 10px;
+  margin-bottom: 3vh;
+  margin-top: 3vh;
   transition: background-color 0.5s ease, transform 0.1s ease;
   &:hover {
     background-color: #68d0f3;

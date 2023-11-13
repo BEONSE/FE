@@ -1,21 +1,30 @@
 import axios from "axios";
 import styled from "styled-components";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SunnyImg from "../../assets/sunnyborder.png";
 import RainyImg from "../../assets/rainyborder.png";
 
 const GetWeather = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [firstDayForecast, setFirstDayForecast] = useState([]);
-  const [secondDayForecast, setSecondDayForecast] = useState([]);
-  const [thirdDayForecast, setThirdDayForecast] = useState([]);
+  const [firstDayForecast, setFirstDayForecast] = useState([]); // 오늘 날씨 정보
+  const [secondDayForecast, setSecondDayForecast] = useState([]); // 내일 날씨 정보
+  const [thirdDayForecast, setThirdDayForecast] = useState([]); // 모레 날씨 정보
   const [error, setError] = useState(false);
 
   const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
   const lat = 37.48077652077423;
   const lng = 126.88299356138995;
 
+  // 캐러셀 스타일
+  const settings = {
+    dots: true,
+    autoplay: true,
+    autoplaySpeed: 3500,
+  };
   const getWeatherForecast = async (lat, lng) => {
     try {
       const resForecast = await axios.get(
@@ -24,7 +33,7 @@ const GetWeather = () => {
 
       console.log(resForecast);
 
-      // 각 날짜별 예보를 분리하여 저장합니다.
+      // 3일치 날짜 저장
       setFirstDayForecast(resForecast.data.list.slice(0, 8));
       setSecondDayForecast(resForecast.data.list.slice(8, 16));
       setThirdDayForecast(resForecast.data.list.slice(16, 24));
@@ -56,19 +65,18 @@ const GetWeather = () => {
     return skyStates.every((state) => state === "Clear" || state === "Clouds");
   };
 
-  const renderForecast = (forecast) => {
+  // 날짜 포맷 변경 함수: 월/일 형식으로 변환
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("ko-KR", {
+      month: "long",
+      day: "numeric",
+    });
+  };
+
+  const renderForecast = (forecast, today) => {
     const { minTemp, maxTemp } = getTemperatureExtremes(forecast);
     const isClearOrCloudy = getSkyState(forecast);
-
-    // 날짜 포맷 변경 함수: 월/일 형식으로 변환
-    const formatDate = (dateString) => {
-      const date = new Date(dateString);
-      return date.toLocaleDateString("ko-KR", {
-        month: "long",
-        day: "numeric",
-      });
-    };
-
     return (
       <>
         <WeatherInfo>
@@ -79,11 +87,14 @@ const GetWeather = () => {
           )}
 
           <RainForecate>
-            <DateDiv>{forecast.length > 0 && <p>{formatDate(forecast[0].dt_txt)}</p>}</DateDiv>
+            <DateDiv>
+              <span>{today}</span>
+              {forecast.length > 0 && <p>{formatDate(forecast[0].dt_txt)}</p>}
+            </DateDiv>
             {isClearOrCloudy ? <p>비예보가 없어요!</p> : <p>비예보가 있어요..</p>}
             <TempInfo>
-              <p>최저 {parseInt(minTemp)}°C &nbsp;</p>
-              <p>최고 {parseInt(maxTemp)}°C</p>
+              <p>최저 {parseInt(minTemp)}°&nbsp;</p>
+              <p>최고 {parseInt(maxTemp)}°</p>
             </TempInfo>
           </RainForecate>
         </WeatherInfo>
@@ -100,9 +111,11 @@ const GetWeather = () => {
       ) : (
         <>
           <CardView>
-            <Card>{renderForecast(firstDayForecast)}</Card>
-            <Card>{renderForecast(secondDayForecast)}</Card>
-            <Card>{renderForecast(thirdDayForecast)}</Card>
+            <Slider {...settings}>
+              <Card>{renderForecast(firstDayForecast, "오늘은")}</Card>
+              <Card>{renderForecast(secondDayForecast, "내일은")}</Card>
+              <Card>{renderForecast(thirdDayForecast, "모레는")}</Card>
+            </Slider>
           </CardView>
         </>
       )}
@@ -115,7 +128,8 @@ export default GetWeather;
 //Styled Component
 // 터치 스크롤 기능
 const CardView = styled.div`
-  width: 90vw;
+  width: 101%;
+  height: 23vh;
   margin: auto;
   white-space: nowrap;
   margin-bottom: 2vh;
@@ -123,16 +137,18 @@ const CardView = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
+
+  .slick-slide {
+    padding-right: 2px;
+  }
 `;
 
 const Card = styled.div`
-  width: 100%;
-  margin-right: 10px;
-  margin-bottom: 2vh;
   display: inline-block;
   border: 1px solid black;
   padding-top: 2.5vh;
   padding-bottom: 2.5vh;
+  margin-bottom: 0.5vh;
   border-radius: 20px;
 `;
 
@@ -140,6 +156,7 @@ const Card = styled.div`
 const WeatherInfo = styled.div`
   display: flex;
   justify-content: space-around;
+  align-items: center;
   margin: 2vw;
   & > div {
     display: flex;
@@ -161,19 +178,24 @@ const RainForecate = styled.div`
 // 기온 정보 div
 const TempInfo = styled.div`
   display: flex;
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 1.5vh;
 `;
 
 // 날씨 이미지
 const WeatherImage = styled.img`
-  height: 10vh;
+  height: 11vh;
 `;
 
 // 날짜 div
 const DateDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
   font-weight: bold;
   font-size: 17px;
   align-items: flex-end;
   margin-bottom: 1vh;
+  & > span {
+    font-size: 21px;
+  }
 `;
