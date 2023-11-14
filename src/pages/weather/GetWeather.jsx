@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { useEffect, useRef, useState } from "react";
 import SunnyImg from "../../assets/sunnyborder.png";
 import RainyImg from "../../assets/rainyborder.png";
+import Loading from "../../components/Loading";
 
 const GetWeather = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -106,9 +107,7 @@ const GetWeather = () => {
     <>
       {isLoading ? (
         <WeatherLoad>
-          <div class="spinner-border text-dark" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
+          <Loading />
           날씨 정보 불러오는 중...
         </WeatherLoad>
       ) : error ? (
