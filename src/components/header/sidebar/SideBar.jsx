@@ -31,7 +31,7 @@ const Sidebar = ({ clicked }) => {
     <>
       <ModalBackground onClick={clicked}>
         <ModalContent onClick={(e) => e.stopPropagation()}>
-          {!appContext.nickname ? (
+          {!appContext.accessToken ? (
             <LoginPositon>
               <h1
                 onClick={() => {
