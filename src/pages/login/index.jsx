@@ -7,10 +7,26 @@ import GlobalStyle from "../../components/GlobalStyle";
 
 import { usePageMoving } from "../../components/usePageMoving";
 import { CommonButton } from "../../components/CommonButton";
-import { useEffect } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { FormTag } from "../register/CommonRegister";
+import { ReqLogin } from "../../apis/auth";
+import { addAuthHeader } from "../../apis/axiosConfig";
+import AppContext from "../../AppContext";
 
 const Login = ({ setHideHeaderFooter }) => {
   const { moveToHome, moveToRegister } = usePageMoving();
+
+  const appContext = useContext(AppContext);
+
+  // 로그인 정보 state
+  const [loginUser, setLoginUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  //useRef
+  const loginEmailRef = useRef();
+  const loginPwdRef = useRef();
 
   // Header Footer 숨기기
   useEffect(() => {
@@ -18,33 +34,85 @@ const Login = ({ setHideHeaderFooter }) => {
     return () => setHideHeaderFooter(false);
   }, [setHideHeaderFooter]);
 
+  // 로그인 input 핸들러
+  const loginInputHandler = (e) => {
+    const { name, value } = e.target;
+    setLoginUser((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  // 로그인 버튼 클릭 핸들러
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const loginResponse = await ReqLogin(loginUser);
+      console.log(loginResponse);
+      if (loginResponse.status === 200) {
+        alert(loginResponse.data.successMessage);
+        // 요청 공통 헤더에 추가
+        addAuthHeader(loginResponse.data.accessToken);
+        console.log("이게뭐야", loginResponse.headers.getAuthorization.arg1);
+
+        // Context에 인증 내용 저장
+        appContext.setNickname();
+        appContext.setAccessToken(loginResponse.data.accessToken);
+
+        // Home 화면으로 이동
+        moveToHome();
+      }
+    } catch (err) {
+      const errResult = err.response.data;
+      if (errResult.statusCode === 400) {
+        // 이메일 불일치
+        alert(errResult.errorMessage);
+        loginEmailRef.current.focus();
+      } else if (errResult.statusCode === 404) {
+        // 비밀번호 불일치
+        alert(errResult.errorMessage);
+        loginPwdRef.current.focus();
+      }
+    }
+  };
+
   return (
     <>
       <GlobalStyle />
-      <LoginAllDiv>
+      <LoginAllDiv onSubmit={handleLoginSubmit}>
         <img src={BigLogoImg} alt="BigLogoImage" onClick={() => moveToHome()} />
         <h1>로그인</h1>
-        <LoginForm>
-          <span>
-            <img src={Person} alt="personImage" />
-          </span>
-          <input type="email" placeholder="kimsecha@beonse.com" />
-        </LoginForm>
-        <LoginForm>
-          <span>
-            <img src={Lock} alt="KeyImage" />
-          </span>
-          <input type="password" placeholder="*****" />
-        </LoginForm>
-        <LoginButtonDiv>
-          <LoginBtn
-            onClick={() => {
-              moveToHome();
-            }}
-          >
-            로그인
-          </LoginBtn>
-        </LoginButtonDiv>
+        <FormTag>
+          <LoginForm>
+            <span>
+              <img src={Person} alt="personImage" />
+            </span>
+            <input
+              type="email"
+              name="email"
+              placeholder="kimsecha@beonse.com"
+              ref={loginEmailRef}
+              onChange={loginInputHandler}
+              required
+            />
+          </LoginForm>
+          <LoginForm>
+            <span>
+              <img src={Lock} alt="KeyImage" />
+            </span>
+            <input
+              type="password"
+              name="password"
+              placeholder="비밀번호"
+              ref={loginPwdRef}
+              onChange={loginInputHandler}
+              required
+            />
+          </LoginForm>
+          <LoginButtonDiv>
+            <LoginBtn type="submit">로그인</LoginBtn>
+          </LoginButtonDiv>
+        </FormTag>
         <AddService>
           <span onClick={() => {}}>아이디찾기 | </span>
           <span onClick={() => {}}>비밀번호찾기 | </span>

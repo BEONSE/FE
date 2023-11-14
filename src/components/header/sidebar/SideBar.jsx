@@ -1,9 +1,15 @@
 import styled from "styled-components";
 import Dropdown from "./Dropdown";
 import { usePageMoving } from "../../usePageMoving";
+import { useContext } from "react";
+import AppContext from "../../../AppContext";
+import { removeAuthHeader } from "../../../apis/axiosConfig";
 
 const Sidebar = ({ clicked }) => {
+  const appContext = useContext(AppContext);
+
   const {
+    // 페이지 이동
     moveToLogin,
     moveToSearch,
     moveToPayment,
@@ -13,24 +19,39 @@ const Sidebar = ({ clicked }) => {
     moveToMyBoard,
     moveToBuyCoupon,
   } = usePageMoving();
+
+  const handleLogout = (e) => {
+    removeAuthHeader();
+
+    appContext.setNickname("");
+    appContext.setAccessToken("");
+  };
+
   return (
     <>
       <ModalBackground onClick={clicked}>
         <ModalContent onClick={(e) => e.stopPropagation()}>
-          <LogoutPosition>
-            <p>로그아웃</p>
-          </LogoutPosition>
-          <LoginPositon>
-            <h1
+          {!appContext.nickname ? (
+            <LoginPositon>
+              <h1
+                onClick={() => {
+                  moveToLogin();
+                  clicked();
+                }}
+              >
+                로그인/회원가입하러가기
+              </h1>
+              {/* 로그인 후 유저 정보 띄워줘야됨 */}
+            </LoginPositon>
+          ) : (
+            <LogoutPosition
               onClick={() => {
-                moveToLogin();
-                clicked();
+                handleLogout();
               }}
             >
-              로그인/회원가입하러가기
-            </h1>
-            {/* 로그인 후 유저 정보 띄워줘야됨 */}
-          </LoginPositon>
+              <p>로그아웃</p>
+            </LogoutPosition>
+          )}
 
           <ModalList>
             <hr />

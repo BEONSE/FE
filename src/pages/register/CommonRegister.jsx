@@ -98,13 +98,17 @@ const CommonRegister = () => {
     }
     try {
       const response = await ReqCommonRegister(commonRegister);
-      console.log(response.status);
       if (response.status === 200) {
-        alert("회원가입 완료 성공!! \n 로그인 화면으로 이동합니다.");
+        alert("회원가입 완료 성공!!\n로그인 화면으로 이동합니다.");
         moveToLogin();
       }
-    } catch {
-      alert("회원가입 실패...");
+    } catch (err) {
+      const errResult = err.response.data;
+      if (errResult.statusCode === 400) {
+        // 이메일 중복
+        alert(errResult.errorMessage);
+        emailRef.current.focus();
+      }
     }
   };
 

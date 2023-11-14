@@ -4,7 +4,7 @@ export const usePageMoving = () => {
   const navigate = useNavigate();
 
   // 메인 페이지
-  const moveToHome = () => navigate("/");
+  const moveToHome = () => navigate("/", { replace: true });
 
   // 로그인 페이지
   const moveToLogin = () => navigate("/login", { replace: true });
