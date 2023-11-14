@@ -31,7 +31,7 @@ const Sidebar = ({ clicked }) => {
     <>
       <ModalBackground onClick={clicked}>
         <ModalContent onClick={(e) => e.stopPropagation()}>
-          {!appContext.nickname ? (
+          {!appContext.accessToken ? (
             <LoginPositon>
               <h1
                 onClick={() => {
@@ -203,24 +203,23 @@ const LoginPositon = styled.div`
       color: #99e8f8;
     }
   }
+
+  & > p {
+    margin-bottom: 5vh;
+  }
   height: 10%;
 `;
 
 // 사이드바 로그아웃 영역
 const LogoutPosition = styled.div`
-  position: absolute;
-  @media (max-width: 1170px) {
-    width: 60vw;
-  }
-  width: 20vw;
-  text-align: right;
-  font-size: 15px;
-  cursor: pointer;
-  padding-bottom: 40px;
-  @media (max-width: 1170px) {
-    font-size: 13px;
-  }
+  margin-top: 1vh;
+  margin-bottom: 3vh;
+  margin-right: 2.5vw;
   & > p {
+    margin-left: 3%;
+    cursor: pointer;
+    font-size: 15px;
+    text-align: right;
     &:hover {
       color: #99e8f8;
     }
