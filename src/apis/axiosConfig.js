@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // axios.defaults.baseURL = "http://localhost:8080";
-axios.defaults.baseURL = "http://172.30.1.14:8080";
+axios.defaults.baseURL = "http://192.168.110.199:8080";
 
 export function addAuthHeader(accessToken) {
   axios.defaults.headers.common["Authorization"] = "Bearer " + accessToken;
