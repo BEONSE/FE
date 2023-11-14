@@ -105,9 +105,14 @@ const GetWeather = () => {
   return (
     <>
       {isLoading ? (
-        <p>날씨 정보 불러오는 중...</p>
+        <WeatherLoad>
+          <div class="spinner-border text-dark" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          날씨 정보 불러오는 중...
+        </WeatherLoad>
       ) : error ? (
-        <p>날씨 정보를 불러오는데 실패 😢</p>
+        <WeatherLoad>날씨 정보를 불러오는데 실패 😢</WeatherLoad>
       ) : (
         <>
           <CardView>
@@ -198,4 +203,14 @@ const DateDiv = styled.div`
   & > span {
     font-size: 21px;
   }
+`;
+
+// 날씨 로드 div
+const WeatherLoad = styled.p`
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
