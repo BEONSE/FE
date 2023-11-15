@@ -48,6 +48,9 @@ export const usePageMoving = () => {
   // 게시판 - 메이트
   const moveToMate = () => navigate("/mate");
 
+  // 게시글 작성
+  const moveToWrite = () => navigate("/mate/write");
+
   return {
     moveToLogin,
     moveToRegister,
@@ -64,5 +67,6 @@ export const usePageMoving = () => {
     moveToHome,
     moveToSearch,
     moveToReservation,
+    moveToWrite,
   };
 };

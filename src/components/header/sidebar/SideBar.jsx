@@ -23,8 +23,8 @@ const Sidebar = ({ clicked }) => {
   const handleLogout = (e) => {
     removeAuthHeader();
 
-    appContext.setNickname("");
     appContext.setAccessToken("");
+    appContext.setRefreshToken("");
   };
 
   return (

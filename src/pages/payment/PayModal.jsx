@@ -99,7 +99,7 @@ const Buttons = styled.div`
   width: 100%;
 `;
 
-const PayBtn = styled(CommonButton)`
+export const PayBtn = styled(CommonButton)`
   font-size: 15px;
   width: 20vw;
 

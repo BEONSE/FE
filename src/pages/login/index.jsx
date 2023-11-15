@@ -53,16 +53,16 @@ const Login = ({ setHideHeaderFooter }) => {
         alert(loginResponse.data.successMessage);
         // 요청 공통 헤더에 추가
         addAuthHeader(loginResponse.data.accessToken);
-        console.log("이게뭐야", loginResponse.headers.getAuthorization.arg1);
 
         // Context에 인증 내용 저장
-        appContext.setNickname();
         appContext.setAccessToken(loginResponse.data.accessToken);
+        appContext.setRefreshToken(loginResponse.data.refreshToken);
 
         // Home 화면으로 이동
         moveToHome();
       }
     } catch (err) {
+      console.log(err);
       const errResult = err.response.data;
       if (errResult.statusCode === 400) {
         // 이메일 불일치
