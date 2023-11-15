@@ -4,9 +4,10 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import SunnyImg from "../../assets/sunnyborder.png";
 import RainyImg from "../../assets/rainyborder.png";
+import Loading from "../../components/Loading";
 
 const GetWeather = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -16,8 +17,6 @@ const GetWeather = () => {
   const [error, setError] = useState(false);
 
   const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
-  const lat = 37.48077652077423;
-  const lng = 126.88299356138995;
 
   // 캐러셀 스타일
   const settings = {
@@ -25,8 +24,20 @@ const GetWeather = () => {
     autoplay: true,
     autoplaySpeed: 3500,
   };
-  const getWeatherForecast = async (lat, lng) => {
+  const getWeatherForecast = async () => {
     try {
+      // 위치를 못가져온 경우 defalut 위치
+      let lat = 37.48077652077423;
+      let lng = 126.88299356138995;
+
+      // 현재 위치 가져오기
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          lat = position.coords.latitude;
+          lng = position.coords.longitude;
+        });
+      }
+
       const resForecast = await axios.get(
         `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&appid=${API_KEY}&units=metric`,
       );
@@ -46,7 +57,7 @@ const GetWeather = () => {
   };
 
   useEffect(() => {
-    getWeatherForecast(lat, lng);
+    getWeatherForecast();
   }, []);
 
   // 최저, 최고 기온 구하는 함수
@@ -106,9 +117,7 @@ const GetWeather = () => {
     <>
       {isLoading ? (
         <WeatherLoad>
-          <div class="spinner-border text-dark" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
+          <Loading />
           날씨 정보 불러오는 중...
         </WeatherLoad>
       ) : error ? (
