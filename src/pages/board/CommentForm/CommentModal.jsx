@@ -1,11 +1,27 @@
+import { useState } from "react";
 import styled from "styled-components";
+import DeleteModal from "./DeleteModal";
 
-const CommentModal = () => {
+const CommentModal = ({ mcid, mateBoardMbid, toggleMenu, clickKebob }) => {
+  const [isRemoveModal, setIsRemoveModal] = useState(false);
+
+  const openModal = () => {
+    setIsRemoveModal(!isRemoveModal);
+  };
+
   return (
     <>
       <PopupMenu>
         <p onClick={() => {}}>수정</p>
-        <p onClick={() => {}}>삭제</p>
+        <p onClick={openModal}>삭제</p>
+        {isRemoveModal && (
+          <DeleteModal
+            mcid={mcid}
+            mateBoardMbid={mateBoardMbid}
+            toggleMenu={toggleMenu}
+            clickKebob={clickKebob}
+          />
+        )}
       </PopupMenu>
     </>
   );
@@ -22,14 +38,13 @@ const PopupMenu = styled.div`
 
   border: 2px solid #ececec;
 
-  z-index: 3;
   position: absolute;
   right: 0;
 
   padding-left: 6%;
   padding-right: 6%;
   margin-top: 1vh;
-  margin-right: 12vw;
+  margin-right: 14vw;
 
   & > p {
     cursor: pointer;

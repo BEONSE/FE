@@ -45,7 +45,12 @@ const BoardAddModal = ({ writeMate }) => {
 
   return (
     <>
-      <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={customStyles}>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        ariaHideApp={false}
+      >
         <ModalContent>
           <img src={Pencil} alt="pencilimage" />
           <p>게시글을 등록하시겠습니까?</p>

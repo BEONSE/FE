@@ -24,3 +24,8 @@ export function ReqMateBoardComment(id) {
 export function ReqAddComment(id, comment) {
   return axios.post(`mates/${id}/comments`, comment);
 }
+
+// 메이트 댓글 삭제
+export function ReqRemoveComment(mbid, mcid) {
+  return axios.patch(`mates/${mbid}/comments/${mcid}`);
+}
