@@ -91,13 +91,17 @@ const Date = styled.p`
 
 /* 댓글 div Style */
 const Comment = styled.div`
-  width: 15vw;
-  padding-top: 1vh;
-  padding-bottom: 1vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 12vw;
   text-align: center;
   background-color: #99e8f89d;
   border-radius: 10px;
   margin-left: auto;
+
+  font-size: 14px;
 `;
 
 /* 댓글 개수 Style */

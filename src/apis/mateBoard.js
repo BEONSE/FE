@@ -19,3 +19,8 @@ export function ReqMateBoardDetail(id) {
 export function ReqMateBoardComment(id) {
   return axios.get(`mates/${id}/comments`);
 }
+
+// 메이트 댓글 등록
+export function ReqAddComment(id, comment) {
+  return axios.post(`mates/${id}/comments`, comment);
+}

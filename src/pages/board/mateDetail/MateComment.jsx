@@ -1,48 +1,40 @@
 import { styled } from "styled-components";
 import PersonImg from "../../../assets/person.png";
 import Menu from "../../../assets/kebab_menu.png";
+import { useState } from "react";
+import CommentModal from "../CommentForm/CommentModal";
 
-const MateComment = () => {
+const MateComment = ({ comment }) => {
+  // 케밥 이미지 클릭 상태
+  const [clickKebob, setClickKebob] = useState(false);
+
+  // 케밥 이미지 클릭 시 팝업 메뉴 열기
+  const toggleMenu = () => {
+    setClickKebob(!clickKebob);
+  };
+
   return (
     <>
-      <H2>댓글</H2>
       <CommentGroup>
         <ProfileImage>
-          <img src={PersonImg} />
+          <img src={PersonImg} alt="commentProfile" />
         </ProfileImage>
         <Content>
           <ProfileContent>
-            <h4>댓글 작성자</h4>
+            <h4>{comment.nickname}</h4>
             <p>등급</p>
-            <div>
-              <img src={Menu} />
+            {clickKebob && <CommentModal />}
+            <div onClick={toggleMenu}>
+              <img src={Menu} alt="kebabicon" />
             </div>
           </ProfileContent>
           <Comment>
-            <p>댓글을 달면 이런 배치가 되겠지요 댓글을 달면 이런 배치가 되겠지요</p>
-            <Date>2023.12.10 15:00</Date>
+            <p>{comment.content}</p>
+            <Date>{comment.createdAt}</Date>
           </Comment>
         </Content>
       </CommentGroup>
-      <Hr />
-      <CommentGroup>
-        <ProfileImage>
-          <img src={PersonImg} />
-        </ProfileImage>
-        <Content>
-          <ProfileContent>
-            <h4>댓글 작성자</h4>
-            <p>등급</p>
-            <div>
-              <img src={Menu} />
-            </div>
-          </ProfileContent>
-          <Comment>
-            <p>댓글을 달면 이런 배치가 되겠지요</p>
-            <Date>2023.12.10 15:00</Date>
-          </Comment>
-        </Content>
-      </CommentGroup>
+
       <Hr />
     </>
   );
@@ -50,23 +42,17 @@ const MateComment = () => {
 
 export default MateComment;
 
-const H2 = styled.h2`
-  margin-left: 7vw;
-  margin-bottom: 3vh;
-`;
-
 const CommentGroup = styled.div`
-  margin-left: 7vw;
   display: flex;
 `;
 
 const Content = styled.div`
+  width: 80%;
   margin-left: 3vw;
 `;
 
 const ProfileImage = styled.div`
-  margin-top: 3vh;
-  width: 12vw;
+  margin-top: 0;
   height: 8vh;
 
   & > img {
@@ -78,21 +64,25 @@ const ProfileImage = styled.div`
 
 const ProfileContent = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
 
   & > p {
-    margin-left: 5vw;
+    margin-left: 2vw;
+    font-size: 13px;
   }
-
   & > div {
-    margin-left: auto;
+    margin-left: auto; /* div를 가장 오른쪽으로 이동 */
+    & > img {
+      cursor: pointer;
+    }
   }
 `;
 
 const Comment = styled.div`
-  width: 65vw;
+  width: 100%;
   & > p {
-    margin-bottom: 2vh;
+    margin-bottom: 1vh;
   }
 `;
 
