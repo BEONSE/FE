@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import MateItem from "./MateItem";
-import { useNavigate, Route, Routes } from "react-router";
 import { CommonButton } from "../../../components/CommonButton";
-import BoardWrite from "../boardWrite";
 import { usePageMoving } from "../../../components/usePageMoving";
 import { useContext, useEffect, useState } from "react";
 import AppContext from "../../../AppContext";
@@ -44,8 +42,7 @@ const MateList = () => {
         const response = await ReqMateBoardList();
         setMateList(response.data);
       } catch (err) {
-        console.log(err.response.status);
-        if (err.response.status === 404 || err.response.status === 401) {
+        if (err.response.data.statusCode === 404 || err.response.data.statusCode === 401) {
           setIsEmpty(true);
         }
       } finally {
@@ -57,9 +54,6 @@ const MateList = () => {
 
   return (
     <>
-      <Routes>
-        <Route path="write" element={<BoardWrite />} />
-      </Routes>
       <PageTitle>👬 세차 메이트 👬</PageTitle>
       <Button onClick={writeBtnHandler}>글쓰기</Button>
       <hr />

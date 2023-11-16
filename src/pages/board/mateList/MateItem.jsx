@@ -1,29 +1,35 @@
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { usePageMoving } from "../../../components/usePageMoving";
 
 /* 메이트 게시글 컴포넌트 */
 const MateItem = ({ list }) => {
-  const navigate = useNavigate();
-
-  const moveToReviewDetail = () => {
-    navigate("1");
-  };
+  const { moveToMateDetail } = usePageMoving();
 
   return (
     <>
-      <MateGroup onClick={moveToReviewDetail}>
-        <h2>{list.title}</h2>
-        <div>
+      <MateGroup
+        onClick={() => {
+          moveToMateDetail(list.mbid);
+        }}
+      >
+        <LeftInfo>
           <MateContent>
-            <p>{list.nickname}</p>
-            <Grade>등급</Grade>
+            <h2>{list.title}</h2>
+            <div>
+              <p>{list.nickname}</p>
+              <Grade>등급</Grade>
+            </div>
           </MateContent>
           <Comment>
             <Count>{list.commentCount}</Count>
             <p>댓글</p>
           </Comment>
-        </div>
-        <Date>{list.modifiedAt}</Date>
+        </LeftInfo>
+
+        <Date>
+          <p>#{list.mbid}</p>
+          {list.modifiedAt}
+        </Date>
       </MateGroup>
       <hr />
     </>
@@ -34,6 +40,7 @@ export default MateItem;
 
 /* 최상단 div Style */
 const MateGroup = styled.div`
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   margin-top: 1vh;
@@ -42,6 +49,21 @@ const MateGroup = styled.div`
   padding-left: 2vw;
   padding-right: 2vw;
 
+  & > div {
+    display: flex;
+    justify-content: space-around;
+  }
+`;
+
+const LeftInfo = styled.div`
+  display: flex;
+`;
+
+/* 세부 내용 Style */
+const MateContent = styled.div`
+  width: 70%;
+  display: flex;
+  flex-direction: column;
   & > h2 {
     margin-bottom: 1vh;
     overflow: hidden;
@@ -51,14 +73,7 @@ const MateGroup = styled.div`
 
   & > div {
     display: flex;
-    justify-content: space-around;
   }
-`;
-
-/* 세부 내용 Style */
-const MateContent = styled.div`
-  width: 70%;
-  display: flex;
 `;
 
 /* 등급 Style */
@@ -68,9 +83,10 @@ const Grade = styled.p`
 
 /* 날짜 Style */
 const Date = styled.p`
+  display: flex;
+  justify-content: space-between;
   margin-top: 1vh;
   color: #8f8f8f;
-  text-align: right;
 `;
 
 /* 댓글 div Style */
