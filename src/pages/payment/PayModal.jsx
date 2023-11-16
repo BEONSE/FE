@@ -14,35 +14,39 @@ const PayModal = ({ clicked, price }) => {
       <ModalBackground onClick={clicked}>
         <ModalContent onClick={(e) => e.stopPropagation()}>
           <h2>카드 정보 입력</h2>
+          <CardType>
+            <p>BC</p>
+            <p>국민</p>
+            <p>현대</p>
+          </CardType>
           <CardNumber>
-            <p>
-              카드 번호 :{" "}
-              <NumberFormat
-                format="####-####-####-####"
-                mask="_"
-                placeholder="1111-1111-1111-1111"
-                className="number-format-input"
-                onValueChange={(values) => {
-                  const { formattedValue, value } = values;
-                  if (value.length === 16) {
-                    setCardNum({ formattedValue });
-                  }
-                }}
-              />
-            </p>
+            <p>카드 번호</p>
+            <NumberFormat
+              format="####-####-####-####"
+              mask="_"
+              placeholder="1111-1111-1111-1111"
+              className="number-format-input"
+              onValueChange={(values) => {
+                const { formattedValue, value } = values;
+                if (value.length === 16) {
+                  setCardNum({ formattedValue });
+                }
+              }}
+            />
           </CardNumber>
           <CardPassword>
-            <p>
-              카드 비밀 번호 : <input type="password" maxLength={2}></input>**
-            </p>
+            <p>카드 비밀 번호 </p>
+            <input type="password" maxLength={2} />
+            **
           </CardPassword>
           <PaymentPrice>
-            <p>
-              결제 금액 : <input type="text" readOnly defaultValue={price}></input>원
-            </p>
+            <p>결제 금액 </p>
+            <input type="text" readOnly defaultValue={price} />원
           </PaymentPrice>
           <Buttons>
-            <PayBtn isCancled>취 소</PayBtn>
+            <PayBtn isCancled onClick={clicked}>
+              취 소
+            </PayBtn>
             <PayBtn>결 제</PayBtn>
           </Buttons>
         </ModalContent>
@@ -69,17 +73,17 @@ const ModalContent = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  align-items: center;
-
-  @media (max-width: 1170px) {
-    width: 70vw;
-    font-size: 17px;
-  }
+  width: 80vw;
 
   background-color: white;
-  height: 35vh;
   margin: auto;
   border-radius: 5px;
+
+  & > h2 {
+    text-align: center;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+  }
 `;
 
 /* 카드 번호 Style */
@@ -111,3 +115,6 @@ export const PayBtn = styled(CommonButton)`
     background-color: ${({ isCancled }) => (isCancled ? "#b0b0b0" : null)};
   }
 `;
+
+// 카드 종류
+const CardType = styled.div``;
