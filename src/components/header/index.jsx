@@ -64,7 +64,7 @@ const HeaderBox = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: space-around;
-  z-index: 2;
+  z-index: 20;
 `;
 
 // Logo Image Style
