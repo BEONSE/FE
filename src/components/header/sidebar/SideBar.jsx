@@ -23,8 +23,8 @@ const Sidebar = ({ clicked }) => {
   const handleLogout = (e) => {
     removeAuthHeader();
 
-    appContext.setNickname("");
     appContext.setAccessToken("");
+    appContext.setRefreshToken("");
   };
 
   return (
@@ -146,7 +146,7 @@ const ModalBackground = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: right;
-  z-index: 2;
+  z-index: 50;
 `;
 // 사이드바 내용
 const ModalContent = styled.div`

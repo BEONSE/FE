@@ -9,6 +9,11 @@ import { addAuthHeader } from "./apis/axiosConfig";
 function App() {
   const [hideHeaderFooter, setHideHeaderFooter] = useState(false);
 
+  const accessToken = localStorage.getItem("accessToken") || "";
+  if (accessToken !== "") {
+    addAuthHeader(accessToken);
+  }
+
   return (
     <div className="App">
       {!hideHeaderFooter && <Header />}
