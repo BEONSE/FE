@@ -53,7 +53,7 @@ const MateDetail = () => {
         <hr />
         <br />
         {comment.map((item) => (
-          <MateComment comment={item} />
+          <MateComment key={item.mcid} comment={item} boardWriter={detail.nickname} />
         ))}
         <CommentForm id={mbid.id} />
       </GroupDiv>
