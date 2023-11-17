@@ -38,7 +38,10 @@ const GetWeather = () => {
         });
       }
 
-      const resForecast = await axios.get(
+      
+      const axios2 = axios.create({});
+
+      const resForecast = await axios2.get(
         `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&appid=${API_KEY}&units=metric`,
       );
 

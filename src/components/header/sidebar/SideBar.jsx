@@ -79,7 +79,7 @@ const Sidebar = ({ clicked }) => {
                 clicked();
               }}
             >
-              보유/사용 쿠폰 조회
+              쿠폰 사용 및 조회
             </p>
             <p
               onClick={() => {

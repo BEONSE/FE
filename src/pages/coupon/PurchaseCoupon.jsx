@@ -3,7 +3,8 @@ import { CommonButton } from "../../components/CommonButton";
 import { useEffect, useState } from "react";
 import MyPoints from "../myPages/myPoints";
 import ModalPurchaseCoupon from "./ModalPurchaseCoupon";
-
+import FormCoupon from "../../assets/formcoupon.png";
+import PressCoupon from "../../assets/presscoupon.png";
 const PurchaseCoupon = () => {
   const pressPrice = 3000;
   const bubblePrice = 3000;
@@ -65,11 +66,7 @@ const PurchaseCoupon = () => {
         </GetPoints>
         <hr />
         <CouponItem>
-          <div>
-            <p>BEONSE</p>
-          </div>
-          <h1>고압 샤워 쿠폰</h1>
-          <p>{pressPrice.toLocaleString()}p</p>
+          <img src={PressCoupon} alt="formCoupon" />
         </CouponItem>
         <QuantityAllDiv>
           <Quantity>
@@ -88,11 +85,7 @@ const PurchaseCoupon = () => {
           </PurchaseBtn>
         </QuantityAllDiv>
         <CouponItem>
-          <div>
-            <p>BEONSE</p>
-          </div>
-          <h1>폼 샤워 쿠폰</h1>
-          <p>{bubblePrice.toLocaleString()}p</p>
+          <img src={FormCoupon} alt="formCoupon" />
         </CouponItem>
         <QuantityAllDiv>
           <Quantity>
@@ -147,30 +140,9 @@ const CouponAllDiv = styled.div`
 
 // 쿠폰 정보
 export const CouponItem = styled.div`
-  width: 100%;
-
-  background-color: #c1f5ff;
-
-  box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.2);
-  border-radius: 20px;
-
-  padding: 30px;
-  margin-bottom: 20px;
-
-  & > div {
-    display: flex;
-    justify-content: space-between;
-
-    & > p {
-      margin-bottom: 20px;
-      font-size: 23px;
-    }
-  }
-
-  & > p {
-    text-align: right;
-    font-size: 20px;
-    font-weight: bold;
+  & > img {
+    width: 100%;
+    box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.2);
   }
 `;
 // 구매 수량 & 구매 버튼 div

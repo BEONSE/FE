@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axios1 as axios } from "./axiosConfig";
 
 // 포인트 결제
 export function ReqPaymentsByPoint(cardInfo) {

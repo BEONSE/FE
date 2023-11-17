@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axios1 as axios } from "./axiosConfig";
 
 // 일반 회원가입
 export function ReqCommonRegister(commonRegister) {
