@@ -2,6 +2,7 @@ import GlobalStyle from "../../components/GlobalStyle";
 import styled from "styled-components";
 import React from "react";
 import IterationPoint from "./IterationPoint";
+import MyPoints from "../myPages/myPoints";
 
 /* 포인트 충전 컴포넌트 */
 const Payment = () => {
@@ -13,8 +14,7 @@ const Payment = () => {
           <h1>💳 포인트 충전 💳</h1>
         </Title>
         <CurrentPoint>
-          <h3>보유 포인트</h3>
-          <p>1,000p</p>
+          <MyPoints />
           <hr />
         </CurrentPoint>
         <IterationPoints>

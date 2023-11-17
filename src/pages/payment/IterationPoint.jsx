@@ -52,6 +52,7 @@ const Points = styled(CommonButton)`
 
   & > p {
     font-size: 20px;
+    font-weight: bold;
   }
 
   ${({ price }) => {

@@ -1,19 +1,29 @@
 import styled from "styled-components";
 import { CommonButton } from "../../components/CommonButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import MyPoints from "../myPages/myPoints";
+import ModalPurchaseCoupon from "./ModalPurchaseCoupon";
 
 const PurchaseCoupon = () => {
-  const [press, setPress] = useState(1);
-  const [bubble, setBubble] = useState(1);
+  const pressPrice = 3000;
+  const bubblePrice = 3000;
+  const [press, setPress] = useState(1); // 고압 쿠폰 선택 수량
+  const [bubble, setBubble] = useState(1); // 폼 쿠폰 선택 수량
+  const [selectCoupon, setSelectCoupon] = useState({
+    type: "",
+    price: 0,
+    quantity: 0,
+  });
+  const [modalOpen, setModalOpen] = useState(false);
 
   // 수량 증가 handler
   const increasePressHandler = () => {
     setPress((prevCount) => (prevCount < 5 ? prevCount + 1 : prevCount));
   };
-
   const increaseBubbleHandler = () => {
     setBubble((prevCount) => (prevCount < 5 ? prevCount + 1 : prevCount));
   };
+
   // 수량 감소 handler
   const decreasePressHandler = () => {
     setPress((prevCount) => (prevCount > 1 ? prevCount - 1 : 1));
@@ -22,17 +32,44 @@ const PurchaseCoupon = () => {
     setBubble((prevCount) => (prevCount > 1 ? prevCount - 1 : 1));
   };
 
+  // 구매 버튼 클릭
+  const purchaseBtn = (couponType) => {
+    if (couponType === "고압 샤워 쿠폰") {
+      setSelectCoupon({
+        type: couponType,
+        price: pressPrice,
+        quantity: press,
+      });
+    } else if (couponType === "폼 샤워 쿠폰") {
+      setSelectCoupon({
+        type: couponType,
+        price: bubblePrice,
+        quantity: bubble,
+      });
+    }
+    setModalOpen(!modalOpen);
+  };
+
+  useEffect(() => {
+    console.log(press);
+    console.log(bubble);
+    console.log(selectCoupon);
+  });
+
   return (
     <>
       <CouponAllDiv>
         <h1>쿠폰 스토어</h1>
+        <GetPoints>
+          <MyPoints />
+        </GetPoints>
+        <hr />
         <CouponItem>
           <div>
             <p>BEONSE</p>
-            <p>XX점</p>
           </div>
           <h1>고압 샤워 쿠폰</h1>
-          <p>3,000p</p>
+          <p>{pressPrice.toLocaleString()}p</p>
         </CouponItem>
         <QuantityAllDiv>
           <Quantity>
@@ -42,15 +79,20 @@ const PurchaseCoupon = () => {
               <span onClick={increasePressHandler}> +</span>
             </p>
           </Quantity>
-          <PurchaseBtn>구 매</PurchaseBtn>
+          <PurchaseBtn
+            onClick={() => {
+              purchaseBtn("고압 샤워 쿠폰");
+            }}
+          >
+            구 매
+          </PurchaseBtn>
         </QuantityAllDiv>
         <CouponItem>
           <div>
             <p>BEONSE</p>
-            <p>XX점</p>
           </div>
           <h1>폼 샤워 쿠폰</h1>
-          <p>3,000p</p>
+          <p>{bubblePrice.toLocaleString()}p</p>
         </CouponItem>
         <QuantityAllDiv>
           <Quantity>
@@ -60,9 +102,23 @@ const PurchaseCoupon = () => {
               <span onClick={increaseBubbleHandler}> +</span>
             </p>
           </Quantity>
-          <PurchaseBtn>구 매</PurchaseBtn>
+          <PurchaseBtn
+            onClick={() => {
+              purchaseBtn("폼 샤워 쿠폰");
+            }}
+          >
+            구 매
+          </PurchaseBtn>
         </QuantityAllDiv>
       </CouponAllDiv>
+      {modalOpen && (
+        <ModalPurchaseCoupon
+          selectCoupon={selectCoupon}
+          setModalOpen={setModalOpen}
+          modalOpen={modalOpen}
+          setPress={setPress}
+        />
+      )}
     </>
   );
 };
@@ -81,6 +137,11 @@ const CouponAllDiv = styled.div`
   & > h1 {
     margin-top: 5vh;
     margin-bottom: 4vh;
+  }
+
+  & > hr {
+    width: 100%;
+    margin-bottom: 2vh;
   }
 `;
 
@@ -136,4 +197,9 @@ const PurchaseBtn = styled(CommonButton)`
   margin-top: 1vh;
   margin-bottom: 2vh;
   width: 15vw;
+`;
+
+const GetPoints = styled.div`
+  margin-left: auto;
+  margin-bottom: 2vh;
 `;
