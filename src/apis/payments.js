@@ -4,3 +4,5 @@ import axios from "axios";
 export function ReqPaymentsByPoint(cardInfo) {
   return axios.post("/payments", cardInfo);
 }
+
+// 보유 포인트 확인하기

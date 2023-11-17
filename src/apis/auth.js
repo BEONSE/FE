@@ -11,3 +11,8 @@ export function ReqCommonRegister(commonRegister) {
 export function ReqLogin(loginUser) {
   return axios.post("/login", loginUser);
 }
+
+// 유저 프로필 요청
+export function ReqProfile(){
+  return axios.get("/mypage");
+}
