@@ -52,12 +52,11 @@ const Login = ({ setHideHeaderFooter }) => {
       if (loginResponse.status === 200) {
         alert(loginResponse.data.successMessage);
         // 요청 공통 헤더에 추가
-        addAuthHeader(loginResponse.data.accessToken);
-
+        addAuthHeader(loginResponse.headers.accesstoken);
         // Context에 인증 내용 저장
         appContext.setNickname(loginResponse.data.nickname);
-        appContext.setAccessToken(loginResponse.data.accessToken);
-        appContext.setRefreshToken(loginResponse.data.refreshToken);
+        appContext.setAccessToken(loginResponse.headers.accesstoken);
+        appContext.setRefreshToken(loginResponse.headers.refreshtoken);
 
         // Home 화면으로 이동
         moveToHome();

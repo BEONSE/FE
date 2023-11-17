@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import AppContext from "../../../AppContext";
 import { ReqAddComment } from "../../../apis/mateBoard";
 import { usePageMoving } from "../../../components/usePageMoving";

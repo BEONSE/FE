@@ -10,10 +10,10 @@ const Payment = () => {
       <GlobalStyle />
       <PointAllDiv>
         <Title>
-          <h1>포인트 충전</h1>
+          <h1>💳 포인트 충전 💳</h1>
         </Title>
         <CurrentPoint>
-          <p>보유 포인트</p>
+          <h3>보유 포인트</h3>
           <p>1,000p</p>
           <hr />
         </CurrentPoint>
@@ -39,7 +39,7 @@ const PointAllDiv = styled.div`
 /* 포인트 충전 Style */
 const Title = styled.div`
   text-align: center;
-  margin-top: 100px;
+  margin-top: 4vh;
 `;
 
 /* 보유 포인트 Style */
@@ -47,7 +47,9 @@ const CurrentPoint = styled.div`
   text-align: right;
   margin-top: 30px;
   width: 90vw;
-
+  & > h3 {
+    margin-bottom: 1vh;
+  }
   & > p {
     font-size: 20px;
   }
