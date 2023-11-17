@@ -27,7 +27,9 @@ const IterationPoint = ({ price }) => {
         <h1>{formattedPoint}p</h1>
         <p>{price}만원</p>
       </Points>
-      {isPayModal && <PayModal clicked={closePay} price={formattedPrice} />}
+      {isPayModal && (
+        <PayModal clicked={closePay} formattedPrice={formattedPrice} price={calcPrice} />
+      )}
     </>
   );
 };
