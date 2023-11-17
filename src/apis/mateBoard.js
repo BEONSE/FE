@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axios1 as axios} from "./axiosConfig";
 
 // 메이트 게시글 등록
 export function ReqReadMateBoard(mateBoardItem) {
