@@ -3,7 +3,7 @@ import NumberFormat from "react-number-format";
 import styled from "styled-components";
 import { CommonButton } from "../../components/CommonButton";
 import GlobalStyle from "../../components/GlobalStyle";
-import { ReqPaymentsByPoint } from "../../apis/payments";
+import { ReqPaymentsByPoint } from "../../apis/point";
 
 /* 결제 화면 Modal */
 const PayModal = ({ clicked, formattedPrice, price }) => {

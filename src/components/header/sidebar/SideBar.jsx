@@ -4,6 +4,7 @@ import { usePageMoving } from "../../usePageMoving";
 import { useContext } from "react";
 import AppContext from "../../../AppContext";
 import { removeAuthHeader } from "../../../apis/axiosConfig";
+import CurrentUserInfo from "../../../pages/login/CurrentUserInfo";
 
 const Sidebar = ({ clicked }) => {
   const appContext = useContext(AppContext);
@@ -52,7 +53,7 @@ const Sidebar = ({ clicked }) => {
               <p>로그아웃</p>
             </LogoutPosition>
           )}
-
+          <CurrentUserInfo />
           <ModalList>
             <hr />
             <p
@@ -213,7 +214,7 @@ const LoginPositon = styled.div`
 // 사이드바 로그아웃 영역
 const LogoutPosition = styled.div`
   margin-top: 1vh;
-  margin-bottom: 3vh;
+  margin-bottom: 1vh;
   margin-right: 2.5vw;
   & > p {
     margin-left: 3%;
