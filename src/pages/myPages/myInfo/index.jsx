@@ -8,6 +8,9 @@ import GlobalStyle from "../../../components/GlobalStyle";
 import { useNavigate } from "react-router";
 import { usePageMoving } from "../../../components/usePageMoving";
 import { CommonButton } from "../../../components/CommonButton";
+import { useEffect, useState } from "react";
+import { ReqProfile } from "../../../apis/auth";
+// import { ReqEmail } from "../../../apis/editInfo";
 
 const MyInfo = () => {
   const { moveToHome } = usePageMoving();
@@ -18,21 +21,57 @@ const MyInfo = () => {
     navigate("/myinfo/update");
   };
 
+  const [currentUser, setCurrentUser] = useState({
+    email: "",
+  });
+
+  // 내 프로필 요청하기
+  useEffect(() => {
+    async function getProfile() {
+      try {
+        const profileResponse = await ReqProfile();
+        console.log(profileResponse);
+        if (profileResponse.status === 200) {
+          setCurrentUser({
+            ...currentUser,
+            email: profileResponse.data.email,
+          });
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getProfile();
+  }, []);
+
   return (
     <>
       <GlobalStyle />
       <LoginAllDiv>
         <img src={BigLogoImg} alt="BigLogoImage" onClick={() => moveToHome()} />
-        <h1>회원정보수정</h1>
-        <p>정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인합니다.</p>
-        <p>비밀번호가 타인에게 노출되지 않도록 항상 주의해주세요.</p>
+        <h2>회원정보수정</h2>
+        <br></br>
+        <div>
+          <p>정보를 안전하게 보호하기 위해 </p>
+        </div>
+        <p>
+          <b>
+            <u>비밀번호를 다시 한번 확인합니다.</u>
+          </b>
+        </p>
+        <span>
+          <p>비밀번호가 타인에게 노출되지 않도록</p>
+        </span>
+        <span>
+          <p>항상 주의해주세요.</p>
+        </span>
         <br />
-        <LoginForm>
+        <EmailDiv>
           <span>
             <img src={Person} alt="personImage" />
           </span>
-          <input type="email" value="beonse@gmail.com" readOnly />
-        </LoginForm>
+          <input type="text" value={currentUser.email} readOnly />
+        </EmailDiv>
         <LoginForm>
           <span>
             <img src={Key} alt="KeyImage" />
@@ -123,6 +162,22 @@ export const LoginAllDiv = styled.div`
       margin-top: 20px;
     }
   }
+
+  & > span > p {
+    color: lightgray;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  & > div > p {
+    color: black;
+    font-size: 13px;
+  }
+
+  & > p > b > u {
+    color: red;
+    font-size: 15px;
+  }
 `;
 
 // 로그인 버튼 div
@@ -139,4 +194,10 @@ export const LoginBtn = styled(CommonButton)`
   padding-top: 15px;
   padding-bottom: 15px;
   font-size: 15px;
+`;
+
+const EmailDiv = styled(LoginForm)`
+  &:focus-within {
+    outline: none;
+  }
 `;

@@ -13,6 +13,11 @@ export function ReqLogin(loginUser) {
 }
 
 // 유저 프로필 요청
-export function ReqProfile(){
+export function ReqProfile() {
   return axios.get("/mypage");
+}
+
+//회원 정보 수정
+export function ReqUpdateProfile(commonUpdate) {
+  return axios.patch("/mypage/info", commonUpdate);
 }
