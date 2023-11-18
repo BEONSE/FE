@@ -19,6 +19,7 @@ const Sidebar = ({ clicked }) => {
     moveToMyPayment,
     moveToMyBoard,
     moveToBuyCoupon,
+    moveToMyReservation,
   } = usePageMoving();
 
   const handleLogout = (e) => {
@@ -80,6 +81,14 @@ const Sidebar = ({ clicked }) => {
               }}
             >
               쿠폰 사용 및 조회
+            </p>
+            <p
+              onClick={() => {
+                moveToMyReservation();
+                clicked();
+              }}
+            >
+              예약 확인
             </p>
             <p
               onClick={() => {

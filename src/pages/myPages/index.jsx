@@ -14,7 +14,7 @@ const MyPages = () => {
         <Route path="myinfo" element={<MyInfo />} />
         <Route path="mypayment" element={<MyPayment />} />
         <Route path="myboard" element={<MyBoard />} />
-        <Route path="myreservation" element={<MyReservation />} />
+        <Route path="reservation" element={<MyReservation />} />
       </Routes>
     </>
   );

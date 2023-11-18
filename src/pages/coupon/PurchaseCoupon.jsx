@@ -142,7 +142,6 @@ const CouponAllDiv = styled.div`
 export const CouponItem = styled.div`
   & > img {
     width: 100%;
-    box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.2);
   }
 `;
 // 구매 수량 & 구매 버튼 div
