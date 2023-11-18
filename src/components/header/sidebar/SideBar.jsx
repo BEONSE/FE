@@ -52,9 +52,9 @@ const Sidebar = ({ clicked }) => {
               }}
             >
               <p>로그아웃</p>
+              <CurrentUserInfo />
             </LogoutPosition>
           )}
-          <CurrentUserInfo />
           <ModalList>
             <hr />
             <p
@@ -226,6 +226,7 @@ const LogoutPosition = styled.div`
   margin-bottom: 1vh;
   margin-right: 2.5vw;
   & > p {
+    margin-bottom: 2vh;
     margin-left: 3%;
     cursor: pointer;
     font-size: 15px;
