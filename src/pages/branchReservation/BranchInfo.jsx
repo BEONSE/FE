@@ -6,6 +6,9 @@ import SingleMap from "../map/SingleMap";
 
 const BranchInfo = () => {
   const { moveToReservation } = usePageMoving();
+
+  // 백엔드에 useParams로 가져와서 요청하기
+
   return (
     <>
       <BranchAllInfo>

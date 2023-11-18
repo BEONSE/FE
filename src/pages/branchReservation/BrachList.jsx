@@ -1,13 +1,18 @@
 import styled from "styled-components";
 import BranchItem from "./BranchItem";
 
-const BranchList = ({ setDetailClick }) => {
+const BranchList = ({ isBranchInfo, showSearch, setShowSearch }) => {
   return (
     <>
       <BranchLists>
-        <BranchItem setDetailClick={setDetailClick} />
-        <BranchItem setDetailClick={setDetailClick} />
-        <BranchItem setDetailClick={setDetailClick} />
+        {isBranchInfo.map((item) => (
+          <BranchItem
+            key={item.bid}
+            isBranchInfo={item}
+            showSearch={showSearch}
+            setShowSearch={setShowSearch}
+          />
+        ))}
       </BranchLists>
     </>
   );

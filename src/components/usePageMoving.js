@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const usePageMoving = () => {
   const navigate = useNavigate();
@@ -14,6 +14,9 @@ export const usePageMoving = () => {
 
   // 지점 목록/검색 페이지
   const moveToSearch = () => navigate("/search");
+
+  // 지점 상세 페이지
+  const moveToBranchInfo = (bid) => navigate(`/search/${bid}`);
 
   // 지점 예약하기
   const moveToReservation = () => navigate("/reservation");
@@ -76,5 +79,6 @@ export const usePageMoving = () => {
     moveToWrite,
     moveToMateDetail,
     moveToMyReservation,
+    moveToBranchInfo,
   };
 };
