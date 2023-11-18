@@ -139,7 +139,8 @@ const TopImg = styled.div`
   background-image: url(${CouponStore});
   background-size: contain;
   width: 100vw;
-  height: 110px;
+  height: 112px;
+  margin-top: 1vh;
   margin-bottom: 10px;
 `;
 
@@ -177,6 +178,7 @@ const PurchaseBtn = styled(CommonButton)`
   margin-top: 1vh;
   margin-bottom: 2vh;
   width: 25vw;
+  font-size: 15px;
 `;
 
 const GetPoints = styled.div`
