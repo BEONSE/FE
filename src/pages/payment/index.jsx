@@ -62,7 +62,7 @@ const CurrentPoint = styled.div`
 
 /* 충전할 포인트 Style */
 const IterationPoints = styled.div`
-  width: 70vw;
+  width: 80vw;
   display: flex;
   justify-content: center;
   flex-direction: column;
