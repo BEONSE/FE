@@ -1,42 +1,43 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import MarkerIcon from "../../assets/markerImg.png";
 import { useNavigate } from "react-router-dom";
+import { ReqBranchPosition } from "../../apis/branch";
 const { kakao } = window;
+
 const MultiMap = () => {
   const navigate = useNavigate();
-  // test
+  const [isPosition, setIsPosition] = useState([]);
+
+  useEffect(() => {
+    async function getBranchPosition() {
+      try {
+        const positionResponse = await ReqBranchPosition();
+        console.log(positionResponse);
+        if (positionResponse.status === 200) {
+          setIsPosition(positionResponse.data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getBranchPosition();
+  }, []);
+
+  // 지도 띄우기
   useEffect(() => {
     const m_mapContainer = document.getElementById("multimap"),
       m_mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 중심 좌표
-        level: 10, //지도의 레벨(확대, 축소 정도)
+        level: 5, //지도의 레벨(확대, 축소 정도)
       };
 
     const m_map = new kakao.maps.Map(m_mapContainer, m_mapOption);
 
     // 여러개 마커
-    var positions = [
-      {
-        title: "카카오",
-        latlng: new kakao.maps.LatLng(36.450705, 126.670677),
-      },
-      {
-        title: "생태연못",
-        latlng: new kakao.maps.LatLng(36.450936, 126.69477),
-      },
-      {
-        title: "텃밭",
-        latlng: new kakao.maps.LatLng(36.450879, 127.56884),
-      },
-      {
-        title: "근린공원",
-        latlng: new kakao.maps.LatLng(36.451393, 126.570738),
-      },
-      {
-        title: "가람이집",
-        latlng: new kakao.maps.LatLng(37.451393, 128.570738),
-      },
-    ];
+    const positions = isPosition.map((item) => ({
+      title: `BEONSE ${item.name}`,
+      latlng: new kakao.maps.LatLng(item.lat, item.lng),
+    }));
 
     // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
     const bounds = new kakao.maps.LatLngBounds();
@@ -76,31 +77,21 @@ const MultiMap = () => {
         yAnchor: 3.5,
       });
 
-      customOverlay.setMap(m_map); // 오버레이를 지도에 표시
+      customOverlay.setMap(m_map);
       (function (m_marker, customOverlay) {
         kakao.maps.event.addListener(m_marker, "click", function () {
-          navigate("/destination-path");
+          navigate("/destination-path"); // 마커 클릭
         });
       })(m_marker, customOverlay);
     }
 
-    const displayMarker = (locPosition, message) => {
+    const displayMarker = (locPosition) => {
       let marker = new kakao.maps.Marker({
         map: m_map,
         position: locPosition,
       });
 
-      let iwContent = message,
-        iwRemovable = true;
-
-      var infoWindow = new kakao.maps.InfoWindow({
-        content: iwContent,
-        removable: iwRemovable,
-      });
       bounds.extend(locPosition);
-
-      infoWindow.open(m_map, marker);
-
       m_map.setBounds(bounds);
     };
 
@@ -111,10 +102,9 @@ const MultiMap = () => {
           let lat = position.coords.latitude, // 위도
             lon = position.coords.longitude; // 경도
 
-          let locPosition = new kakao.maps.LatLng(lat, lon),
-            message = '<div style="padding:5px; font-size:16px;">📍 현 재 위 치 📍 </div>';
+          let locPosition = new kakao.maps.LatLng(lat, lon);
 
-          displayMarker(locPosition, message);
+          displayMarker(locPosition);
         },
         (error) => {
           // 에러 처리
@@ -133,7 +123,7 @@ const MultiMap = () => {
 
       displayMarker(locPosition, message);
     }
-  }, [navigate]);
+  }, [isPosition, setIsPosition]);
 
   return <div id="multimap" />;
 };

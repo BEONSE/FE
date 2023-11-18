@@ -38,7 +38,6 @@ const GetWeather = () => {
         });
       }
 
-      
       const axios2 = axios.create({});
 
       const resForecast = await axios2.get(

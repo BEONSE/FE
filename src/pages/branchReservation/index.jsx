@@ -1,39 +1,86 @@
+import { useRef, useState } from "react";
 import styled from "styled-components";
-
 import SearchIcon from "../../assets/magnifier.png";
 import BranchList from "./BrachList";
 
-import { useState } from "react";
+import { ReqBranchSearch } from "../../apis/branch";
 import BranchInfo, { KakaoMap } from "./BranchInfo";
 import MultiMap from "../map/MultiMap";
-
+import { Route, Routes } from "react-router-dom";
 
 const BranchReservation = () => {
-  const [detailClick, setDetailClick] = useState(true);
+  const [showSearch, setShowSearch] = useState(true);
+  const [searchResult, setSearchResult] = useState(false);
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const searchRef = useRef();
+
+  const [isBranchInfo, setIsBranchInfo] = useState([]);
+
+  // 검색 입력 감지 handler
+  const inputHandler = (e) => {
+    setSearchKeyword(e.target.value);
+    console.log(searchKeyword);
+  };
+
+  // 검색 입력 초기화
+  const searchReset = () => {
+    setSearchKeyword("");
+  };
+
+  // 키워드로 검색 요청하기
+  const searchRequest = async () => {
+    try {
+      const searchResponse = await ReqBranchSearch(searchKeyword);
+      console.log(searchResponse);
+      if (searchResponse.status === 200) {
+        setIsBranchInfo(searchResponse.data);
+      }
+      setSearchResult(false);
+    } catch (err) {
+      console.log(err);
+      if (err.response.status === 404) {
+        setSearchResult(true);
+      }
+    } finally {
+      searchReset();
+    }
+  };
 
   return (
     <>
-      <SerachBranch>
-        <h1>지점 검색</h1>
-        <KakaoMap id="multimap">
-          <MultiMap />
-        </KakaoMap>
-        <SearchBar>
-          <input placeholder="지점 검색하기" />
-          {/* 검색 누르고 input 태그 초기화 */}
-          {/* focus 색상 & 전체 태그로 변경 */}
-          <img
-            src={SearchIcon}
-            alt="SearchIconImage"
-            onClick={() => {
-              setDetailClick(true);
-            }}
+      <Routes>
+        <Route path=":bid" element={<BranchInfo />} />
+      </Routes>
+      {showSearch && (
+        <SerachBranch>
+          <h1>지점 검색</h1>
+          <KakaoMap id="multimap">
+            <MultiMap />
+          </KakaoMap>
+          <SearchBar>
+            <input
+              ref={searchRef}
+              onChange={inputHandler}
+              placeholder="지점 검색하기"
+              value={searchKeyword}
+            />
+            <img
+              src={SearchIcon}
+              alt="SearchIconImage"
+              onClick={() => {
+                searchRequest();
+              }}
+            />
+          </SearchBar>
+          <hr />
+          {searchResult && <p>검색 결과가 없습니다.</p>}
+          <BranchList
+            isBranchInfo={isBranchInfo}
+            setShowSearch={setShowSearch}
+            showSearch={showSearch}
           />
-        </SearchBar>
-        <hr />
-        {/* 검색 결과 없으면 없다고 띄우고, 이미지 클릭했을때 아래꺼 사라지는거 수정하기 */}
-        {detailClick ? <BranchList setDetailClick={setDetailClick} /> : <BranchInfo />}
-      </SerachBranch>
+        </SerachBranch>
+      )}
     </>
   );
 };
@@ -50,6 +97,10 @@ const SearchBar = styled.div`
   border: 1px solid #a0a0a0;
   border-radius: 5px;
   padding: 8px;
+  &:focus-within {
+    outline: auto;
+    outline-color: #68d0f3;
+  }
 
   @media (max-width: 1170px) {
     width: 90vw;
@@ -61,6 +112,10 @@ const SearchBar = styled.div`
       height: 30px;
 
       border: none;
+
+      &:focus {
+        outline: none;
+      }
     }
 
     & > img {
