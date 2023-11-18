@@ -2,6 +2,9 @@ import styled from "styled-components";
 import PersonImg from "../../../assets/person.png";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Grade1 from "../../../assets/grade1.png";
+import Grade2 from "../../../assets/grade2.png";
+import Grade3 from "../../../assets/grade3.png";
 
 const MateDetailItem = ({ detail }) => {
   const navigate = useNavigate();
@@ -33,7 +36,11 @@ const MateDetailItem = ({ detail }) => {
           <InnerProf>
             <img src={PersonImg} alt="userprofile" />
             <p>{detail.nickname}</p>
-            <p>등급</p>
+            <p>
+              {detail.grade === 1 && <img src={Grade1} alt="grade1" />}
+              {detail.grade === 2 && <img src={Grade2} alt="grade2" />}
+              {detail.grade === 3 && <img src={Grade3} alt="grade3" />}
+            </p>
           </InnerProf>
           <TimeDiv>
             <p>작성일 {detail.createdAt}</p>
@@ -84,6 +91,9 @@ const InnerProf = styled.div`
 
   & > p {
     margin-right: 1vw;
+    & > img {
+      height: 2.5vh;
+    }
   }
 `;
 

@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import Sun from "../../assets/sunnyborder.png";
 import styled from "styled-components";
 import { ReqProfile } from "../../apis/auth";
+import Grade1 from "../../assets/grade1.png";
+import Grade2 from "../../assets/grade2.png";
+import Grade3 from "../../assets/grade3.png";
 
 const CurrentUserInfo = () => {
   const [currentUser, setCurrentUser] = useState({
@@ -46,7 +49,11 @@ const CurrentUserInfo = () => {
         <Profile>
           <Grade>
             <p>{currentUser.nickname}</p>
-            <span>{currentUser.grade}</span>
+            <span>
+              {currentUser.grade === 1 && <img src={Grade1} alt="grade1" />}
+              {currentUser.grade === 2 && <img src={Grade2} alt="grade2" />}
+              {currentUser.grade === 3 && <img src={Grade3} alt="grade3" />}
+            </span>
           </Grade>
           <Point>
             <h1>보유 포인트</h1>
@@ -85,7 +92,13 @@ const Grade = styled.div`
   align-items: center;
   & > p,
   span {
+    display: flex;
+    align-items: flex-end;
     font-size: 18px;
+
+    & > img {
+      height: 2.5vh;
+    }
   }
   & > p {
     margin-right: 1vh;

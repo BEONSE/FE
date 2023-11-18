@@ -31,9 +31,8 @@ const MyPoints = () => {
 export default MyPoints;
 
 const HavingPoint = styled.div`
-  & > h2 {
-    margin-bottom: 1vh;
-  }
+  display: flex;
+  justify-content: space-around;
 
   & > p {
     font-size: 23px;

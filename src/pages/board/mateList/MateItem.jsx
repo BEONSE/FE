@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { usePageMoving } from "../../../components/usePageMoving";
-
+import Grade1 from "../../../assets/grade1.png";
+import Grade2 from "../../../assets/grade2.png";
+import Grade3 from "../../../assets/grade3.png";
 /* 메이트 게시글 컴포넌트 */
 const MateItem = ({ list }) => {
   const { moveToMateDetail } = usePageMoving();
@@ -17,7 +19,11 @@ const MateItem = ({ list }) => {
             <h2>{list.title}</h2>
             <div>
               <p>{list.nickname}</p>
-              <Grade>등급</Grade>
+              <Grade>
+                {list.grade === 1 && <img src={Grade1} alt="grade1" />}
+                {list.grade === 2 && <img src={Grade2} alt="grade2" />}
+                {list.grade === 3 && <img src={Grade3} alt="grade3" />}
+              </Grade>
             </div>
           </MateContent>
           <Comment>
@@ -79,6 +85,9 @@ const MateContent = styled.div`
 /* 등급 Style */
 const Grade = styled.p`
   margin-left: 2vw;
+  & > img {
+    height: 2.5vh;
+  }
 `;
 
 /* 날짜 Style */

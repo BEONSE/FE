@@ -3,6 +3,7 @@ import styled from "styled-components";
 import React from "react";
 import IterationPoint from "./IterationPoint";
 import MyPoints from "../myPages/myPoints";
+import PointStore from "../../assets/pointstore.png";
 
 /* 포인트 충전 컴포넌트 */
 const Payment = () => {
@@ -10,9 +11,7 @@ const Payment = () => {
     <>
       <GlobalStyle />
       <PointAllDiv>
-        <Title>
-          <h1>💳 포인트 충전 💳</h1>
-        </Title>
+        <Title></Title>
         <CurrentPoint>
           <MyPoints />
           <hr />
@@ -38,25 +37,21 @@ const PointAllDiv = styled.div`
 
 /* 포인트 충전 Style */
 const Title = styled.div`
-  text-align: center;
-  margin-top: 4vh;
+  margin-left: 5vw;
+  background-image: url(${PointStore});
+  background-size: contain;
+  width: 100vw;
+  height: 130px;
 `;
 
 /* 보유 포인트 Style */
 const CurrentPoint = styled.div`
-  text-align: right;
-  margin-top: 30px;
   width: 90vw;
-  & > h3 {
-    margin-bottom: 1vh;
-  }
-  & > p {
-    font-size: 20px;
-  }
+  margin-top: 2vh;
 
   & > hr {
-    margin-top: 30px;
-    margin-bottom: 50px;
+    margin-top: 20px;
+    margin-bottom: 60px;
   }
 `;
 
