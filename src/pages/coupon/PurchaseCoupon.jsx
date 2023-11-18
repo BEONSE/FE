@@ -5,6 +5,8 @@ import MyPoints from "../myPages/myPoints";
 import ModalPurchaseCoupon from "./ModalPurchaseCoupon";
 import FormCoupon from "../../assets/formcoupon.png";
 import PressCoupon from "../../assets/presscoupon.png";
+import CouponStore from "../../assets/couponstore.png";
+
 const PurchaseCoupon = () => {
   const pressPrice = 3000;
   const bubblePrice = 3000;
@@ -60,7 +62,7 @@ const PurchaseCoupon = () => {
   return (
     <>
       <CouponAllDiv>
-        <h1>쿠폰 스토어</h1>
+        <TopImg></TopImg>
         <GetPoints>
           <MyPoints />
         </GetPoints>
@@ -127,15 +129,18 @@ const CouponAllDiv = styled.div`
   flex-direction: column;
   align-items: center;
 
-  & > h1 {
-    margin-top: 5vh;
-    margin-bottom: 4vh;
-  }
-
   & > hr {
     width: 100%;
     margin-bottom: 2vh;
   }
+`;
+
+const TopImg = styled.div`
+  background-image: url(${CouponStore});
+  background-size: contain;
+  width: 100vw;
+  height: 110px;
+  margin-bottom: 10px;
 `;
 
 // 쿠폰 정보
@@ -149,16 +154,20 @@ const QuantityAllDiv = styled.div`
   margin-left: auto;
   display: flex;
   flex-direction: column;
+  align-items: end;
 `;
 
 // 구매 수량 선택 div
 const Quantity = styled.div`
+  width: 20vw;
   text-align: center;
   & > p {
     font-size: 20px;
     font-weight: bold;
+    margin: auto;
     & > span {
       cursor: pointer;
+      margin-left: 2vw;
     }
   }
 `;
@@ -167,10 +176,11 @@ const Quantity = styled.div`
 const PurchaseBtn = styled(CommonButton)`
   margin-top: 1vh;
   margin-bottom: 2vh;
-  width: 15vw;
+  width: 25vw;
 `;
 
 const GetPoints = styled.div`
-  margin-left: auto;
+  width: 90vw;
+  margin-top: 1vh;
   margin-bottom: 2vh;
 `;

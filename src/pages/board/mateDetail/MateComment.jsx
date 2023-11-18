@@ -4,6 +4,9 @@ import Menu from "../../../assets/kebab_menu.png";
 import { useContext, useEffect, useState } from "react";
 import CommentModal from "../CommentForm/CommentModal";
 import AppContext from "../../../AppContext";
+import Grade1 from "../../../assets/grade1.png";
+import Grade2 from "../../../assets/grade2.png";
+import Grade3 from "../../../assets/grade3.png";
 
 const MateComment = ({ comment, boardWriter }) => {
   // 케밥 이미지 클릭 상태
@@ -47,7 +50,11 @@ const MateComment = ({ comment, boardWriter }) => {
         <Content>
           <ProfileContent>
             <h4>{comment.nickname}</h4>
-            <p>등급</p>
+            <p>
+              {comment.grade === 1 && <img src={Grade1} alt="grade1" />}
+              {comment.grade === 2 && <img src={Grade2} alt="grade2" />}
+              {comment.grade === 3 && <img src={Grade3} alt="grade3" />}
+            </p>
             {clickKebob && (
               <CommentModal
                 mcid={comment.mcid}
@@ -100,6 +107,9 @@ const ProfileContent = styled.div`
   & > p {
     margin-left: 2vw;
     font-size: 13px;
+    & > img {
+      height: 2.5vh;
+    }
   }
   & > div {
     margin-left: auto; /* div를 가장 오른쪽으로 이동 */
