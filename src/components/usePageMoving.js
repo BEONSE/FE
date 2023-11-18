@@ -24,6 +24,9 @@ export const usePageMoving = () => {
   // 마이페이지 - 보유/사용 쿠폰 조회
   const moveToMyCoupon = () => navigate("/mypages/mycoupon");
 
+  // 마이페이지 - 예약 확인
+  const moveToMyReservation = () => navigate("/mypages/reservation");
+
   // 마이페이지 - 개인 정보 수정
   const moveToMyInfo = () => navigate("/mypages/myinfo");
 
@@ -72,5 +75,6 @@ export const usePageMoving = () => {
     moveToReservation,
     moveToWrite,
     moveToMateDetail,
+    moveToMyReservation,
   };
 };
