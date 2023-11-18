@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import PayModal from "./PayModal";
 import { useState } from "react";
-import { CommonButton } from "../../components/CommonButton";
+import Point1 from "../../assets/point1.png";
+import Point2 from "../../assets/point2.png";
+import Point3 from "../../assets/point3.png";
 
 /* 결제 종류 컴포넌트 */
 const IterationPoint = ({ price }) => {
@@ -24,8 +26,9 @@ const IterationPoint = ({ price }) => {
   return (
     <>
       <Points onClick={openPay} price={price}>
-        <h1>{formattedPoint}p</h1>
-        <p>{price}만원</p>
+        {price === 1 && <img src={Point1} alt="pointimg" />}
+        {price === 3 && <img src={Point2} alt="pointimg" />}
+        {price === 5 && <img src={Point3} alt="pointimg" />}
       </Points>
       {isPayModal && (
         <PayModal clicked={closePay} formattedPrice={formattedPrice} price={calcPrice} />
@@ -37,37 +40,17 @@ const IterationPoint = ({ price }) => {
 export default IterationPoint;
 
 /* 포인트 Style */
-const Points = styled(CommonButton)`
+const Points = styled.div`
   width: 100%;
   height: 14vh;
   margin: auto;
-  border-radius: 10px;
-  margin-bottom: 5vh;
+  margin-bottom: 10vh;
 
   display: flex;
   justify-content: space-around;
   align-items: center;
 
-  box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.1);
-
-  & > p {
-    font-size: 20px;
-    font-weight: bold;
-  }
-
-  ${({ price }) => {
-    if (price === 1) return `background-color: #bbee8d;`;
-    if (price === 3) return `background-color: #a3e4f5;`;
-    if (price === 5) return `background-color: #ffd865;`;
-    return `background-color: transparent;`; // 기본값: 투명
-  }}
-
-  &:hover {
-    ${({ price }) => {
-      if (price === 1) return `background-color: #9ddf64;`;
-      if (price === 3) return `background-color: #66cae6;`;
-      if (price === 5) return `background-color: #e1bc4c;`;
-      return `background-color: transparent;`; // 기본값: 투명
-    }};
+  & > img {
+    width: 100%;
   }
 `;
