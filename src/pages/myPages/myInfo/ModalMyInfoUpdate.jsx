@@ -19,8 +19,8 @@ const ModalMyInfoUpdate = ({ commonUpdate, setModalOpen, modalOpen }) => {
     },
     content: {
       margin: "auto",
-      width: "350px",
-      height: "200px",
+      width: "320px",
+      height: "165px",
       padding: "0",
       overflow: "hidden",
     },
