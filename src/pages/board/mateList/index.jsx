@@ -2,10 +2,11 @@ import styled from "styled-components";
 import MateItem from "./MateItem";
 import { CommonButton } from "../../../components/CommonButton";
 import { usePageMoving } from "../../../components/usePageMoving";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AppContext from "../../../AppContext";
 import { ReqMateBoardList } from "../../../apis/mateBoard";
 import Loading from "../../../components/Loading";
+import BackMove from "../../../components/backMove";
 
 /* 메이트 게시판 List 컴포넌트 */
 const MateList = () => {
@@ -54,6 +55,7 @@ const MateList = () => {
 
   return (
     <>
+      <BackMove />
       <PageTitle>👬 세차 메이트 👬</PageTitle>
       <Button onClick={writeBtnHandler}>글쓰기</Button>
       <hr />

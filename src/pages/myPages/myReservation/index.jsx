@@ -1,8 +1,11 @@
 import styled from "styled-components";
+import BackMove from "../../../components/backMove";
+import React from "react";
 
 const MyReservation = () => {
   return (
     <>
+      <BackMove />
       <Title>예약 현황</Title>
     
     </>

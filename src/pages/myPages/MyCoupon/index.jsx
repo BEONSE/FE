@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import HaveCouponItem from "./HaveCouponItem";
-import { useState } from "react";
+import React, { useState } from "react";
+import BackMove from "../../../components/backMove";
 
 const MyCoupon = () => {
   // 필터 선택 state
   const [selectedFilter, setSelectedFilter] = useState(null);
   return (
     <>
+      <BackMove />
       <HaveCouponAllDiv>
         <h1>쿠폰 현황 조회</h1>
 

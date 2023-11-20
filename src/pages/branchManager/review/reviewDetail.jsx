@@ -3,6 +3,7 @@ import PersonImg from "../../../assets/person.png";
 
 import { useNavigate } from "react-router";
 import { CommonButton } from "../../../components/CommonButton";
+import BackMove from "../../../components/backMove";
 
 const Item = () => {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ const Item = () => {
 
   return (
     <>
+      <BackMove />
       <PageTitle>상세보기</PageTitle>
       <br />
       <ReviewAllDiv>

@@ -8,8 +8,9 @@ import GlobalStyle from "../../../components/GlobalStyle";
 import { useNavigate } from "react-router";
 import { usePageMoving } from "../../../components/usePageMoving";
 import { CommonButton } from "../../../components/CommonButton";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ReqProfile } from "../../../apis/auth";
+import BackMove from "../../../components/backMove";
 // import { ReqEmail } from "../../../apis/editInfo";
 
 const MyInfo = () => {
@@ -47,6 +48,7 @@ const MyInfo = () => {
   return (
     <>
       <GlobalStyle />
+      <BackMove />
       <LoginAllDiv>
         <img src={BigLogoImg} alt="BigLogoImage" onClick={() => moveToHome()} />
         <h2>회원정보수정</h2>

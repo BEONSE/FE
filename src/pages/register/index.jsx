@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LoginAllDiv } from "../login";
 import { usePageMoving } from "../../components/usePageMoving";
 
@@ -8,6 +8,7 @@ import GlobalStyle from "../../components/GlobalStyle";
 import BigLogoImg from "../../assets/big_logo.png";
 import CommonRegister from "./CommonRegister";
 import BranchRegister from "./BranchRegister";
+import BackMove from "../../components/backMove";
 
 const Register = ({ setHideHeaderFooter }) => {
   // 화면 이동
@@ -30,6 +31,7 @@ const Register = ({ setHideHeaderFooter }) => {
   return (
     <>
       <GlobalStyle />
+      <BackMove />
       <LoginAllDiv>
         <img src={BigLogoImg} alt="BigLogoImage" onClick={() => moveToHome()} />
         <h1>회원가입</h1>

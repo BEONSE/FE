@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import PersonImg from "../../../assets/person.png";
+import BackMove from "../../../components/backMove";
+import React from "react";
 
 const ReviewItem = () => {
   return (

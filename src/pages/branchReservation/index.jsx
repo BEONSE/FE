@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import SearchIcon from "../../assets/magnifier.png";
 import BranchList from "./BrachList";
@@ -7,6 +7,7 @@ import { ReqBranchSearch } from "../../apis/branch";
 import BranchInfo, { KakaoMap } from "./BranchInfo";
 import MultiMap from "../map/MultiMap";
 import { Route, Routes } from "react-router-dom";
+import BackMove from "../../components/backMove";
 
 const BranchReservation = () => {
   const [showSearch, setShowSearch] = useState(true);
@@ -51,6 +52,7 @@ const BranchReservation = () => {
       <Routes>
         <Route path=":bid" element={<BranchInfo />} />
       </Routes>
+      <BackMove />
       {showSearch && (
         <SerachBranch>
           <h1>지점 검색</h1>

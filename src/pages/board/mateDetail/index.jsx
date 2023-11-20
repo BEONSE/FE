@@ -2,9 +2,10 @@ import { styled } from "styled-components";
 import MateDetailItem from "./MateDetailItem";
 import MateComment from "./MateComment";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ReqMateBoardComment, ReqMateBoardDetail } from "../../../apis/mateBoard";
 import CommentForm from "../CommentForm/CommentForm";
+import BackMove from "../../../components/backMove";
 
 const MateDetail = () => {
   const mbid = useParams("id"); // pathVariable 가져오기
@@ -44,6 +45,7 @@ const MateDetail = () => {
 
   return (
     <>
+      <BackMove />
       <GroupDiv>
         <MateDetailItem detail={detail} />
         <CommentInfo>

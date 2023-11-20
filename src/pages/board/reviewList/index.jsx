@@ -1,9 +1,12 @@
 import { styled } from "styled-components";
 import ReviewItem from "./ReviewItem";
 import SearchIcon from "../../../assets/magnifier.png";
+import BackMove from "../../../components/backMove";
+import React from "react";
 const ReviewList = () => {
   return (
     <>
+      <BackMove />
       <Title>
         <h2>XX점</h2>
         <h2>REVIEW</h2>
