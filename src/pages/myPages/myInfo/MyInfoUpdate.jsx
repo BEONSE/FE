@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { CommonButton } from "../../../components/CommonButton";
 
+import Sun from "../../../assets/sunnyborder.png";
 import Person from "../../../assets/person.png";
 import LargeB from "../../../assets/b.png";
 import Address from "../../../assets/address.png";
@@ -10,9 +11,25 @@ import Pencil from "../../../assets/pencil.png";
 import { useState, useEffect } from "react";
 import { ReqProfile } from "../../../apis/auth";
 import ModalMyInfoUpdate from "./ModalMyInfoUpdate";
-import { useRef } from "react";
+// import { useRef } from "react";
 
 const MyInfoUpdate = () => {
+  //파일 미리볼 url을 저장해줄 state
+  const [imageFile, setImageFile] = useState("");
+  //이미지 파일 넣지 않았을 경우 default 이미지
+  const defaultImage = Sun;
+
+  //파일 저장
+  const saveImageFile = (e) => {
+    setImageFile(URL.createObjectURL(e.target.files[0]));
+  };
+
+  // //파일 삭제
+  // const deleteImageFile = () => {
+  //   URL.revokeObjectURL(imageFile);
+  //   setImageFile("");
+  // };
+
   // 비밀번호 확인
   const [pwdConfirm, setPwdConfirm] = useState(true);
 
@@ -31,11 +48,11 @@ const MyInfoUpdate = () => {
     role: "ROLE_USER",
   });
 
-  useEffect(() => {
-    console.log(commonUpdate.nickname);
-    console.log(commonUpdate.password);
-    console.log(commonUpdate.address);
-  }, []);
+  // useEffect(() => {
+  //   console.log(commonUpdate.nickname);
+  //   console.log(commonUpdate.password);
+  //   console.log(commonUpdate.address);
+  // }, []);
 
   // const input 입력 감지 handler
   const handleInputChange = (e) => {
@@ -65,15 +82,15 @@ const MyInfoUpdate = () => {
         const updateProfile = await ReqProfile(multipartFormData);
         console.log(updateProfile);
         if (updateProfile.status === 200) {
-          setCommonUpdate({
+          setCommonUpdate((preData) => ({
             ...commonUpdate,
             email: updateProfile.data.email,
             password: updateProfile.data.password,
             name: updateProfile.data.name,
             nickname: updateProfile.data.nickname,
             address: updateProfile.data.address,
-            image: updateProfile.data.image,
-          });
+            image: updateProfile.data.image || preData.image,
+          }));
         }
       } catch (err) {
         console.log(err);
@@ -89,10 +106,22 @@ const MyInfoUpdate = () => {
         <input
           type="file"
           name="image"
+          accept="image/*"
           value={commonUpdate.image}
+          // value=""
           placeholder="프로필사진"
-          onChange={handleInputChange}
+          // onChange={handleInputChange}
+          onChange={saveImageFile}
         />
+
+        {commonUpdate.image && (
+          <img
+            //    src={commonUpdate.image} // 이미지 URL을 설정
+            src={imageFile ? saveImageFile : defaultImage}
+            alt="미리보기"
+            style={{ width: "100px", height: "100px", objectFit: "cover" }}
+          />
+        )}
 
         <LoginForm>
           <span>

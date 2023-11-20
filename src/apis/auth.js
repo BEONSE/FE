@@ -6,6 +6,14 @@ export function ReqCommonRegister(commonRegister) {
 }
 
 // 가맹점 회원가입
+export function ReqBranchRegister(branchRegister) {
+  return axios.post("/joinbranch", branchRegister);
+}
+
+//이메일 중복확인
+export function ReqCheckEmail(email) {
+  return axios.get(`/join/${email}`, email);
+}
 
 // 로그인
 export function ReqLogin(loginUser) {

@@ -12,11 +12,42 @@ import { useRef, useState } from "react";
 import { ReqCommonRegister } from "../../apis/auth";
 import styled from "styled-components";
 
+import DaumPostcode from "react-daum-postcode";
+import { CommonButton } from "../../components/CommonButton";
+
 const CommonRegister = () => {
   // 페이지 이동
   const { moveToLogin } = usePageMoving();
   // 비밀번호 확인
   const [pwdConfirm, setPwdConfirm] = useState(true);
+
+  const [popup, setPopup] = useState(false);
+
+  const handleComplete = (data) => {
+    setPopup(false);
+
+    let fullAddress = data.address;
+    let extraAddress = "";
+
+    //도로명 주소
+    if (data.addressType === "R") {
+      // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+      if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
+        extraAddress += data.bname;
+      }
+      if (data.buildingName !== "" && data.apartment === "Y") {
+        extraAddress += extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+      }
+
+      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+    }
+
+    setCommonRegister({
+      ...commonRegister,
+      address: fullAddress,
+    });
+  };
+
   // 일반회원 가입 정보
   const [commonRegister, setCommonRegister] = useState({
     email: "",
@@ -190,9 +221,16 @@ const CommonRegister = () => {
           placeholder="거주지"
           ref={addressRef}
           onChange={handleInputChange}
+          value={commonRegister.address}
           required
         />
       </LoginForm>
+      <PostBtn onClick={() => setPopup(true)}>우편번호 찾기</PostBtn>
+      {popup && (
+        <PostModal>
+          <DaumPostcode autoClose onComplete={handleComplete} />
+        </PostModal>
+      )}
       <Warning>{!isFormValid() && <p>모든 칸을 입력해주세요.</p>}</Warning>
       <LoginButtonDiv>
         <LoginBtn type="submit">회원가입 완료</LoginBtn>
@@ -213,4 +251,21 @@ export const FormTag = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const PostModal = styled.div`
+  background: rgba(0, 0, 0, 0.25);
+  position: fixed;
+  left: 0;
+  top: 30%;
+  height: 100%;
+  width: 100%;
+`;
+
+const PostBtn = styled(CommonButton)`
+  margin-top: 5px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: 80%;
+  height: 80%;
 `;
