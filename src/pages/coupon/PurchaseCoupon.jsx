@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { CommonButton } from "../../components/CommonButton";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import MyPoints from "../myPages/myPoints";
 import ModalPurchaseCoupon from "./ModalPurchaseCoupon";
 import FormCoupon from "../../assets/formcoupon.png";
 import PressCoupon from "../../assets/presscoupon.png";
 import CouponStore from "../../assets/couponstore.png";
+import BackMove from "../../components/backMove";
 
 const PurchaseCoupon = () => {
   const pressPrice = 3000;
@@ -61,6 +62,7 @@ const PurchaseCoupon = () => {
 
   return (
     <>
+      <BackMove />
       <CouponAllDiv>
         <TopImg></TopImg>
         <GetPoints>

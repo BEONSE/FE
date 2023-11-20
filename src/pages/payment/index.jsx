@@ -4,12 +4,14 @@ import React from "react";
 import IterationPoint from "./IterationPoint";
 import MyPoints from "../myPages/myPoints";
 import PointStore from "../../assets/pointstore.png";
+import BackMove from "../../components/backMove";
 
 /* 포인트 충전 컴포넌트 */
 const Payment = () => {
   return (
     <>
       <GlobalStyle />
+      <BackMove />
       <PointAllDiv>
         <Title></Title>
         <CurrentPoint>

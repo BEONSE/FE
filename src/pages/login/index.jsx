@@ -7,11 +7,12 @@ import GlobalStyle from "../../components/GlobalStyle";
 
 import { usePageMoving } from "../../components/usePageMoving";
 import { CommonButton } from "../../components/CommonButton";
-import { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { FormTag } from "../register/CommonRegister";
 import { ReqLogin } from "../../apis/auth";
 import { addAuthHeader } from "../../apis/axiosConfig";
 import AppContext from "../../AppContext";
+import BackMove from "../../components/backMove";
 
 const Login = ({ setHideHeaderFooter }) => {
   const { moveToHome, moveToRegister } = usePageMoving();
@@ -79,6 +80,7 @@ const Login = ({ setHideHeaderFooter }) => {
   return (
     <>
       <GlobalStyle />
+      <BackMove />
       <LoginAllDiv onSubmit={handleLoginSubmit}>
         <img src={BigLogoImg} alt="BigLogoImage" onClick={() => moveToHome()} />
         <h1>로그인</h1>
@@ -114,8 +116,10 @@ const Login = ({ setHideHeaderFooter }) => {
           </LoginButtonDiv>
         </FormTag>
         <AddService>
-          <span onClick={() => {}}>아이디찾기 | </span>
-          <span onClick={() => {}}>비밀번호찾기 | </span>
+          <span onClick={() => {
+          }}>아이디찾기 | </span>
+          <span onClick={() => {
+          }}>비밀번호찾기 | </span>
           <span
             onClick={() => {
               moveToRegister();

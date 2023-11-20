@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 import { CommonButton } from "../../../components/CommonButton";
-import { useState } from "react";
+import React, { useState } from "react";
 import BoardAddModal from "./BoardAddModal";
+import BackMove from "../../../components/backMove";
 
 /* 메이트 작성 컴포넌트 */
 const BoardWrite = () => {
@@ -45,6 +46,7 @@ const BoardWrite = () => {
 
   return (
     <>
+      <BackMove />
       <PageTitle>🙋‍♂️MATE 게시판🙋‍♀️</PageTitle>
 
       <InputAllDiv>

@@ -1,8 +1,10 @@
 import styled from "styled-components";
+import BackMove from "../../components/backMove";
 
 const MyPayment = () => {
   return (
     <>
+      <BackMove />
       <Title>
         <h2>결제 페이지</h2>
       </Title>

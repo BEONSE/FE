@@ -7,7 +7,7 @@ export function ReqCommonRegister(commonRegister) {
 
 // 가맹점 회원가입
 export function ReqBranchRegister(branchRegister) {
-  return axios.post("/joinbranch", branchRegister);
+  return axios.post("/join/branch", branchRegister);
 }
 
 //이메일 중복확인

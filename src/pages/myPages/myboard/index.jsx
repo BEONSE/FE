@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import MyReview from "../myReview/index";
 import MyMate from "./myMate/index";
 import GlobalStyle from "../../../components/GlobalStyle";
+import BackMove from "../../../components/backMove";
 
 const MyBoard = () => {
   // 화면 이동
@@ -21,6 +22,7 @@ const MyBoard = () => {
   return (
     <>
       <GlobalStyle />
+      <BackMove />
       <BoardAllDiv>
         <h1>내가 쓴 게시글</h1>
         <MyBoardType>
