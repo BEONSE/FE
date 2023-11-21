@@ -1,23 +1,49 @@
 import styled from "styled-components";
 import { CommonButton } from "../../components/CommonButton";
 import { usePageMoving } from "../../components/usePageMoving";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import SingleMap from "../map/SingleMap";
+import BackMove from "../../components/backMove";
+import { ReqBranchInfo } from "../../apis/branch";
 
 const BranchInfo = () => {
   const { moveToReservation } = usePageMoving();
+  const param = useParams("bid");
+  const [isBranchInfo, setIsBranchInfo] = useState({});
 
-  // 백엔드에 useParams로 가져와서 요청하기
+  useEffect(() => {
+    console.log(param.bid);
+    async function getBranch() {
+      try {
+        const branchResponse = await ReqBranchInfo(param.bid);
+        console.log(branchResponse);
+        if (branchResponse.status === 200) {
+          setIsBranchInfo(branchResponse.data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    getBranch();
+  }, []);
 
   return (
     <>
       <BranchAllInfo>
+        <BackMove />
         <KakaoMap id="siglemap">
-          <SingleMap />
+          <SingleMap
+            isLat={isBranchInfo.lat}
+            isLng={isBranchInfo.lng}
+            branchName={isBranchInfo.branchName}
+          />
         </KakaoMap>
         <Address>
-          <h1>BEONSE XX점</h1>
-          <p>서울특별시 금천구 가산동 2xx-x</p>
+          <h1>BEONSE {isBranchInfo.branchName}</h1>
+          <p>{isBranchInfo.address}</p>
         </Address>
         <OperationTime>
           <div>
@@ -30,9 +56,15 @@ const BranchInfo = () => {
           </div>
         </OperationTime>
         <BranchIntro>
-          <p>지점사 소개구간 입니다만...</p>
+          <p>{isBranchInfo.introduction}</p>
         </BranchIntro>
-        <ReserveBtn onClick={moveToReservation}>예약하기</ReserveBtn>
+        <ReserveBtn
+          onClick={() => {
+            moveToReservation(param.bid);
+          }}
+        >
+          예약하기
+        </ReserveBtn>
         <BranchImage>
           <img src="" />
         </BranchImage>

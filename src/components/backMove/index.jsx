@@ -3,27 +3,31 @@ import styled from "styled-components";
 import { useNavigate } from "react-router";
 
 const BackMove = () => {
-
   const navigate = useNavigate();
   return (
     <>
-      <ImageDiv>
-        <Img src={Back} onClick={() => {navigate(-1)}}/>
+      <ImageDiv
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        <Img src={Back} />
+        &nbsp;뒤로가기
       </ImageDiv>
     </>
   );
-}
+};
 
 export default BackMove;
 
 const ImageDiv = styled.div`
-  width: 7vw;
-  height: 4vh;
-  margin-left: 4vw;
+  display: flex;
+  margin: auto;
+  width: 95%;
+  height: 3vh;
   margin-top: 2vh;
-`
+`;
 
 const Img = styled.img`
-  width: 100%;
-  height: 100%;
-`
+  height: 6vw;
+`;

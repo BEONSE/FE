@@ -3,11 +3,11 @@ import MarkerIcon from "../../assets/markerImg.png";
 
 const { kakao } = window;
 
-const SingleMap = () => {
+const SingleMap = ({ isLat, isLng, branchName }) => {
   useEffect(() => {
     const s_mapContainer = document.getElementById("siglemap"), // 지도 표시할 div
       s_mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 중심 좌표
+        center: new kakao.maps.LatLng(isLat, isLng), // 중심 좌표
         level: 4, //지도의 레벨(확대, 축소 정도)
       };
 
@@ -22,7 +22,7 @@ const SingleMap = () => {
     const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 
     // 마커 표시 위치
-    const markerPosition = new kakao.maps.LatLng(33.450701, 126.570667);
+    const markerPosition = new kakao.maps.LatLng(isLat, isLng);
 
     // 마커 생성
     const marker = new kakao.maps.Marker({
@@ -35,10 +35,12 @@ const SingleMap = () => {
 
     const content =
       '<div class="customoverlay" style="background-color: white; border: 2px solid #35cfee; border-radius:30px;">' +
-      '    <span class="title" style="padding:15px;">BEONSE 가산디지털단지점</span>' +
+      '    <span class="title" style="padding:15px;">BEONSE ' +
+      branchName +
+      "</span>" +
       "</div>";
 
-    const position = new kakao.maps.LatLng(33.450701, 126.570667);
+    const position = new kakao.maps.LatLng(isLat, isLng);
 
     // 커스텀 오버레이를 생성합니다
     var customOverlay = new kakao.maps.CustomOverlay({

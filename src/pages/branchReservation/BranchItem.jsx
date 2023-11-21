@@ -11,7 +11,6 @@ const BranchItem = ({ isBranchInfo, showSearch, setShowSearch }) => {
         <DetailButton
           onClick={() => {
             moveToBranchInfo(isBranchInfo.bid);
-            setShowSearch(!showSearch);
           }}
         >
           상세보기 ▶
