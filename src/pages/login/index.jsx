@@ -49,15 +49,12 @@ const Login = ({ setHideHeaderFooter }) => {
     e.preventDefault();
     try {
       const loginResponse = await ReqLogin(loginUser);
-      console.log(loginResponse);
+      console.log("로그인", loginResponse);
       if (loginResponse.status === 200) {
         alert(loginResponse.data.successMessage);
         // 요청 공통 헤더에 추가
-        addAuthHeader(loginResponse.headers.accesstoken); // data로 변경
+        addAuthHeader(loginResponse.headers.accesstoken);
         // Context에 인증 내용 저장
-        appContext.setNickname(loginResponse.data.nickname);
-        appContext.setRole(loginResponse.data.role);
-        console.log(loginResponse);
         appContext.setAccessToken(loginResponse.headers.accesstoken);
         appContext.setRefreshToken(loginResponse.headers.refreshtoken);
 
@@ -65,7 +62,6 @@ const Login = ({ setHideHeaderFooter }) => {
           moveToBranchManager();
         }
         if (loginResponse.data.role === "ROLE_USER") {
-          // Home 화면으로 이동
           moveToHome();
         }
       }
