@@ -1,11 +1,40 @@
 import styled from "styled-components";
+import { useContext, useEffect, useState } from "react";
+import AppContext from "../../AppContext";
+import { reqRank } from "../../apis/rank";
 
 const Rank = () => {
+  const appContext = useContext(AppContext);
+
+  // 글이 없을 경우
+  const [isEmpty, setIsEmpty] = useState(false);
+
+  // 글 목록
+  const [rank, setRank] = useState([]);
+
+  // 로딩 상태
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function getRank() {
+      try {
+        const response = await reqRank();
+        setRank(response.data);
+      } catch (err) {
+        if (err.response.data.statusCode === 404 || err.response.data.statusCode === 401) {
+          setIsEmpty(true);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    getRank();
+  }, []);
   return (
     <>
       <RackDiv>
         <h2>🏆 이달의 세차왕 🏆</h2>
-        <p>김세차</p>
+        <p>{rank.nickname}</p>
       </RackDiv>
     </>
   );
