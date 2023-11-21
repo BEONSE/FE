@@ -67,9 +67,9 @@ const MateList = () => {
       ) : (
         <AllMateListDiv>
           {isEmpty && <p>게시글을 찾을 수 없습니다.</p>}
-          {mateList.map((list) => (
-            <MateItem key={list.mbid} list={list} />
-          ))}
+          {/*{mateList.map((list) => (*/}
+          {/*  <MateItem key={list.mbid} list={list} />*/}
+          {/*))}*/}
         </AllMateListDiv>
       )}
       <H4>더보기</H4>
