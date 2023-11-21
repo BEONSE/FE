@@ -15,7 +15,7 @@ import AppContext from "../../AppContext";
 import BackMove from "../../components/backMove";
 
 const Login = ({ setHideHeaderFooter }) => {
-  const { moveToHome, moveToRegister } = usePageMoving();
+  const { moveToHome, moveToRegister, moveToBranchManager } = usePageMoving();
 
   const appContext = useContext(AppContext);
 
@@ -56,11 +56,18 @@ const Login = ({ setHideHeaderFooter }) => {
         addAuthHeader(loginResponse.headers.accesstoken); // data로 변경
         // Context에 인증 내용 저장
         appContext.setNickname(loginResponse.data.nickname);
+        appContext.setRole(loginResponse.data.role);
+        console.log(loginResponse);
         appContext.setAccessToken(loginResponse.headers.accesstoken);
         appContext.setRefreshToken(loginResponse.headers.refreshtoken);
 
-        // Home 화면으로 이동
-        moveToHome();
+        if (loginResponse.data.role === "ROLE_BRANCH") {
+          moveToBranchManager();
+        }
+        if (loginResponse.data.role === "ROLE_USER") {
+          // Home 화면으로 이동
+          moveToHome();
+        }
       }
     } catch (err) {
       console.log(err);
@@ -116,10 +123,8 @@ const Login = ({ setHideHeaderFooter }) => {
           </LoginButtonDiv>
         </FormTag>
         <AddService>
-          <span onClick={() => {
-          }}>아이디찾기 | </span>
-          <span onClick={() => {
-          }}>비밀번호찾기 | </span>
+          <span onClick={() => {}}>아이디찾기 | </span>
+          <span onClick={() => {}}>비밀번호찾기 | </span>
           <span
             onClick={() => {
               moveToRegister();
