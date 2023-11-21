@@ -6,8 +6,8 @@ export function ReqReadMateBoard(mateBoardItem) {
 }
 
 // 메이트 게시글 전체 조회
-export function ReqMateBoardList() {
-  return axios.get("/mates");
+export function ReqMateBoardList(page) {
+  return axios.get("/mates", { params: { page } });
 }
 
 // 메이트 상세 내용 조회
