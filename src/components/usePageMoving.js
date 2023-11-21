@@ -60,6 +60,17 @@ export const usePageMoving = () => {
   // 게시판 - 메이트/게시글 상세
   const moveToMateDetail = (id) => navigate(`/mate/${id}`);
 
+  // 가맹점 관리자 페이지로 이동
+  const moveToBranchManager = () => navigate("/branch");
+
+  // 가맹점 리뷰 모아보기
+  const moveToMyBranchReview = () => navigate("/branch/review");
+
+  // 가맹점 쿠폰 사용 내역 모아보기
+  const moveToUseCoupons = () => navigate("/branch/coupons");
+
+  const moveToBranchUpdate = () => navigate("/branch/mypage");
+
   return {
     moveToLogin,
     moveToRegister,
@@ -80,5 +91,9 @@ export const usePageMoving = () => {
     moveToMateDetail,
     moveToMyReservation,
     moveToBranchInfo,
+    moveToBranchManager,
+    moveToMyBranchReview,
+    moveToUseCoupons,
+    moveToBranchUpdate,
   };
 };
