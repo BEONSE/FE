@@ -23,17 +23,16 @@ const BranchRegister = () => {
     try {
       const response = await ReqCheckEmail(branchRegister.email);
       console.log(response.data);
-      const message = response?.data?.message;
-      // 서버에서 받은 응답을 기반으로 처리
-      if (response === branchRegister) {
-        alert(message);
-        emailRef.current.focus();
-      } else {
-        alert(message);
+      if (response.data.statusCode === 200) {
+        alert("사용가능한 이메일입니다.");
       }
-    } catch (error) {
-      console.error("이메일 중복 확인 에러:", error);
-      // 에러 처리 로직 추가
+    } catch (err) {
+      const errResult = err.response.data;
+      if (errResult.statusCode === 400) {
+        // 이메일 중복
+        alert(errResult.errorMessage);
+        emailRef.current.focus();
+      }
     }
   };
 
@@ -91,7 +90,7 @@ const BranchRegister = () => {
   const [branchRegister, setBranchRegister] = useState({
     email: "",
     password: "",
-    nickname: "",
+    branchName: "",
     name: "",
     introduction: "",
     address: "",
@@ -102,7 +101,7 @@ const BranchRegister = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const passwordConfirmRef = useRef(null);
-  const nicknameRef = useRef(null);
+  const branchNameRef = useRef(null);
   const nameRef = useRef(null);
   const addressRef = useRef(null);
 
@@ -125,7 +124,7 @@ const BranchRegister = () => {
     return (
       branchRegister.email &&
       branchRegister.password &&
-      branchRegister.nickname &&
+      branchRegister.branchName &&
       branchRegister.name &&
       branchRegister.address &&
       pwdConfirm
@@ -149,8 +148,8 @@ const BranchRegister = () => {
       return;
     }
 
-    if (!branchRegister.nickname) {
-      nicknameRef.current.focus();
+    if (!branchRegister.branchName) {
+      branchNameRef.current.focus();
       return;
     }
 
@@ -181,9 +180,9 @@ const BranchRegister = () => {
     } catch (err) {
       const errResult = err.response.data;
       if (errResult.statusCode === 400) {
-        // 이메일 중복
+        // 닉네임(가맹점명) 중복
         alert(errResult.errorMessage);
-        emailRef.current.focus();
+        branchNameRef.current.focus();
       }
     }
   };
@@ -237,9 +236,9 @@ const BranchRegister = () => {
         </span>
         <input
           type="text"
-          name="nickname"
-          placeholder="지점명"
-          ref={nicknameRef}
+          name="branchName"
+          placeholder="가맹점명"
+          ref={branchNameRef}
           onChange={handleInputChange}
           required
         />
@@ -264,7 +263,7 @@ const BranchRegister = () => {
         <input
           type="text"
           name="introduction"
-          placeholder="지점 소개"
+          placeholder="가맹점 소개"
           onChange={handleInputChange}
         />
       </LoginForm>
