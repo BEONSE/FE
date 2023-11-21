@@ -19,7 +19,7 @@ export const usePageMoving = () => {
   const moveToBranchInfo = (bid) => navigate(`/search/${bid}`);
 
   // 지점 예약하기
-  const moveToReservation = () => navigate("/reservation");
+  const moveToReservation = (bid) => navigate(`/reservation/${bid}`);
 
   // 포인트 충전 페이지
   const moveToPayment = () => navigate("/payments");

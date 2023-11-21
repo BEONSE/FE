@@ -41,7 +41,8 @@ const MateList = () => {
     async function getMateList() {
       try {
         const response = await ReqMateBoardList();
-        setMateList(response.data);
+        console.log(response);
+        setMateList(response.data.content);
       } catch (err) {
         if (err.response.data.statusCode === 404 || err.response.data.statusCode === 401) {
           setIsEmpty(true);

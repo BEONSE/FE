@@ -101,7 +101,7 @@ const MultiMap = () => {
           // 위치 가져오기 성공 시 처리
           let lat = position.coords.latitude, // 위도
             lon = position.coords.longitude; // 경도
-
+            
           let locPosition = new kakao.maps.LatLng(lat, lon);
 
           displayMarker(locPosition);
