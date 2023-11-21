@@ -1,59 +1,97 @@
 import styled from "styled-components";
 import PersonImg from "../../../assets/person.png";
-import BackMove from "../../../components/backMove";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import AppContext from "../../../AppContext";
+import { ReqReviewBoardList } from "../../../apis/reviewBoard";
+import { useParams } from "react-router-dom";
+import Grade1 from "../../../assets/grade1.png";
+import Grade2 from "../../../assets/grade2.png";
+import Grade3 from "../../../assets/grade3.png";
 
 const ReviewItem = () => {
+  const bid = useParams("branchId");
+  const page = useParams("page");
+
+  const appContext = useContext(AppContext);
+
+  // 글이 없을 경우
+  const [isEmpty, setIsEmpty] = useState(false);
+
+  // 글 목록
+  const [reviewList, setReviewList] = useState([]);
+
+  // 로딩 상태
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function getReviewList() {
+      try {
+        const response = await ReqReviewBoardList(1, 1);
+        setReviewList(response.data.content);
+        console.log(response.data);
+        console.log(response.data.content);
+      } catch (err) {
+        if (err.response.data.statusCode === 404 || err.response.data.statusCode === 401) {
+          setIsEmpty(true);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    getReviewList();
+  }, []);
   return (
     <>
-      <ContentGroup>
-        <Profile>
-          <div>
-            <InnerProf>
-              <img src={PersonImg} />
-              <p>닉네임</p>
-              <p>등급</p>
-            </InnerProf>
-            <TimeDiv>
-              <p>작성일 2023/11/06</p>
-              <p>수정일 2023/11/06</p>
-            </TimeDiv>
-          </div>
-        </Profile>
-        <Content>
-          <ReviewImage>사진</ReviewImage>
-          <p>
-            예전 제주도 사장님도 친절하셨는데 바뀌신사장님도 직원들도 친절하고 설명도 잘해주고 단,
-            손님이 많은것이 단점이라면 단점 걸레 삐는것도 정리잘되어있고 비누도 항상 잘비치
-            되어있어요 걸레전용 짤순이도 있어요 그리고. 고압이 무었인지 보여주는 킹콩입니다 다른데는
-            그냥 저압이라고 써놔야해요 ^^
-          </p>
-        </Content>
-      </ContentGroup>
-      <ContentGroup>
-        <Profile>
-          <div>
-            <div>
-              <img src={PersonImg} />
-              <p>닉네임</p>
-              <p>등급</p>
-            </div>
-            <TimeDiv>
-              <p>작성일 2023/11/06</p>
-              <p>수정일 2023/11/06</p>
-            </TimeDiv>
-          </div>
-        </Profile>
-        <Content>
-          <ReviewImage>사진</ReviewImage>
-          <p>
-            예전 제주도 사장님도 친절하셨는데 바뀌신사장님도 직원들도 친절하고 설명도 잘해주고 단,
-            손님이 많은것이 단점이라면 단점 걸레 삐는것도 정리잘되어있고 비누도 항상 잘비치
-            되어있어요 걸레전용 짤순이도 있어요 그리고. 고압이 무었인지 보여주는 킹콩입니다 다른데는
-            그냥 저압이라고 써놔야해요 ^^
-          </p>
-        </Content>
-      </ContentGroup>
+      {/*private Long rbId; //고유 번호
+      private int rnum;
+      private Long memberMid;
+      private Long branchBid;
+      private Long couponCid;
+      private String title;
+      private String content;
+      private String writer; //작성자
+      private String branchName; //지점명
+      private boolean status;
+      private MultipartFile image;
+      private String originalFileName;
+      private String imageType;
+      private byte[] imageData;
+      @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+      private Timestamp createdAt;//작성일
+      @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+      private Timestamp modifiedAt;//수정일*/}
+      {!isEmpty &&
+
+        reviewList.map((list, index) => (
+          <ContentGroup key={index}>
+            <Profile>
+              <div>
+                <InnerProf>
+                  <img src={`data:image/png;base64,${list.memberImageData}`} />
+                  <p>{list.writer}</p>
+                  <Grade>
+                    {list.grade === 1 && <img src={Grade1} alt="grade1" />}
+                    {list.grade === 2 && <img src={Grade2} alt="grade2" />}
+                    {list.grade === 3 && <img src={Grade3} alt="grade3" />}
+                  </Grade>
+                </InnerProf>
+                <TimeDiv>
+                  <p>작성일 {list.createdAt}</p>
+                  <p>수정일 {list.modifiedAt}</p>
+                </TimeDiv>
+              </div>
+            </Profile>
+            <Content>
+              {list.reviewImageData &&
+                <ReviewImage>
+                  <img src={`data:image/png;base64,${list.reviewImageData}`} />
+                </ReviewImage>
+              }
+              <p>{list.content}</p>
+            </Content>
+          </ContentGroup>
+        ))}
     </>
   );
 };
@@ -71,6 +109,7 @@ const Profile = styled.div`
   margin-top: 2vh;
   margin-left: 5vw;
   margin-bottom: 3vh;
+
   & > div > div {
     display: flex;
   }
@@ -104,8 +143,19 @@ const Content = styled.div`
 
 const ReviewImage = styled.div`
   width: 100%;
-  height: 30vh;
-  background-color: gray;
-  padding: 14vh 0 14vh 40vw;
   margin-bottom: 3vh;
+
+  & > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+`;
+
+/* 등급 Style */
+const Grade = styled.p`
+  margin-left: 2vw;
+  & > img {
+    height: 2.5vh;
+  }
 `;
