@@ -14,3 +14,13 @@ export function ReqBranchSearch(keyword) {
 export function ReqBranchInfo(bid) {
   return axios.get(`/branches/${bid}`);
 }
+
+//가맹점 별 리뷰 가져오기
+export function ReqBranchReview(bid) {
+  return axios.get(`/reviews/${bid}`, bid);
+}
+
+//가맹점 별 쿠폰 가져오기
+export function ReqBranchCoupon(bid) {
+  return axios.get(`/branches/coupons/${bid}`, bid);
+}

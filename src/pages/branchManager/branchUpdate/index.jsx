@@ -6,7 +6,6 @@ import { CommonButton } from "../../../components/CommonButton";
 import Person from "../../../assets/person.png";
 
 const BranchUpdate = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { moveToHome } = usePageMoving();
 
   return (
@@ -69,7 +68,6 @@ const BranchUpdate = () => {
           {/* 입력 폼 다 안맞으면 버튼 안눌리게 만들기 */}
           <LoginBtn
             onClick={() => {
-              //navigator(-1); //이전 페이지 이동
               moveToHome();
             }}
           >

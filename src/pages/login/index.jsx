@@ -59,7 +59,7 @@ const Login = ({ setHideHeaderFooter }) => {
         appContext.setRefreshToken(loginResponse.headers.refreshtoken);
 
         if (loginResponse.data.role === "ROLE_BRANCH") {
-          moveToBranchManager();
+          moveToBranchManager(loginResponse.data.branchId);
         }
         if (loginResponse.data.role === "ROLE_USER") {
           moveToHome();

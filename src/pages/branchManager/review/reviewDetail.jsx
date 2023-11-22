@@ -45,7 +45,7 @@ const Item = () => {
 
         <LoginButtonDiv>
           <LoginBtn onClick={moveToBranchReview}>목록</LoginBtn>
-          {/* 이전 페이지로 돌아가기로 설정하면 내가 쓴 리뷰에서도 쓸 수 있을 거 같음음 */}
+          {/* 이전 페이지로 돌아가기로 설정하면 내가 쓴 리뷰에서도 쓸 수 있을 거 같음 */}
         </LoginButtonDiv>
       </ReviewAllDiv>
       <br />

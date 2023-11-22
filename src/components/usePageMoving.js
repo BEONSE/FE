@@ -61,7 +61,7 @@ export const usePageMoving = () => {
   const moveToMateDetail = (id) => navigate(`/mate/${id}`);
 
   // 가맹점 관리자 페이지로 이동
-  const moveToBranchManager = () => navigate("/branch");
+  const moveToBranchManager = (bid) => navigate(`/branch/${bid}`);
 
   // 가맹점 리뷰 모아보기
   const moveToMyBranchReview = () => navigate("/branch/review");
