@@ -6,7 +6,7 @@ import BoardAddModal from "./BoardAddModal";
 import BackMove from "../../../components/backMove";
 
 /* 메이트 작성 컴포넌트 */
-const BoardWrite = () => {
+const MateWrite = () => {
   const [clickBtn, setClickBtn] = useState(false);
   // 지점 배열
   const selectList = [
@@ -87,7 +87,7 @@ const BoardWrite = () => {
   );
 };
 
-export default BoardWrite;
+export default MateWrite;
 
 // 입력 폼 전체 DIV
 const InputAllDiv = styled.div`

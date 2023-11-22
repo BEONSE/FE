@@ -9,7 +9,6 @@ import ReviewList from "./board/reviewList";
 import Register from "./register";
 import BranchReserve from "./branchReservation/BranchReserve";
 import AdminManager from "./adminManager";
-import BoardWrite from "./board/boardWrite";
 import MyInfoUpdate from "./myPages/myInfo/MyInfoUpdate";
 import BranchManager from "./branchManager";
 import CouponList from "./branchManager/coupon";

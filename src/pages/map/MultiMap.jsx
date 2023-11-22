@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import MarkerIcon from "../../assets/markerImg.png";
 import { useNavigate } from "react-router-dom";
 import { ReqBranchPosition } from "../../apis/branch";
+import { usePageMoving } from "../../components/usePageMoving";
+
 const { kakao } = window;
 
 const MultiMap = () => {
+  const { moveToBranchInfo } = usePageMoving();
   const navigate = useNavigate();
   const [isPosition, setIsPosition] = useState([]);
 
@@ -42,7 +45,7 @@ const MultiMap = () => {
     // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
     const bounds = new kakao.maps.LatLngBounds();
 
-    for (var i = 0; i < positions.length; i++) {
+    for (let i = 0; i < positions.length; i++) {
       // 마커 이미지
       const imageSrc = MarkerIcon, // 마커 이미지
         imageSize = new kakao.maps.Size(45, 75), // 마커이미지 크기
@@ -78,9 +81,9 @@ const MultiMap = () => {
       });
 
       customOverlay.setMap(m_map);
-      (function (m_marker, customOverlay) {
+      (function (m_marker, customOverlay, index) {
         kakao.maps.event.addListener(m_marker, "click", function () {
-          navigate("/destination-path"); // 마커 클릭
+          // moveToBranchInfo(clickedBid); // 마커 클릭 isPosition.bid
         });
       })(m_marker, customOverlay);
     }
@@ -101,7 +104,7 @@ const MultiMap = () => {
           // 위치 가져오기 성공 시 처리
           let lat = position.coords.latitude, // 위도
             lon = position.coords.longitude; // 경도
-            
+
           let locPosition = new kakao.maps.LatLng(lat, lon);
 
           displayMarker(locPosition);

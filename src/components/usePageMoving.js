@@ -1,11 +1,12 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const usePageMoving = () => {
   const navigate = useNavigate();
 
   // 메인 페이지
-  const moveToHome = () => navigate("/", { replace: true });
-
+  const moveToHome = () => {
+    navigate("/", { replace: true });
+  };
   // 로그인 페이지
   const moveToLogin = () => navigate("/login", { replace: true });
 
@@ -51,6 +52,9 @@ export const usePageMoving = () => {
   // 게시판 - 리뷰
   const moveToReview = () => navigate("/reviews");
 
+  // 게시판 - 리뷰 작성
+  const moveToWriteReview = (cid, bname) => navigate(`/reviews/write/${cid}?bname=${bname}`);
+
   // 게시판 - 메이트
   const moveToMate = () => navigate("/mate");
 
@@ -69,6 +73,7 @@ export const usePageMoving = () => {
   // 가맹점 쿠폰 사용 내역 모아보기
   const moveToUseCoupons = () => navigate("/branch/coupons");
 
+  // 가맹점 정보 수정
   const moveToBranchUpdate = () => navigate("/branch/mypage");
 
   return {
@@ -95,5 +100,6 @@ export const usePageMoving = () => {
     moveToMyBranchReview,
     moveToUseCoupons,
     moveToBranchUpdate,
+    moveToWriteReview,
   };
 };
