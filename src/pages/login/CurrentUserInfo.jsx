@@ -1,12 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Sun from "../../assets/sunnyborder.png";
 import styled from "styled-components";
 import { ReqProfile } from "../../apis/auth";
 import Grade1 from "../../assets/grade1.png";
 import Grade2 from "../../assets/grade2.png";
 import Grade3 from "../../assets/grade3.png";
+import { removeAuthHeader } from "../../apis/axiosConfig";
+import AppContext from "../../AppContext";
 
 const CurrentUserInfo = () => {
+  const appContext = useContext(AppContext);
+
   const [currentUser, setCurrentUser] = useState({
     mid: 0,
     nickname: "",
@@ -34,6 +38,12 @@ const CurrentUserInfo = () => {
           });
         }
       } catch (err) {
+        if (err.response.data.message === "토큰 시간 만료") {
+          alert("토큰이 만료되었습니다.")
+        }
+        removeAuthHeader();
+        appContext.setAccessToken("");
+        appContext.setRefreshToken("");
         console.log(err);
       }
     }
