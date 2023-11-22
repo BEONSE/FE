@@ -43,24 +43,6 @@ const ReviewItem = () => {
   }, []);
   return (
     <>
-      {/*private Long rbId; //고유 번호
-      private int rnum;
-      private Long memberMid;
-      private Long branchBid;
-      private Long couponCid;
-      private String title;
-      private String content;
-      private String writer; //작성자
-      private String branchName; //지점명
-      private boolean status;
-      private MultipartFile image;
-      private String originalFileName;
-      private String imageType;
-      private byte[] imageData;
-      @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-      private Timestamp createdAt;//작성일
-      @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-      private Timestamp modifiedAt;//수정일*/}
       {!isEmpty &&
 
         reviewList.map((list, index) => (

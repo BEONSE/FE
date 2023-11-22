@@ -33,7 +33,10 @@ const AppRoute = ({ setHideHeaderFooter }) => {
         <Route path="/reviews/*" element={<ReviewList />} />
         <Route path="/mate/*" element={<Board />} />
         <Route path="/admin/*" element={<AdminManager />} />
-        <Route path="/branch/*" element={<BranchManager />} />
+        <Route
+          path="/branch/*"
+          element={<BranchManager setHideHeaderFooter={setHideHeaderFooter} />}
+        />
         <Route path="/myinfo/update" element={<MyInfoUpdate />} />
         <Route path="/branch/couponlist" element={<CouponList />} />
         <Route path="/branch/update" element={<BranchUpdate />} />
