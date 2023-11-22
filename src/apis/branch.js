@@ -15,6 +15,11 @@ export function ReqBranchInfo(bid) {
   return axios.get(`/branches/${bid}`);
 }
 
+// 가맹점 지점명들 가져오기
+export function ReqBranchNames() {
+  return axios.get("/branches/names");
+}
+
 //가맹점 별 리뷰 가져오기
 export function ReqBranchReview(bid) {
   return axios.get(`/reviews/${bid}`, bid);
