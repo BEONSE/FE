@@ -53,7 +53,8 @@ export const usePageMoving = () => {
   const moveToReview = () => navigate("/reviews");
 
   // 게시판 - 리뷰 작성
-  const moveToWriteReview = (cid, bname) => navigate(`/reviews/write/${cid}?bname=${bname}`);
+  const moveToWriteReview = (cid, bname) =>
+    navigate(`/reviews/write/${cid}?bname=${bname}`, { replace: true });
 
   // 게시판 - 메이트
   const moveToMate = () => navigate("/mate");

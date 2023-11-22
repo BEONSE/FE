@@ -3,7 +3,7 @@ import BackMove from "../../../components/backMove";
 import { CommonButton } from "../../../components/CommonButton";
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import { ReqReviewWrite } from "../../../apis/reviewBoard";
+import ReviewWriteModal from "./ReviewWriteModal";
 
 const ReviewWrite = () => {
   const [clickBtn, setClickBtn] = useState(false);
@@ -19,6 +19,8 @@ const ReviewWrite = () => {
 
   // 이미지 정보
   const [image, setImage] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+
   useEffect(() => {
     console.log(writeReview);
   }, [writeReview]);
@@ -40,30 +42,19 @@ const ReviewWrite = () => {
   // Image Handler 함수
   const onLoadImage = (e) => {
     const file = e.target.files;
-    console.log(file);
     setImage(file);
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImageUrl(reader.result);
+    };
+    reader.readAsDataURL(file[0]);
   };
 
-  // 등록하기 버튼
-  const submitBtn = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("image", image[0]);
-      formData.append(
-        "reviewBoardDTO",
-        new Blob([JSON.stringify(writeReview)], { type: "application/json" }),
-      );
-
-      const writeResponse = await ReqReviewWrite(cid, formData);
-      console.log(writeResponse);
-    } catch (err) {
-      console.log(err);
-    }
-  };
   return (
     <>
       <BackMove />
-      <PageTitle>🙋‍♂️REVIEW 쓰기!🙋‍♀️</PageTitle>
+      <PageTitle>REVIEW 쓰기</PageTitle>
 
       <InputAllDiv>
         <hr />
@@ -81,14 +72,17 @@ const ReviewWrite = () => {
 
           <input type="file" accept="image/jpg, image/jpeg, image/png" onChange={onLoadImage} />
         </InputGroup>
+        <ThumnailImage>{imageUrl && <img src={imageUrl} alt="Preview" />}</ThumnailImage>
         <Button
           onClick={() => {
-            submitBtn();
+            if (writeReview.title.trim() !== "" && writeReview.content.trim() !== "") {
+              setClickBtn(true);
+            }
           }}
         >
           등록하기
         </Button>
-        {/* {clickBtn && <BoardAddModal writeMate={writeReview} />} */}
+        {clickBtn && <ReviewWriteModal cid={cid} writeReview={writeReview} image={image} />}
       </InputAllDiv>
     </>
   );
@@ -138,10 +132,20 @@ const InputContent = styled.textarea`
   height: 40vh;
   font-size: 20px;
   resize: none;
+  margin-bottom: 2vh;
 
   &:focus-within {
     outline: auto;
     outline-color: #68d0f3;
+  }
+`;
+
+// 이미지 미리보기
+const ThumnailImage = styled.div`
+  width: 80%;
+
+  & > img {
+    width: 100%;
   }
 `;
 

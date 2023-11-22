@@ -83,8 +83,8 @@ const HaveCouponItem = ({ coupon, selectedFilter }) => {
           </>
         )}
 
-        <UsedBtn onClick={clickBtnHandler}>
-          {selectedFilter === "no" ? "사용하기" : "리뷰쓰기"}
+        <UsedBtn used={coupon.used} onClick={clickBtnHandler}>
+          {!coupon.used ? (selectedFilter === "no" ? "사용하기" : "리뷰쓰기") : "리뷰 작성 완료"}
         </UsedBtn>
       </CouponItem>
     </>
@@ -96,4 +96,6 @@ export default HaveCouponItem;
 const UsedBtn = styled(CommonButton)`
   margin-top: 3vh;
   font-size: 18px;
+  background-color: ${(props) => (props.used ? "#ccc" : "")};
+  pointer-events: ${(props) => (props.used ? "none" : "auto")};
 `;
