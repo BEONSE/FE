@@ -75,7 +75,7 @@ export const usePageMoving = () => {
   const moveToUseCoupons = () => navigate("/branch/coupons");
 
   // 가맹점 정보 수정
-  const moveToBranchUpdate = () => navigate("/branch/mypage");
+  const moveToBranchUpdate = (bid) => navigate(`/branch/mypage/${bid}`);
 
   return {
     moveToLogin,
