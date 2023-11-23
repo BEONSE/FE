@@ -47,14 +47,6 @@ const MyReviewItem = ({list}) => {
 export default MyReviewItem;
 
 /* 최상단 div Style */
-/*const MateGroup = styled.div`
-  width: 80%;
-  height: 8vh;
-  display: flex;
-  margin: 0 3vw 0 3vw;
-  justify-content: space-between;
-  align-items: center;
-`;*/
 const ReviewGroup = styled.div`
   cursor: pointer;
   display: flex;

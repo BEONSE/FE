@@ -1,28 +1,23 @@
 import styled from "styled-components";
-import MyReviewItem from "./MyReviewItem";
+import BackMove from "../../../components/backMove";
 import React, { useEffect, useState } from "react";
-import { ReqMyReview } from "../../../apis/reviewBoard";
+import { ReqMyPayment } from "../../../apis/point";
+import MyPaymentItem from "./MyPaymentItem";
 import Loading from "../../../components/Loading";
 
-const MyReview = () => {
-  // 글이 없을 경우
+const MyPayment = () => {
   const [isEmpty, setIsEmpty] = useState(false);
-
-  // 글 목록
-  const [reviewList, setReviewList] = useState([]);
-
-  // 로딩 상태
-  const [isLoading, setIsLoading] = useState(true);
-
-  // 페이지
+  const [isLoading, setIsLoading] = useState(true)
+  const [paymentList, setPaymentList] = useState([]);
+// 페이지
   const [page, setPage] = useState(1);
   const loadMore = async () => {
     try {
-      const response = await ReqMyReview(page + 1);
+      const response = await ReqMyPayment(page + 1);
       if (response.data.content.length === 0) {
         setIsEmpty(true);
       } else {
-        setReviewList([...reviewList, ...response.data.content]);
+        setPaymentList([...paymentList, ...response.data.content]);
         setPage(page + 1);
       }
     } catch (err) {
@@ -65,54 +60,68 @@ const MyReview = () => {
   }, [handleScroll]);
 
   useEffect(() => {
-    async function getMyReview() {
+    async function getMyPayment() {
       try {
-        const response = await ReqMyReview();
-        console.log(response.data.content);
-        console.log(response.data.content.reviewImageType)
-        setReviewList(response.data.content);
+        const paymentResponse = await ReqMyPayment();
+        console.log(paymentResponse);
+        setPaymentList(paymentResponse.data.content);
       } catch (err) {
-        if (err.response.data.statusCode === 404 || err.response.data.statusCode === 401) {
-          setIsEmpty(true);
-        }
+        alert(err);
+        setIsEmpty(true)
       } finally {
-        setIsLoading(false);
+        setIsLoading(false)
       }
     }
-    getMyReview();
-  }, []);
 
+    getMyPayment();
+  }, []);
   return (
     <>
+      <BackMove />
+      <Title>
+        <h2>결제 페이지</h2>
+      </Title>
+      <Menu>
+        <h3>번호</h3>
+        <h3>결제 금액</h3>
+        <h3>결제 포인트</h3>
+        <h3>결제 시간</h3>
+      </Menu>
       {isLoading ? (
         <LoadDiv>
           <Loading />
         </LoadDiv>
       ) : (
-        <AllReviewList>
+        <AllPaymentList>
           {isEmpty && <p>게시글을 찾을 수 없습니다.</p>}
-          {reviewList.map((list) => (
-            <MyReviewItem key={list.rbId} list={list} />
+          {paymentList.map((list) => (
+            <MyPaymentItem key={list.rbId} list={list} />
           ))}
-        </AllReviewList>
+        </AllPaymentList>
       )}
-      <H4>더보기</H4>
     </>
   );
 };
 
-export default MyReview;
+export default MyPayment;
 
-// 목록 전체 div
-const AllReviewList = styled.div`
-  width: 90vw;
-  margin: auto;
+const Title = styled.div`
+  text-align: center;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
 `;
 
-/* h4 Style */
-const H4 = styled.h4`
+const Menu = styled.div`
+  width: 90vw;
+  display: flex;
+  justify-content: space-around;
+  margin: auto auto 2vh auto;
   text-align: center;
-  margin-bottom: 2vh;
+`;
+// 목록 전체 div
+const AllPaymentList = styled.div`
+  width: 90vw;
+  margin: auto;
 `;
 
 const LoadDiv = styled.div`
