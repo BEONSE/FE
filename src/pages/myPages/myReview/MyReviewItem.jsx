@@ -1,11 +1,21 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useState } from "react";
+import MyReviewDetail from "./MyReviewDetail";
 
 const MyReviewItem = ({list}) => {
+  const [press, setPress] = useState(); // 고압 쿠폰 선택 수량
+  const [data, setData] = useState();
+  const [modalOpen, setModalOpen] = useState(false);
 
+  // 리뷰 클릭
+  const selectDiv = () => {
+    setModalOpen(!modalOpen);
+  };
   return (
     <>
-      <MateGroup>
+      <MateGroup
+        onClick={selectDiv}
+      >
         <LeftInfo>
           <MateContent>
             <div>
@@ -24,6 +34,12 @@ const MyReviewItem = ({list}) => {
           </ImageDiv>
         </LeftInfo>
       </MateGroup>
+      {modalOpen && <MyReviewDetail
+        data={list}
+        setModalOpen={setModalOpen}
+        modalOpen={modalOpen}
+        setPress={setPress}
+      />}
       <hr />
     </>
   );
