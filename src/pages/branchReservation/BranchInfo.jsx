@@ -12,6 +12,7 @@ const BranchInfo = () => {
   const { moveToReservation } = usePageMoving();
   const param = useParams("bid");
   const [isBranchInfo, setIsBranchInfo] = useState({});
+  const [branchImage, setBranchImage] = useState([]);
 
   useEffect(() => {
     console.log(param.bid);
@@ -21,6 +22,7 @@ const BranchInfo = () => {
         console.log(branchResponse);
         if (branchResponse.status === 200) {
           setIsBranchInfo(branchResponse.data);
+          setBranchImage(branchResponse.data.imageDTOS);
         }
       } catch (err) {
         console.log(err);
@@ -65,9 +67,12 @@ const BranchInfo = () => {
         >
           예약하기
         </ReserveBtn>
-        <BranchImage>
-          <img src="" />
-        </BranchImage>
+        {branchImage &&
+          branchImage.map((image) => (
+            <BranchImage key={image.bmid}>
+              <img src={`data:image/png;base64,${image.imageData}`} alt="branchInfoImg" />
+            </BranchImage>
+          ))}
       </BranchAllInfo>
     </>
   );
@@ -84,6 +89,7 @@ const BranchAllInfo = styled.div`
 export const KakaoMap = styled.div`
   width: 100%;
   height: 30vh;
+  margin-top: 2vh;
   margin-bottom: 2vh;
 `;
 
@@ -114,20 +120,14 @@ const BranchIntro = styled.div`
 `;
 /* 지점사 소개 image Style */
 const BranchImage = styled.div`
-  width: 100%;
-  height: 50vh;
+  width: 90vw;
   display: flex;
   justify-content: center;
+  margin-bottom: 2vh;
 
   & > img {
-    width: 80%;
-    height: 80%;
-    margin-top: 50px;
-    padding-top: 10%;
-    padding-left: 10%;
-    border-color: green;
-    border-style: double;
-    background-color: white;
+    width: 100%;
+    object-fit: contain;
   }
 `;
 

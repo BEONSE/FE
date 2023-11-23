@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -7,24 +7,199 @@ import GlobalStyle from "../../components/GlobalStyle";
 import ko from "date-fns/locale/ko"; // date-fns 라이브러리의 한국어 로케일
 import DatePicker, { registerLocale } from "react-datepicker";
 import { CommonButton } from "../../components/CommonButton";
+import { useParams } from "react-router-dom";
+import { ReqBranchName, ReqBranchReserve, ReqReservationState } from "../../apis/reservation";
+import ModalBranchReserve from "./ModalBranchReserve";
 
 registerLocale("ko", ko);
 
 const BranchReserve = () => {
+  const bid = useParams("bid");
+  const [clickBtn, setClickBtn] = useState(false);
+  // branch이름 가져오기
+  const [bname, setBname] = useState("");
+  // 선택 날짜
   const [selectedDate, setSelectedDate] = useState(new Date());
+  // 선택 시간
+  const [selectedTime, setSelectedTime] = useState();
+  // parse한 날짜
+  const [parseTime, setParseTime] = useState();
+  // 오늘 날짜 가져오기
+  const currentDate = new Date();
+  const year = currentDate.getFullYear().toString().slice(-2); // 연도
+  const month = currentDate.getMonth() + 1; // 월
+  const day = currentDate.getDate(); // 날짜
+
+  // 예약되어 있는 정보
+  const [reserveInfo, setReserveInfo] = useState([]);
+
+  // 예약 시간 count
+  const [reserveTime, setReserveTime] = useState({
+    time1: 0,
+    time2: 0,
+    time3: 0,
+    time4: 0,
+    time5: 0,
+    time6: 0,
+    time7: 0,
+    time8: 0,
+    time9: 0,
+    time10: 0,
+    time11: 0,
+    time12: 0,
+  });
+
+  // 사용자가 선택한 예약 정보
+  const [userReservation, setUserReservation] = useState({
+    reservationTime: "",
+  });
+
+  useEffect(() => {
+    console.log(bid["*"]);
+  }, [bid]);
+
+  // 날짜 선택 시
+  useEffect(() => {
+    const selYear = selectedDate.getFullYear();
+    const selMonth = selectedDate.getMonth() + 1;
+    const selDay = selectedDate.getDate();
+    setUserReservation({ reservationTime: `${selYear}-${selMonth}-${selDay} ${parseTime}` });
+
+    async function getSelectDayReserveState() {
+      try {
+        console.log(`${selYear}-${selMonth}-${selDay}`);
+        const rStateResponse = await ReqReservationState(
+          bid["*"],
+          `${selYear.toString().slice(-2)}-${selMonth}-${selDay}`,
+        );
+        setReserveInfo(rStateResponse.data);
+        console.log("선택쓰날짜 : ", rStateResponse);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getSelectDayReserveState();
+  }, [selectedDate, parseTime]);
+
+  const countReserveState = () => {
+    reserveInfo.forEach((time) => {
+      const hour = parseInt(time.reservationTime.slice(11, 13)); // 시간 부분을 숫자로 변환
+      console.log(time.count);
+      switch (hour) {
+        case 11:
+          setReserveTime((prevTime) => ({
+            ...prevTime,
+            time1: time.count,
+          }));
+          break;
+        case 12:
+          setReserveTime((prevTime) => ({
+            ...prevTime,
+            time2: time.count,
+          }));
+          break;
+        case 13:
+          setReserveTime((prevTime) => ({
+            ...prevTime,
+            time3: time.count,
+          }));
+          break;
+        case 14:
+          setReserveTime((prevTime) => ({
+            ...prevTime,
+            time4: time.count,
+          }));
+          break;
+        case 15:
+          setReserveTime((prevTime) => ({
+            ...prevTime,
+            time5: time.count,
+          }));
+          break;
+        case 16:
+          setReserveTime((prevTime) => ({
+            ...prevTime,
+            time6: time.count,
+          }));
+          break;
+        case 17:
+          setReserveTime((prevTime) => ({
+            ...prevTime,
+            time7: time.count,
+          }));
+          break;
+        case 18:
+          setReserveTime((prevTime) => ({
+            ...prevTime,
+            time8: time.count,
+          }));
+          break;
+        case 19:
+          setReserveTime((prevTime) => ({
+            ...prevTime,
+            time9: time.count,
+          }));
+          break;
+        case 20:
+          setReserveTime((prevTime) => ({
+            ...prevTime,
+            time10: time.count,
+          }));
+          break;
+        case 21:
+          setReserveTime((prevTime) => ({
+            ...prevTime,
+            time11: time.count,
+          }));
+          break;
+        case 22:
+          setReserveTime((prevTime) => ({
+            ...prevTime,
+            time12: time.count,
+          }));
+          break;
+        default:
+          break;
+      }
+    });
+  };
+
+  useEffect(() => {
+    countReserveState();
+  }, [reserveInfo]);
+
+  // 브랜치 이름 가져오기
+  useEffect(() => {
+    async function getBranchName() {
+      try {
+        const bnameResponse = await ReqBranchName(bid["*"]);
+        setBname(bnameResponse.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    getBranchName();
+  }, []);
+
+  // 시간 클릭 시 state 변화
+  const handleTimeClick = (time) => {
+    setParseTime(time);
+    setSelectedTime(time.toString().slice(0, 2));
+  };
 
   return (
     <>
       <GlobalStyle />
       <Reservation>
-        <h1>XX점 예약</h1>
+        <h1>{bname} 예약</h1>
         <CalendarWrap>
           <DatePicker
             inline
             locale="ko"
             dateFormat="yyyy.MM.dd" // 날짜 형태
             shouldCloseOnSelect // 날짜를 선택하면 datepicker가 자동으로 닫힘
-            minDate={new Date("2000-01-01")} // minDate 이전 날짜 선택 불가
+            minDate={currentDate} // minDate 이전 날짜 선택 불가
             selected={selectedDate}
             onChange={(date) => setSelectedDate(date)}
           ></DatePicker>
@@ -33,29 +208,155 @@ const BranchReserve = () => {
 
         <h2>시간 선택</h2>
         <TimeBox>
-          <Time>11시</Time>
-          <Time>12시</Time>
-          <Time>13시</Time>
-          <Time>14시</Time>
-          <Time>15시</Time>
-          <Time>16시</Time>
-          <Time>17시</Time>
-          <Time>18시</Time>
-          <Time>19시</Time>
-          <Time>20시</Time>
-          <Time>21시</Time>
-          <Time>22시</Time>
+          <TimesCount>
+            <Time
+              count={reserveTime.time1}
+              onClick={() => {
+                handleTimeClick("11:00:00");
+              }}
+            >
+              11시
+            </Time>
+            <p>{reserveTime.time1}/5</p>
+          </TimesCount>
+          <TimesCount>
+            <Time
+              onClick={() => {
+                handleTimeClick("12:00:00");
+              }}
+            >
+              12시
+            </Time>
+            <p>{reserveTime.time2}/5</p>
+          </TimesCount>
+          <TimesCount>
+            <Time
+              onClick={() => {
+                handleTimeClick("13:00:00");
+              }}
+            >
+              13시
+            </Time>
+            <p>{reserveTime.time3}/5</p>
+          </TimesCount>
+          <TimesCount>
+            <Time
+              onClick={() => {
+                handleTimeClick("14:00:00");
+              }}
+            >
+              14시
+            </Time>
+            <p>{reserveTime.time4}/5</p>
+          </TimesCount>
+          <TimesCount>
+            <Time
+              onClick={() => {
+                handleTimeClick("15:00:00");
+              }}
+            >
+              15시
+            </Time>
+            <p>{reserveTime.time5}/5</p>
+          </TimesCount>
+          <TimesCount>
+            <Time
+              onClick={() => {
+                handleTimeClick("16:00:00");
+              }}
+            >
+              16시
+            </Time>
+            <p>{reserveTime.time6}/5</p>
+          </TimesCount>
+          <TimesCount>
+            <Time
+              onClick={() => {
+                handleTimeClick("17:00:00");
+              }}
+            >
+              17시
+            </Time>
+            <p>{reserveTime.time7}/5</p>
+          </TimesCount>
+          <TimesCount>
+            <Time
+              onClick={() => {
+                handleTimeClick("18:00:00");
+              }}
+            >
+              18시
+            </Time>
+            <p>{reserveTime.time8}/5</p>
+          </TimesCount>
+          <TimesCount>
+            <Time
+              onClick={() => {
+                handleTimeClick("19:00:00");
+              }}
+            >
+              19시
+            </Time>
+            <p>{reserveTime.time9}/5</p>
+          </TimesCount>
+          <TimesCount>
+            <Time
+              onClick={() => {
+                handleTimeClick("20:00:00");
+              }}
+            >
+              20시
+            </Time>
+            <p>{reserveTime.time10}/5</p>
+          </TimesCount>
+          <TimesCount>
+            <Time
+              onClick={() => {
+                handleTimeClick("21:00:00");
+              }}
+            >
+              21시
+            </Time>
+            <p>{reserveTime.time11}/5</p>
+          </TimesCount>
+          <TimesCount>
+            <Time
+              onClick={() => {
+                handleTimeClick("22:00:00");
+              }}
+            >
+              22시
+            </Time>
+            <p>{reserveTime.time12}/5</p>
+          </TimesCount>
         </TimeBox>
         <br />
         <SelectDateTime>
           <p>예약 선택 날짜</p>
           <p>
-            2023년 11월 11일<spans> 12시</spans>
+            {selectedDate.getFullYear()}년{selectedDate.getMonth() + 1}월{selectedDate.getDate()}일
+            <spans> {selectedTime}시</spans>
           </p>
         </SelectDateTime>
-        <CommonButton>예약</CommonButton>
+        {selectedTime && (
+          <CommonButton
+            onClick={() => {
+              setClickBtn(true);
+            }}
+          >
+            예약
+          </CommonButton>
+        )}
         <br />
       </Reservation>
+      {clickBtn && (
+        <ModalBranchReserve
+          userReservation={userReservation}
+          bid={bid}
+          branchname={bname}
+          setClickBtn={setClickBtn}
+        />
+      )}
     </>
   );
 };
@@ -85,6 +386,13 @@ const TimeBox = styled.div`
   flex-wrap: wrap;
   width: 100%;
 `;
+
+const TimesCount = styled.div`
+  & > p {
+    text-align: center;
+  }
+`;
+
 const Time = styled.p`
   border: 1px solid #bebebe;
   padding: 14px;
@@ -96,6 +404,8 @@ const Time = styled.p`
   &:hover {
     background-color: #99e8f8;
   }
+  background-color: ${(props) => (props.count === 5 ? "#ccc" : "")};
+  pointer-events: ${(props) => (props.count === 5 ? "none" : "auto")};
 `;
 
 // 선택 예약 날짜
