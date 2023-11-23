@@ -1,16 +1,45 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import MyReviewDetail from "./MyReviewDetail";
 
-const MyReviewItem = () => {
+const MyReviewItem = ({list}) => {
+  const [press, setPress] = useState(); // 고압 쿠폰 선택 수량
+  const [modalOpen, setModalOpen] = useState(false);
+
+  // 리뷰 클릭
+  const selectDiv = () => {
+    setModalOpen(!modalOpen);
+  };
   return (
     <>
-      <MateGroup>
-        <p>
-          <Link to={"../../reviewitem"}>제목 1</Link>
-        </p>
-        <p>지점</p>
-        <p>2023.12.12</p>
-      </MateGroup>
+      <ReviewGroup
+        onClick={selectDiv}
+      >
+        <LeftInfo>
+          <ReviewContent>
+            <div>
+              <p>{list.branchName}</p>
+              <h2>{list.title}</h2>
+            </div>
+            <Content>
+              <h4>{list.content}</h4>
+              <p>{list.modifiedAt}</p>
+            </Content>
+          </ReviewContent>
+          <ImageDiv>
+            {list.reviewImageData &&
+              <Image src={`data:image/png;base64,${list.reviewImageData}`} />
+            }
+          </ImageDiv>
+        </LeftInfo>
+      </ReviewGroup>
+      {modalOpen && <MyReviewDetail
+        data={list}
+        setModalOpen={setModalOpen}
+        modalOpen={modalOpen}
+        setPress={setPress}
+      />}
+      <hr />
     </>
   );
 };
@@ -18,11 +47,91 @@ const MyReviewItem = () => {
 export default MyReviewItem;
 
 /* 최상단 div Style */
-const MateGroup = styled.div`
+/*const MateGroup = styled.div`
   width: 80%;
   height: 8vh;
   display: flex;
   margin: 0 3vw 0 3vw;
   justify-content: space-between;
   align-items: center;
+`;*/
+const ReviewGroup = styled.div`
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+
+  padding-left: 2vw;
+  padding-right: 2vw;
+
+  & > div {
+    display: flex;
+  }
+`;
+
+const LeftInfo = styled.div`
+  display: flex;
+  margin-bottom: 1vh;
+`;
+
+/* 세부 내용 Style */
+const ReviewContent = styled.div`
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  & > div > h2 {
+    margin-bottom: 1vh;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    //margin-top: 5vh;
+  }
+`;
+
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 1vh;
+  
+  & > h4 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 1vh;
+  }
+`
+
+/* 날짜 Style */
+const Date = styled.p`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1vh;
+  color: #8f8f8f;
+`;
+
+/* 댓글 div Style */
+const ImageDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 15vw;
+  text-align: center;
+  margin-left: auto;
+
+  font-size: 14px;
+`;
+
+
+/* 댓글 개수 Style */
+const Image = styled.img`
+  height: 70%;
+  width: 100%;
 `;
