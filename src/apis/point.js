@@ -9,3 +9,9 @@ export function ReqPaymentsByPoint(cardInfo) {
 export function ReqPoints() {
   return axios.get("/points");
 }
+
+// 보유 포인트 확인하기
+export function ReqMyPayment(page) {
+  return axios.get("/mypage/payments", { params : {page} });
+}
+
