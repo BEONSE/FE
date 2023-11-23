@@ -7,12 +7,14 @@ import AppContext from "../../../AppContext";
 import { ReqMateBoardList } from "../../../apis/mateBoard";
 import Loading from "../../../components/Loading";
 import BackMove from "../../../components/backMove";
+import LoginModal from "../../../components/LoginModal";
 
 /* 메이트 게시판 List 컴포넌트 */
 const MateList = () => {
   const { moveToWrite, moveToLogin } = usePageMoving();
 
   const appContext = useContext(AppContext);
+  const [checkToken, setCheckToken] = useState(false);
 
   // 글이 없을 경우
   const [isEmpty, setIsEmpty] = useState(false);
@@ -52,7 +54,7 @@ const MateList = () => {
         setTimeout(() => (inThrottle = false), delay);
       }
     };
-  }
+  };
 
   const handleScroll = () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
@@ -76,12 +78,7 @@ const MateList = () => {
   // 글작성 click handler
   const writeBtnHandler = () => {
     if (!appContext.accessToken) {
-      const result = window.confirm(
-        "로그인 후 이용하실 수 있습니다.\n로그인 페이지로 이동하시겠습니까?",
-      );
-      if (result) {
-        moveToLogin();
-      }
+      setCheckToken(!checkToken);
     } else {
       moveToWrite();
     }
@@ -122,6 +119,8 @@ const MateList = () => {
           ))}
         </AllMateListDiv>
       )}
+      {checkToken && <LoginModal setCheckToken={setCheckToken} checkToken={checkToken} />}
+
       <H4>더보기</H4>
     </>
   );
@@ -162,4 +161,3 @@ const LoadDiv = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-

@@ -27,5 +27,5 @@ function App() {
 export default App;
 
 const BlankDiv = styled.div`
-  height: 7.5vh;
+  height: 7.2vh;
 `;

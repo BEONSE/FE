@@ -74,47 +74,52 @@ const Sidebar = ({ clicked }) => {
               쿠폰 구매하기
             </p>
             <hr />
-            <p
-              onClick={() => {
-                moveToMyCoupon();
-                clicked();
-              }}
-            >
-              쿠폰 사용 및 조회
-            </p>
-            <p
-              onClick={() => {
-                moveToMyReservation();
-                clicked();
-              }}
-            >
-              예약 확인
-            </p>
-            <p
-              onClick={() => {
-                moveToMyInfo();
-                clicked();
-              }}
-            >
-              개인 정보 수정
-            </p>
-            <p
-              onClick={() => {
-                moveToMyBoard();
-                clicked();
-              }}
-            >
-              내가 쓴 글 목록
-            </p>
-            <p
-              onClick={() => {
-                moveToMyPayment();
-                clicked();
-              }}
-            >
-              결제 내역
-            </p>
-            <hr />
+            {appContext.accessToken && (
+              <>
+                <p
+                  onClick={() => {
+                    moveToMyCoupon();
+                    clicked();
+                  }}
+                >
+                  쿠폰 사용 및 조회
+                </p>
+                <p
+                  onClick={() => {
+                    moveToMyReservation();
+                    clicked();
+                  }}
+                >
+                  예약 확인
+                </p>
+                <p
+                  onClick={() => {
+                    moveToMyInfo();
+                    clicked();
+                  }}
+                >
+                  개인 정보 수정
+                </p>
+                <p
+                  onClick={() => {
+                    moveToMyBoard();
+                    clicked();
+                  }}
+                >
+                  내가 쓴 글 목록
+                </p>
+                <p
+                  onClick={() => {
+                    moveToMyPayment();
+                    clicked();
+                  }}
+                >
+                  결제 내역
+                </p>
+                <hr />
+              </>
+            )}
+
             <p
               onClick={() => {
                 moveToSearch();
