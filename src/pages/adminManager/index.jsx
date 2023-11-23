@@ -65,6 +65,7 @@ const AdminManager = () => {
           전체 결제 내역
         </MenuContent>
       </Menu>
+      <Hr />
       {isApproval && <BranchApproveList />}
       {isAccept && <BranchAccpetList />}
       {isMemberList && <MemberList />}
@@ -78,7 +79,7 @@ export default AdminManager;
 const Menu = styled.div`
   display: flex;
   justify-content: space-around;
-  margin: 5vh 10vw 5vh 10vw;
+  margin: 5vh 10vw 2vh 10vw;
 `;
 
 const MenuContent = styled.div`
@@ -93,3 +94,8 @@ const MenuContent = styled.div`
     color: #56c7eb;
   }
 `;
+
+const Hr = styled.hr`
+  width: 90vw;
+  margin: auto auto 2vh auto;
+`

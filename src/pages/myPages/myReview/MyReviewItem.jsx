@@ -4,7 +4,6 @@ import MyReviewDetail from "./MyReviewDetail";
 
 const MyReviewItem = ({list}) => {
   const [press, setPress] = useState(); // 고압 쿠폰 선택 수량
-  const [data, setData] = useState();
   const [modalOpen, setModalOpen] = useState(false);
 
   // 리뷰 클릭
@@ -13,11 +12,11 @@ const MyReviewItem = ({list}) => {
   };
   return (
     <>
-      <MateGroup
+      <ReviewGroup
         onClick={selectDiv}
       >
         <LeftInfo>
-          <MateContent>
+          <ReviewContent>
             <div>
               <p>{list.branchName}</p>
               <h2>{list.title}</h2>
@@ -26,14 +25,14 @@ const MyReviewItem = ({list}) => {
               <h4>{list.content}</h4>
               <p>{list.modifiedAt}</p>
             </Content>
-          </MateContent>
+          </ReviewContent>
           <ImageDiv>
             {list.reviewImageData &&
               <Image src={`data:image/png;base64,${list.reviewImageData}`} />
             }
           </ImageDiv>
         </LeftInfo>
-      </MateGroup>
+      </ReviewGroup>
       {modalOpen && <MyReviewDetail
         data={list}
         setModalOpen={setModalOpen}
@@ -56,7 +55,7 @@ export default MyReviewItem;
   justify-content: space-between;
   align-items: center;
 `;*/
-const MateGroup = styled.div`
+const ReviewGroup = styled.div`
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -77,7 +76,7 @@ const LeftInfo = styled.div`
 `;
 
 /* 세부 내용 Style */
-const MateContent = styled.div`
+const ReviewContent = styled.div`
   width: 70%;
   display: flex;
   flex-direction: column;

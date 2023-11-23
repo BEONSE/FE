@@ -1,17 +1,38 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { usePageMoving } from "../../../../components/usePageMoving";
+import Grade1 from "../../../../assets/grade1.png";
+import Grade2 from "../../../../assets/grade2.png";
+import Grade3 from "../../../../assets/grade3.png";
+import React from "react";
 
-const MyMateItem = () => {
+const MyMateItem = ({ list }) => {
+  const { moveToMateDetail } = usePageMoving();
   return (
     <>
-      <MateGroup>
-        <p>
-          <Link to={"../../mate/1"}>제목 1</Link>
-        </p>
-        <p>지점</p>
-        <p>2023.12.12</p>
-        <Comment> 댓글 2</Comment>
+      <MateGroup
+        onClick={() => {
+          moveToMateDetail(list.mbid);
+        }}
+      >
+        <LeftInfo>
+          <MateContent>
+            <h2>{list.title}</h2>
+            <div>
+              <p>{list.content}</p>
+            </div>
+          </MateContent>
+          <Comment>
+            <Count>{list.commentCount}</Count>
+            <p>댓글</p>
+          </Comment>
+        </LeftInfo>
+
+        <Date>
+          <p>#{list.mbid}</p>
+          {list.modifiedAt}
+        </Date>
       </MateGroup>
+      <hr />
     </>
   );
 };
@@ -20,21 +41,80 @@ export default MyMateItem;
 
 /* 최상단 div Style */
 const MateGroup = styled.div`
-  width: 80%;
-  height: 8vh;
+  cursor: pointer;
   display: flex;
-  margin: 0 3vw 0 3vw;
+  flex-direction: column;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+
+  padding-left: 2vw;
+  padding-right: 2vw;
+
+  & > div {
+    display: flex;
+    justify-content: space-around;
+  }
+`;
+
+const LeftInfo = styled.div`
+  display: flex;
+`;
+
+/* 세부 내용 Style */
+const MateContent = styled.div`
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  
+  & > h2 {
+    margin-bottom: 1vh;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  & > div {
+    display: flex;
+  }
+  
+  & > div > p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 20px;
+  }
+`;
+
+/* 등급 Style */
+const Grade = styled.p`
+  margin-left: 2vw;
+  & > img {
+    height: 2.5vh;
+  }
+`;
+
+/* 날짜 Style */
+const Date = styled.p`
+  display: flex;
   justify-content: space-between;
-  align-items: center;
+  margin-top: 1vh;
+  color: #8f8f8f;
 `;
 
 /* 댓글 div Style */
-const Comment = styled.p`
+const Comment = styled.div`
   display: flex;
-  width: 10vw;
-  height: 5vh;
-  text-align: center;
-  background-color: #b6b6b6;
+  flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
-  justify-content: center;
+  width: 12vw;
+  text-align: center;
+  background-color: #99e8f89d;
+  border-radius: 10px;
+  margin-left: auto;
+
+  font-size: 14px;
 `;
+
+/* 댓글 개수 Style */
+const Count = styled.p``;

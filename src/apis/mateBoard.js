@@ -29,3 +29,8 @@ export function ReqAddComment(id, comment) {
 export function ReqRemoveComment(mbid, mcid) {
   return axios.patch(`mates/${mbid}/comments/${mcid}`);
 }
+
+// 내가 쓴 메이트 게시글
+export function ReqMyMate(page) {
+  return axios.get(`mypage/mates`, {params : {page}});
+}

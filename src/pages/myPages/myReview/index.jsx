@@ -1,14 +1,10 @@
 import styled from "styled-components";
 import MyReviewItem from "./MyReviewItem";
-import React, { useContext, useEffect, useState } from "react";
-import AppContext from "../../../AppContext";
+import React, { useEffect, useState } from "react";
 import { ReqMyReview } from "../../../apis/reviewBoard";
 import Loading from "../../../components/Loading";
-import MateItem from "../../board/mateList/MateItem";
 
 const MyReview = () => {
-  const appContext = useContext(AppContext);
-
   // 글이 없을 경우
   const [isEmpty, setIsEmpty] = useState(false);
 
@@ -93,12 +89,12 @@ const MyReview = () => {
           <Loading />
         </LoadDiv>
       ) : (
-        <AllMateListDiv>
+        <AllReviewList>
           {isEmpty && <p>게시글을 찾을 수 없습니다.</p>}
           {reviewList.map((list) => (
             <MyReviewItem key={list.rbId} list={list} />
           ))}
-        </AllMateListDiv>
+        </AllReviewList>
       )}
       <H4>더보기</H4>
     </>
@@ -107,7 +103,7 @@ const MyReview = () => {
 
 export default MyReview;
 // 목록 전체 div
-const AllMateListDiv = styled.div`
+const AllReviewList = styled.div`
   width: 90vw;
   margin: auto;
 `;
