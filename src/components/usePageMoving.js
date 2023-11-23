@@ -77,6 +77,9 @@ export const usePageMoving = () => {
   // 가맹점 정보 수정
   const moveToBranchUpdate = (bid) => navigate(`/branch/mypage/${bid}`);
 
+  // Admin page로 이동
+  const moveToAdmin = () => navigate("/admin", { replace: true });
+
   return {
     moveToLogin,
     moveToRegister,
@@ -102,5 +105,6 @@ export const usePageMoving = () => {
     moveToUseCoupons,
     moveToBranchUpdate,
     moveToWriteReview,
+    moveToAdmin,
   };
 };

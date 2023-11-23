@@ -15,7 +15,7 @@ import AppContext from "../../AppContext";
 import BackMove from "../../components/backMove";
 
 const Login = ({ setHideHeaderFooter }) => {
-  const { moveToHome, moveToRegister, moveToBranchManager } = usePageMoving();
+  const { moveToHome, moveToRegister, moveToBranchManager, moveToAdmin } = usePageMoving();
 
   const appContext = useContext(AppContext);
 
@@ -63,6 +63,9 @@ const Login = ({ setHideHeaderFooter }) => {
         }
         if (loginResponse.data.role === "ROLE_USER") {
           moveToHome();
+        }
+        if (loginResponse.data.role === "ROLE_ADMIN") {
+          moveToAdmin();
         }
       }
     } catch (err) {
