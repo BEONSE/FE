@@ -149,6 +149,8 @@ const CouponAllDiv = styled.div`
 const TopImg = styled.div`
   background-image: url(${CouponStore});
   background-size: contain;
+  background-repeat: no-repeat;
+
   width: 100vw;
   height: 112px;
   margin-top: 1vh;
