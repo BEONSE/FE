@@ -1,13 +1,17 @@
 import styled from "styled-components";
 import PayModal from "./PayModal";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Point1 from "../../assets/point1.png";
 import Point2 from "../../assets/point2.png";
 import Point3 from "../../assets/point3.png";
+import AppContext from "../../AppContext";
+import LoginModal from "../../components/LoginModal";
 
 /* 결제 종류 컴포넌트 */
 const IterationPoint = ({ price }) => {
+  const appContext = useContext(AppContext);
   const [isPayModal, setPayModal] = useState(false);
+  const [checkToken, setCheckToken] = useState(false);
 
   const calcPoint = price * 11000;
   const calcPrice = price * 10000;
@@ -23,9 +27,17 @@ const IterationPoint = ({ price }) => {
     setPayModal(false);
   };
 
+  const checkLogin = () => {
+    if (appContext.accessToken) {
+      openPay();
+    } else {
+      setCheckToken(!checkToken);
+    }
+  };
+
   return (
     <>
-      <Points onClick={openPay} price={price}>
+      <Points onClick={checkLogin} price={price}>
         {price === 1 && <img src={Point1} alt="pointimg" />}
         {price === 3 && <img src={Point2} alt="pointimg" />}
         {price === 5 && <img src={Point3} alt="pointimg" />}
@@ -33,6 +45,7 @@ const IterationPoint = ({ price }) => {
       {isPayModal && (
         <PayModal clicked={closePay} formattedPrice={formattedPrice} price={calcPrice} />
       )}
+      {checkToken && <LoginModal setCheckToken={setCheckToken} checkToken={checkToken} />}
     </>
   );
 };

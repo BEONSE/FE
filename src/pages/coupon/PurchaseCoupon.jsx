@@ -1,14 +1,18 @@
 import styled from "styled-components";
 import { CommonButton } from "../../components/CommonButton";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import MyPoints from "../myPages/myPoints";
 import ModalPurchaseCoupon from "./ModalPurchaseCoupon";
 import FormCoupon from "../../assets/formcoupon.png";
 import PressCoupon from "../../assets/presscoupon.png";
 import CouponStore from "../../assets/couponstore.png";
 import BackMove from "../../components/backMove";
-
+import AppContext from "../../AppContext";
+import LoginModal from "../../components/LoginModal";
 const PurchaseCoupon = () => {
+  const appContext = useContext(AppContext);
+  const [checkToken, setCheckToken] = useState(false);
+
   const pressPrice = 3000;
   const bubblePrice = 3000;
   const [press, setPress] = useState(1); // 고압 쿠폰 선택 수량
@@ -38,20 +42,24 @@ const PurchaseCoupon = () => {
 
   // 구매 버튼 클릭
   const purchaseBtn = (couponType) => {
-    if (couponType === "고압 샤워 쿠폰") {
-      setSelectCoupon({
-        type: couponType,
-        price: pressPrice,
-        quantity: press,
-      });
-    } else if (couponType === "폼 샤워 쿠폰") {
-      setSelectCoupon({
-        type: couponType,
-        price: bubblePrice,
-        quantity: bubble,
-      });
+    if (appContext.accessToken) {
+      if (couponType === "고압 샤워 쿠폰") {
+        setSelectCoupon({
+          type: couponType,
+          price: pressPrice,
+          quantity: press,
+        });
+      } else if (couponType === "폼 샤워 쿠폰") {
+        setSelectCoupon({
+          type: couponType,
+          price: bubblePrice,
+          quantity: bubble,
+        });
+      }
+      setModalOpen(!modalOpen);
+    } else {
+      setCheckToken(!checkToken);
     }
-    setModalOpen(!modalOpen);
   };
 
   useEffect(() => {
@@ -116,6 +124,7 @@ const PurchaseCoupon = () => {
           setPress={setPress}
         />
       )}
+      {checkToken && <LoginModal setCheckToken={setCheckToken} checkToken={checkToken} />}
     </>
   );
 };

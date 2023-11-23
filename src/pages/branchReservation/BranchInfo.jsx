@@ -2,13 +2,18 @@ import styled from "styled-components";
 import { CommonButton } from "../../components/CommonButton";
 import { usePageMoving } from "../../components/usePageMoving";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import SingleMap from "../map/SingleMap";
 import BackMove from "../../components/backMove";
 import { ReqBranchInfo } from "../../apis/branch";
+import AppContext from "../../AppContext";
+import LoginModal from "../../components/LoginModal";
 
 const BranchInfo = () => {
+  const appContext = useContext(AppContext);
+  const [checkToken, setCheckToken] = useState(false);
+
   const { moveToReservation } = usePageMoving();
   const param = useParams("bid");
   const [isBranchInfo, setIsBranchInfo] = useState({});
@@ -31,6 +36,14 @@ const BranchInfo = () => {
 
     getBranch();
   }, []);
+
+  const reseveBtn = () => {
+    if (appContext.accessToken) {
+      moveToReservation(param.bid);
+    } else {
+      setCheckToken(!checkToken);
+    }
+  };
 
   return (
     <>
@@ -60,13 +73,7 @@ const BranchInfo = () => {
         <BranchIntro>
           <p>{isBranchInfo.introduction}</p>
         </BranchIntro>
-        <ReserveBtn
-          onClick={() => {
-            moveToReservation(param.bid);
-          }}
-        >
-          예약하기
-        </ReserveBtn>
+        <ReserveBtn onClick={reseveBtn}>예약하기</ReserveBtn>
         {branchImage &&
           branchImage.map((image) => (
             <BranchImage key={image.bmid}>
@@ -74,6 +81,7 @@ const BranchInfo = () => {
             </BranchImage>
           ))}
       </BranchAllInfo>
+      {checkToken && <LoginModal setCheckToken={setCheckToken} checkToken={checkToken} />}
     </>
   );
 };

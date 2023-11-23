@@ -10,6 +10,7 @@ import { CommonButton } from "../../components/CommonButton";
 import { useParams } from "react-router-dom";
 import { ReqBranchName, ReqBranchReserve, ReqReservationState } from "../../apis/reservation";
 import ModalBranchReserve from "./ModalBranchReserve";
+import BackMove from "../../components/backMove";
 
 registerLocale("ko", ko);
 
@@ -191,6 +192,7 @@ const BranchReserve = () => {
   return (
     <>
       <GlobalStyle />
+      <BackMove />
       <Reservation>
         <h1>{bname} 예약</h1>
         <CalendarWrap>
