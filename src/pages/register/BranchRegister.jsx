@@ -271,7 +271,6 @@ const BranchRegister = () => {
         <span>
           <img src={Address} alt="AddressImage" />
         </span>
-        {/* 주소 API 연결하고, 여기만 태그 사이즈 변경하기 */}
         <input
           type="text"
           name="address"

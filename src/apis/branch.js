@@ -29,3 +29,12 @@ export function ReqBranchReview(bid) {
 export function ReqBranchCoupon(bid) {
   return axios.get(`/branches/coupons/${bid}`, bid);
 }
+
+//가맹점 정보 수정
+export function ReqBranchUpdate(formdata) {
+  return axios.patch("branches/info", formdata, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+}

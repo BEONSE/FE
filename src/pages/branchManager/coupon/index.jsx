@@ -1,47 +1,69 @@
 import { useEffect } from "react";
 import styled from "styled-components";
 
-const CouponList = ({ item }) => {
+const CouponList = ({ list }) => {
   useEffect(() => {
-    if (item) {
-      console.log(item);
-      console.log("c", item["type"]);
+    if (list) {
+      console.log(list);
+      console.log("c", list["type"]);
     }
-  }, [item]);
+  }, [list]);
+
+  if (list.type === "고압 세차 쿠폰") {
+    list.type = "고압 세차";
+  }
+  if (list.type === "폼 세차 쿠폰") {
+    list.type = "폼 세차";
+  }
 
   return (
     <>
-      <CouponListForm>
-        <BranchCouponHeader>
-          <p>번호</p>
-          <p>쿠폰 종류</p>
-          <p>회원명</p>
-          <p>사용날짜</p>
-        </BranchCouponHeader>
-        <BranchCouponContent>
-          <p></p>
-          <p></p>
-          <p></p>
-          <p></p>
-        </BranchCouponContent>
-      </CouponListForm>
+      {list && (
+        <CouponListForm>
+          <hr />
+          <BranchCouponContent>
+            <CouponCid> {list.cid} </CouponCid>
+            <CouponType> {list.type} </CouponType>
+            <CouponUser> {list.name} </CouponUser>
+            <CouponPaymentDate> {list.paymentDate} </CouponPaymentDate>
+          </BranchCouponContent>
+        </CouponListForm>
+      )}
     </>
   );
 };
 
 export default CouponList;
 
-const CouponListForm = styled.div`
-  display: grid;
-  justify-items: center;
-  margin-bottom: 3rem;
-`;
+const CouponListForm = styled.div``;
 
-const BranchCouponHeader = styled.div`
+const BranchCouponContent = styled.div`
   display: flex;
-  & > p {
-    margin: 5vw;
-  }
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 `;
 
-const BranchCouponContent = styled.div``;
+const CouponCid = styled.div`
+  width: 5%;
+  margin-left: 5vw;
+  margin-right: 5vw;
+`;
+
+const CouponType = styled.div`
+  width: 35%;
+  margin-left: 5vw;
+  margin-right: 5vw;
+`;
+
+const CouponUser = styled.div`
+  width: 20%;
+  margin-left: 5vw;
+  margin-right: 5vw;
+`;
+
+const CouponPaymentDate = styled.div`
+  width: 40%;
+  margin-left: 4vw;
+  margin-right: 5vw;
+`;
