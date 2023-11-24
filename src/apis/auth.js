@@ -29,3 +29,18 @@ export function ReqProfile() {
 export function ReqUpdateProfile(commonUpdate) {
   return axios.patch("/mypage/info", commonUpdate);
 }
+
+// 승인 대기 가맹점 회원
+export function ReqWaitMember(page) {
+  return axios.get("/admin/branch/member", { params: { page } });
+}
+
+// 승인 대기 가맹점 회원
+export function ReqResultMember(page) {
+  return axios.get("/admin/branch/result", { params: { page } });
+}
+
+// 전체 회원
+export function ReqMember(page) {
+  return axios.get("/admin/member", { params: { page } });
+}
