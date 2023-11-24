@@ -17,21 +17,9 @@ import BackMove from "../../../components/backMove";
 // import { useRef } from "react";
 
 const MyInfoUpdate = () => {
-  //파일 미리볼 url을 저장해줄 state
-  const [imageFile, setImageFile] = useState("");
-  //이미지 파일 넣지 않았을 경우 default 이미지
-  const defaultImage = Sun;
-
-  //파일 저장
-  const saveImageFile = (e) => {
-    setImageFile(URL.createObjectURL(e.target.files[0]));
-  };
-
-  // //파일 삭제
-  // const deleteImageFile = () => {
-  //   URL.revokeObjectURL(imageFile);
-  //   setImageFile("");
-  // };
+  // 이미지 정보
+  const [image, setImage] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
   // 비밀번호 확인
   const [pwdConfirm, setPwdConfirm] = useState(true);
@@ -50,6 +38,18 @@ const MyInfoUpdate = () => {
     image: "",
     role: "ROLE_USER",
   });
+
+  // Image Handler 함수
+  const onLoadImage = (e) => {
+    const file = e.target.files;
+    setImage(file);
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImageUrl(reader.result);
+    };
+    reader.readAsDataURL(file[0]);
+  };
 
   // const input 입력 감지 handler
   const handleInputChange = (e) => {
@@ -106,12 +106,14 @@ const MyInfoUpdate = () => {
       <Title>회원정보수정</Title>
       <EditForm>
         <ProfileImg>
-          {commonUpdate.image ? (
+          {imageUrl ? (
+            <img src={imageUrl} alt="Preview" />
+          ) : commonUpdate.image ? (
             <img src={`data:image/png;base64,${commonUpdate.image}`} alt="profile" />
           ) : (
             <img src={DefaultProfile} alt="profile" />
           )}
-          <input type="file" accept="image/jpg, image/jpeg, image/png" onChange={() => {}} />
+          <input type="file" accept="image/jpg, image/jpeg, image/png" onChange={onLoadImage} />
         </ProfileImg>
         <LoginForm>
           <span>
@@ -265,6 +267,8 @@ export const LoginForm = styled.div`
 
 // 뒤로가기 회원 탈퇴
 const TopMenu = styled.div`
+  margin: auto;
+  width: 90vw;
   display: flex;
   align-items: flex-end;
   & > p {
