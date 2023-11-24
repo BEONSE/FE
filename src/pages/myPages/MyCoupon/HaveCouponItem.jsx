@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { ReqBranchNames } from "../../../apis/branch";
 import { ReqUseCoupon } from "../../../apis/coupon";
 import { usePageMoving } from "../../../components/usePageMoving";
+import FormCoupon from "../../../assets/formcoupon.png";
+import PressCoupon from "../../../assets/presscoupon.png";
 
 const HaveCouponItem = ({ coupon, selectedFilter }) => {
   const { moveToWriteReview } = usePageMoving();
@@ -65,37 +67,88 @@ const HaveCouponItem = ({ coupon, selectedFilter }) => {
 
   return (
     <>
-      <CouponItem>
-        {selectedFilter === "no" && (
-          <select onChange={selectedHandler} value={selectBranch.branchName}>
-            <option value={"defalut"}>지점 선택</option>
-            {branchNames.map((name) => (
-              <option value={`${name}`}>{name}</option>
-            ))}
-          </select>
-        )}
-        <h1>{coupon.type}</h1>
+      <GetCouponItem>
+        <ImageBox>
+          {coupon.type === "폼 샤워 쿠폰" ? (
+            <img src={FormCoupon} alt="coupon" />
+          ) : (
+            <img src={PressCoupon} alt="coupon" />
+          )}
+        </ImageBox>
+        <SelectBox>
+          {selectedFilter === "no" && (
+            <select onChange={selectedHandler} value={selectBranch.branchName}>
+              <option value={"defalut"}>지점 선택</option>
+              {branchNames.map((name) => (
+                <option value={`${name}`}>{name}</option>
+              ))}
+            </select>
+          )}
+        </SelectBox>
 
-        {coupon.branchName && (
-          <>
-            <p>사용 지점</p>
-            <p>{coupon.branchName}</p>
-          </>
-        )}
+        <UsedBranchname>
+          {coupon.branchName && (
+            <>
+              <p>사용 지점 - </p>
+              <p>&nbsp;BEONSE [{coupon.branchName}]</p>
+            </>
+          )}
+        </UsedBranchname>
 
         <UsedBtn used={coupon.used} onClick={clickBtnHandler}>
           {!coupon.used ? (selectedFilter === "no" ? "사용하기" : "리뷰쓰기") : "리뷰 작성 완료"}
         </UsedBtn>
-      </CouponItem>
+      </GetCouponItem>
     </>
   );
 };
 
 export default HaveCouponItem;
 
+// 전체 div
+const GetCouponItem = styled.div`
+  width: 100%;
+  margin-bottom: 2vh;
+  border: 1px solid #ececec;
+  border-radius: 20px;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.146);
+  padding: 5%;
+`;
+
+// 셀렉트
+const SelectBox = styled.div`
+  & > select {
+    margin-left: 50%;
+    font-family: "S-CoreDream-light";
+    font-weight: bold;
+    padding: 2%;
+    width: 50%;
+  }
+`;
+
+// 버튼
 const UsedBtn = styled(CommonButton)`
   margin-top: 3vh;
   font-size: 18px;
   background-color: ${(props) => (props.used ? "#ccc" : "")};
   pointer-events: ${(props) => (props.used ? "none" : "auto")};
+`;
+
+// 쿠폰 이미지
+const ImageBox = styled.div`
+  width: 80vw;
+
+  & > img {
+    width: 100%;
+  }
+`;
+
+// 사용 지점
+const UsedBranchname = styled.div`
+  width: 80%;
+  display: flex;
+
+  & > p {
+    font-weight: bold;
+  }
 `;

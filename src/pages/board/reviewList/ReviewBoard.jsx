@@ -1,5 +1,4 @@
 import ReviewItem from "./ReviewItem";
-import SearchIcon from "../../../assets/magnifier.png";
 import BackMove from "../../../components/backMove";
 import styled from "styled-components";
 
@@ -11,10 +10,6 @@ const ReviewBoard = () => {
         <h2>XX점</h2>
         <h2>REVIEW</h2>
       </Title>
-      <SearchBar>
-        <input placeholder="지점 검색하기" />
-        <img src={SearchIcon} alt="SearchIconImage" />
-      </SearchBar>
       <ReviewItem />
     </>
   );
