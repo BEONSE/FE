@@ -7,7 +7,6 @@ import { usePageMoving } from "../../../components/usePageMoving";
 import FormCoupon from "../../../assets/formcoupon.png";
 import PressCoupon from "../../../assets/presscoupon.png";
 import ModalMyCoupon from "./ModalMyCoupon";
-import Loading from "../../../components/Loading";
 
 const HaveCouponItem = ({ coupon, selectedFilter }) => {
   const { moveToWriteReview } = usePageMoving();
@@ -142,6 +141,11 @@ const SelectBox = styled.div`
     font-weight: bold;
     padding: 2%;
     width: 50%;
+
+    & :focus {
+      outline: none;
+      border: 1px solid #99eeff;
+    }
   }
 `;
 
