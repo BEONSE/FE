@@ -44,3 +44,14 @@ export function ReqResultMember(page) {
 export function ReqMember(page) {
   return axios.get("/admin/member", { params: { page } });
 }
+
+// 가맹점 회원 가입 승인
+export function ReqAcceptMember(mid) {
+  return axios.patch(`/admin/accept/${mid}`);
+}
+
+
+// 가맹점 회원 가입 거절
+export function ReqRejectMember(mid) {
+  return axios.patch(`/admin/reject/${mid}`);
+}

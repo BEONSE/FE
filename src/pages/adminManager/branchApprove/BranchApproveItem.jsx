@@ -1,33 +1,36 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useState } from "react";
 import { CommonButton } from "../../../components/CommonButton";
-import { ReqUseCoupon } from "../../../apis/coupon";
+import { ReqAcceptMember, ReqRejectMember } from "../../../apis/auth";
 
 const BranchApproveItem = ({ list }) => {
 
-  // const acceptBtn = async () => {
-  //   try {
-  //     const useReponse = await ReqUseCoupon(coupon.cid, selectBranch);
-  //     console.log(useReponse);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-  //
-  // // 사용하기 클릭 handler
-  // const clickBtnHandler = () => {
-  //   if (selectedFilter === "no") {
-  //     if (selectBranch.branchName !== "") {
-  //       alert(`${selectBranch.branchName}에서 쿠폰을 사용하시겠습니까?`);
-  //       acceptBtn();
-  //     } else {
-  //       alert("지점을 선택해주세요.");
-  //     }
-  //   } else if (selectedFilter === "yes") {
-  //     // 리뷰 쓰기로 이동
-  //     moveToWriteReview(coupon.cid, coupon.branchName);
-  //   }
-  // };
+  const acceptBtnHandle = async () => {
+    try {
+      const acceptResponse = await ReqAcceptMember(list.mid);
+      console.log(acceptResponse);
+      if (acceptResponse.status === 200) {
+        alert('가입이 승인되었습니다.')
+        window.location.reload();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const rejectBtnHandle = async () => {
+    try {
+      const rejectResponse = await ReqRejectMember(list.mid);
+      console.log(rejectResponse);
+      if (rejectResponse.status === 200) {
+        alert('가입이 거절되었습니다.')
+        window.location.reload();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
+  };
 
   return (
     <>
@@ -42,8 +45,8 @@ const BranchApproveItem = ({ list }) => {
             <p>가맹점 주소 : {list.address}</p>
           </BranchContent>
           <BtnDiv>
-            <AcceptBtn>승인</AcceptBtn>
-            <AcceptBtn>거절</AcceptBtn>
+            <AcceptBtn onClick={acceptBtnHandle}>승인</AcceptBtn>
+            <AcceptBtn onClick={rejectBtnHandle}>거절</AcceptBtn>
           </BtnDiv>
         </LeftInfo>
         <Date>
@@ -121,4 +124,4 @@ const Date = styled.p`
 const Hr = styled.hr`
   margin-top: 1vh;
   margin-bottom: 1vh;
-`
+`;
