@@ -4,7 +4,7 @@ import GlobalStyle from "../../components/GlobalStyle";
 
 import GetWeather from "../weather/GetWeather";
 import Rank from "./Rank";
-import MainImage from "../../assets/MainBackgroundImage.png";
+import MainImage from "../../assets/MainBackgroundImage.jpg";
 import ArrowImg from "../../assets/arrow.png";
 import { usePageMoving } from "../../components/usePageMoving";
 import { useContext, useEffect } from "react";
@@ -58,41 +58,59 @@ const HomeAllDiv = styled.div`
   }
   margin: auto;
 `;
-
 // 메인 화면 요소
 const MainDiv = styled.div`
-  background-image: url(${MainImage});
-  background-repeat: no-repeat;
-  background-size: cover;
-
+  position: relative;
   width: 35vw;
   @media (max-width: 1170px) {
     width: 100vw;
   }
-
   height: 40vh;
   margin-bottom: 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   color: #99e8f8;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url(${MainImage});
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: blur(2px); /* 이미지를 흐리게 만듭니다. */
+    opacity: 0.8; /* 흐린 이미지의 투명도를 조절합니다. */
+    z-index: -1;
+  }
+
+  & > h1,
+  & > p {
+    position: relative;
+    z-index: 1;
+  }
 
   & > h1 {
     font-size: 50px;
-    margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
   }
 
   & > p {
     font-size: 20px;
-    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    margin-bottom: 5vh;
+    font-weight: bold;
+    color: #99e8f8;
   }
 
   & > p > span {
     color: #ffee00;
     font-weight: bold;
+    font-size: 26px;
   }
 `;
 
