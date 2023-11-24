@@ -43,6 +43,8 @@ const BranchRegister = () => {
     setPopup(false);
 
     let fullAddress = data.address;
+
+    console.log(data);
     let extraAddress = "";
 
     //도로명 주소
@@ -303,7 +305,7 @@ const Warning = styled.div`
 `;
 
 const PostModal = styled.div`
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.2);
   position: fixed;
   left: 0;
   top: 30%;

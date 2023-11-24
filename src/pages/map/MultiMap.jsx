@@ -2,12 +2,10 @@ import { useEffect, useState } from "react";
 import MarkerIcon from "../../assets/markerImg.png";
 import { useNavigate } from "react-router-dom";
 import { ReqBranchPosition } from "../../apis/branch";
-import { usePageMoving } from "../../components/usePageMoving";
 
 const { kakao } = window;
 
 const MultiMap = () => {
-  const { moveToBranchInfo } = usePageMoving();
   const navigate = useNavigate();
   const [isPosition, setIsPosition] = useState([]);
 
@@ -83,9 +81,10 @@ const MultiMap = () => {
       customOverlay.setMap(m_map);
       (function (m_marker, customOverlay, index) {
         kakao.maps.event.addListener(m_marker, "click", function () {
-          // moveToBranchInfo(clickedBid); // 마커 클릭 isPosition.bid
+          const clickedBid = isPosition[index].bid;
+          navigate(`/search/${clickedBid}`);
         });
-      })(m_marker, customOverlay);
+      })(m_marker, customOverlay, i);
     }
 
     const displayMarker = (locPosition) => {
