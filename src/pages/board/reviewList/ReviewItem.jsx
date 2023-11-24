@@ -3,29 +3,36 @@ import React from "react";
 import Grade1 from "../../../assets/grade1.png";
 import Grade2 from "../../../assets/grade2.png";
 import Grade3 from "../../../assets/grade3.png";
+import Sun from "../../../assets/sunnyborder.png";
 
 const ReviewItem = ({ review }) => {
+
   return (
     <>
       <ContentGroup>
         <Profile>
           <div>
             <InnerProf>
-              <img src={`data:image/png;base64,${review.memberImageData}`} alt="review" />
-              <p>{review.writer}</p>
-              <Grade>
-                {review.grade === 1 && <img src={Grade1} alt="grade1" />}
-                {review.grade === 2 && <img src={Grade2} alt="grade2" />}
-                {review.grade === 3 && <img src={Grade3} alt="grade3" />}
-              </Grade>
+              {review.memberImageData ? (<img src={`data:image/png;base64,${review.memberImageData}`} alt="review" />) : (<img src={Sun} alt="기본 이미지" />)}
+
+              <Writer>
+                <p>{review.writer}</p>
+                <Grade>
+                  {review.grade === 1 && <img src={Grade1} alt="grade1" />}
+                  {review.grade === 2 && <img src={Grade2} alt="grade2" />}
+                  {review.grade === 3 && <img src={Grade3} alt="grade3" />}
+                </Grade>
+              </Writer>
+
             </InnerProf>
             <TimeDiv>
-              <p>작성일 {review.createdAt}</p>
-              <p>수정일 {review.modifiedAt}</p>
+              <div>작성일 {review.createdAt}</div>
+              <div>{review.createdAt !== review.modifiedAt && <div>수정일 {review.modifiedAt}</div>}</div>
             </TimeDiv>
-            <hr />
           </div>
+          <hr />
         </Profile>
+
         <Content>
           {review.reviewImageData && (
             <ReviewImage>
@@ -51,31 +58,26 @@ const ContentGroup = styled.div`
 const Profile = styled.div`
   margin-top: 2vh;
   margin-left: 5vw;
+  margin-right: 5vw;
   margin-bottom: 3vh;
-
-  & > div > div {
-    display: flex;
-  }
-
+  
   & > div > div > img {
-    width: 8vw;
-    height: 5vh;
+    width: 10vw;
   }
 `;
 
 const InnerProf = styled.div`
-  & > p {
-    margin-left: 8vw;
-  }
+  display: flex;
+  align-items: center;
+  margin-left: 2vw;
 `;
 
 const TimeDiv = styled.div`
-  display: flex;
-  margin-left: 8vw;
-  margin-top: -1.5vh;
   color: #aaaaaa;
   font-size: 13px;
-  justify-content: space-around;
+  margin-top: 1vh;
+  text-align: right;
+  margin-bottom: 2vh;
 `;
 
 const Content = styled.div`
@@ -97,9 +99,15 @@ const ReviewImage = styled.div`
 
 /* 등급 Style */
 const Grade = styled.p`
-  margin-left: 2vw;
+  //margin-left: 2vw;
 
   & > img {
     height: 2.5vh;
   }
+`;
+
+const Writer = styled.div`
+  margin-left: 2vw;
+  display: flex;
+  text-align: center;
 `;
