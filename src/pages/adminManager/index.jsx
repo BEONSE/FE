@@ -10,8 +10,7 @@ const AdminManager = () => {
   const [isAccept, setAccept] = useState(false);
   const [isMemberList, setMemberList] = useState(false);
   const [isPaymentList, setPaymentList] = useState(false);
-  const [selectedMenu, setSelectedMenu] = useState("");
-  const [selectedFilter, setSelectedFilter] = useState("");
+  const [selectedMenu, setSelectedMenu] = useState("approval");
 
   return (
     <>
@@ -54,7 +53,7 @@ const AdminManager = () => {
         </MenuContent>
 
         <MenuContent
-          className={selectedMenu === "paymentList" ? "selected" : "unselected"}
+          className={selectedMenu === "paymentList" ? "selected" : ""}
           onClick={() => {
             setSelectedMenu("paymentList");
             setAccept(false);
