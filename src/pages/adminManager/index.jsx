@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { styled } from "styled-components";
-import BranchApproveList from "./BranchApproveList";
-import BranchAccpetList from "./BranchAcceptList";
-import MemberList from "./MemberList";
-import PaymentList from "./PaymentList";
+import BranchAcceptList from "./branchAccept/BranchAcceptList";
+import PaymentList from "./payment/PaymentList";
+import BranchApproveList from "./branchApprove/BranchApproveList";
+import MemberList from "./allMember/MemberList";
 
 const AdminManager = () => {
   const [isApproval, setApproval] = useState(false);
@@ -67,7 +67,7 @@ const AdminManager = () => {
       </Menu>
       <Hr />
       {isApproval && <BranchApproveList />}
-      {isAccept && <BranchAccpetList />}
+      {isAccept && <BranchAcceptList />}
       {isMemberList && <MemberList />}
       {isPaymentList && <PaymentList />}
     </>
