@@ -110,7 +110,7 @@ const BranchUpdate = () => {
       const branchInfoResponse = await ReqBranchUpdate(formData);
       console.log(branchInfoResponse);
       // closeModal();
-      moveToBranchManager();
+      moveToBranchManager(param.bid);
     } catch (err) {
       console.log(err);
     }
@@ -228,7 +228,7 @@ const BranchUpdate = () => {
           <input
             type="text"
             name="introduction"
-            value={branchUpdate.introduction}
+            defaultValue={branchUpdate.introduction}
             placeholder="지점 소개"
           />
         </LoginForm>

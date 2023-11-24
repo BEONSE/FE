@@ -1,14 +1,19 @@
 import styled from "styled-components";
+import { useEffect } from "react";
 
 const MyPaymentItem = ({list}) => {
 
+
   return (
     <>
+      <hr/>
+      <br/>
       <PaymentGroup>
-        <p>{list.rnum}</p>
-        <p>{list.paymentPrice}</p>
-        <p>{list.points}</p>
-        <Date>{list.paymentDate}</Date>
+        <div> 결제 코드 : {list.pid}</div>
+        <div> 카드정보 : {list.cardName} ({list.cardNumber.toString().slice(-4)})</div>
+        <div> 결제 금액 : {list.paymentPrice.toLocaleString()}원</div>
+        <div> 적립된 포인트 : {list.points.toLocaleString()} p</div>
+        <div>결제 날짜 : {list.paymentDate}</div>
       </PaymentGroup>
     </>
   )
@@ -18,12 +23,6 @@ export default MyPaymentItem;
 
 const PaymentGroup = styled.div`
   width: 80vw;
-  display: flex;
-  justify-content: space-between;
   margin: auto auto 1vh auto;
-  text-align: center;
 `
 
-const Date = styled.p`
-  width: 17vw;
-`

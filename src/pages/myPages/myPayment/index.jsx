@@ -81,19 +81,13 @@ const MyPayment = () => {
       <Title>
         <h2>결제 페이지</h2>
       </Title>
-      <Menu>
-        <h3>번호</h3>
-        <h3>결제 금액</h3>
-        <h3>결제 포인트</h3>
-        <h3>결제 시간</h3>
-      </Menu>
       {isLoading ? (
         <LoadDiv>
           <Loading />
         </LoadDiv>
       ) : (
         <AllPaymentList>
-          {isEmpty && <p>게시글을 찾을 수 없습니다.</p>}
+          {isEmpty && <p>결제 내역이 없습니다.</p>}
           {paymentList.map((list) => (
             <MyPaymentItem key={list.rbId} list={list} />
           ))}
@@ -108,16 +102,9 @@ export default MyPayment;
 const Title = styled.div`
   text-align: center;
   margin-top: 5vh;
-  margin-bottom: 5vh;
+  margin-bottom: 2vh;
 `;
 
-const Menu = styled.div`
-  width: 90vw;
-  display: flex;
-  justify-content: space-around;
-  margin: auto auto 2vh auto;
-  text-align: center;
-`;
 // 목록 전체 div
 const AllPaymentList = styled.div`
   width: 90vw;
