@@ -1,12 +1,13 @@
 import { styled } from "styled-components";
 import PersonImg from "../../../assets/person.png";
 import Menu from "../../../assets/kebab_menu.png";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CommentModal from "../CommentForm/CommentModal";
 import AppContext from "../../../AppContext";
 import Grade1 from "../../../assets/grade1.png";
 import Grade2 from "../../../assets/grade2.png";
 import Grade3 from "../../../assets/grade3.png";
+import Sun from "../../../assets/sunnyborder.png";
 
 const MateComment = ({ comment, boardWriter }) => {
   // 케밥 이미지 클릭 상태
@@ -45,7 +46,7 @@ const MateComment = ({ comment, boardWriter }) => {
     <>
       <CommentGroup>
         <ProfileImage>
-          <img src={PersonImg} alt="commentProfile" />
+          {comment.imageData ? (<img src={`data:image/png;base64,${comment.imageData}`} alt="userprofile" />) : (<img src={PersonImg} alt="기본 이미지" />)}
         </ProfileImage>
         <Content>
           <ProfileContent>
@@ -93,7 +94,7 @@ const ProfileImage = styled.div`
   height: 6vh;
 
   & > img {
-    width: 100%;
+    width: 10vw;
     height: 100%;
     border-radius: 70px;
   }
