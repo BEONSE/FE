@@ -6,14 +6,67 @@ import React, { useEffect, useState } from "react";
 import { ReqMateBoardComment, ReqMateBoardDetail } from "../../../apis/mateBoard";
 import CommentForm from "../CommentForm/CommentForm";
 import BackMove from "../../../components/backMove";
+import Loading from "../../../components/Loading";
 
 const MateDetail = () => {
   const mbid = useParams("id"); // pathVariable 가져오기
   const [detail, setDetail] = useState({}); // 게시글 정보
   const [comment, setComment] = useState([]); // 댓글 정보
+  // 글이 없을 경우
+  const [isEmpty, setIsEmpty] = useState(false);
 
   // 로딩 상태
   const [isLoading, setIsLoading] = useState(true);
+
+  // 페이지
+  const [page, setPage] = useState(1);
+  const loadMore = async () => {
+    try {
+      const response = await ReqMateBoardComment(mbid.id, page + 1);
+      if (response.data.content.length === 0) {
+        setIsEmpty(true);
+      } else {
+        setComment([...comment, ...response.data.content]);
+        setPage(page + 1);
+      }
+    } catch (err) {
+      // 오류 처리
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const throttle = (func, delay) => {
+    let inThrottle;
+    return function () {
+      const args = arguments;
+      const context = this;
+      if (!inThrottle) {
+        func.apply(context, args);
+        inThrottle = true;
+        setTimeout(() => (inThrottle = false), delay);
+      }
+    };
+  };
+
+  const handleScroll = () => {
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+    if (scrollTop + clientHeight >= scrollHeight - 50) {
+      // 스크롤이 맨 아래에 도달하면 새로운 데이터 로드
+      loadMore();
+    }
+  };
+
+  useEffect(() => {
+    const handleScrollThrottle = throttle(handleScroll, 20); // 쓸데없이 많은 이벤트 호출을 방지하기 위한 스크롤 쓰로틀링
+
+    window.addEventListener("scroll", handleScrollThrottle);
+
+    return () => {
+      window.removeEventListener("scroll", handleScrollThrottle);
+    };
+  }, [handleScroll]);
 
   useEffect(() => {
     // 게시글 상세 요청
@@ -30,15 +83,16 @@ const MateDetail = () => {
     async function getComment() {
       try {
         const commentResponse = await ReqMateBoardComment(mbid.id);
-        setComment(commentResponse.data);
-        console.log("댓글", commentResponse.data);
+        setComment(commentResponse.data.content);
+        console.log("댓글", commentResponse.data.content);
       } catch (err) {
         console.log(err);
         console.log(err.response.data.statusCode);
         console.log(err.response.data.errorMessage);
+      } finally {
+        setIsLoading(false)
       }
     }
-
     getDetail();
     getComment();
   }, [mbid]);
@@ -46,6 +100,11 @@ const MateDetail = () => {
   return (
     <>
       <BackMove />
+      {isLoading ? (
+        <LoadDiv>
+          <Loading />
+        </LoadDiv>
+      ) : (
       <GroupDiv>
         <MateDetailItem detail={detail} />
         <CommentInfo>
@@ -59,6 +118,7 @@ const MateDetail = () => {
         ))}
         <CommentForm id={mbid.id} />
       </GroupDiv>
+      )}
     </>
   );
 };
@@ -85,4 +145,10 @@ const CommentInfo = styled.div`
   & > p {
     margin-left: 3vw;
   }
+`;
+
+const LoadDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;

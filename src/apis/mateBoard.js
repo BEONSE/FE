@@ -1,4 +1,4 @@
-import { axios1 as axios} from "./axiosConfig";
+import { axios1 as axios } from "./axiosConfig";
 
 // 메이트 게시글 등록
 export function ReqReadMateBoard(mateBoardItem) {
@@ -16,8 +16,8 @@ export function ReqMateBoardDetail(id) {
 }
 
 // 메이트 상세 댓글 조회
-export function ReqMateBoardComment(id) {
-  return axios.get(`mates/${id}/comments`);
+export function ReqMateBoardComment(id, page) {
+  return axios.get(`mates/${id}/comments`, { params: { page } });
 }
 
 // 메이트 댓글 등록
@@ -32,5 +32,5 @@ export function ReqRemoveComment(mbid, mcid) {
 
 // 내가 쓴 메이트 게시글
 export function ReqMyMate(page) {
-  return axios.get(`mypage/mates`, {params : {page}});
+  return axios.get(`mypage/mates`, { params: { page } });
 }

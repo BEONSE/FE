@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import PersonImg from "../../../assets/person.png";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Grade1 from "../../../assets/grade1.png";
 import Grade2 from "../../../assets/grade2.png";
 import Grade3 from "../../../assets/grade3.png";
+import Sun from "../../../assets/sunnyborder.png";
 
 const MateDetailItem = ({ detail }) => {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ const MateDetailItem = ({ detail }) => {
         <h3>{detail.title}</h3>
         <Profile>
           <InnerProf>
-            <img src={PersonImg} alt="userprofile" />
+            {detail.imageData ? (<img src={`data:image/png;base64,${detail.imageData}`} alt="userprofile" />) : (<img src={Sun} alt="기본 이미지" />)}
             <p>{detail.nickname}</p>
             <p>
               {detail.grade === 1 && <img src={Grade1} alt="grade1" />}
@@ -85,7 +85,9 @@ const InnerProf = styled.div`
   align-items: flex-end;
   margin-bottom: 1vh;
   & > img {
-    height: 5vh;
+    height: 8vh;
+    width: 13vw;
+    border-radius: 50%;
     margin-right: 2vw;
   }
 
