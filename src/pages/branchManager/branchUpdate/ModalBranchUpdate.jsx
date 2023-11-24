@@ -4,8 +4,9 @@ import Modal from "react-modal";
 import { usePageMoving } from "../../../components/usePageMoving";
 import { ReqBranchUpdate } from "../../../apis/branch";
 import styled from "styled-components";
+import Pencil from "../../../assets/pencil.png";
 
-const ModalBranchUpdate = ({ branchUpdate, setModalOpen, modalOpen, image }) => {
+const ModalBranchUpdate = ({ param, branchUpdate, imageFiles}) => {
   const [openModal, setOpenModal] = useState(true);
 
   //가맹점 메인으로 이동
@@ -25,20 +26,48 @@ const ModalBranchUpdate = ({ branchUpdate, setModalOpen, modalOpen, image }) => 
     },
   };
 
+  const [modalOpen, setModalOpen] = useState(true);
+
   const closeModal = () => {
     setOpenModal(false);
     setModalOpen(!modalOpen);
   };
 
+
+   //이미지 업로드를 위한 이벤트 핸들러
+  // const editBtn = async () => {
+  //   try {
+  //     const newImages = [];
+  //     const multipartFormData = new FormData();
+  //
+  //     for (let i = 0; i < imageFiles.length; i++) {
+  //       multipartFormData.append("image", imageFiles[i]);
+  //       const uploadResponse = await ReqBranchUpdate(multipartFormData);
+  //
+  //       //각 이미지에 대한 업로드가 성공하면 새로운 이미지 주소를 배열에 추가
+  //       if (uploadResponse.status === 200) {
+  //         newImages.push(uploadResponse.data.imageURL);
+  //       }
+  //     }
+  //     //배열에 있는 이미지 주소로 상태 업데이트
+  //     setBranchUpdate({
+  //       ...branchUpdate,
+  //       image: [...branchUpdate.image, ...newImages],
+  //     });
+  //   } catch (error) {
+  //     console.error("이미지 업로드 실패 : ", error);
+  //   }
+  // };
+
+
   const editBtn = async () => {
     try {
       const formData = new FormData();
-      image.map((item) => formData.append("image", item));
-      // formData.append("image", image[0]);
-      // formData.append("image", image[1]);
-      // formData.append("image", image[2]);
-      // formData.append("image", image[3]);
-      // formData.append("image", image[4]);
+      if (imageFiles) {
+        imageFiles.forEach((item, index) => {
+          formData.append(`image${index}`, item, item.name);
+        });
+      }
       formData.append(
         "branchRequestDTO",
         new Blob([JSON.stringify(branchUpdate)], {
@@ -63,6 +92,7 @@ const ModalBranchUpdate = ({ branchUpdate, setModalOpen, modalOpen, image }) => 
         ariaHideApp={false}
       >
         <ModalContent>
+          <img src={Pencil} alt="pencilimage" />
           <p>수정하시겠습니까?</p>
           <div>
             <PayBtn isCancled onClick={closeModal}>
@@ -82,17 +112,19 @@ const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 4vh;
+  padding-top: 1.25vh;
+
+  & > img {
+    height: 3vh;
+    margin-bottom: 2vh;
+  }
 
   & > p {
-    width: 80%;
-    font-size: 20px;
+    //width: 80%;
+    font-size: 18px;
     text-align: center;
-
-    & > span {
-      font-weight: bold;
-      font-size: 26px;
-    }
+    font-weight: bold;
+    
   }
 
   & > div {

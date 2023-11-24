@@ -4,46 +4,47 @@ import GlobalStyle from "../../components/GlobalStyle";
 import { LoginAllDiv } from "./branchUpdate";
 import BranchReview from "./review";
 import CouponList from "./coupon";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { usePageMoving } from "../../components/usePageMoving";
 import { useParams } from "react-router-dom";
-import { ReqProfile } from "../../apis/auth";
-import { ReqBranchCoupon, ReqBranchReview } from "../../apis/branch";
+import { ReqBranchCoupon, ReqBranchInfo, ReqBranchReview } from "../../apis/branch";
+import { ReqBranchName } from "../../apis/reservation";
+import { removeAuthHeader } from "../../apis/axiosConfig";
+import appContext from "../../AppContext";
+import AppContext from "../../AppContext";
 
 const BranchHome = () => {
-  const { moveToBranchUpdate } = usePageMoving();
+
+  const appContext = useContext(AppContext);
+
+  const { moveToBranchUpdate, moveToHome } = usePageMoving();
 
   const param = useParams("bid");
 
   // 클릭 상태
   const [selectedType, setSelectedType] = useState(null);
 
-  const [isBranchInfo, setIsBranchInfo] = useState();
+  // branch이름 가져오기
+  const [bname, setBname] = useState("");
 
-  const [review, setReivew] = useState();
+  const [review, setReview] = useState();
 
   const [coupon, setCoupon] = useState();
 
-  // 내 프로필 요청하기
+  // 브랜치 이름 가져오기
   useEffect(() => {
-    async function getProfile() {
+    async function getBranchName() {
       try {
-        const profileResponse = await ReqProfile();
-        console.log(profileResponse);
-        if (profileResponse.status === 200) {
-          setIsBranchInfo({
-            ...isBranchInfo,
-            branchName: profileResponse.data.nickname,
-          });
-          console.log(isBranchInfo.branchName);
-          console.log(profileResponse.data.nickname);
-        }
+        const bnameResponse = await ReqBranchName(param.bid);
+        console.log("이름", bnameResponse);
+        setBname(bnameResponse.data);
       } catch (err) {
         console.log(err);
       }
     }
-    getProfile();
-  }, {});
+
+    getBranchName();
+  }, []);
 
   //리뷰 가져오기
   useEffect(() => {
@@ -52,7 +53,7 @@ const BranchHome = () => {
         const reviewResponse = await ReqBranchReview(param["*"]);
         console.log(reviewResponse);
         if (reviewResponse.status === 200) {
-          setReivew(reviewResponse.data.content);
+          setReview(reviewResponse.data.content);
         }
       } catch (err) {
         console.log(err);
@@ -65,9 +66,11 @@ const BranchHome = () => {
   //쿠폰 가져오기
   useEffect(() => {
     async function getCoupon() {
+      console.log(param);
+      console.log(param.bid);
       try {
-        const couponResponse = await ReqBranchCoupon(param["*"]);
-        console.log(couponResponse);
+        const couponResponse = await ReqBranchCoupon();
+        console.log("쿠폰",couponResponse);
         if (couponResponse.status === 200) {
           const couponData = couponResponse.data;
           console.log("couponData", couponData);
@@ -86,18 +89,35 @@ const BranchHome = () => {
     }
   }, [selectedType]);
 
+  const handleLogout = (e) => {
+    removeAuthHeader();
+
+    appContext.setAccessToken("");
+    appContext.setRefreshToken("");
+
+    moveToHome();
+  }
   return (
     <>
       <GlobalStyle />
       <LoginAllDiv>
+        <HeadBtn>
         <UpdateBtn
           onClick={() => {
-            moveToBranchUpdate(param["*"]);
-          }}
-        >
+          moveToBranchUpdate(param["*"]);
+        }}
+          >
           정보수정
         </UpdateBtn>
-        {isBranchInfo && <h2> {isBranchInfo.branchName} 관리 페이지</h2>}
+
+        <LogoutBtn
+          onClick={() => {
+            handleLogout();
+          }}
+        >로그아웃
+        </LogoutBtn>
+        </HeadBtn>
+        <h2> {bname} 관리 페이지</h2>
 
         <MemberType>
           <TypeItem selected={selectedType === "review"} onClick={() => setSelectedType("review")}>
@@ -159,14 +179,14 @@ const TypeItem = styled.div`
   }
 `;
 
-const UpdateBtn = styled(CommonButton)`
+const LogoutBtn = styled(CommonButton)`
   margin-top: 2vw;
   margin-bottom: 2vw;
   width: 16vw;
   display: flex;
-  margin-left: auto;
+  margin-left: 4vw;
   text-align: center;
-  padding: auto;
+  //padding: auto;
   justify-content: center;
 `;
 
@@ -201,3 +221,14 @@ const CouponPaymentDate = styled.div`
   margin-left: 6vw;
   margin-right: 5vw;
 `;
+
+const UpdateBtn = styled.div`
+  color: gray;
+  display: flex;
+  align-items: center;
+  margin-right: 55vw;
+`;
+
+const HeadBtn = styled.div`
+  display: flex;
+  `;

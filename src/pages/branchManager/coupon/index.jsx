@@ -9,10 +9,10 @@ const CouponList = ({ list }) => {
     }
   }, [list]);
 
-  if (list.type === "고압 세차 쿠폰") {
+  if (list.type === "고압 샤워 쿠폰") {
     list.type = "고압 세차";
   }
-  if (list.type === "폼 세차 쿠폰") {
+  if (list.type === "폼 샤워 쿠폰") {
     list.type = "폼 세차";
   }
 

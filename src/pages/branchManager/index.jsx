@@ -14,7 +14,7 @@ const BranchManager = ({ setHideHeaderFooter }) => {
     <>
       <Routes>
         <Route path="/:bid" element={<BranchHome />} />
-        <Route path="/mypage" element={<BranchUpdate />} />
+        <Route path="/mypage/:bid" element={<BranchUpdate />} />
       </Routes>
     </>
   );
