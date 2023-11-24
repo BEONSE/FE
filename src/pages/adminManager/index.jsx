@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { styled } from "styled-components";
-import BranchApproveList from "./BranchApproveList";
-import BranchAccpetList from "./BranchAcceptList";
-import MemberList from "./MemberList";
-import PaymentList from "./PaymentList";
+import BranchAcceptList from "./branchAccept/BranchAcceptList";
+import PaymentList from "./payment/PaymentList";
+import BranchApproveList from "./branchApprove/BranchApproveList";
+import MemberList from "./allMember/MemberList";
 
 const AdminManager = () => {
-  const [isApproval, setApproval] = useState(false);
+  const [isApproval, setApproval] = useState(true);
   const [isAccept, setAccept] = useState(false);
   const [isMemberList, setMemberList] = useState(false);
   const [isPaymentList, setPaymentList] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState("");
+  const [selectedFilter, setSelectedFilter] = useState("");
 
   return (
     <>
@@ -53,7 +54,7 @@ const AdminManager = () => {
         </MenuContent>
 
         <MenuContent
-          className={selectedMenu === "paymentList" ? "selected" : ""}
+          className={selectedMenu === "paymentList" ? "selected" : "unselected"}
           onClick={() => {
             setSelectedMenu("paymentList");
             setAccept(false);
@@ -67,7 +68,7 @@ const AdminManager = () => {
       </Menu>
       <Hr />
       {isApproval && <BranchApproveList />}
-      {isAccept && <BranchAccpetList />}
+      {isAccept && <BranchAcceptList />}
       {isMemberList && <MemberList />}
       {isPaymentList && <PaymentList />}
     </>
@@ -87,9 +88,9 @@ const MenuContent = styled.div`
   &:focus {
     outline: auto;
     outline-color: #68d0f3;
-    color: black;
+    color: #56c7eb;
   }
-
+  
   &.selected {
     color: #56c7eb;
   }
