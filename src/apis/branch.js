@@ -31,8 +31,8 @@ export function ReqBranchCoupon() {
 }
 
 //가맹점 정보 수정
-export function ReqBranchUpdate(formdata) {
-  return axios.patch("branches/info", formdata, {
+export function ReqBranchUpdate(branchBranch, formdata) {
+  return axios.patch("branches/info", branchBranch, formdata, {
     headers: {
       "Content-Type": "multipart/form-data",
     },

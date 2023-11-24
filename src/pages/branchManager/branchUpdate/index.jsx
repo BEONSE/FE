@@ -22,9 +22,9 @@ import { usePageMoving } from "../../../components/usePageMoving";
 const BranchUpdate = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
-  // const editBtn = () => {
-  //   setModalOpen(!modalOpen);
-  // };
+  const editBtn = () => {
+    setModalOpen(!modalOpen);
+  };
 
   //비밀번호 확인
   const [pwdConfirm, setPwdConfirm] = useState(true);
@@ -86,35 +86,7 @@ const BranchUpdate = () => {
   }, []);
 
   const [imageFiles, setImageFiles] = useState([]);
-  const { moveToBranchManager } = usePageMoving();
-  const editBtn = async () => {
-    try {
-      const formData = new FormData();
-      if (imageFiles) {
-        imageFiles.forEach((item, index) => {
-          if(item instanceof File) {
-            console.log(item.name);
-            formData.append(`image${index}`, item, item.name);
-            console.log(`image${index} : `, item);
-          } else {
-            console.error(`Item at index ${index} is not a valid File.`);
-          }
-        });
-      }
-      formData.append(
-        "branchRequestDTO",
-        new Blob([JSON.stringify(branchUpdate)], {
-          type: "application/json",
-        }),
-      );
-      const branchInfoResponse = await ReqBranchUpdate(formData);
-      console.log(branchInfoResponse);
-      // closeModal();
-      moveToBranchManager();
-    } catch (err) {
-      console.log(err);
-    }
-  };
+
   const onLoadImage = (e) => {
     const files = e.target.files;
     const fileUrls = [];
@@ -228,7 +200,7 @@ const BranchUpdate = () => {
           <input
             type="text"
             name="introduction"
-            value={branchUpdate.introduction}
+            defaultValue={branchUpdate.introduction}
             placeholder="지점 소개"
           />
         </LoginForm>
