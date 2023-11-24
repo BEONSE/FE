@@ -1,4 +1,3 @@
-import { CouponItem } from "../../coupon/PurchaseCoupon";
 import { CommonButton } from "../../../components/CommonButton";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
@@ -7,9 +6,13 @@ import { ReqUseCoupon } from "../../../apis/coupon";
 import { usePageMoving } from "../../../components/usePageMoving";
 import FormCoupon from "../../../assets/formcoupon.png";
 import PressCoupon from "../../../assets/presscoupon.png";
+import ModalMyCoupon from "./ModalMyCoupon";
+import Loading from "../../../components/Loading";
 
 const HaveCouponItem = ({ coupon, selectedFilter }) => {
   const { moveToWriteReview } = usePageMoving();
+  const [checkChooseBranch, setCheckChooseBranch] = useState(false);
+  const [useCoupon, setUseCoupon] = useState(false);
 
   const [selectBranch, setSelectBranch] = useState({
     branchName: "",
@@ -26,7 +29,7 @@ const HaveCouponItem = ({ coupon, selectedFilter }) => {
     async function getBranchNames() {
       try {
         const namesResponse = await ReqBranchNames();
-        console.log(namesResponse);
+        console.log("이름", namesResponse);
         if (namesResponse.status === 200) {
           setBranchNames(namesResponse.data);
         }
@@ -45,6 +48,9 @@ const HaveCouponItem = ({ coupon, selectedFilter }) => {
     try {
       const useReponse = await ReqUseCoupon(coupon.cid, selectBranch);
       console.log(useReponse);
+      if (useReponse.status === 200) {
+        window.location.reload();
+      }
     } catch (err) {
       console.log(err);
     }
@@ -54,10 +60,9 @@ const HaveCouponItem = ({ coupon, selectedFilter }) => {
   const clickBtnHandler = () => {
     if (selectedFilter === "no") {
       if (selectBranch.branchName !== "") {
-        alert(`${selectBranch.branchName}에서 쿠폰을 사용하시겠습니까?`);
-        patchCoupon();
+        setUseCoupon(!useCoupon);
       } else {
-        alert("지점을 선택해주세요.");
+        setCheckChooseBranch(!checkChooseBranch);
       }
     } else if (selectedFilter === "yes") {
       // 리뷰 쓰기로 이동
@@ -80,7 +85,7 @@ const HaveCouponItem = ({ coupon, selectedFilter }) => {
             <select onChange={selectedHandler} value={selectBranch.branchName}>
               <option value={"defalut"}>지점 선택</option>
               {branchNames.map((name) => (
-                <option value={`${name}`}>{name}</option>
+                <option value={`${name.branchName}`}>{name.branchName}</option>
               ))}
             </select>
           )}
@@ -99,6 +104,20 @@ const HaveCouponItem = ({ coupon, selectedFilter }) => {
           {!coupon.used ? (selectedFilter === "no" ? "사용하기" : "리뷰쓰기") : "리뷰 작성 완료"}
         </UsedBtn>
       </GetCouponItem>
+      {checkChooseBranch && (
+        <ModalMyCoupon
+          content={"지점을 선택해주세요."}
+          modalState={setCheckChooseBranch}
+          reqApi={null}
+        />
+      )}
+      {useCoupon && (
+        <ModalMyCoupon
+          content={`${selectBranch.branchName}에서 쿠폰을 사용하시겠습니까?`}
+          modalState={setUseCoupon}
+          reqApi={patchCoupon}
+        />
+      )}
     </>
   );
 };
