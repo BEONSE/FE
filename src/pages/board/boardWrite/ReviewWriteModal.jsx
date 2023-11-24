@@ -89,7 +89,6 @@ const ModalContent = styled.div`
 
   & > p {
     font-size: 20px;
-    font-weight: bold;
   }
 
   & > div {

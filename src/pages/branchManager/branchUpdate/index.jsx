@@ -1,9 +1,7 @@
 import styled from "styled-components";
-import DaumPostcode from "react-daum-postcode";
 
 import { CommonButton } from "../../../components/CommonButton";
 
-import Sun from "../../../assets/sunnyborder.png";
 import Person from "../../../assets/person.png";
 import Address from "../../../assets/address.png";
 import Check from "../../../assets/check.png";
@@ -17,67 +15,16 @@ import { useEffect } from "react";
 import { ReqProfile } from "../../../apis/auth";
 import GlobalStyle from "../../../components/GlobalStyle";
 import ModalBranchUpdate from "./ModalBranchUpdate";
-import { ReqBranchInfo } from "../../../apis/branch";
+import { ReqBranchInfo, ReqBranchUpdate } from "../../../apis/branch";
 import { useParams } from "react-router-dom";
+import { usePageMoving } from "../../../components/usePageMoving";
 
 const BranchUpdate = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const editBtn = () => {
-    setModalOpen(!modalOpen);
-  };
-
-  //다음 주소 모달
-  const [popup, setPopup] = useState(false);
-
-  const handleComplete = (data) => {
-    setPopup(false);
-
-    let fullAddress = data.address;
-    let extraAddress = "";
-
-    //도로명 주소
-    if (data.addressType === "R") {
-      //법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-      if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
-        extraAddress += data.bname;
-      }
-      if (data.buildingName !== "" && data.apartment === "Y") {
-        extraAddress += extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-      }
-
-      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
-    }
-
-    setBranchUpdate({
-      ...branchUpdate,
-      address: fullAddress,
-    });
-  };
-
-  //이미지 정보
-  const [image, setImage] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-
-  //image Handler 함수
-  const onLoadImage = (e) => {
-    const file = e.target.files;
-    setImage(file);
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      setImageUrl(reader.result);
-    };
-    image.map((item) => reader.readAsDataURL(item));
-    // reader.readAsDataURL(file[0]);
-    // reader.readAsDataURL(file[1]);
-    // reader.readAsDataURL(file[2]);
-    // reader.readAsDataURL(file[3]);
-    // reader.readAsDataURL(file[4]);
-  };
-
-  //이미지 파일 넣지 않았을 경우 default 이미지
-  const defaultImage = Sun;
+  // const editBtn = () => {
+  //   setModalOpen(!modalOpen);
+  // };
 
   //비밀번호 확인
   const [pwdConfirm, setPwdConfirm] = useState(true);
@@ -99,10 +46,10 @@ const BranchUpdate = () => {
   const [branchUpdate, setBranchUpdate] = useState({
     email: "",
     password: "",
-    nickname: "",
-    name: "",
+    branchName: "",
+    ceo: "",
     address: "",
-    image: "",
+    image: [],
     introduction: "",
     role: "ROLE_BRANCH",
   });
@@ -113,29 +60,88 @@ const BranchUpdate = () => {
     async function getProfile() {
       try {
         const multipartFormData = new FormData();
-        const profileResponse = await ReqBranchInfo(param["*"]);
+        const profileResponse = await ReqBranchInfo(param.bid, multipartFormData);
         console.log(profileResponse);
+        const response = await ReqProfile();
+        console.log(response);
         if (profileResponse.status === 200) {
-          setBranchUpdate((preData) => ({
+          setBranchUpdate(() => ({
             ...branchUpdate,
-            email: profileResponse.data.email,
-            password: profileResponse.data.password,
-            branchName: profileResponse.data.nickname,
-            ceo: profileResponse.data.name,
+            email: response.data.email,
+            password: response.data.password,
+            branchName: profileResponse.data.branchName,
+            ceo: response.data.name,
             address: profileResponse.data.address,
-            // image: profileResponse.data.image || preData.image,
-            indtroduction: profileResponse.data.introduction,
+            image: profileResponse.data.imageDTOS.map((image) => image.imageData),
+            introduction: profileResponse.data.introduction,
           }));
           console.log(branchUpdate);
-          console.log(branchUpdate.image);
-          console.log(profileResponse.data.nickname);
+          console.log(profileResponse.data.imageDTOS);
         }
       } catch (err) {
         console.log(err);
       }
     }
     getProfile();
-  }, {});
+  }, []);
+
+  const [imageFiles, setImageFiles] = useState([]);
+  const { moveToBranchManager } = usePageMoving();
+  const editBtn = async () => {
+    try {
+      const formData = new FormData();
+      if (imageFiles) {
+        imageFiles.forEach((item, index) => {
+          if(item instanceof File) {
+            console.log(item.name);
+            formData.append(`image${index}`, item, item.name);
+            console.log(`image${index} : `, item);
+          } else {
+            console.error(`Item at index ${index} is not a valid File.`);
+          }
+        });
+      }
+      formData.append(
+        "branchRequestDTO",
+        new Blob([JSON.stringify(branchUpdate)], {
+          type: "application/json",
+        }),
+      );
+      const branchInfoResponse = await ReqBranchUpdate(formData);
+      console.log(branchInfoResponse);
+      // closeModal();
+      moveToBranchManager();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const onLoadImage = (e) => {
+    const files = e.target.files;
+    const fileUrls = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        fileUrls.push(reader.result);
+        setImageFiles(fileUrls);
+      };
+      reader.readAsDataURL(files[i]);
+    }
+    setImageFiles(files);
+  };
+
+  const deleteImage = (index) => {
+    const imageList = [...imageFiles];
+    imageList.splice(index, 1);
+    setImageFiles(imageList);
+  };
+  useEffect(() => {
+    return () => {
+      imageFiles?.forEach((item) => {
+        URL.revokeObjectURL(item.preview_URL);
+      });
+    };
+  }, []);
 
   return (
     <>
@@ -153,7 +159,7 @@ const BranchUpdate = () => {
             name="email"
             value={branchUpdate.email}
             placeholder="아이디"
-            readOnly
+            disabled
           />
         </LoginForm>
         <br />
@@ -191,7 +197,7 @@ const BranchUpdate = () => {
             name="branchName"
             defaultValue={branchUpdate.branchName}
             placeholder="지점명"
-            readOnly
+            disabled
           />
         </LoginForm>
         <br />
@@ -204,8 +210,15 @@ const BranchUpdate = () => {
             name="Ceo"
             defaultValue={branchUpdate.ceo}
             placeholder="대표자명"
-            readOnly
+            disabled
           />
+        </LoginForm>
+        <br />
+        <LoginForm>
+          <span>
+            <img src={Address} alt="AddressImage" />
+          </span>
+          <input type="text" name="address" value={branchUpdate.address} placeholder="지점 주소" disabled/>
         </LoginForm>
         <br />
         <LoginForm>
@@ -224,32 +237,29 @@ const BranchUpdate = () => {
           type="file"
           name="image"
           accept="image/*"
-          value={branchUpdate.image}
+          value=""
           placeholder="지점 소개 사진"
+          multiple={true}
           onChange={onLoadImage}
         />
-        {imageUrl && (
-          <img
-            // src={`data:image/png;base64,${branchUpdate.image}`}
-            src={imageUrl}
-            alt="미리보기"
-            style={{ width: "100px", height: "100px", objectFit: "cover" }}
-          />
-        )}
+        {branchUpdate.image.map((url, index) => (
+          <>
+            <ImageBox>
+              <img src={`data:image/png;base64,${url}`} alt={`미리보기 ${index + 1}`} />
+            </ImageBox>
+
+            <DeleteBtn
+              onClick={() => {
+                deleteImage(index);
+              }}
+            >
+              삭제
+            </DeleteBtn>
+          </>
+        ))}
 
         <br />
-        <LoginForm>
-          <span>
-            <img src={Address} alt="AddressImage" />
-          </span>
-          <input type="text" name="address" value={branchUpdate.address} placeholder="지점 주소" />
-        </LoginForm>
-        <PostBtn onClick={() => setPopup(true)}>우편번호 찾기</PostBtn>
-        {popup && (
-          <PostModal>
-            <DaumPostcode autoClose onComplete={handleComplete} />
-          </PostModal>
-        )}
+
         <LoginButtonDiv>
           {/* 입력 폼 다 안맞으면 버튼 안눌리게 만들기 */}
           <LoginBtn
@@ -264,10 +274,9 @@ const BranchUpdate = () => {
       </EditForm>
       {modalOpen && (
         <ModalBranchUpdate
+          param={param}
           branchUpdate={branchUpdate}
-          setModalOpen={setModalOpen}
-          modalOpen={modalOpen}
-          image={image}
+          image={imageFiles}
         />
       )}
     </>
@@ -396,4 +405,17 @@ const PostModal = styled.div`
   top: 30%;
   height: 100%;
   width: 100%;
+`;
+
+const ImageBox = styled.div`
+  width: 90vw;
+  & > img {
+    width: 100%;
+    object-fit: cover;
+  }
+`;
+const DeleteBtn = styled(CommonButton)`
+  width: 20vw;
+  margin-bottom: 0.5vh;
+  margin-left: 70vw;
 `;

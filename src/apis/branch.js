@@ -26,8 +26,8 @@ export function ReqBranchReview(bid) {
 }
 
 //가맹점 별 쿠폰 가져오기
-export function ReqBranchCoupon(bid) {
-  return axios.get(`/branches/coupons/${bid}`, bid);
+export function ReqBranchCoupon() {
+  return axios.get("/branches/coupons");
 }
 
 //가맹점 정보 수정

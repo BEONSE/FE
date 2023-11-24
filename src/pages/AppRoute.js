@@ -11,9 +11,6 @@ import BranchReserve from "./branchReservation/BranchReserve";
 import AdminManager from "./adminManager";
 import MyInfoUpdate from "./myPages/myInfo/MyInfoUpdate";
 import BranchManager from "./branchManager";
-import CouponList from "./branchManager/coupon";
-import BranchUpdate from "./branchManager/branchUpdate";
-import BranchReview from "./branchManager/review";
 import Item from "./branchManager/review/reviewDetail";
 import Board from "./board";
 
@@ -37,9 +34,6 @@ const AppRoute = ({ setHideHeaderFooter }) => {
           element={<BranchManager setHideHeaderFooter={setHideHeaderFooter} />}
         />
         <Route path="/myinfo/update" element={<MyInfoUpdate />} />
-        <Route path="/branch/couponlist" element={<CouponList />} />
-        <Route path="/branch/update" element={<BranchUpdate />} />
-        <Route path="/branch/review" element={<BranchReview />} />
         <Route path="/reviewitem" element={<Item />} />
 
         <Route path="*" element={<Navigate to="/" />} />
