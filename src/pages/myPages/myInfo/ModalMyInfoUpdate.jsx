@@ -6,12 +6,10 @@ import { ReqUpdateProfile } from "../../../apis/auth";
 import { usePageMoving } from "../../../components/usePageMoving";
 import { useEffect } from "react";
 
-const ModalMyInfoUpdate = ({ commonUpdate, setModalOpen, modalOpen }) => {
+const ModalMyInfoUpdate = ({ commonUpdate, image, setModalOpen, modalOpen }) => {
   const [openModal, setOpenModal] = useState(true);
-
   //홈으로 이동
   const { moveToHome } = usePageMoving();
-
   // Modal 스타일
   const customStyles = {
     overlay: {
@@ -33,7 +31,16 @@ const ModalMyInfoUpdate = ({ commonUpdate, setModalOpen, modalOpen }) => {
 
   const editBtn = async () => {
     try {
-      const userInfoResponse = await ReqUpdateProfile(commonUpdate);
+      const formData = new FormData();
+      formData.append("image", image[0]);
+      formData.append(
+        "memberEditDTO",
+        new Blob([JSON.stringify(commonUpdate)], { type: "application/json" }),
+      );
+
+      const userInfoResponse = await ReqUpdateProfile(formData);
+      moveToHome();
+      console.log('userInfoRes', userInfoResponse);
       if (userInfoResponse.status === 200) {
         closeModal();
         moveToHome();

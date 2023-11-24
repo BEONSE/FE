@@ -206,6 +206,7 @@ const MyInfoUpdate = () => {
       {modalOpen && (
         <ModalMyInfoUpdate
           commonUpdate={commonUpdate}
+          image={image}
           setModalOpen={setModalOpen}
           modalOpen={modalOpen}
         />
@@ -283,6 +284,7 @@ const ProfileImg = styled.div`
   margin-bottom: 2vh;
   & > img {
     margin-bottom: 2vh;
+    height: 18vh;
     width: 100%;
     border-radius: 50%;
     object-fit: cover;

@@ -63,17 +63,17 @@ export default BranchApproveItem;
 const BtnDiv = styled.div`
   width: 20vw;
   display: flex;
+  align-items: center;
   justify-content: space-around;
 `;
 
 const AcceptBtn = styled(CommonButton)`
   width: 7vw;
-  /* 
-   height: 3vh; */
+  height: 5vh;
   padding: 3px;
-
+  
   & + & {
-    background-color: gray;
+    background-color: #c8c8c8;
   }
 `;
 

@@ -25,13 +25,13 @@ const CurrentUserInfo = () => {
     async function getProfile() {
       try {
         const profileResponse = await ReqProfile();
-        console.log(profileResponse);
+        console.log('반환', profileResponse);
         if (profileResponse.status === 200) {
           setCurrentUser({
             ...currentUser,
             mid: profileResponse.data.mid,
             nickname: profileResponse.data.nickname,
-            image: profileResponse.data.image,
+            image: profileResponse.data.imageData,
             paymentAmount: profileResponse.data.paymentAmount,
             pointAmount: profileResponse.data.pointAmount,
             grade: profileResponse.data.grade,
@@ -89,6 +89,9 @@ const ProfileImg = styled.div`
   margin-right: 5vw;
   & > img {
     height: 10vh;
+    width: 16vw;
+    border-radius: 50%;
+    object-fit: cover;
   }
 `;
 
