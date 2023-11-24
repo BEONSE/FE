@@ -29,7 +29,7 @@ const ReviewItem = ({ review }) => {
         <Content>
           {review.reviewImageData && (
             <ReviewImage>
-              <img src={`data:image/png;base64,${review.reviewImageData}`} />
+              <img src={`data:image/png;base64,${review.reviewImageData}`}  alt="profile" />
             </ReviewImage>
           )}
           <p>{review.content}</p>
