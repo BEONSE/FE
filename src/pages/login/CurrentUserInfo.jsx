@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Sun from "../../assets/sunnyborder.png";
 import styled from "styled-components";
 import { ReqProfile } from "../../apis/auth";
@@ -14,9 +14,9 @@ const CurrentUserInfo = () => {
   const [currentUser, setCurrentUser] = useState({
     mid: 0,
     nickname: "",
-    image: Sun,
+    image: "",
     paymentAmount: 0,
-    ponintAmount: 0,
+    pointAmount: 0,
     grade: 0,
   });
 
@@ -31,9 +31,9 @@ const CurrentUserInfo = () => {
             ...currentUser,
             mid: profileResponse.data.mid,
             nickname: profileResponse.data.nickname,
-            // image: profileResponse.data.image,
+            image: profileResponse.data.image,
             paymentAmount: profileResponse.data.paymentAmount,
-            ponintAmount: profileResponse.data.pointAmount,
+            pointAmount: profileResponse.data.pointAmount,
             grade: profileResponse.data.grade,
           });
         }
@@ -54,7 +54,7 @@ const CurrentUserInfo = () => {
     <>
       <Infos>
         <ProfileImg>
-          <img src={currentUser.image} alt="userProfile" />
+          {currentUser.image ? (<img src={`data:image/png;base64,${currentUser.image}`} alt="review" />) : (<img src={Sun} alt="기본 이미지" />)}
         </ProfileImg>
         <Profile>
           <Grade>
@@ -67,7 +67,7 @@ const CurrentUserInfo = () => {
           </Grade>
           <Point>
             <h1>보유 포인트</h1>
-            <p>{currentUser.ponintAmount.toLocaleString()}p</p>
+            <p>{currentUser.pointAmount.toLocaleString()}p</p>
           </Point>
         </Profile>
       </Infos>
