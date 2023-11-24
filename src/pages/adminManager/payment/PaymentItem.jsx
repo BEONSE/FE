@@ -1,34 +1,39 @@
 import styled from "styled-components";
 import React from "react";
 
-const MemberItem = ({ list }) => {
 
+const PaymentItem = ({ list }) => {
+
+  console.log("아이템", list);
   return (
     <>
-      <MemberGroup>
+      <PaymentGroup>
         <LeftInfo>
-          <MemberContent>
-            <h3>#{list.mid}</h3>
+          <PaymentContent>
+            <h3>#{list.pid}</h3>
             <div>
               <p>ID : {list.nickname}</p>
               <p>회원 이름 : {list.name}</p>
             </div>
+            <div className="cardGroup">
+              <p>카드사 : {list.cardName}</p>
+              <p>카드번호 : {list.cardNumber}</p>
+            </div>
             <p>주소 : {list.address}</p>
-          </MemberContent>
+          </PaymentContent>
         </LeftInfo>
         <Date>
-          신청 날짜 : {list.createdAt}
+          신청 날짜 : {list.paymentDate}
         </Date>
-      </MemberGroup>
+      </PaymentGroup>
       <Hr />
     </>
   );
 };
 
-export default MemberItem;
+export default PaymentItem;
 
-/* 최상단 div Style */
-const MemberGroup = styled.div`
+const PaymentGroup = styled.div`
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -49,7 +54,7 @@ const LeftInfo = styled.div`
 `;
 
 /* 세부 내용 Style */
-const MemberContent = styled.div`
+const PaymentContent = styled.div`
   width: 90%;
   display: flex;
   flex-direction: column;
@@ -59,7 +64,11 @@ const MemberContent = styled.div`
     display: flex;
     justify-content: space-between;
     margin-bottom: 1vh;
+    &.cardGroup {
+      width: 85%;
+    }
   }
+
 `;
 
 /* 날짜 Style */
@@ -74,4 +83,4 @@ const Date = styled.p`
 const Hr = styled.hr`
   margin-top: 1vh;
   margin-bottom: 1vh;
-`
+`;

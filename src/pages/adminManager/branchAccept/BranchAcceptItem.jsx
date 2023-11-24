@@ -20,7 +20,6 @@ const BranchAcceptItem = ({ list }) => {
             <h3>{list.isApproval}</h3>
           </ResultDiv>
         </LeftInfo>
-
         <Date>
           신청 날짜 : {list.createdAt}
         </Date>

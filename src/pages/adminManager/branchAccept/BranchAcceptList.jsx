@@ -71,7 +71,6 @@ const BranchAcceptList = () => {
         setIsLoading(false)
       }
     }
-
     getResultMember();
   }, []);
 

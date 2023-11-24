@@ -15,3 +15,8 @@ export function ReqMyPayment(page) {
   return axios.get("/mypage/payments", { params : {page} });
 }
 
+// 전체 회원 포인트 결제 내역
+export function ReqPayment(page) {
+  return axios.get("/admin/payments", { params : {page} });
+}
+

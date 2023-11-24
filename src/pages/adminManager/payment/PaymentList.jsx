@@ -1,23 +1,22 @@
 import { styled } from "styled-components";
-import { CommonButton } from "../../../components/CommonButton";
 import React, { useEffect, useState } from "react";
 import Loading from "../../../components/Loading";
-import { ReqWaitMember } from "../../../apis/auth";
-import BranchApproveItem from "./BranchApproveItem";
+import { ReqPayment } from "../../../apis/point";
+import PaymentItem from "./PaymentItem";
 
-const BranchApproveList = () => {
+const PaymentList = () => {
   const [isEmpty, setIsEmpty] = useState(false);
   const [isLoading, setIsLoading] = useState(true)
-  const [memberList, setMemberList] = useState([]);
+  const [paymentList, setPaymentList] = useState([]);
 // 페이지
   const [page, setPage] = useState(1);
   const loadMore = async () => {
     try {
-      const response = await ReqWaitMember(page + 1);
+      const response = await ReqPayment(page + 1);
       if (response.data.content.length === 0) {
         setIsEmpty(true);
       } else {
-        setMemberList([...memberList, ...response.data.content]);
+        setPaymentList([...paymentList, ...response.data.content]);
         setPage(page + 1);
       }
     } catch (err) {
@@ -60,11 +59,11 @@ const BranchApproveList = () => {
   }, [handleScroll]);
 
   useEffect(() => {
-    async function getWaitMember() {
+    async function getPayments() {
       try {
-        const paymentResponse = await ReqWaitMember();
+        const paymentResponse = await ReqPayment();
         console.log(paymentResponse);
-        setMemberList(paymentResponse.data.content);
+        setPaymentList(paymentResponse.data.content);
       } catch (err) {
         alert(err);
         setIsEmpty(true)
@@ -72,7 +71,7 @@ const BranchApproveList = () => {
         setIsLoading(false)
       }
     }
-    getWaitMember();
+    getPayments();
   }, []);
 
   return (
@@ -82,21 +81,21 @@ const BranchApproveList = () => {
           <Loading />
         </LoadDiv>
       ) : (
-        <ApproveList>
+        <AllPaymentList>
           {isEmpty && <p>게시글을 찾을 수 없습니다.</p>}
-          {memberList.map((list) => (
-            <BranchApproveItem key={list.mid} list={list} />
+          {paymentList.map((list) => (
+            <PaymentItem key={list.mid} list={list} card={true} />
           ))}
-        </ApproveList>
+        </AllPaymentList>
       )}
     </>
   );
 };
 
-export default BranchApproveList;
+export default PaymentList;
 
 // 목록 전체 div
-const ApproveList = styled.div`
+const AllPaymentList = styled.div`
   width: 90vw;
   margin: auto;
 `;
