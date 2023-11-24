@@ -96,12 +96,12 @@ const MainDiv = styled.div`
 
   & > h1 {
     font-size: 50px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
   }
 
   & > p {
     font-size: 20px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
     margin-bottom: 5vh;
     font-weight: bold;
     color: #99e8f8;

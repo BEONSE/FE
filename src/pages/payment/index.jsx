@@ -39,10 +39,11 @@ const PointAllDiv = styled.div`
 
 /* 포인트 충전 Style */
 const Title = styled.div`
-  margin-left: 5vw;
+  margin: auto;
   background-image: url(${PointStore});
   background-size: contain;
-  width: 100vw;
+  background-repeat: no-repeat;
+  width: 90vw;
   height: 130px;
 `;
 

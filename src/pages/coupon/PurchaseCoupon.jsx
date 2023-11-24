@@ -151,8 +151,9 @@ const TopImg = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
 
-  width: 100vw;
+  width: 90vw;
   height: 112px;
+  margin: auto;
   margin-top: 1vh;
   margin-bottom: 10px;
 `;
