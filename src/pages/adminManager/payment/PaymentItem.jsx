@@ -4,18 +4,21 @@ import React from "react";
 
 const PaymentItem = ({ list }) => {
 
-  console.log("아이템", list);
   return (
     <>
       <PaymentGroup>
         <LeftInfo>
           <PaymentContent>
-            <h3>#{list.pid}</h3>
+            <h3>결제 코드 : {list.pid}</h3>
             <div>
               <p>ID : {list.nickname}</p>
               <p>회원 이름 : {list.name}</p>
             </div>
-            <div className="cardGroup">
+            <div className="payGroup">
+              <p>결제 포인트 : {parseInt(list.points).toLocaleString()}</p>
+              <p>결제 금액 : {parseInt(list.price).toLocaleString()}</p>
+            </div>
+            <div className="payGroup">
               <p>카드사 : {list.cardName}</p>
               <p>카드번호 : {list.cardNumber}</p>
             </div>
@@ -23,7 +26,7 @@ const PaymentItem = ({ list }) => {
           </PaymentContent>
         </LeftInfo>
         <Date>
-          신청 날짜 : {list.paymentDate}
+          결제 날짜 : {list.paymentDate}
         </Date>
       </PaymentGroup>
       <Hr />
@@ -64,7 +67,8 @@ const PaymentContent = styled.div`
     display: flex;
     justify-content: space-between;
     margin-bottom: 1vh;
-    &.cardGroup {
+
+    &.payGroup {
       width: 85%;
     }
   }

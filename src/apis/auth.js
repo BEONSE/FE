@@ -26,8 +26,12 @@ export function ReqProfile() {
 }
 
 //회원 정보 수정
-export function ReqUpdateProfile(commonUpdate) {
-  return axios.patch("/mypage/info", commonUpdate);
+export function ReqUpdateProfile(formDate) {
+  return axios.patch("/mypage/info", formDate, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 }
 
 // 승인 대기 가맹점 회원
