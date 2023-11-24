@@ -1,77 +1,40 @@
 import styled from "styled-components";
-import PersonImg from "../../../assets/person.png";
-import React, { useContext, useEffect, useState } from "react";
-import AppContext from "../../../AppContext";
-import { ReqReviewBoardList } from "../../../apis/reviewBoard";
-import { useParams } from "react-router-dom";
+import React from "react";
 import Grade1 from "../../../assets/grade1.png";
 import Grade2 from "../../../assets/grade2.png";
 import Grade3 from "../../../assets/grade3.png";
 
-const ReviewItem = () => {
-  const bid = useParams("branchId");
-  const page = useParams("page");
-
-  const appContext = useContext(AppContext);
-
-  // 글이 없을 경우
-  const [isEmpty, setIsEmpty] = useState(false);
-
-  // 글 목록
-  const [reviewList, setReviewList] = useState([]);
-
-  // 로딩 상태
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    async function getReviewList() {
-      try {
-        const response = await ReqReviewBoardList(1, 1);
-        setReviewList(response.data.content);
-        console.log(response.data);
-        console.log(response.data.content);
-      } catch (err) {
-        if (err.response.data.statusCode === 404 || err.response.data.statusCode === 401) {
-          setIsEmpty(true);
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    getReviewList();
-  }, []);
+const ReviewItem = ({ review }) => {
   return (
     <>
-      {!isEmpty &&
-        reviewList.map((list, index) => (
-          <ContentGroup key={index}>
-            <Profile>
-              <div>
-                <InnerProf>
-                  <img src={`data:image/png;base64,${list.memberImageData}`} />
-                  <p>{list.writer}</p>
-                  <Grade>
-                    {list.grade === 1 && <img src={Grade1} alt="grade1" />}
-                    {list.grade === 2 && <img src={Grade2} alt="grade2" />}
-                    {list.grade === 3 && <img src={Grade3} alt="grade3" />}
-                  </Grade>
-                </InnerProf>
-                <TimeDiv>
-                  <p>작성일 {list.createdAt}</p>
-                  <p>수정일 {list.modifiedAt}</p>
-                </TimeDiv>
-              </div>
-            </Profile>
-            <Content>
-              {list.reviewImageData &&
-                <ReviewImage>
-                  <img src={`data:image/png;base64,${list.reviewImageData}`} />
-                </ReviewImage>
-              }
-              <p>{list.content}</p>
-            </Content>
-          </ContentGroup>
-        ))}
+      <ContentGroup>
+        <Profile>
+          <div>
+            <InnerProf>
+              <img src={`data:image/png;base64,${review.memberImageData}`} alt="review" />
+              <p>{review.writer}</p>
+              <Grade>
+                {review.grade === 1 && <img src={Grade1} alt="grade1" />}
+                {review.grade === 2 && <img src={Grade2} alt="grade2" />}
+                {review.grade === 3 && <img src={Grade3} alt="grade3" />}
+              </Grade>
+            </InnerProf>
+            <TimeDiv>
+              <p>작성일 {review.createdAt}</p>
+              <p>수정일 {review.modifiedAt}</p>
+            </TimeDiv>
+            <hr />
+          </div>
+        </Profile>
+        <Content>
+          {review.reviewImageData && (
+            <ReviewImage>
+              <img src={`data:image/png;base64,${review.reviewImageData}`}  alt="profile" />
+            </ReviewImage>
+          )}
+          <p>{review.content}</p>
+        </Content>
+      </ContentGroup>
     </>
   );
 };

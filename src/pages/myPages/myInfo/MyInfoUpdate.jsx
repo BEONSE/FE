@@ -11,24 +11,15 @@ import Pencil from "../../../assets/pencil.png";
 import { useState, useEffect } from "react";
 import { ReqProfile } from "../../../apis/auth";
 import ModalMyInfoUpdate from "./ModalMyInfoUpdate";
+import DefaultProfile from "../../../assets/sunnyborder.png";
+
+import BackMove from "../../../components/backMove";
 // import { useRef } from "react";
 
 const MyInfoUpdate = () => {
-  //파일 미리볼 url을 저장해줄 state
-  const [imageFile, setImageFile] = useState("");
-  //이미지 파일 넣지 않았을 경우 default 이미지
-  const defaultImage = Sun;
-
-  //파일 저장
-  const saveImageFile = (e) => {
-    setImageFile(URL.createObjectURL(e.target.files[0]));
-  };
-
-  // //파일 삭제
-  // const deleteImageFile = () => {
-  //   URL.revokeObjectURL(imageFile);
-  //   setImageFile("");
-  // };
+  // 이미지 정보
+  const [image, setImage] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
   // 비밀번호 확인
   const [pwdConfirm, setPwdConfirm] = useState(true);
@@ -48,11 +39,17 @@ const MyInfoUpdate = () => {
     role: "ROLE_USER",
   });
 
-  // useEffect(() => {
-  //   console.log(commonUpdate.nickname);
-  //   console.log(commonUpdate.password);
-  //   console.log(commonUpdate.address);
-  // }, []);
+  // Image Handler 함수
+  const onLoadImage = (e) => {
+    const file = e.target.files;
+    setImage(file);
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImageUrl(reader.result);
+    };
+    reader.readAsDataURL(file[0]);
+  };
 
   // const input 입력 감지 handler
   const handleInputChange = (e) => {
@@ -70,17 +67,12 @@ const MyInfoUpdate = () => {
     setModalOpen(!modalOpen);
   };
 
-  // const [updateUser, setUpdateUser] = useState({
-  //   email: "",
-
-  // });
-
   useEffect(() => {
     async function getProfile() {
       try {
         const multipartFormData = new FormData();
         const updateProfile = await ReqProfile(multipartFormData);
-        console.log(updateProfile);
+        console.log("res", updateProfile);
         if (updateProfile.status === 200) {
           setCommonUpdate((preData) => ({
             ...commonUpdate,
@@ -101,28 +93,28 @@ const MyInfoUpdate = () => {
 
   return (
     <>
+      <TopMenu>
+        <BackMove />
+        <p
+          onClick={() => {
+            // 탈퇴 API 연결
+          }}
+        >
+          회원탈퇴
+        </p>
+      </TopMenu>
       <Title>회원정보수정</Title>
       <EditForm>
-        <input
-          type="file"
-          name="image"
-          accept="image/*"
-          value={commonUpdate.image}
-          // value=""
-          placeholder="프로필사진"
-          // onChange={handleInputChange}
-          onChange={saveImageFile}
-        />
-
-        {commonUpdate.image && (
-          <img
-            //    src={commonUpdate.image} // 이미지 URL을 설정
-            src={imageFile ? saveImageFile : defaultImage}
-            alt="미리보기"
-            style={{ width: "100px", height: "100px", objectFit: "cover" }}
-          />
-        )}
-
+        <ProfileImg>
+          {imageUrl ? (
+            <img src={imageUrl} alt="Preview" />
+          ) : commonUpdate.image ? (
+            <img src={`data:image/png;base64,${commonUpdate.image}`} alt="profile" />
+          ) : (
+            <img src={DefaultProfile} alt="profile" />
+          )}
+          <input type="file" accept="image/jpg, image/jpeg, image/png" onChange={onLoadImage} />
+        </ProfileImg>
         <LoginForm>
           <span>
             <img src={Person} alt="IDImage" />
@@ -270,6 +262,30 @@ export const LoginForm = styled.div`
 
   @media (min-width: 1171px) {
     width: 30%;
+  }
+`;
+
+// 뒤로가기 회원 탈퇴
+const TopMenu = styled.div`
+  margin: auto;
+  width: 90vw;
+  display: flex;
+  align-items: flex-end;
+  & > p {
+    color: #969696;
+    width: 20vw;
+    cursor: pointer;
+  }
+`;
+
+const ProfileImg = styled.div`
+  width: 32vw;
+  margin-bottom: 2vh;
+  & > img {
+    margin-bottom: 2vh;
+    width: 100%;
+    border-radius: 50%;
+    object-fit: cover;
   }
 `;
 
