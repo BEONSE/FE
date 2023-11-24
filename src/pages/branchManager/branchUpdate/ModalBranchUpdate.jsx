@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PayBtn } from "../../payment/PayModal";
 import Modal from "react-modal";
 import { usePageMoving } from "../../../components/usePageMoving";
@@ -34,38 +34,18 @@ const ModalBranchUpdate = ({ param, branchUpdate, imageFiles}) => {
   };
 
 
-   //이미지 업로드를 위한 이벤트 핸들러
-  // const editBtn = async () => {
-  //   try {
-  //     const newImages = [];
-  //     const multipartFormData = new FormData();
-  //
-  //     for (let i = 0; i < imageFiles.length; i++) {
-  //       multipartFormData.append("image", imageFiles[i]);
-  //       const uploadResponse = await ReqBranchUpdate(multipartFormData);
-  //
-  //       //각 이미지에 대한 업로드가 성공하면 새로운 이미지 주소를 배열에 추가
-  //       if (uploadResponse.status === 200) {
-  //         newImages.push(uploadResponse.data.imageURL);
-  //       }
-  //     }
-  //     //배열에 있는 이미지 주소로 상태 업데이트
-  //     setBranchUpdate({
-  //       ...branchUpdate,
-  //       image: [...branchUpdate.image, ...newImages],
-  //     });
-  //   } catch (error) {
-  //     console.error("이미지 업로드 실패 : ", error);
-  //   }
-  // };
-
-
   const editBtn = async () => {
     try {
       const formData = new FormData();
       if (imageFiles) {
         imageFiles.forEach((item, index) => {
-          formData.append(`image${index}`, item, item.name);
+          if(item instanceof File) {
+            console.log(item.name);
+            formData.append(`image${index}`, item, item.name);
+            console.log(`image${index} : `, item);
+          } else {
+            console.error(`Item at index ${index} is not a valid File.`);
+          }
         });
       }
       formData.append(
@@ -74,14 +54,18 @@ const ModalBranchUpdate = ({ param, branchUpdate, imageFiles}) => {
           type: "application/json",
         }),
       );
-      const branchInfoResponse = await ReqBranchUpdate(formData);
+      const branchInfoResponse = await ReqBranchUpdate(branchUpdate, formData);
       console.log(branchInfoResponse);
       closeModal();
-      moveToBranchManager();
+      moveToBranchManager(param.bid);
     } catch (err) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    console.log(branchUpdate);
+  }, );
 
   return (
     <>
