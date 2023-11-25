@@ -153,7 +153,7 @@ const MyCoupon = () => {
 
   return (
     <>
-      <BackMove />
+      <BackMove content={"홈으로"}/>
       <HaveCouponAllDiv>
         <h1>쿠폰 현황 조회</h1>
 

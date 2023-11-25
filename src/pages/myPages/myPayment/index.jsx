@@ -82,7 +82,7 @@ const MyPayment = () => {
   }, []);
   return (
     <>
-      <BackMove />
+      <BackMove content={"홈으로"}/>
       <Title>
         <h2>결제 페이지</h2>
       </Title>

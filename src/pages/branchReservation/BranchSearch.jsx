@@ -47,7 +47,7 @@ const BranchSearch = () => {
   return (
     <>
       <SerachBranch>
-        <BackMove />
+        <BackMove content={"홈으로"}/>
         <h1>지점 검색</h1>
         <KakaoMap id="multimap">
           <MultiMap />

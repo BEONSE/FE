@@ -1,10 +1,11 @@
 import Back from "../../assets/back.png";
 import styled from "styled-components";
 import { usePageMoving } from "../usePageMoving";
+import { useNavigate } from "react-router-dom";
 
-const BackMove = ({ movePage }) => {
-  const { moveToHome } = usePageMoving();
-
+const BackMove = ({ movePage,content }) => {
+const {moveToHome} = usePageMoving();
+  const navigate = useNavigate();
   const move = () => {
     if (typeof movePage === "function") {
       movePage();
@@ -21,7 +22,7 @@ const BackMove = ({ movePage }) => {
         }}
       >
         <Img src={Back} />
-        &nbsp;뒤로가기
+        &nbsp;{content}
       </ImageDiv>
     </>
   );
@@ -35,8 +36,10 @@ const ImageDiv = styled.div`
   width: 95%;
   height: 3vh;
   margin-top: 2vh;
+  align-items: center;
+  font-size: 20px;
 `;
 
 const Img = styled.img`
-  height: 6vw;
+  height: 5vw;
 `;

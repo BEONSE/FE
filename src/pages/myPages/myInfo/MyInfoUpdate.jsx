@@ -125,7 +125,7 @@ const MyInfoUpdate = () => {
   return (
     <>
       <TopMenu>
-        <BackMove />
+        <BackMove content={"홈으로"}/>
         <p
           onClick={() => {
             // 탈퇴 API 연결

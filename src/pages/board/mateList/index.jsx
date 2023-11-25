@@ -110,7 +110,7 @@ const MateList = () => {
 
   return (
     <>
-      <BackMove />
+      <BackMove content={"홈으로"}/>
       <PageTitle>👬 세차 메이트 👬</PageTitle>
       <Button onClick={writeBtnHandler}>글쓰기</Button>
       <hr />

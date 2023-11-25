@@ -124,7 +124,7 @@ const ReviewBoard = () => {
 
   return (
     <>
-      <BackMove />
+      <BackMove content={"홈으로"}/>
       <Title>
         <h1>REVIEW</h1>
       </Title>

@@ -22,7 +22,7 @@ const MyBoard = () => {
   return (
     <>
       <GlobalStyle />
-      <BackMove />
+      <BackMove content={"홈으로"}/>
       <BoardAllDiv>
         <h1>내가 쓴 게시글</h1>
         <MyBoardType>

@@ -5,9 +5,10 @@ import Grade1 from "../../../assets/grade1.png";
 import Grade2 from "../../../assets/grade2.png";
 import Grade3 from "../../../assets/grade3.png";
 import Basic from "../../../assets/profile.jpg";
+import { usePageMoving } from "../../../components/usePageMoving";
 
 const MateDetailItem = ({ detail }) => {
-  const navigate = useNavigate();
+  const {moveToMate} = usePageMoving();
 
   const [modifyDate, setModifyDate] = useState(false);
 
@@ -27,7 +28,7 @@ const MateDetailItem = ({ detail }) => {
       <ContentGroup>
         <p
           onClick={() => {
-            navigate(-1);
+            moveToMate();
           }}
         >
           세차 메이트 게시판 {">"}

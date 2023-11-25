@@ -11,10 +11,13 @@ import { useParams } from "react-router-dom";
 import { ReqBranchName, ReqReservationState } from "../../apis/reservation";
 import ModalBranchReserve from "./ModalBranchReserve";
 import BackMove from "../../components/backMove";
+import { usePageMoving } from "../../components/usePageMoving";
 
 registerLocale("ko", ko);
 
 const BranchReserve = () => {
+
+  const {moveToReview} = usePageMoving();
   const bid = useParams("bid");
   const [clickBtn, setClickBtn] = useState(false);
   // branch이름 가져오기
@@ -193,7 +196,7 @@ const BranchReserve = () => {
   return (
     <>
       <GlobalStyle />
-      <BackMove />
+      <BackMove movePage={moveToReview} content={"리뷰 게시판"}/>
       <Reservation>
         <h1>{bname} 예약</h1>
         <CalendarWrap>

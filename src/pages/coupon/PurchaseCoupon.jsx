@@ -9,8 +9,10 @@ import CouponStore from "../../assets/couponstore.png";
 import BackMove from "../../components/backMove";
 import AppContext from "../../AppContext";
 import LoginModal from "../../components/LoginModal";
-
+import { usePageMoving } from "../../components/usePageMoving";
 const PurchaseCoupon = () => {
+
+  const {moveToMyCoupon} = usePageMoving();
   const appContext = useContext(AppContext);
   const [checkToken, setCheckToken] = useState(false);
 
@@ -71,7 +73,7 @@ const PurchaseCoupon = () => {
 
   return (
     <>
-      <BackMove />
+      <BackMove movePage={moveToMyCoupon} content={"보유 쿠폰 조회"}/>
       <CouponAllDiv>
         <TopImg></TopImg>
         <GetPoints>

@@ -5,9 +5,12 @@ import React, { useEffect, useState } from "react";
 import BoardAddModal from "./BoardAddModal";
 import BackMove from "../../../components/backMove";
 import { ReqBranchNames } from "../../../apis/branch";
+import { usePageMoving } from "../../../components/usePageMoving";
 
 /* 메이트 작성 컴포넌트 */
 const MateWrite = () => {
+
+  const {moveToMate} = usePageMoving();
   const [clickBtn, setClickBtn] = useState(false);
   // 지점 배열
   const [branchNames, setBranchNames] = useState([]);
@@ -51,7 +54,7 @@ const MateWrite = () => {
 
   return (
     <>
-      <BackMove />
+      <BackMove movePage={moveToMate} content={"메이트 게시판"}/>
       <PageTitle>🙋‍♂️MATE 게시판🙋‍♀️</PageTitle>
 
       <InputAllDiv>
