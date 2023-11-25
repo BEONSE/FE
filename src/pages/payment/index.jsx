@@ -5,13 +5,16 @@ import IterationPoint from "./IterationPoint";
 import MyPoints from "../myPages/myPoints";
 import PointStore from "../../assets/pointstore.png";
 import BackMove from "../../components/backMove";
+import { usePageMoving } from "../../components/usePageMoving";
 
 /* 포인트 충전 컴포넌트 */
 const Payment = () => {
+
+  const {moveToBuyCoupon} = usePageMoving();
   return (
     <>
       <GlobalStyle />
-      <BackMove />
+      <BackMove movePage={moveToBuyCoupon} content={"쿠폰 구매하기"}/>
       <PointAllDiv>
         <Title></Title>
         <CurrentPoint>

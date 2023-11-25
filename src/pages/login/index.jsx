@@ -87,7 +87,7 @@ const Login = ({ setHideHeaderFooter }) => {
   return (
     <>
       <GlobalStyle />
-      <BackMove />
+      <BackMove content={"홈화면"}/>
       <LoginAllDiv onSubmit={handleLoginSubmit}>
         <img src={BigLogoImg} alt="BigLogoImage" onClick={() => moveToHome()} />
         <h1>로그인</h1>

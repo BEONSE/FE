@@ -31,7 +31,7 @@ const Register = ({ setHideHeaderFooter }) => {
   return (
     <>
       <GlobalStyle />
-      <BackMove />
+      <BackMove content={"홈으로"}/>
       <LoginAllDiv>
         <img src={BigLogoImg} alt="BigLogoImage" onClick={() => moveToHome()} />
         <h1>회원가입</h1>
