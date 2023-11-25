@@ -1,14 +1,23 @@
 import Back from "../../assets/back.png";
 import styled from "styled-components";
-import { useNavigate } from "react-router";
+import { usePageMoving } from "../usePageMoving";
 
-const BackMove = () => {
-  const navigate = useNavigate();
+const BackMove = ({ movePage }) => {
+  const { moveToHome } = usePageMoving();
+
+  const move = () => {
+    if (typeof movePage === "function") {
+      movePage();
+    } else {
+      moveToHome();
+    }
+  };
+
   return (
     <>
       <ImageDiv
         onClick={() => {
-          navigate(-1);
+          move();
         }}
       >
         <Img src={Back} />
