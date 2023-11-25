@@ -108,7 +108,7 @@ const MyInfoUpdate = () => {
           setCommonUpdate((preData) => ({
             ...commonUpdate,
             email: updateProfile.data.email,
-            password: updateProfile.data.password,
+            password: "",
             name: updateProfile.data.name,
             nickname: updateProfile.data.nickname,
             address: updateProfile.data.address,
