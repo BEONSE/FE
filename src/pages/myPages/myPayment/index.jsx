@@ -4,26 +4,32 @@ import React, { useEffect, useState } from "react";
 import { ReqMyPayment } from "../../../apis/point";
 import MyPaymentItem from "./MyPaymentItem";
 import Loading from "../../../components/Loading";
+import { tr } from "date-fns/locale";
 
 const MyPayment = () => {
   const [isEmpty, setIsEmpty] = useState(false);
   const [isLoading, setIsLoading] = useState(true)
+  const [isLoading2, setIsLoading2] = useState(false)
   const [paymentList, setPaymentList] = useState([]);
 // 페이지
   const [page, setPage] = useState(1);
+  const [pageData, setPageData] = useState("");
   const loadMore = async () => {
+    setIsLoading2(true)
     try {
       const response = await ReqMyPayment(page + 1);
       if (response.data.content.length === 0) {
         setIsEmpty(true);
       } else {
         setPaymentList([...paymentList, ...response.data.content]);
+        console.log(response.data)
+        setPageData(response.data)
         setPage(page + 1);
       }
     } catch (err) {
       // 오류 처리
     } finally {
-      setIsLoading(false);
+      setIsLoading2(false);
     }
   };
 
@@ -93,6 +99,11 @@ const MyPayment = () => {
           ))}
         </AllPaymentList>
       )}
+      {isLoading2 && page != pageData.totalPageNo &&
+        <LoadDiv>
+          <Loading />
+        </LoadDiv>
+      }
     </>
   );
 };

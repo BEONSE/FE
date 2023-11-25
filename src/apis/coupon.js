@@ -6,13 +6,13 @@ export function ReqPaymentsByCoupon(coupons) {
 }
 
 // 미사용 쿠폰 목록 조회
-export function ReqCouponList() {
-  return axios.get("/mypage/coupons");
+export function ReqCouponList(page) {
+  return axios.get("/mypage/coupons", { params : { page }});
 }
 
 // 사용 쿠폰 목록 조회
-export function ReqUsedCouponList() {
-  return axios.get("/mypage/coupons/used");
+export function ReqUsedCouponList(page) {
+  return axios.get("/mypage/coupons/used", { params : { page }});
 }
 
 // 보유 쿠폰 사용하기
