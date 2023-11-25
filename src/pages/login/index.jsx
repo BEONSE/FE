@@ -13,11 +13,15 @@ import { ReqLogin } from "../../apis/auth";
 import { addAuthHeader } from "../../apis/axiosConfig";
 import AppContext from "../../AppContext";
 import BackMove from "../../components/backMove";
+import WarningModal from "../../components/WarningModal";
 
 const Login = ({ setHideHeaderFooter }) => {
   const { moveToHome, moveToRegister, moveToBranchManager, moveToAdmin } = usePageMoving();
 
   const appContext = useContext(AppContext);
+
+  const [popupModal, setPopupModal] = useState(false);
+  const [role, setRole] = useState("");
 
   // 로그인 정보 state
   const [loginUser, setLoginUser] = useState({
@@ -51,23 +55,14 @@ const Login = ({ setHideHeaderFooter }) => {
       const loginResponse = await ReqLogin(loginUser);
       console.log("로그인", loginResponse);
       if (loginResponse.status === 200) {
-        alert(loginResponse.data.successMessage);
+        setPopupModal(true);
         // 요청 공통 헤더에 추가
         addAuthHeader(loginResponse.headers.accesstoken);
         // Context에 인증 내용 저장
         appContext.setNickname(loginResponse.data.nickname);
         appContext.setAccessToken(loginResponse.headers.accesstoken);
         appContext.setRefreshToken(loginResponse.headers.refreshtoken);
-
-        if (loginResponse.data.role === "ROLE_BRANCH") {
-          moveToBranchManager(loginResponse.data.branchId);
-        }
-        if (loginResponse.data.role === "ROLE_USER") {
-          moveToHome();
-        }
-        if (loginResponse.data.role === "ROLE_ADMIN") {
-          moveToAdmin();
-        }
+        setRole(loginResponse.data.role);
       }
     } catch (err) {
       console.log(err);
@@ -87,7 +82,7 @@ const Login = ({ setHideHeaderFooter }) => {
   return (
     <>
       <GlobalStyle />
-      <BackMove content={"홈화면"}/>
+      <BackMove content={"홈화면"} />
       <LoginAllDiv onSubmit={handleLoginSubmit}>
         <img src={BigLogoImg} alt="BigLogoImage" onClick={() => moveToHome()} />
         <h1>로그인</h1>
@@ -134,6 +129,16 @@ const Login = ({ setHideHeaderFooter }) => {
           </span>
         </AddService>
       </LoginAllDiv>
+      {popupModal && (
+        <WarningModal
+          content={"로그인 성공!\n홈화면으로 이동합니다."}
+          movePage={
+            (role === "ROLE_BRANCH" && moveToBranchManager) ||
+            (role === "ROLE_USER" && moveToHome) ||
+            (role === "ROLE_ADMIN" && moveToAdmin)
+          }
+        />
+      )}
     </>
   );
 };
