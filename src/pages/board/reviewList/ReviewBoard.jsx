@@ -20,7 +20,7 @@ const ReviewBoard = () => {
 
   // 글 목록
   const [reviewList, setReviewList] = useState([]);
-  const [pageData, setPageData] = useState("")
+  const [pageData, setPageData] = useState("");
 
   // 지점 선택 handler
   const selectedHandler = (e) => {
@@ -30,17 +30,17 @@ const ReviewBoard = () => {
   // 페이지
   const [page, setPage] = useState(1);
   const loadMore = async () => {
-    setIsLoad2(true)
+    setIsLoad2(true);
     try {
       const response = await ReqReviewBoardList(selectBranch.branchName, page + 1);
       if (response.data.content.length === 0) {
         setIsEmpty(true);
       } else {
         setReviewList([...reviewList, ...response.data.content]);
-        setPageData(response.data)
+        setPageData(response.data);
         setPage(page + 1);
       }
-      console.log(pageData)
+      console.log(pageData);
     } catch (err) {
       // 오류 처리
     } finally {
@@ -107,12 +107,12 @@ const ReviewBoard = () => {
   }, [selectBranch]);
 
   const getReviewList = async () => {
+    setIsEmpty(false);
     setIsLoad(true);
     try {
       const response = await ReqReviewBoardList(selectBranch.branchName);
       setReviewList(response.data.content);
       console.log(response.data);
-      console.log(response.data.content);
     } catch (err) {
       console.log(err);
       if (err.response.data.statusCode === 404 || err.response.data.statusCode === 401) {
@@ -137,8 +137,12 @@ const ReviewBoard = () => {
           ))}
         </select>
       </SelectBox>
-      {isEmpty && <p>리뷰가 없습니다.</p>}
-      {isLoad ? (
+      {isEmpty ? (
+        <Load>
+          <h3>😥</h3>
+          <p>리뷰가 없습니다.</p>
+        </Load>
+      ) : isLoad ? (
         <Load>
           <Loading />
           <p>리뷰 불러오는 중...</p>
@@ -146,12 +150,13 @@ const ReviewBoard = () => {
       ) : (
         reviewList.map((review) => <ReviewItem review={review} key={review.rbId} />)
       )}
-      {isLoad2 && page != pageData.totalPageNo &&
+
+      {isLoad2 && page !== pageData.totalPageNo && (
         <Load>
           <Loading />
           <p>리뷰 불러오는 중...</p>
         </Load>
-      }
+      )}
     </>
   );
 };
@@ -179,4 +184,8 @@ const SelectBox = styled.div`
 
 const Load = styled.div`
   text-align: center;
+  & > h3 {
+    font-size: 30px;
+    margin-bottom: 2vh;
+  }
 `;
