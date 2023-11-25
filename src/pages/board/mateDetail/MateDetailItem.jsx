@@ -34,7 +34,8 @@ const MateDetailItem = ({ detail }) => {
         <h3>{detail.title}</h3>
         <Profile>
           <InnerProf>
-            {detail.imageData ? (<img src={`data:image/png;base64,${detail.imageData}`} alt="userprofile" />) : (<img src={Basic} alt="기본 이미지" />)}
+            {detail.imageData ? (<img src={`data:image/png;base64,${detail.imageData}`} alt="userprofile" />) : (
+              <img src={Basic} alt="기본 이미지" />)}
             <p>{detail.nickname}</p>
             <p>
               {detail.grade === 1 && <img src={Grade1} alt="grade1" />}
@@ -63,6 +64,7 @@ const ContentGroup = styled.div`
   padding: 5%;
   border: 1px solid;
   box-shadow: 1px 1px 10px 0px rgba(0, 0, 0, 0.14);
+
   & > p {
     font-size: 14px;
     margin-bottom: 1vh;
@@ -84,6 +86,7 @@ const InnerProf = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 1vh;
+
   & > img {
     width: 13vw;
     border-radius: 50%;
@@ -92,6 +95,7 @@ const InnerProf = styled.div`
 
   & > p {
     margin-right: 1vw;
+
     & > img {
       height: 2.5vh;
     }

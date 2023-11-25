@@ -1,4 +1,4 @@
-import { LoginForm, LoginButtonDiv, LoginBtn } from "../login";
+import { LoginBtn, LoginButtonDiv, LoginForm } from "../login";
 import { usePageMoving } from "../../components/usePageMoving";
 
 import Person from "../../assets/person.png";
@@ -170,7 +170,7 @@ const BranchRegister = () => {
     var geocoder = new kakao.maps.services.Geocoder();
 
     // 주소로 좌표를 검색합니다
-    geocoder.addressSearch(branchRegister.address.toString(), function (result, status) {
+    geocoder.addressSearch(branchRegister.address.toString(), function(result, status) {
       // 정상적으로 검색이 완료됐으면
       if (status === kakao.maps.services.Status.OK) {
         var coordsY = result[0].y;

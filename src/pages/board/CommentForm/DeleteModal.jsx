@@ -67,10 +67,12 @@ const ModalContent = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 2vh;
+
   & > h2 {
     font-size: 30px;
     margin-bottom: 1vh;
   }
+
   & > p {
     font-size: 20px;
     font-weight: bold;

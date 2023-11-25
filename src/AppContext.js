@@ -4,13 +4,13 @@ const AppContext = createContext({
   nickname: "",
   accessToken: "",
   refreshToken: "",
-  setNickname: function (nickname) {
+  setNickname: function(nickname) {
     this.accessToken = nickname;
   },
-  setAccessToken: function (accessToken) {
+  setAccessToken: function(accessToken) {
     this.accessToken = accessToken;
   },
-  setRefreshToken: function (refreshToken) {
+  setRefreshToken: function(refreshToken) {
     this.refreshToken = refreshToken;
   },
 });

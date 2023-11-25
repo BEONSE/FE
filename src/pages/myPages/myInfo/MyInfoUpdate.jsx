@@ -9,7 +9,7 @@ import Address from "../../../assets/address.png";
 import Check from "../../../assets/check.png";
 import Key from "../../../assets/key.png";
 import Pencil from "../../../assets/pencil.png";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ReqProfile } from "../../../apis/auth";
 import ModalMyInfoUpdate from "./ModalMyInfoUpdate";
 
@@ -118,6 +118,7 @@ const MyInfoUpdate = () => {
         console.log(err);
       }
     }
+
     getProfile();
   }, []);
 
@@ -226,7 +227,7 @@ const MyInfoUpdate = () => {
           <PostModal>
             <DaumPostcode autoClose onComplete={handleComplete} />
           </PostModal>
-          )}
+        )}
         <LoginButtonDiv>
           <LoginBtn
             onClick={() => {
@@ -265,6 +266,7 @@ export const LoginForm = styled.div`
   border-radius: 6px;
 
   box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.1);
+
   & > input {
     border-radius: 6px;
     border: none;
@@ -285,11 +287,13 @@ export const LoginForm = styled.div`
     @media (max-width: 1170px) {
       padding: 12px;
     }
+
     img {
       width: 20px;
       height: 20px;
     }
   }
+
   &:focus-within {
     outline: auto;
     outline-color: #68d0f3;
@@ -306,6 +310,7 @@ const TopMenu = styled.div`
   width: 90vw;
   display: flex;
   align-items: flex-end;
+
   & > p {
     color: #969696;
     width: 20vw;
@@ -316,6 +321,7 @@ const TopMenu = styled.div`
 const ProfileImg = styled.div`
   width: 32vw;
   margin-bottom: 2vh;
+
   & > img {
     margin-bottom: 2vh;
     width: 100%;
@@ -337,6 +343,7 @@ export const LoginAllDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   & > img {
     @media (min-width: 1171px) {
       height: 14vh;

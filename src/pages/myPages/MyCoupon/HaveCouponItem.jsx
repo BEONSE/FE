@@ -36,6 +36,7 @@ const HaveCouponItem = ({ coupon, selectedFilter }) => {
         console.log(err);
       }
     }
+
     getBranchNames();
   }, []);
 

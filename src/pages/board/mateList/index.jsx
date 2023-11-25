@@ -31,17 +31,17 @@ const MateList = () => {
   // 페이지
   const [page, setPage] = useState(1);
   const loadMore = async () => {
-    setIsLoading2(true)
+    setIsLoading2(true);
     try {
       const response = await ReqMateBoardList(page + 1);
       if (response.data.content.length === 0) {
         setIsEmpty(true);
       } else {
         setMateList([...mateList, ...response.data.content]);
-        setPageData(response.data)
+        setPageData(response.data);
         setPage(page + 1);
       }
-      console.log(pageData)
+      console.log(pageData);
     } catch (err) {
       // 오류 처리
     } finally {
@@ -51,7 +51,7 @@ const MateList = () => {
 
   const throttle = (func, delay) => {
     let inThrottle;
-    return function () {
+    return function() {
       const args = arguments;
       const context = this;
       if (!inThrottle) {
@@ -104,6 +104,7 @@ const MateList = () => {
         setIsLoading(false);
       }
     }
+
     getMateList();
   }, []);
 
@@ -128,10 +129,10 @@ const MateList = () => {
       {checkToken && <LoginModal setCheckToken={setCheckToken} checkToken={checkToken} />}
       {isLoading2 && page != pageData.totalPageNo &&
         <LoadDiv>
-          <Loading/>
+          <Loading />
         </LoadDiv>
       }
-      {page === pageData.totalPageNo ? <br/> : <H4>더보기</H4>}
+      {page === pageData.totalPageNo ? <br /> : <H4>더보기</H4>}
     </>
   );
 };

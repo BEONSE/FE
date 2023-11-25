@@ -34,7 +34,7 @@ const MyReview = () => {
 
   const throttle = (func, delay) => {
     let inThrottle;
-    return function () {
+    return function() {
       const args = arguments;
       const context = this;
       if (!inThrottle) {
@@ -43,7 +43,7 @@ const MyReview = () => {
         setTimeout(() => (inThrottle = false), delay);
       }
     };
-  }
+  };
 
   const handleScroll = () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
@@ -69,7 +69,7 @@ const MyReview = () => {
       try {
         const response = await ReqMyReview();
         console.log(response.data.content);
-        console.log(response.data.content.reviewImageType)
+        console.log(response.data.content.reviewImageType);
         setReviewList(response.data.content);
       } catch (err) {
         if (err.response.data.statusCode === 404 || err.response.data.statusCode === 401) {
@@ -79,6 +79,7 @@ const MyReview = () => {
         setIsLoading(false);
       }
     }
+
     getMyReview();
   }, []);
 

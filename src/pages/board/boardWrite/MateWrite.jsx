@@ -130,12 +130,15 @@ const SelectBranch = styled.select`
   padding: 1%;
   font-size: 20px;
   margin-bottom: 1vh;
+
   option {
     background-color: #ffffff;
   }
+
   option:checked {
     background-color: lightblue;
   }
+
   &:focus-within {
     outline: auto;
     outline-color: #68d0f3;

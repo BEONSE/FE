@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import ReviewWrite from "../boardWrite/ReviewWrite";
 import ReviewBoard from "./ReviewBoard";
+
 const ReviewList = () => {
   return (
     <>

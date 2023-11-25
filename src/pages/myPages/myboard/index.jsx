@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import MyReview from "../myReview/index";
 import MyMate from "./myMate/index";

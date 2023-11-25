@@ -21,13 +21,13 @@ export function ReqBranchNames() {
 }
 
 //가맹점 별 리뷰 가져오기
-export function ReqBranchReview(bid) {
-  return axios.get(`/reviews/${bid}`, bid);
+export function ReqBranchReview(bid, page) {
+  return axios.get(`/reviews/${bid}`, { params: { page } });
 }
 
 //가맹점 별 쿠폰 가져오기
-export function ReqBranchCoupon() {
-  return axios.get("/branches/coupons");
+export function ReqBranchCoupon(page) {
+  return axios.get("/branches/coupons", { params: { page } });
 }
 
 //가맹점 정보 수정

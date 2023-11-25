@@ -345,6 +345,7 @@ const CardType = styled.div`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+
   & > p.selected {
     background-color: #99e8f8; /* 예시 색상 */
   }
@@ -359,6 +360,7 @@ const Card = styled.p`
   width: 30%;
   padding: 1%;
   margin-bottom: 2%;
+
   &:hover {
     background-color: #99e8f8;
   }

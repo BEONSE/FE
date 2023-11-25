@@ -17,33 +17,34 @@ const BranchReview = ({ item }) => {
     <>
       {item && (
         <ReviewAllDiv>
-            <Profile>
-              <div>
-                <InnerProf>
-                  {item.memberImageData ? (<img src={`data:image/png;base64,${item.memberImageData}`} alt="review" />) : (<img src={Basic} alt="기본 이미지" />)}
-                  <Writer>
+          <Profile>
+            <div>
+              <InnerProf>
+                {item.memberImageData ? (<img src={`data:image/png;base64,${item.memberImageData}`} alt="review" />) : (
+                  <img src={Basic} alt="기본 이미지" />)}
+                <Writer>
                   <p>{item.writer}</p>
                   <Grade>
                     {item.grade === 1 && <img src={Grade1} alt="grade1" />}
                     {item.grade === 2 && <img src={Grade2} alt="grade2" />}
                     {item.grade === 3 && <img src={Grade3} alt="grade3" />}
                   </Grade>
-                  </Writer>
-                </InnerProf>
-                <TimeDiv>
-                  <div>작성일 {item.createdAt}</div>
-                  <div>{item.createdAt !== item.modifiedAt && <div>수정일 {item.modifiedAt}</div>}</div>
-                </TimeDiv>
-              </div>
-            </Profile>
-            <Content>
-              {item.reviewImageData && (
-                <ReviewImage>
-                  <img src={`data:image/png;base64,${item.reviewImageData}`} alt="리뷰 이미지" />
-                </ReviewImage>
-              )}
-              <p>{item.content}</p>
-            </Content>
+                </Writer>
+              </InnerProf>
+              <TimeDiv>
+                <div>작성일 {item.createdAt}</div>
+                <div>{item.createdAt !== item.modifiedAt && <div>수정일 {item.modifiedAt}</div>}</div>
+              </TimeDiv>
+            </div>
+          </Profile>
+          <Content>
+            {item.reviewImageData && (
+              <ReviewImage>
+                <img src={`data:image/png;base64,${item.reviewImageData}`} alt="리뷰 이미지" />
+              </ReviewImage>
+            )}
+            <p>{item.content}</p>
+          </Content>
         </ReviewAllDiv>
       )}
     </>
@@ -69,7 +70,7 @@ const Profile = styled.div`
   & > div > div > img {
     width: 8vw;
     border-radius: 50%;
-    margin-right: 2vw;    
+    margin-right: 2vw;
   }
 `;
 

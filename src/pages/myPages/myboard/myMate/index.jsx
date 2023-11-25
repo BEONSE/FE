@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import MyMateItem from "./MyMateItem";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ReqMyMate } from "../../../../apis/mateBoard";
 import Loading from "../../../../components/Loading";
 

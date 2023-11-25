@@ -4,14 +4,14 @@ import GlobalStyle from "../../components/GlobalStyle";
 import { LoginAllDiv } from "./branchUpdate";
 import BranchReview from "./review";
 import CouponList from "./coupon";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { usePageMoving } from "../../components/usePageMoving";
 import { useParams } from "react-router-dom";
-import { ReqBranchCoupon, ReqBranchInfo, ReqBranchReview } from "../../apis/branch";
+import { ReqBranchCoupon, ReqBranchReview } from "../../apis/branch";
 import { ReqBranchName } from "../../apis/reservation";
 import { removeAuthHeader } from "../../apis/axiosConfig";
-import appContext from "../../AppContext";
 import AppContext from "../../AppContext";
+import Loading from "../../components/Loading";
 
 const BranchHome = () => {
 
@@ -20,6 +20,11 @@ const BranchHome = () => {
   const { moveToBranchUpdate, moveToHome } = usePageMoving();
 
   const param = useParams("bid");
+  const [reviewEmpty, setReviewEmpty] = useState(false);
+  const [couponEmpty, setCouponEmpty] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading2, setIsLoading2] = useState(false);
+
 
   // 클릭 상태
   const [selectedType, setSelectedType] = useState(null);
@@ -30,6 +35,82 @@ const BranchHome = () => {
   const [review, setReview] = useState();
 
   const [coupon, setCoupon] = useState();
+// 페이지
+  const [page, setPage] = useState(1);
+  const [pageData, setPageData] = useState("");
+
+  const loadMore = async () => {
+    setIsLoading2(true);
+    try {
+      const reviewResponse = await ReqBranchReview(param["*"], page + 1);
+      console.log(reviewResponse.data);
+      if (reviewResponse.data.content.length === 0) {
+        setReviewEmpty(true);
+      } else {
+        setReview([...review, ...reviewResponse.data.content]);
+        setPageData(reviewResponse.data);
+        setPage(page + 1);
+      }
+    } catch (err) {
+      // 오류 처리
+    } finally {
+      setIsLoading2(false);
+    }
+  };
+
+  const loadMoreUsedCoupons = async () => {
+    setIsLoading2(true);
+    try {
+      const couponResponse = await ReqBranchCoupon(page + 1);
+      if (couponResponse.data.content.length === 0) {
+        setCouponEmpty(true);
+      } else {
+        setCoupon([...coupon, ...couponResponse.data.content]);
+        setPageData(couponResponse.data);
+        setPage(page + 1);
+      }
+    } catch (err) {
+      // 오류 처리
+    } finally {
+      setIsLoading2(false);
+    }
+  };
+
+  const throttle = (func, delay) => {
+    let inThrottle;
+    return function() {
+      const args = arguments;
+      const context = this;
+      if (!inThrottle) {
+        func.apply(context, args);
+        inThrottle = true;
+        setTimeout(() => (inThrottle = false), delay);
+      }
+    };
+  };
+
+  const handleScroll = () => {
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+    if (scrollTop + clientHeight >= scrollHeight - 50) {
+      // 스크롤이 맨 아래에 도달하면 새로운 데이터 로드
+      if (selectedType === "review") {
+        loadMore();
+      } else if (selectedType === "coupon") {
+        loadMoreUsedCoupons();
+      }
+    }
+  };
+
+  useEffect(() => {
+    const handleScrollThrottle = throttle(handleScroll, 20); // 쓸데없이 많은 이벤트 호출을 방지하기 위한 스크롤 쓰로틀링
+
+    window.addEventListener("scroll", handleScrollThrottle);
+
+    return () => {
+      window.removeEventListener("scroll", handleScrollThrottle);
+    };
+  }, [handleScroll]);
 
   // 브랜치 이름 가져오기
   useEffect(() => {
@@ -57,8 +138,11 @@ const BranchHome = () => {
         }
       } catch (err) {
         console.log(err);
+      } finally {
+        setIsLoading(false);
       }
     }
+
     getReview();
   }, []);
   // [param["*"]]
@@ -70,16 +154,19 @@ const BranchHome = () => {
       console.log(param.bid);
       try {
         const couponResponse = await ReqBranchCoupon();
-        console.log("쿠폰",couponResponse);
+        console.log("쿠폰", couponResponse);
         if (couponResponse.status === 200) {
-          const couponData = couponResponse.data;
+          const couponData = couponResponse.data.content;
           console.log("couponData", couponData);
           setCoupon(couponData);
         }
       } catch (err) {
         console.log(err);
+      } finally {
+        setIsLoading(false);
       }
     }
+
     getCoupon();
   }, []);
 
@@ -96,45 +183,58 @@ const BranchHome = () => {
     appContext.setRefreshToken("");
 
     moveToHome();
-  }
+  };
   return (
     <>
       <GlobalStyle />
       <LoginAllDiv>
         <HeadBtn>
-        <UpdateBtn
-          onClick={() => {
-          moveToBranchUpdate(param["*"]);
-        }}
+          <UpdateBtn
+            onClick={() => {
+              moveToBranchUpdate(param["*"]);
+            }}
           >
-          정보수정
-        </UpdateBtn>
+            정보수정
+          </UpdateBtn>
 
-        <LogoutBtn
-          onClick={() => {
-            handleLogout();
-          }}
-        >로그아웃
-        </LogoutBtn>
+          <LogoutBtn
+            onClick={() => {
+              handleLogout();
+            }}
+          >로그아웃
+          </LogoutBtn>
         </HeadBtn>
         <h2> {bname} 관리 페이지</h2>
 
-        <MemberType>
-          <TypeItem selected={selectedType === "review"} onClick={() => setSelectedType("review")}>
-            <span>리뷰</span>
-            <hr />
-          </TypeItem>
-          <TypeItem selected={selectedType === "coupon"} onClick={() => setSelectedType("coupon")}>
-            <span>쿠폰</span>
-            <hr />
-          </TypeItem>
-        </MemberType>
+        {isLoading ? (
+          <LoadDiv>
+            <Loading />
+          </LoadDiv>
+        ) : (
+          <MemberType>
+            <TypeItem selected={selectedType === "review"} onClick={() => setSelectedType("review")}>
+              <span>리뷰</span>
+              <hr />
+            </TypeItem>
+            <TypeItem selected={selectedType === "coupon"} onClick={() => setSelectedType("coupon")}>
+              <span>쿠폰</span>
+              <hr />
+            </TypeItem>
+          </MemberType>
+        )}
+        {reviewEmpty && !couponEmpty && <p>게시글을 찾을 수 없습니다.</p>}
         {selectedType === "review" && (
           <>{review && review.map((item) => <BranchReview key={item.rbId} item={item} />)}</>
         )}
+        {couponEmpty && !reviewEmpty && <p>게시글을 찾을 수 없습니다.</p>}
         {selectedType === "coupon" && (
           <>{coupon && coupon.map((list) => <CouponList key={list.cid} list={list} />)}</>
         )}
+        {isLoading2 && page != pageData.totalPageNo &&
+          <LoadDiv>
+            <Loading />
+          </LoadDiv>
+        }
       </LoginAllDiv>
     </>
   );
@@ -221,4 +321,10 @@ const UpdateBtn = styled.div`
 
 const HeadBtn = styled.div`
   display: flex;
-  `;
+`;
+
+const LoadDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;

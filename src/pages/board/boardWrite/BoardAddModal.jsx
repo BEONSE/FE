@@ -26,7 +26,8 @@ const BoardAddModal = ({ writeMate }) => {
         console.log(response.data.successMessage);
         moveToMate();
       }
-    } catch {}
+    } catch {
+    }
   };
 
   // Modal 스타일
@@ -76,6 +77,7 @@ const ModalContent = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 2vh;
+
   & > img {
     height: 5vh;
     margin-bottom: 2vh;

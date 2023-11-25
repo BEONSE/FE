@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React, { useState } from "react";
 import MyReviewDetail from "./MyReviewDetail";
 
-const MyReviewItem = ({list}) => {
+const MyReviewItem = ({ list }) => {
   const [press, setPress] = useState(); // 고압 쿠폰 선택 수량
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -72,6 +72,7 @@ const ReviewContent = styled.div`
   width: 70%;
   display: flex;
   flex-direction: column;
+
   & > div > h2 {
     margin-bottom: 1vh;
     overflow: hidden;
@@ -91,14 +92,14 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 1vh;
-  
+
   & > h4 {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     margin-bottom: 1vh;
   }
-`
+`;
 
 /* 날짜 Style */
 const Date = styled.p`

@@ -72,6 +72,7 @@ const MateContent = styled.div`
   width: 70%;
   display: flex;
   flex-direction: column;
+
   & > h2 {
     margin-bottom: 1vh;
     overflow: hidden;

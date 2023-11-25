@@ -1,8 +1,5 @@
 import styled from "styled-components";
 import { usePageMoving } from "../../../../components/usePageMoving";
-import Grade1 from "../../../../assets/grade1.png";
-import Grade2 from "../../../../assets/grade2.png";
-import Grade3 from "../../../../assets/grade3.png";
 import React from "react";
 
 const MyMateItem = ({ list }) => {
@@ -65,7 +62,7 @@ const MateContent = styled.div`
   width: 70%;
   display: flex;
   flex-direction: column;
-  
+
   & > h2 {
     margin-bottom: 1vh;
     overflow: hidden;
@@ -76,7 +73,7 @@ const MateContent = styled.div`
   & > div {
     display: flex;
   }
-  
+
   & > div > p {
     overflow: hidden;
     white-space: nowrap;
@@ -88,6 +85,7 @@ const MateContent = styled.div`
 /* 등급 Style */
 const Grade = styled.p`
   margin-left: 2vw;
+
   & > img {
     height: 2.5vh;
   }

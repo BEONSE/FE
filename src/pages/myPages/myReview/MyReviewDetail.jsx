@@ -33,7 +33,7 @@ const MyReviewDetail = ({ data, setModalOpen, modalOpen }) => {
         onRequestClose={closeModal}
         style={customStyles}
         ariaHideApp={false}
-        >
+      >
 
         {!isEmpty &&
           <ContentGroup>

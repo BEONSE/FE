@@ -9,6 +9,7 @@ import CouponStore from "../../assets/couponstore.png";
 import BackMove from "../../components/backMove";
 import AppContext from "../../AppContext";
 import LoginModal from "../../components/LoginModal";
+
 const PurchaseCoupon = () => {
   const appContext = useContext(AppContext);
   const [checkToken, setCheckToken] = useState(false);
@@ -176,10 +177,12 @@ const QuantityAllDiv = styled.div`
 const Quantity = styled.div`
   width: 20vw;
   text-align: center;
+
   & > p {
     font-size: 20px;
     font-weight: bold;
     margin: auto;
+
     & > span {
       cursor: pointer;
       margin-left: 2vw;

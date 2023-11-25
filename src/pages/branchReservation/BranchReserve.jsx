@@ -8,7 +8,7 @@ import ko from "date-fns/locale/ko"; // date-fns 라이브러리의 한국어 �
 import DatePicker, { registerLocale } from "react-datepicker";
 import { CommonButton } from "../../components/CommonButton";
 import { useParams } from "react-router-dom";
-import { ReqBranchName, ReqBranchReserve, ReqReservationState } from "../../apis/reservation";
+import { ReqBranchName, ReqReservationState } from "../../apis/reservation";
 import ModalBranchReserve from "./ModalBranchReserve";
 import BackMove from "../../components/backMove";
 
@@ -79,6 +79,7 @@ const BranchReserve = () => {
         console.log(err);
       }
     }
+
     getSelectDayReserveState();
   }, [selectedDate, parseTime]);
 
@@ -375,6 +376,7 @@ const Reservation = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
   & > h1 {
     margin-top: 2vh;
     margin-bottom: 1.5vh;
@@ -403,9 +405,11 @@ const Time = styled.p`
   margin: 10px;
   cursor: pointer;
   box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.1);
+
   &:hover {
     background-color: #99e8f8;
   }
+
   background-color: ${(props) => (props.count === 5 ? "#ccc" : "")};
   pointer-events: ${(props) => (props.count === 5 ? "none" : "auto")};
 `;
@@ -414,6 +418,7 @@ const Time = styled.p`
 const SelectDateTime = styled.div`
   width: 100%;
   margin-bottom: 20px;
+
   & > p {
     font-size: 18px;
   }
@@ -425,6 +430,7 @@ const CalendarWrap = styled.div`
     margin-top: 2vh;
     margin-bottom: 2vh;
   }
+
   // 달력 전체 div
   .react-datepicker {
     width: 100%;
@@ -444,6 +450,7 @@ const CalendarWrap = styled.div`
     height: 100%;
     font-size: 22px;
   }
+
   .react-datepicker__current-month {
     font-size: 22px;
     margin-bottom: 9px;
@@ -454,6 +461,7 @@ const CalendarWrap = styled.div`
     display: flex;
     justify-content: center;
   }
+
   .react-datepicker__day-name {
     margin: 12px;
   }
@@ -471,6 +479,7 @@ const CalendarWrap = styled.div`
     background-color: #ffee00;
     border-radius: 50%;
   }
+
   .react-datepicker__day--today.react-datepicker__day--selected {
     background-color: #99e8f8;
     color: black;
@@ -481,9 +490,11 @@ const CalendarWrap = styled.div`
   .react-datepicker__day--outside-month {
     color: #bebebe;
   }
+
   .react-datepicker__day--outside-month.react-datepicker__day:nth-child(7) {
     color: #bebebe;
   }
+
   .react-datepicker__day--outside-month.react-datepicker__day:nth-child(1) {
     color: #bebebe;
   }
@@ -511,9 +522,11 @@ const CalendarWrap = styled.div`
   }
 
   /* day: 주말 날짜 */
+
   .react-datepicker__day:nth-child(1) {
     color: red;
   }
+
   .react-datepicker__day:nth-child(7) {
     color: #4848dd;
   }

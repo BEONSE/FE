@@ -144,8 +144,10 @@ const ReservationDiv = styled.div`
   margin-bottom: 3vh;
   margin-top: 3vh;
   transition: background-color 0.5s ease, transform 0.1s ease;
+
   &:hover {
     background-color: #68d0f3;
+
     & > img {
       filter: brightness(0.8);
     }
