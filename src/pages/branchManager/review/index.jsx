@@ -35,7 +35,9 @@ const BranchReview = ({ item }) => {
                   <div>{item.createdAt !== item.modifiedAt && <div>수정일 {item.modifiedAt}</div>}</div>
                 </TimeDiv>
               </div>
+              <hr/>
             </Profile>
+
             <Content>
               {item.reviewImageData && (
                 <ReviewImage>
@@ -53,11 +55,12 @@ const BranchReview = ({ item }) => {
 export default BranchReview;
 
 export const ReviewAllDiv = styled.div`
-  border: 1px solid;
   margin-left: 5vw;
   margin-right: 5vw;
-  margin-bottom: 3vh;
   width: 80vw;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  margin-bottom: 3vh;
 `;
 
 const Profile = styled.div`
@@ -120,16 +123,11 @@ export const LoginButtonDiv = styled.div`
     width: 30%;
   }
 `;
-// 로그인 버튼
-export const LoginBtn = styled(CommonButton)`
-  padding-top: 15px;
-  padding-bottom: 15px;
-  font-size: 15px;
-`;
+
 
 /* 등급 Style */
 const Grade = styled.p`
-  //margin-left: 2vw;
+  margin-left: 2vw;
   & > img {
     height: 2.5vh;
   }
