@@ -8,6 +8,7 @@ import CurrentUserInfo from "../../../pages/login/CurrentUserInfo";
 
 const Sidebar = ({ clicked }) => {
   const appContext = useContext(AppContext);
+  const { moveToHome } = usePageMoving();
 
   const {
     // 페이지 이동
@@ -27,6 +28,8 @@ const Sidebar = ({ clicked }) => {
 
     appContext.setAccessToken("");
     appContext.setRefreshToken("");
+    moveToHome();
+    clicked();
   };
 
   return (

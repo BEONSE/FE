@@ -21,6 +21,7 @@ const MateDetailItem = ({ detail }) => {
   useEffect(() => {
     diffModifyDate();
   }, []);
+
   return (
     <>
       <ContentGroup>
@@ -31,11 +32,18 @@ const MateDetailItem = ({ detail }) => {
         >
           세차 메이트 게시판 {">"}
         </p>
-        <h3>{detail.title}</h3>
+        <h2>
+          <span>[{detail.branchName}]</span>
+          {detail.title}
+        </h2>
+
         <Profile>
           <InnerProf>
-            {detail.imageData ? (<img src={`data:image/png;base64,${detail.imageData}`} alt="userprofile" />) : (
-              <img src={Basic} alt="기본 이미지" />)}
+            {detail.imageData ? (
+              <img src={`data:image/png;base64,${detail.imageData}`} alt="userprofile" />
+            ) : (
+              <img src={Basic} alt="기본 이미지" />
+            )}
             <p>{detail.nickname}</p>
             <p>
               {detail.grade === 1 && <img src={Grade1} alt="grade1" />}

@@ -18,7 +18,10 @@ const MateItem = ({ list }) => {
       >
         <LeftInfo>
           <MateContent>
-            <h2>{list.title}</h2>
+            <h2>
+              <span>[{list.branchname}]</span>
+              {list.title}
+            </h2>
             <div>
               <p>{list.nickname}</p>
               <Grade>

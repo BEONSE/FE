@@ -29,22 +29,23 @@ const BranchReview = ({ item }) => {
                     {item.grade === 2 && <img src={Grade2} alt="grade2" />}
                     {item.grade === 3 && <img src={Grade3} alt="grade3" />}
                   </Grade>
-                </Writer>
-              </InnerProf>
-              <TimeDiv>
-                <div>작성일 {item.createdAt}</div>
-                <div>{item.createdAt !== item.modifiedAt && <div>수정일 {item.modifiedAt}</div>}</div>
-              </TimeDiv>
-            </div>
-          </Profile>
-          <Content>
-            {item.reviewImageData && (
-              <ReviewImage>
-                <img src={`data:image/png;base64,${item.reviewImageData}`} alt="리뷰 이미지" />
-              </ReviewImage>
-            )}
-            <p>{item.content}</p>
-          </Content>
+                  </Writer>
+                </InnerProf>
+                <TimeDiv>
+                  <div>작성일 {item.createdAt}</div>
+                  <div>{item.createdAt !== item.modifiedAt && <div>수정일 {item.modifiedAt}</div>}</div>
+                </TimeDiv>
+              </div>
+              <hr/>
+            </Profile>
+            <Content>
+              {item.reviewImageData && (
+                <ReviewImage>
+                  <img src={`data:image/png;base64,${item.reviewImageData}`} alt="리뷰 이미지" />
+                </ReviewImage>
+              )}
+              <p>{item.content}</p>
+            </Content>
         </ReviewAllDiv>
       )}
     </>
@@ -54,11 +55,12 @@ const BranchReview = ({ item }) => {
 export default BranchReview;
 
 export const ReviewAllDiv = styled.div`
-  border: 1px solid;
   margin-left: 5vw;
   margin-right: 5vw;
-  margin-bottom: 3vh;
   width: 80vw;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  margin-bottom: 3vh;
 `;
 
 const Profile = styled.div`
@@ -121,16 +123,11 @@ export const LoginButtonDiv = styled.div`
     width: 30%;
   }
 `;
-// 로그인 버튼
-export const LoginBtn = styled(CommonButton)`
-  padding-top: 15px;
-  padding-bottom: 15px;
-  font-size: 15px;
-`;
+
 
 /* 등급 Style */
 const Grade = styled.p`
-  //margin-left: 2vw;
+  margin-left: 2vw;
   & > img {
     height: 2.5vh;
   }

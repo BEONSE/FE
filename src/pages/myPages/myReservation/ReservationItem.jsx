@@ -25,6 +25,7 @@ const ReservationItem = ({ list }) => {
 
   useEffect(() => {
     setTimeOver(diffInDays <= 0);
+    console.log(diffInDays);
   }, [diffInDays]);
 
   return (
@@ -35,8 +36,14 @@ const ReservationItem = ({ list }) => {
         </BranchName>
         <ResTime>
           <p>{list.reservationTime}</p>
-          <DDayBox finish={diffInDays >= 0}>
-            {diffInDays > 0 ? <h3>D-{diffInDays}</h3> : <h3>예약 만료</h3>}
+          <DDayBox finish={diffInDays}>
+            {diffInDays > 0 ? (
+              <h3>D-{diffInDays}</h3>
+            ) : diffInDays === -1 ? (
+              <h3>D-DAY</h3>
+            ) : (
+              <h3>예약 만료</h3>
+            )}
           </DDayBox>
         </ResTime>
         <CancelButton over={timeOver}>예약 취소</CancelButton>
@@ -77,6 +84,6 @@ const CancelButton = styled(CommonButton)`
 const DDayBox = styled.div`
   & > h3 {
     font-size: 20px;
-    color: ${(props) => (props.finish ? "red" : "#cccccc")};
+    color: ${(props) => (props.finish >= -1 ? "red" : "#cccccc")};
   }
 `;

@@ -22,7 +22,7 @@ const CouponList = ({ list }) => {
           </Coupons>
           <BranchCouponContent>
             <CouponUser> {list.name} </CouponUser>
-            <CouponPaymentDate> {list.paymentDate} </CouponPaymentDate>
+            <CouponPaymentDate> {list.usedDate} </CouponPaymentDate>
           </BranchCouponContent>
         </CouponListForm>
       )}
