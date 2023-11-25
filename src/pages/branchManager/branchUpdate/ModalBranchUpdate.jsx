@@ -6,7 +6,7 @@ import { ReqBranchUpdate } from "../../../apis/branch";
 import styled from "styled-components";
 import Pencil from "../../../assets/pencil.png";
 
-const ModalBranchUpdate = ({ param, branchUpdate, imageFiles}) => {
+const ModalBranchUpdate = ({ param, branchUpdate, image}) => {
   const [openModal, setOpenModal] = useState(true);
 
   //가맹점 메인으로 이동
@@ -37,24 +37,17 @@ const ModalBranchUpdate = ({ param, branchUpdate, imageFiles}) => {
   const editBtn = async () => {
     try {
       const formData = new FormData();
-      if (imageFiles) {
-        imageFiles.forEach((item, index) => {
-          if(item instanceof File) {
-            console.log(item.name);
-            formData.append(`image${index}`, item, item.name);
-            console.log(`image${index} : `, item);
-          } else {
-            console.error(`Item at index ${index} is not a valid File.`);
-          }
-        });
+
+      console.log(image)
+      if (image) {
+        for (let i = 0; i < image.length; i++) {
+          formData.append("image", image[i]);
+        }
       }
-      formData.append(
-        "branchRequestDTO",
-        new Blob([JSON.stringify(branchUpdate)], {
-          type: "application/json",
-        }),
+      formData.append("branchRequestDTO", new Blob([JSON.stringify(branchUpdate)],
+          { type: "application/json", }),
       );
-      const branchInfoResponse = await ReqBranchUpdate(branchUpdate, formData);
+      const branchInfoResponse = await ReqBranchUpdate(formData);
       console.log(branchInfoResponse);
       closeModal();
       moveToBranchManager(param.bid);
