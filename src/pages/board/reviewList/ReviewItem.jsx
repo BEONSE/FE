@@ -3,7 +3,7 @@ import React from "react";
 import Grade1 from "../../../assets/grade1.png";
 import Grade2 from "../../../assets/grade2.png";
 import Grade3 from "../../../assets/grade3.png";
-import Sun from "../../../assets/sunnyborder.png";
+import Basic from "../../../assets/profile.jpg";
 
 const ReviewItem = ({ review }) => {
 
@@ -13,7 +13,7 @@ const ReviewItem = ({ review }) => {
         <Profile>
           <div>
             <InnerProf>
-              {review.memberImageData ? (<img src={`data:image/png;base64,${review.memberImageData}`} alt="review" />) : (<img src={Sun} alt="기본 이미지" />)}
+              {review.memberImageData ? (<img src={`data:image/png;base64,${review.memberImageData}`} alt="review" />) : (<img src={Basic} alt="기본 이미지" />)}
 
               <Writer>
                 <p>{review.writer}</p>
@@ -63,6 +63,8 @@ const Profile = styled.div`
   
   & > div > div > img {
     width: 10vw;
+    border-radius: 50%;
+    object-fit: cover;
   }
 `;
 

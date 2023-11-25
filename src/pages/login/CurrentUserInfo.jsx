@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import Sun from "../../assets/sunnyborder.png";
+import Basic from "../../assets/profile.jpg";
 import styled from "styled-components";
 import { ReqProfile } from "../../apis/auth";
 import Grade1 from "../../assets/grade1.png";
@@ -54,7 +54,7 @@ const CurrentUserInfo = () => {
     <>
       <Infos>
         <ProfileImg>
-          {currentUser.image ? (<img src={`data:image/png;base64,${currentUser.image}`} alt="review" />) : (<img src={Sun} alt="기본 이미지" />)}
+          {currentUser.image ? (<img src={`data:image/png;base64,${currentUser.image}`} alt="review" />) : (<img src={Basic} alt="기본 이미지" />)}
         </ProfileImg>
         <Profile>
           <Grade>
@@ -88,7 +88,6 @@ const Infos = styled.div`
 const ProfileImg = styled.div`
   margin-right: 5vw;
   & > img {
-    height: 10vh;
     width: 16vw;
     border-radius: 50%;
     object-fit: cover;

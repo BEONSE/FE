@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Grade1 from "../../../assets/grade1.png";
 import Grade2 from "../../../assets/grade2.png";
 import Grade3 from "../../../assets/grade3.png";
-import Sun from "../../../assets/sunnyborder.png";
+import Basic from "../../../assets/profile.jpg";
 
 const MateDetailItem = ({ detail }) => {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ const MateDetailItem = ({ detail }) => {
         <h3>{detail.title}</h3>
         <Profile>
           <InnerProf>
-            {detail.imageData ? (<img src={`data:image/png;base64,${detail.imageData}`} alt="userprofile" />) : (<img src={Sun} alt="기본 이미지" />)}
+            {detail.imageData ? (<img src={`data:image/png;base64,${detail.imageData}`} alt="userprofile" />) : (<img src={Basic} alt="기본 이미지" />)}
             <p>{detail.nickname}</p>
             <p>
               {detail.grade === 1 && <img src={Grade1} alt="grade1" />}
@@ -43,8 +43,8 @@ const MateDetailItem = ({ detail }) => {
             </p>
           </InnerProf>
           <TimeDiv>
-            <p>작성일 {detail.createdAt}</p>
-            {modifyDate && <p>수정일 {detail.modifiedAt}</p>}
+            <div>작성일 {detail.createdAt}</div>
+            {modifyDate && <div>수정일 {detail.modifiedAt}</div>}
           </TimeDiv>
         </Profile>
         <Content>
@@ -82,10 +82,9 @@ const Profile = styled.div``;
 
 const InnerProf = styled.div`
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   margin-bottom: 1vh;
   & > img {
-    height: 8vh;
     width: 13vw;
     border-radius: 50%;
     margin-right: 2vw;
@@ -101,7 +100,7 @@ const InnerProf = styled.div`
 
 const TimeDiv = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   font-size: 13px;
   color: #aaaaaa;
 `;
