@@ -10,12 +10,14 @@ import Ceo from "../../assets/ceo.png";
 import Car from "../../assets/car.png";
 
 import { FormTag } from "./CommonRegister";
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ReqBranchRegister, ReqCheckEmail } from "../../apis/auth";
 import styled from "styled-components";
 
 import DaumPostcode from "react-daum-postcode";
 import { CommonButton } from "../../components/CommonButton";
+
+const { kakao } = window;
 
 const BranchRegister = () => {
   // 이메일 중복 확인
@@ -42,44 +44,14 @@ const BranchRegister = () => {
   const handleComplete = (data) => {
     setPopup(false);
 
-    let fullAddress = data.address;
-
     console.log(data);
-    let extraAddress = "";
 
-    //도로명 주소
-    if (data.addressType === "R") {
-      // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-      if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
-        extraAddress += data.bname;
-      }
-      if (data.buildingName !== "" && data.apartment === "Y") {
-        extraAddress += extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-      }
-
-      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
-    }
+    let fullAddress = data.address;
 
     setBranchRegister({
       ...branchRegister,
       address: fullAddress,
     });
-  };
-
-  const modalRef = useRef(null); //화면 외부 클릭하면 창이 닫히게
-
-  useEffect(() => {
-    document.addEventListener("mousedown", clickModalOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", clickModalOutside);
-    };
-  });
-
-  const clickModalOutside = (event) => {
-    if (popup && modalRef.current && !modalRef.current.contains(event.target)) {
-      setPopup(false);
-    }
   };
 
   //페이지 이동
@@ -96,6 +68,8 @@ const BranchRegister = () => {
     name: "",
     introduction: "",
     address: "",
+    lat: "",
+    lng: "",
     role: "ROLE_BRANCH",
   });
 
@@ -188,6 +162,29 @@ const BranchRegister = () => {
       }
     }
   };
+
+  useEffect(() => {
+    // 주소 -> 좌표 가져오기
+
+    // 주소-좌표 변환 객체를 생성합니다
+    var geocoder = new kakao.maps.services.Geocoder();
+
+    // 주소로 좌표를 검색합니다
+    geocoder.addressSearch(branchRegister.address.toString(), function (result, status) {
+      // 정상적으로 검색이 완료됐으면
+      if (status === kakao.maps.services.Status.OK) {
+        var coordsY = result[0].y;
+        var coordsX = result[0].x;
+        console.log("위도", coordsY);
+        console.log("경도", coordsX);
+        setBranchRegister((prevItem) => ({
+          ...prevItem,
+          lat: coordsY,
+          lng: coordsX,
+        }));
+      }
+    });
+  }, [branchRegister.address]);
 
   return (
     <FormTag onSubmit={handleSubmit}>
