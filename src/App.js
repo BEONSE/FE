@@ -18,14 +18,28 @@ function App() {
     <div className="App">
       {!hideHeaderFooter && <Header />}
       {!hideHeaderFooter && <BlankDiv />}
-      <AppRoute setHideHeaderFooter={setHideHeaderFooter} />
-      {!hideHeaderFooter && <Footer />}
+      <Wrapper>
+        <CompDiv>
+          <AppRoute setHideHeaderFooter={setHideHeaderFooter} />
+        </CompDiv>
+        {!hideHeaderFooter && <Footer />}
+      </Wrapper>
     </div>
   );
 }
 
 export default App;
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+`;
+
 const BlankDiv = styled.div`
   height: 7.2vh;
+`;
+
+const CompDiv = styled.div`
+  flex: 1;
 `;

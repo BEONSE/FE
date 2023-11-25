@@ -37,10 +37,10 @@ const FooterBox = styled.div`
   padding-top: 3%;
   padding-bottom: 3%;
 
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.8);
 `;
 
-// P태그 Style
+// P태그 Styles
 const CompanyInfo = styled.p`
   color: white;
 
