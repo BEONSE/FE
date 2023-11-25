@@ -10,14 +10,12 @@ import Pencil from "../../../assets/pencil.png";
 import Ceo from "../../../assets/ceo.png";
 import Car from "../../../assets/car.png";
 import BackMove from "../../../components/backMove";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ReqProfile } from "../../../apis/auth";
 import GlobalStyle from "../../../components/GlobalStyle";
 import ModalBranchUpdate from "./ModalBranchUpdate";
-import { ReqBranchInfo, ReqBranchUpdate } from "../../../apis/branch";
+import { ReqBranchInfo } from "../../../apis/branch";
 import { useParams } from "react-router-dom";
-import { usePageMoving } from "../../../components/usePageMoving";
 
 const BranchUpdate = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -89,17 +87,12 @@ const BranchUpdate = () => {
 
   const onLoadImage = (e) => {
     const files = e.target.files;
-    const fileUrls = [];
 
     for (let i = 0; i < files.length; i++) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        fileUrls.push(reader.result);
-        setImageFiles(fileUrls);
-      };
-      reader.readAsDataURL(files[i]);
+      imageFiles[i] = files[i];
+      console.log('fileUrls[i]', imageFiles[i])
     }
-    setImageFiles(files);
+    console.log('imageFiles', imageFiles)
   };
 
   const deleteImage = (index) => {
@@ -107,6 +100,7 @@ const BranchUpdate = () => {
     imageList.splice(index, 1);
     setImageFiles(imageList);
   };
+
   useEffect(() => {
     return () => {
       imageFiles?.forEach((item) => {
