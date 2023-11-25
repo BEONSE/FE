@@ -8,8 +8,10 @@ import CommentForm from "../CommentForm/CommentForm";
 import BackMove from "../../../components/backMove";
 import Loading from "../../../components/Loading";
 import { tr } from "date-fns/locale";
+import { usePageMoving } from "../../../components/usePageMoving";
 
 const MateDetail = () => {
+  const {moveToMate} = usePageMoving();
   const mbid = useParams("id"); // pathVariable 가져오기
   const [detail, setDetail] = useState({}); // 게시글 정보
   const [comment, setComment] = useState([]); // 댓글 정보
@@ -105,7 +107,7 @@ const MateDetail = () => {
 
   return (
     <>
-      <BackMove />
+      <BackMove movePage={moveToMate} content={"메이트 게시판"}/>
       {isLoading ? (
         <LoadDiv>
           <Loading />

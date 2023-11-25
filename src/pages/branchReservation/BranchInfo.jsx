@@ -14,7 +14,7 @@ const BranchInfo = () => {
   const appContext = useContext(AppContext);
   const [checkToken, setCheckToken] = useState(false);
 
-  const { moveToReservation } = usePageMoving();
+  const { moveToReservation, moveToSearch } = usePageMoving();
   const param = useParams("bid");
   const [isBranchInfo, setIsBranchInfo] = useState({});
   const [branchImage, setBranchImage] = useState([]);
@@ -47,8 +47,8 @@ const BranchInfo = () => {
 
   return (
     <>
+      <BackMove movePage={moveToSearch} content={"지점 검색"}/>
       <BranchAllInfo>
-        <BackMove />
         <KakaoMap id="siglemap">
           <SingleMap
             isLat={isBranchInfo.lat}

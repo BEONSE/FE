@@ -7,8 +7,11 @@ import { useState } from "react";
 import ReservationItem from "./ReservationItem";
 import { ReqMyPayment } from "../../../apis/point";
 import Loading from "../../../components/Loading";
+import { usePageMoving } from "../../../components/usePageMoving";
 
 const MyReservation = () => {
+
+  const {moveToSearch} = usePageMoving();
   const [resList, setResList] = useState([]);
   const [isEmpty, setIsEmpty] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -88,7 +91,7 @@ const MyReservation = () => {
 
   return (
     <>
-      <BackMove />
+      <BackMove movePage={moveToSearch} content={"지점 검색"}/>
       <Title>예약 현황</Title>
       {isLoading &&
         <LoadDiv>

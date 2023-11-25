@@ -4,8 +4,10 @@ import { CommonButton } from "../../../components/CommonButton";
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import ReviewWriteModal from "./ReviewWriteModal";
+import { usePageMoving } from "../../../components/usePageMoving";
 
 const ReviewWrite = () => {
+  const {moveToMyCoupon} = usePageMoving();
   const [clickBtn, setClickBtn] = useState(false);
   const { cid } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -53,7 +55,7 @@ const ReviewWrite = () => {
 
   return (
     <>
-      <BackMove />
+      <BackMove movePage={moveToMyCoupon} content={"보유 쿠폰 조회"}/>
       <PageTitle>REVIEW 쓰기</PageTitle>
 
       <InputAllDiv>

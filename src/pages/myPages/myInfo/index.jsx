@@ -48,7 +48,7 @@ const MyInfo = () => {
   return (
     <>
       <GlobalStyle />
-      <BackMove />
+      <BackMove content={"홈으로"}/>
       <LoginAllDiv>
         <img src={BigLogoImg} alt="BigLogoImage" onClick={() => moveToHome()} />
         <h2>회원정보수정</h2>
