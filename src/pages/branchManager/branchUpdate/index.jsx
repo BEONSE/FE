@@ -66,7 +66,7 @@ const BranchUpdate = () => {
           setBranchUpdate(() => ({
             ...branchUpdate,
             email: response.data.email,
-            password: response.data.password,
+            password: "",
             branchName: profileResponse.data.branchName,
             ceo: response.data.name,
             address: profileResponse.data.address,
@@ -90,9 +90,9 @@ const BranchUpdate = () => {
 
     for (let i = 0; i < files.length; i++) {
       imageFiles[i] = files[i];
-      console.log('fileUrls[i]', imageFiles[i])
+      console.log("fileUrls[i]", imageFiles[i]);
     }
-    console.log('imageFiles', imageFiles)
+    console.log("imageFiles", imageFiles);
   };
 
   const deleteImage = (index) => {
@@ -184,7 +184,13 @@ const BranchUpdate = () => {
           <span>
             <img src={Address} alt="AddressImage" />
           </span>
-          <input type="text" name="address" value={branchUpdate.address} placeholder="지점 주소" disabled/>
+          <input
+            type="text"
+            name="address"
+            value={branchUpdate.address}
+            placeholder="지점 주소"
+            disabled
+          />
         </LoginForm>
         <br />
         <LoginForm>
@@ -239,11 +245,7 @@ const BranchUpdate = () => {
         <br />
       </EditForm>
       {modalOpen && (
-        <ModalBranchUpdate
-          param={param}
-          branchUpdate={branchUpdate}
-          image={imageFiles}
-        />
+        <ModalBranchUpdate param={param} branchUpdate={branchUpdate} image={imageFiles} />
       )}
     </>
   );
