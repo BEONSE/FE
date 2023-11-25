@@ -22,24 +22,30 @@ const MateList = () => {
   // 글 목록
   const [mateList, setMateList] = useState([]);
 
+  const [pageData, setPageData] = useState("");
+
   // 로딩 상태
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoading2, setIsLoading2] = useState(false);
 
   // 페이지
   const [page, setPage] = useState(1);
   const loadMore = async () => {
+    setIsLoading2(true)
     try {
       const response = await ReqMateBoardList(page + 1);
       if (response.data.content.length === 0) {
         setIsEmpty(true);
       } else {
         setMateList([...mateList, ...response.data.content]);
+        setPageData(response.data)
         setPage(page + 1);
       }
+      console.log(pageData)
     } catch (err) {
       // 오류 처리
     } finally {
-      setIsLoading(false);
+      setIsLoading2(false);
     }
   };
 
@@ -88,7 +94,7 @@ const MateList = () => {
     async function getMateList() {
       try {
         const response = await ReqMateBoardList();
-        console.log(response.data.content);
+        console.log(response.data);
         setMateList(response.data.content);
       } catch (err) {
         if (err.response.data.statusCode === 404 || err.response.data.statusCode === 401) {
@@ -120,8 +126,12 @@ const MateList = () => {
         </AllMateListDiv>
       )}
       {checkToken && <LoginModal setCheckToken={setCheckToken} checkToken={checkToken} />}
-
-      <H4>더보기</H4>
+      {isLoading2 && page != pageData.totalPageNo &&
+        <LoadDiv>
+          <Loading/>
+        </LoadDiv>
+      }
+      {page === pageData.totalPageNo ? <br/> : <H4>더보기</H4>}
     </>
   );
 };

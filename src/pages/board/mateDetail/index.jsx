@@ -7,6 +7,7 @@ import { ReqMateBoardComment, ReqMateBoardDetail } from "../../../apis/mateBoard
 import CommentForm from "../CommentForm/CommentForm";
 import BackMove from "../../../components/backMove";
 import Loading from "../../../components/Loading";
+import { tr } from "date-fns/locale";
 
 const MateDetail = () => {
   const mbid = useParams("id"); // pathVariable 가져오기
@@ -17,10 +18,13 @@ const MateDetail = () => {
 
   // 로딩 상태
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoading2, setIsLoading2] = useState(false);
+  const [pageData, setPageData] = useState("");
 
   // 페이지
   const [page, setPage] = useState(1);
   const loadMore = async () => {
+    setIsLoading2(true)
     try {
       const response = await ReqMateBoardComment(mbid.id, page + 1);
       if (response.data.content.length === 0) {
@@ -34,6 +38,7 @@ const MateDetail = () => {
     } finally {
       setIsLoading(false);
     }
+    setIsLoading2(false)
   };
 
   const throttle = (func, delay) => {
@@ -84,6 +89,7 @@ const MateDetail = () => {
       try {
         const commentResponse = await ReqMateBoardComment(mbid.id);
         setComment(commentResponse.data.content);
+        setPageData(commentResponse.data)
         console.log("댓글", commentResponse.data.content);
       } catch (err) {
         console.log(err);
@@ -109,14 +115,19 @@ const MateDetail = () => {
         <MateDetailItem detail={detail} />
         <CommentInfo>
           <h3>댓글</h3>
-          <p>총 {comment.length} 개</p>
+          <p>총 {pageData.totalRows} 개</p>
         </CommentInfo>
         <hr />
         <br />
+        <CommentForm id={mbid.id} />
         {comment.map((item) => (
           <MateComment key={item.mcid} comment={item} boardWriter={detail.nickname} />
         ))}
-        <CommentForm id={mbid.id} />
+        {isLoading2 && page != pageData.totalPageNo &&
+          <LoadDiv>
+            <Loading />
+          </LoadDiv>
+        }
       </GroupDiv>
       )}
     </>

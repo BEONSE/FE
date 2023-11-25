@@ -16,6 +16,6 @@ export function ReqBranchReserve(bid, reservationInfo) {
 }
 
 // 내 예약 목록 가져오기
-export function ReqMyReservation() {
-  return axios.get(`/mypage/reservation`);
+export function ReqMyReservation(page) {
+  return axios.get(`/mypage/reservation`, { params : { page }});
 }

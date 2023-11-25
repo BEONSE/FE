@@ -12,12 +12,89 @@ const MyCoupon = () => {
   // 필터 선택 state
   const [selectedFilter, setSelectedFilter] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoading2, setIsLoading2] = useState(false);
   const [isCouponEmpty, setIsCouponEmpty] = useState(false);
   const [isUseEmpty, setIsUseEmpty] = useState(false);
   const [isCoupons, setIsCoupons] = useState([]);
   const [usedCoupons, setUsedCoupons] = useState([]);
   const [fullCount, setFullCount] = useState(0);
+// 페이지
+  const [page, setPage] = useState(1);
+  const [pageData, setPageData] = useState("");
+  const loadMore = async () => {
+    setIsLoading2(true)
+    try {
+      const couponsResponse = await ReqCouponList(page + 1);
+      console.log(couponsResponse.data)
+      if (couponsResponse.data.content.length === 0) {
+        setIsCouponEmpty(true);
+      } else {
+        setIsCoupons([...isCoupons, ...couponsResponse.data.content]);
+        setPageData(couponsResponse.data)
+        setPage(page + 1);
+      }
+    } catch (err) {
+      // 오류 처리
+    } finally {
+      setIsLoading2(false);
+    }
+  };
 
+  const loadMoreUsedCoupons = async () => {
+    setIsLoading2(true);
+    try {
+      const usedCouponsResponse = await ReqUsedCouponList(page + 1);
+      console.log(usedCouponsResponse.data);
+      console.log('page', page)
+      if (usedCouponsResponse.data.content.length === 0) {
+        setIsUseEmpty(true);
+      } else {
+        setUsedCoupons([...usedCoupons, ...usedCouponsResponse.data.content]);
+        setPageData(usedCouponsResponse.data);
+        setPage(page + 1);
+      }
+    } catch (err) {
+      // 오류 처리
+    } finally {
+      setIsLoading2(false);
+    }
+  };
+
+  const throttle = (func, delay) => {
+    let inThrottle;
+    return function () {
+      const args = arguments;
+      const context = this;
+      if (!inThrottle) {
+        func.apply(context, args);
+        inThrottle = true;
+        setTimeout(() => (inThrottle = false), delay);
+      }
+    };
+  };
+
+  const handleScroll = () => {
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+    if (scrollTop + clientHeight >= scrollHeight - 50) {
+      // 스크롤이 맨 아래에 도달하면 새로운 데이터 로드
+      if (selectedFilter === "no") {
+        loadMore();
+      } else if (selectedFilter === "yes") {
+        loadMoreUsedCoupons();
+      }
+    }
+  };
+
+  useEffect(() => {
+    const handleScrollThrottle = throttle(handleScroll, 20); // 쓸데없이 많은 이벤트 호출을 방지하기 위한 스크롤 쓰로틀링
+
+    window.addEventListener("scroll", handleScrollThrottle);
+
+    return () => {
+      window.removeEventListener("scroll", handleScrollThrottle);
+    };
+  }, [handleScroll]);
   // defalut로 보유 쿠폰 가져오기
   useEffect(() => {
     getUnusedCoupons();
@@ -108,6 +185,13 @@ const MyCoupon = () => {
       </HaveCouponAllDiv>
       <Load>
         {isLoading && (
+          <>
+            <Loading /> <p>불러오는 중...</p>
+          </>
+        )}
+      </Load>
+      <Load>
+        {isLoading2 && page != pageData.totalPageNo && (
           <>
             <Loading /> <p>불러오는 중...</p>
           </>
