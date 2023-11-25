@@ -17,7 +17,6 @@ const BranchReview = ({ item }) => {
     <>
       {item && (
         <ReviewAllDiv>
-          <ContentGroup>
             <Profile>
               <div>
                 <InnerProf>
@@ -45,12 +44,6 @@ const BranchReview = ({ item }) => {
               )}
               <p>{item.content}</p>
             </Content>
-          </ContentGroup>
-
-          <LoginButtonDiv>
-            {/* <LoginBtn onClick={moveToBranchReview}>목록</LoginBtn> */}
-            {/* 이전 페이지로 돌아가기로 설정하면 내가 쓴 리뷰에서도 쓸 수 있을 거 같음 */}
-          </LoginButtonDiv>
         </ReviewAllDiv>
       )}
     </>
@@ -60,13 +53,6 @@ const BranchReview = ({ item }) => {
 export default BranchReview;
 
 export const ReviewAllDiv = styled.div`
-  //display: flex;
-  //flex-direction: column;
-  //justify-content: center;
-  //align-items: center;
-`;
-
-const ContentGroup = styled.div`
   border: 1px solid;
   margin-left: 5vw;
   margin-right: 5vw;

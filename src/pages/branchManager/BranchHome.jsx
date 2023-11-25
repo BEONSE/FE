@@ -133,16 +133,6 @@ const BranchHome = () => {
           <>{review && review.map((item) => <BranchReview key={item.rbId} item={item} />)}</>
         )}
         {selectedType === "coupon" && (
-          <>
-            <BranchCouponHeader>
-              <CouponCid> No. </CouponCid>
-              <CouponType> 쿠폰종류 </CouponType>
-              <CouponUser> 회원명 </CouponUser>
-              <CouponPaymentDate> 사용날짜 </CouponPaymentDate>
-            </BranchCouponHeader>
-          </>
-        )}
-        {selectedType === "coupon" && (
           <>{coupon && coupon.map((list) => <CouponList key={list.cid} list={list} />)}</>
         )}
       </LoginAllDiv>

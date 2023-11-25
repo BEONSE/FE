@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import styled from "styled-components";
+import PressCoupon from "../../../assets/presscoupon.png";
+import FormCoupon from "../../../assets/formcoupon.png";
 
 const CouponList = ({ list }) => {
   useEffect(() => {
@@ -9,21 +11,16 @@ const CouponList = ({ list }) => {
     }
   }, [list]);
 
-  if (list.type === "고압 샤워 쿠폰") {
-    list.type = "고압 세차";
-  }
-  if (list.type === "폼 샤워 쿠폰") {
-    list.type = "폼 세차";
-  }
-
   return (
     <>
       {list && (
         <CouponListForm>
-          <hr />
+          <CouponCid> #{list.cid} </CouponCid>
+          <Coupons>
+            {list.type === "고압 샤워 쿠폰" && <img src={PressCoupon} alt="formCoupon" />}
+            {list.type === "폼 샤워 쿠폰" && <img src={FormCoupon} alt="formCoupon" />}
+          </Coupons>
           <BranchCouponContent>
-            <CouponCid> {list.cid} </CouponCid>
-            <CouponType> {list.type} </CouponType>
             <CouponUser> {list.name} </CouponUser>
             <CouponPaymentDate> {list.paymentDate} </CouponPaymentDate>
           </BranchCouponContent>
@@ -35,35 +32,45 @@ const CouponList = ({ list }) => {
 
 export default CouponList;
 
-const CouponListForm = styled.div``;
+const CouponListForm = styled.div`
+  width: 80vw;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
+  margin: auto;
+  border-radius: 20px;
+  margin-bottom: 3vh;
+  padding: 5%;
+`;
+const Coupons = styled.div`
+  width: 100%;
+  height: 14vh;
+  margin: auto;
+  margin-bottom: 10vh;
 
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  & > img {
+    width: 100%;
+    margin-top: 8vh;
+  }
+`;
 const BranchCouponContent = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  justify-content: space-between;
+  background-color: antiquewhite;
+  padding: 2%;
+  width: 100%;
 `;
 
 const CouponCid = styled.div`
-  width: 5%;
-  margin-left: 5vw;
-  margin-right: 5vw;
-`;
-
-const CouponType = styled.div`
-  width: 35%;
-  margin-left: 5vw;
-  margin-right: 5vw;
+  margin-left: 3vw;
 `;
 
 const CouponUser = styled.div`
-  width: 20%;
-  margin-left: 5vw;
-  margin-right: 5vw;
+  margin-left: 3vw;
 `;
 
 const CouponPaymentDate = styled.div`
-  width: 40%;
-  margin-left: 4vw;
-  margin-right: 5vw;
+  margin-right: 3vw;
 `;
