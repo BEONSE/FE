@@ -9,7 +9,7 @@ import Key from "../../assets/key.png";
 import Pencil from "../../assets/pencil.png";
 
 import { useRef, useState } from "react";
-import { ReqCommonRegister } from "../../apis/auth";
+import { ReqCheckEmail, ReqCommonRegister } from "../../apis/auth";
 import styled from "styled-components";
 
 import DaumPostcode from "react-daum-postcode";
@@ -21,8 +21,28 @@ const CommonRegister = () => {
   // 비밀번호 확인
   const [pwdConfirm, setPwdConfirm] = useState(true);
 
+  // 이메일 중복 확인
+  const handleCheckEmail = async () => {
+    try {
+      const response = await ReqCheckEmail(commonRegister.email);
+      console.log(response.data);
+      if (response.data.statusCode === 200) {
+        alert("사용가능한 이메일입니다.");
+      }
+    } catch (err) {
+      const errResult = err.response.data;
+      if (errResult.statusCode === 400) {
+        // 이메일 중복
+        alert(errResult.errorMessage);
+        emailRef.current.focus();
+      }
+    }
+  };
+
+  //다음 주소 모달
   const [popup, setPopup] = useState(false);
 
+  //다음 주소 받아오기
   const handleComplete = (data) => {
     setPopup(false);
 
@@ -158,6 +178,7 @@ const CommonRegister = () => {
           required
         />
       </LoginForm>
+      <PostBtn onClick={handleCheckEmail}>중복 확인</PostBtn>
       <LoginForm>
         <span>
           <img src={Key} alt="PasswordImage" />

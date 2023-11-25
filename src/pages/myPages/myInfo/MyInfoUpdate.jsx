@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { CommonButton } from "../../../components/CommonButton";
+import DaumPostcode from "react-daum-postcode";
 
 import Sun from "../../../assets/sunnyborder.png";
 import Person from "../../../assets/person.png";
@@ -9,7 +10,7 @@ import Check from "../../../assets/check.png";
 import Key from "../../../assets/key.png";
 import Pencil from "../../../assets/pencil.png";
 import { useState, useEffect } from "react";
-import { ReqProfile } from "../../../apis/auth";
+import { ReqCheckEmail, ReqProfile } from "../../../apis/auth";
 import ModalMyInfoUpdate from "./ModalMyInfoUpdate";
 import DefaultProfile from "../../../assets/sunnyborder.png";
 
@@ -17,6 +18,36 @@ import BackMove from "../../../components/backMove";
 // import { useRef } from "react";
 
 const MyInfoUpdate = () => {
+
+
+  //다음 주소 모달
+  const [popup, setPopup] = useState(false);
+  const handleComplete = (data) => {
+    setPopup(false);
+
+    let fullAddress = data.address;
+    let extraAddress = "";
+
+    //도로명 주소
+    if (data.addressType === "R") {
+      // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+      if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
+        extraAddress += data.bname;
+      }
+      if (data.buildingName !== "" && data.apartment === "Y") {
+        extraAddress += extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+      }
+
+      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+    }
+
+    setCommonUpdate({
+      ...commonUpdate,
+      address: fullAddress,
+    });
+  };
+
+
   // 이미지 정보
   const [image, setImage] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -124,7 +155,7 @@ const MyInfoUpdate = () => {
             name="email"
             value={commonUpdate.email}
             placeholder="아이디"
-            readOnly
+            disabled
           />
         </LoginForm>
         <br />
@@ -162,7 +193,7 @@ const MyInfoUpdate = () => {
             name="name"
             defaultValue={commonUpdate.name}
             placeholder="이름"
-            readOnly
+            disabled
           />
         </LoginForm>
         <br />
@@ -191,9 +222,13 @@ const MyInfoUpdate = () => {
             onChange={handleInputChange}
           />
         </LoginForm>
-
+        <PostBtn onClick={() => setPopup(true)}>우편번호 찾기</PostBtn>
+        {popup && (
+          <PostModal>
+            <DaumPostcode autoClose onComplete={handleComplete} />
+          </PostModal>
+          )}
         <LoginButtonDiv>
-          {/* 입력 폼 다 안맞으면 버튼 안눌리게 만들기 */}
           <LoginBtn
             onClick={() => {
               editBtn();
@@ -346,4 +381,19 @@ export const LoginBtn = styled(CommonButton)`
 const Warning = styled.div`
   color: red;
   margin-top: ${(props) => (props.check ? 0 : "2vh")};
+`;
+
+const PostModal = styled.div`
+  background: rgba(0, 0.0, 0, 0.25);
+  position: fixed;
+  left: 0;
+  width: 100%;
+`;
+
+const PostBtn = styled(CommonButton)`
+  margin-top: 5px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: 80%;
+  height: 80%;
 `;
