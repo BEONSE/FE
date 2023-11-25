@@ -145,7 +145,7 @@ export default GetWeather;
 // 터치 스크롤 기능
 const CardView = styled.div`
   width: 101%;
-  height: 23vh;
+  height: 25vh;
   margin: auto;
   white-space: nowrap;
   margin-bottom: 2vh;
