@@ -1,24 +1,17 @@
 import styled from "styled-components";
 
 import { CommonButton } from "../../../components/CommonButton";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BoardAddModal from "./BoardAddModal";
 import BackMove from "../../../components/backMove";
+import { ReqBranchNames } from "../../../apis/branch";
 
 /* 메이트 작성 컴포넌트 */
 const MateWrite = () => {
   const [clickBtn, setClickBtn] = useState(false);
   // 지점 배열
-  const selectList = [
-    { value: "defalut", name: "지점을 선택해주세요" },
-    { value: "가산디지털단지점", name: "BESONSE 가산디지털단지점" },
-    { value: "암사점", name: "BESONSE 암사점" },
-    { value: "김포점", name: "BESONSE 김포점" },
-    { value: "온수점", name: "BESONSE 온수점" },
-    { value: "올림픽공원역점", name: "BESONSE 올림픽공원역점" },
-    { value: "가산디지털단지2점", name: "BESONSE 가산디지털단지2점" },
-    { value: "가산디지털단지3점", name: "BESONSE 가산디지털단지3점" },
-  ];
+  const [branchNames, setBranchNames] = useState([]);
+
   // 메이트 게시판 내용 state
   const [writeMate, setWriteMate] = useState({
     title: "",
@@ -35,14 +28,26 @@ const MateWrite = () => {
     }));
   };
 
-  // select handler 함수
-  const handleSelectChange = (e) => {
-    const selectedBranchName = e.target.value;
-    setWriteMate((prevState) => ({
-      ...prevState,
-      branchName: selectedBranchName,
-    }));
+  // 지점 선택 handler
+  const selectedHandler = (e) => {
+    setWriteMate({ branchName: e.target.value });
   };
+
+  // 지점 이름 가져오기
+  useEffect(() => {
+    async function getBranchNames() {
+      try {
+        const namesResponse = await ReqBranchNames();
+        console.log("이름", namesResponse);
+        if (namesResponse.status === 200) {
+          setBranchNames(namesResponse.data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getBranchNames();
+  }, []);
 
   return (
     <>
@@ -52,17 +57,24 @@ const MateWrite = () => {
       <InputAllDiv>
         <hr />
         <InputGroup>
-          <InputTitle type="text" name="title" placeholder="제목" required onChange={handleInput} />
-          <SelectBranch type="text" name="brabchName" required onChange={handleSelectChange}>
-            {selectList.map((item) => (
-              <option value={item.value} key={item.value}>
-                {item.name}
-              </option>
-            ))}
-          </SelectBranch>
+          <InputTitle
+            type="text"
+            name="title"
+            placeholder=" 제목"
+            required
+            onChange={handleInput}
+          />
+          <SelectBox>
+            <select onChange={selectedHandler} value={writeMate.branchName}>
+              <option value={"defalut"}>지점 선택</option>
+              {branchNames.map((name) => (
+                <option value={`${name.branchName}`}>{name.branchName}</option>
+              ))}
+            </select>
+          </SelectBox>
           <InputContent
             type="text"
-            placeholder="내용"
+            placeholder=" 내용"
             name="content"
             required
             onChange={handleInput}
@@ -125,20 +137,18 @@ const InputTitle = styled.input`
 `;
 
 /* 지점명 Style */
-const SelectBranch = styled.select`
-  font-family: "S-CoreDream-medium", sans-serif;
-  padding: 1%;
-  font-size: 20px;
-  margin-bottom: 1vh;
-  option {
-    background-color: #ffffff;
-  }
-  option:checked {
-    background-color: lightblue;
-  }
-  &:focus-within {
-    outline: auto;
-    outline-color: #68d0f3;
+const SelectBox = styled.div`
+  & > select {
+    font-family: "S-CoreDream-light";
+    font-weight: bold;
+    padding: 2%;
+    width: 100%;
+    font-size: 19px;
+    margin-bottom: 1vh;
+    & :focus {
+      outline: none;
+      border: 1px solid #99eeff;
+    }
   }
 `;
 
