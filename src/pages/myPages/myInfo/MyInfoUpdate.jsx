@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { CommonButton } from "../../../components/CommonButton";
 import DaumPostcode from "react-daum-postcode";
 
-import Sun from "../../../assets/sunnyborder.png";
+import Basic from "../../../assets/profile.jpg";
 import Person from "../../../assets/person.png";
 import LargeB from "../../../assets/b.png";
 import Address from "../../../assets/address.png";
@@ -10,9 +10,8 @@ import Check from "../../../assets/check.png";
 import Key from "../../../assets/key.png";
 import Pencil from "../../../assets/pencil.png";
 import { useState, useEffect } from "react";
-import { ReqCheckEmail, ReqProfile } from "../../../apis/auth";
+import { ReqProfile } from "../../../apis/auth";
 import ModalMyInfoUpdate from "./ModalMyInfoUpdate";
-import DefaultProfile from "../../../assets/sunnyborder.png";
 
 import BackMove from "../../../components/backMove";
 // import { useRef } from "react";
@@ -142,7 +141,7 @@ const MyInfoUpdate = () => {
           ) : commonUpdate.image ? (
             <img src={`data:image/png;base64,${commonUpdate.image}`} alt="profile" />
           ) : (
-            <img src={DefaultProfile} alt="profile" />
+            <img src={Basic} alt="profile" />
           )}
           <input type="file" accept="image/jpg, image/jpeg, image/png" onChange={onLoadImage} />
         </ProfileImg>
@@ -319,7 +318,6 @@ const ProfileImg = styled.div`
   margin-bottom: 2vh;
   & > img {
     margin-bottom: 2vh;
-    height: 18vh;
     width: 100%;
     border-radius: 50%;
     object-fit: cover;

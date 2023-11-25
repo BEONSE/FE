@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import Grade1 from "../../../assets/grade1.png";
 import Grade2 from "../../../assets/grade2.png";
 import Grade3 from "../../../assets/grade3.png";
-import Sun from "../../../assets/sunnyborder.png";
+import Basic from "../../../assets/profile.jpg";
 
 const BranchReview = ({ item }) => {
   useEffect(() => {
@@ -21,7 +21,7 @@ const BranchReview = ({ item }) => {
             <Profile>
               <div>
                 <InnerProf>
-                  {item.memberImageData ? (<img src={`data:image/png;base64,${item.memberImageData}`} alt="review" />) : (<img src={Sun} alt="기본 이미지" />)}
+                  {item.memberImageData ? (<img src={`data:image/png;base64,${item.memberImageData}`} alt="review" />) : (<img src={Basic} alt="기본 이미지" />)}
                   <Writer>
                   <p>{item.writer}</p>
                   <Grade>
@@ -82,6 +82,8 @@ const Profile = styled.div`
 
   & > div > div > img {
     width: 8vw;
+    border-radius: 50%;
+    margin-right: 2vw;    
   }
 `;
 

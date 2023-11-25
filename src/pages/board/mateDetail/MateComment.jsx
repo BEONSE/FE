@@ -7,7 +7,7 @@ import AppContext from "../../../AppContext";
 import Grade1 from "../../../assets/grade1.png";
 import Grade2 from "../../../assets/grade2.png";
 import Grade3 from "../../../assets/grade3.png";
-import Sun from "../../../assets/sunnyborder.png";
+import Basic from "../../../assets/profile.jpg";
 
 const MateComment = ({ comment, boardWriter }) => {
   // 케밥 이미지 클릭 상태
@@ -46,7 +46,7 @@ const MateComment = ({ comment, boardWriter }) => {
     <>
       <CommentGroup>
         <ProfileImage>
-          {comment.imageData ? (<img src={`data:image/png;base64,${comment.imageData}`} alt="userprofile" />) : (<img src={PersonImg} alt="기본 이미지" />)}
+          {comment.imageData ? (<img src={`data:image/png;base64,${comment.imageData}`} alt="userprofile" />) : (<img src={Basic} alt="기본 이미지" />)}
         </ProfileImage>
         <Content>
           <ProfileContent>
@@ -95,8 +95,7 @@ const ProfileImage = styled.div`
 
   & > img {
     width: 10vw;
-    height: 100%;
-    border-radius: 70px;
+    border-radius: 50px;
   }
 `;
 
