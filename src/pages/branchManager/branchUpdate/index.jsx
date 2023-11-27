@@ -22,7 +22,10 @@ import { usePageMoving } from "../../../components/usePageMoving";
 const BranchUpdate = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const navigate = useNavigate;
+  const navigate = useNavigate();
+
+
+
   const editBtn = () => {
     setModalOpen(!modalOpen);
   };
@@ -158,7 +161,9 @@ const BranchUpdate = () => {
   return (
     <>
       <GlobalStyle />
+
       <BackMove movePage={moveToBranchManageHome} content={"가맹점 홈으로"} />
+
 
       <Title>{branchUpdate.branchName} 정보 수정 페이지</Title>
       <br />

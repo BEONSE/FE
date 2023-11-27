@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useEffect } from "react";
 import Point1 from "../../../assets/point1.png";
 import Point2 from "../../../assets/point2.png";
 import Point3 from "../../../assets/point3.png";
