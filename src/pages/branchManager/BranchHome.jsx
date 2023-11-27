@@ -154,8 +154,6 @@ const BranchHome = () => {
       console.log(param);
       console.log(param.bid);
       try {
-        const couponResponse = await ReqBranchCoupon(param.bid);
-        console.log("쿠폰",couponResponse);
         const couponResponse = await ReqBranchCoupon();
         console.log("쿠폰", couponResponse);
         if (couponResponse.status === 200) {
