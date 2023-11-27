@@ -15,11 +15,12 @@ import { ReqProfile } from "../../../apis/auth";
 import GlobalStyle from "../../../components/GlobalStyle";
 import ModalBranchUpdate from "./ModalBranchUpdate";
 import { ReqBranchInfo } from "../../../apis/branch";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const BranchUpdate = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
+  const navigate = useNavigate;
   const editBtn = () => {
     setModalOpen(!modalOpen);
   };
@@ -39,6 +40,18 @@ const BranchUpdate = () => {
       ...prevState,
       [name]: value,
     }));
+
+    // 입력 필드에 기반한 동적 유효성 검사
+    switch (name) {
+      case "password":
+        validatePassword();
+        break;
+      case "introduction":
+        validateIntroduction();
+        break;
+      default:
+        break;
+    }
   };
 
   const [branchUpdate, setBranchUpdate] = useState({
@@ -110,10 +123,35 @@ const BranchUpdate = () => {
     };
   }, []);
 
+  // 유효성 검사 상태
+  const [validationErrors, setValidationErrors] = useState({
+    password: "",
+    introduction: "",
+  });
+
+  const [passwordValid, setPasswordValid] = useState(false);
+  const [introductionValid, setIntroductionValid] = useState(false);
+
+  //비밀번호 유효성 검사
+  const validatePassword = () => {
+    setPasswordValid(/^[a-zA-z0-9]{4,12}$/.test(branchUpdate.password)) ;
+    setValidationErrors((prevState) => ({
+      ...prevState,
+      password: passwordValid ? "" : "영문자와 숫자를 포함하여 4~12자로 입력해주세요."
+    }))
+  }
+
+  // 소개란 유효성 검사
+  const validateIntroduction = () => {
+    setIntroductionValid( branchUpdate.introduction.length <= 1000);
+    setValidationErrors((prevState) => ({
+      ...prevState, name: introductionValid ? "" : "1000자 이내로 입력해주세요." }));
+  };
+
   return (
     <>
       <GlobalStyle />
-      <BackMove />
+      <BackMove content={"가맹점 홈으로"}/>
       <Title>{branchUpdate.branchName} 정보 수정 페이지</Title>
       <br />
       <EditForm>
@@ -153,6 +191,7 @@ const BranchUpdate = () => {
             onChange={passwordConfirm}
           />
         </LoginForm>
+        <Warning check={!passwordValid}>{validationErrors.password}</Warning>
         <Warning check={pwdConfirm}>{!pwdConfirm && <p>비밀번호가 일치하지 않습니다.</p>}</Warning>
         <br />
         <LoginForm>
@@ -205,6 +244,7 @@ const BranchUpdate = () => {
             placeholder="지점 소개"
           />
         </LoginForm>
+        <Warning check={!introductionValid}>{validationErrors.introduction}</Warning>
         <br />
         <input
           type="file"

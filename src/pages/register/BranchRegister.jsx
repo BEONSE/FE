@@ -159,7 +159,7 @@ const [introductionValid, setIntroductionValid] = useState(false);
     }));
   }
 
-  //비밀번호 유효성 검사 : 4~12자리
+  //비밀번호 유효성 검사
   const validatePassword = () => {
     setPasswordValid(/^[a-zA-z0-9]{4,12}$/.test(branchRegister.password)) ;
     setValidationErrors((prevState) => ({
@@ -184,9 +184,9 @@ const [introductionValid, setIntroductionValid] = useState(false);
 
   // 소개란 유효성 검사
   const validateIntroduction = () => {
-    setNameValid( branchRegister.introduction.length <= 1000);
+    setIntroductionValid( branchRegister.introduction.length <= 1000);
     setValidationErrors((prevState) => ({
-      ...prevState, name: nameValid ? "" : "1000자 이내로 입력해주세요." }));
+      ...prevState, name: introductionValid ? "" : "1000자 이내로 입력해주세요." }));
   };
   //빈 칸에 focus 주기
   const focusFirstEmptyField = () => {
