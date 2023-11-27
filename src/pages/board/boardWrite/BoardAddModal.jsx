@@ -26,7 +26,9 @@ const BoardAddModal = ({ writeMate }) => {
         console.log(response.data.successMessage);
         moveToMate();
       }
-    } catch {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // Modal 스타일

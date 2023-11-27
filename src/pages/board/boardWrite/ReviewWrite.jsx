@@ -5,9 +5,10 @@ import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import ReviewWriteModal from "./ReviewWriteModal";
 import { usePageMoving } from "../../../components/usePageMoving";
+import { Warning } from "../../register/CommonRegister";
 
 const ReviewWrite = () => {
-  const {moveToMyCoupon} = usePageMoving();
+  const { moveToMyCoupon } = usePageMoving();
   const [clickBtn, setClickBtn] = useState(false);
   const { cid } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -23,6 +24,10 @@ const ReviewWrite = () => {
   const [image, setImage] = useState("");
   const [imageUrl, setImageUrl] = useState("");
 
+  // 입력 유효성 검사
+  const [titleCheck, setTitleCheck] = useState(0);
+  const [contentCheck, setContentCheck] = useState(0);
+
   useEffect(() => {
     console.log(writeReview);
   }, [writeReview]);
@@ -35,6 +40,23 @@ const ReviewWrite = () => {
   // input handler 함수
   const handleInput = (e) => {
     const { name, value } = e.target;
+
+    let titleWarning = 0;
+    let contentWarning = 0;
+
+    switch (name) {
+      case "title":
+        titleWarning = value.length < 3 ? 2 : value.length > 50 ? 1 : 0;
+        setTitleCheck(titleWarning);
+        break;
+      case "content":
+        contentWarning = value.length < 10 ? 2 : value.length > 1000 ? 1 : 0;
+        setContentCheck(contentWarning);
+        break;
+      default:
+        break;
+    }
+
     setWriteReview((prevState) => ({
       ...prevState,
       [name]: value,
@@ -55,25 +77,45 @@ const ReviewWrite = () => {
 
   return (
     <>
-      <BackMove movePage={moveToMyCoupon} content={"보유 쿠폰 조회"}/>
+      <BackMove movePage={moveToMyCoupon} content={"보유 쿠폰 조회"} />
       <PageTitle>REVIEW 쓰기</PageTitle>
 
       <InputAllDiv>
         <hr />
         <InputGroup>
-          <InputTitle type="text" name="title" placeholder="제목" required onChange={handleInput} />
+          <InputTitle
+            type="text"
+            name="title"
+            placeholder="제목 (최소3~50글자)"
+            minLength={3}
+            maxLength={50}
+            required
+            onChange={handleInput}
+          />
+          {titleCheck === 2 && <Warning check={titleCheck}>최소 3글자 이상 작성해주세요</Warning>}
+          {titleCheck === 1 && (
+            <Warning check={titleCheck}>최대 입력 가능 글자 수를 초과하였습니다.</Warning>
+          )}
           <InputTitle type="text" name="bname" value={bname} disabled />
 
           <InputContent
             type="text"
-            placeholder="내용"
+            placeholder="내용 (최소 10글자 이상 작성해주세요.)"
             name="content"
+            minLength={10}
+            maxLength={1000}
             required
             onChange={handleInput}
           />
 
           <input type="file" accept="image/jpg, image/jpeg, image/png" onChange={onLoadImage} />
         </InputGroup>
+        {contentCheck === 2 && (
+          <Warning check={contentCheck}>최소 10글자 이상 작성해주세요.</Warning>
+        )}
+        {contentCheck === 1 && (
+          <Warning check={contentCheck}>최대 입력 가능 글자 수를 초과하였습니다.</Warning>
+        )}
         <ThumnailImage>{imageUrl && <img src={imageUrl} alt="Preview" />}</ThumnailImage>
         <Button
           onClick={() => {
