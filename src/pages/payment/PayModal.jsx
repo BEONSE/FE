@@ -9,7 +9,6 @@ import Modal from "react-modal";
 /* 결제 화면 Modal */
 const PayModal = ({ setModalOpen, modalOpen, formattedPrice, price }) => {
   const [openModal, setOpenModal] = useState(true);
-  const [cardType, setCardType] = useState(""); // 카드 사
   const [cardNum, setCardNum] = useState(""); // 카드 번호
 
   // Modal 스타일
@@ -61,14 +60,18 @@ const PayModal = ({ setModalOpen, modalOpen, formattedPrice, price }) => {
       ...prevValue,
 
       cardNumber: reqCardInfo.cardNumber,
+
     }));
-  }, [cardNum, cardType]);
+    console.log(reqCardInfo);
+    console.log(cardNum);
+    console.log(reqCardInfo.cardNum);
+  }, []);
 
   const selectedHandler = (e) => {
     setReqCardInfo((prevValue) => ({
       ...prevValue,
       cardName: e.target.value,
-
+      cardNumber: cardNum,
     }));
   }
 
