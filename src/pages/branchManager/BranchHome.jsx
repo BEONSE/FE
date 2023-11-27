@@ -133,7 +133,7 @@ const BranchHome = () => {
           <>{review && review.map((item) => <BranchReview key={item.rbId} item={item} />)}</>
         )}
         {selectedType === "coupon" && (
-          <>{coupon && coupon.map((list) => <CouponList key={list.cid} list={list} />)}</>
+          <>{coupon && coupon.content.map((list) => <CouponList key={list.cid} list={list} />)}</>
         )}
       </LoginAllDiv>
     </>
