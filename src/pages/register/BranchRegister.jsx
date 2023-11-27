@@ -16,23 +16,27 @@ import styled from "styled-components";
 
 import DaumPostcode from "react-daum-postcode";
 import { CommonButton } from "../../components/CommonButton";
+import WarningModal from "../../components/WarningModal";
 
 const { kakao } = window;
 
 const BranchRegister = () => {
+  const [popupModal, setPopupModal] = useState(false);
+  const [duplication, setDuplication] = useState(0);
+
   // 이메일 중복 확인
   const handleCheckEmail = async () => {
     try {
       const response = await ReqCheckEmail(branchRegister.email);
       console.log(response.data);
       if (response.data.statusCode === 200) {
-        alert("사용가능한 이메일입니다.");
+        setDuplication(2);
       }
     } catch (err) {
       const errResult = err.response.data;
       if (errResult.statusCode === 400) {
         // 이메일 중복
-        alert(errResult.errorMessage);
+        setDuplication(3);
         emailRef.current.focus();
       }
     }
@@ -150,8 +154,7 @@ const BranchRegister = () => {
     try {
       const response = await ReqBranchRegister(branchRegister);
       if (response.status === 200) {
-        alert("회원가입 완료 성공!!\n로그인 화면으로 이동합니다.");
-        moveToLogin();
+        setPopupModal(true);
       }
     } catch (err) {
       const errResult = err.response.data;
@@ -187,110 +190,123 @@ const BranchRegister = () => {
   }, [branchRegister.address]);
 
   return (
-    <FormTag onSubmit={handleSubmit}>
-      <LoginForm>
-        <span>
-          <img src={Person} alt="IDImage" />
-        </span>
-        <input
-          type="email"
-          name="email"
-          placeholder="kimsecha@beonse.com"
-          ref={emailRef}
-          onChange={handleInputChange}
-          required
+    <>
+      <FormTag onSubmit={handleSubmit}>
+        <LoginForm>
+          <span>
+            <img src={Person} alt="IDImage" />
+          </span>
+          <input
+            type="email"
+            name="email"
+            placeholder="beonse_000@gmail.com"
+            ref={emailRef}
+            onChange={handleInputChange}
+            required
+          />
+        </LoginForm>
+        <Warning check={!duplication}>
+          {duplication === 2 && <p>사용가능한 이메일입니다.</p>}
+          {duplication === 3 && <p>사용할 수 없는 이메일입니다.</p>}
+        </Warning>
+        <PostBtn onClick={handleCheckEmail}>중복 확인</PostBtn>
+        <LoginForm>
+          <span>
+            <img src={Key} alt="PasswordImage" />
+          </span>
+          <input
+            type="password"
+            name="password"
+            placeholder="비밀번호"
+            ref={passwordRef}
+            onChange={handleInputChange}
+            required
+          />
+        </LoginForm>
+        <LoginForm>
+          <span>
+            <img src={Check} alt="PasswordImage" />
+          </span>
+          <input
+            type="password"
+            name="password-confirm"
+            placeholder="비밀번호 확인"
+            ref={passwordConfirmRef}
+            onChange={passwordConfirm}
+            required
+          />
+        </LoginForm>
+        <Warning check={pwdConfirm}>{!pwdConfirm && <p>비밀번호가 일치하지 않습니다.</p>}</Warning>
+        <LoginForm>
+          <span>
+            <img src={Car} alt="branchImage" />
+          </span>
+          <input
+            type="text"
+            name="branchName"
+            placeholder="가맹점명"
+            ref={branchNameRef}
+            onChange={handleInputChange}
+            required
+          />
+        </LoginForm>
+        <LoginForm>
+          <span>
+            <img src={Ceo} alt="CeoImage" />
+          </span>
+          <input
+            type="text"
+            name="name"
+            placeholder="대표자명"
+            ref={nameRef}
+            onChange={handleInputChange}
+            required
+          />
+        </LoginForm>
+        <LoginForm>
+          <span>
+            <img src={Pencil} alt="IDImage" />
+          </span>
+          <input
+            type="text"
+            name="introduction"
+            placeholder="가맹점 소개"
+            onChange={handleInputChange}
+          />
+        </LoginForm>
+        <LoginForm>
+          <span>
+            <img src={Address} alt="AddressImage" />
+          </span>
+          <input
+            type="text"
+            name="address"
+            placeholder="지점 주소"
+            ref={addressRef}
+            onChange={handleInputChange}
+            value={branchRegister.address}
+            required
+          />
+        </LoginForm>
+        <PostBtn onClick={() => setPopup(true)}>우편번호 찾기</PostBtn>
+        {popup && (
+          <PostModal>
+            <DaumPostcode autoClose onComplete={handleComplete} />
+          </PostModal>
+        )}
+        <Warning>{!isFormValid() && <p>모든 칸을 입력해주세요.</p>}</Warning>
+        <LoginButtonDiv>
+          <LoginBtn type="submit">회원가입 완료</LoginBtn>
+        </LoginButtonDiv>
+      </FormTag>
+      {popupModal && (
+        <WarningModal
+          content={"회원가입성공!"}
+          content2={"승인처리까지 기다려주세요!"}
+          movePage={moveToLogin}
         />
-      </LoginForm>
-      <PostBtn onClick={handleCheckEmail}>중복 확인</PostBtn>
-      <LoginForm>
-        <span>
-          <img src={Key} alt="PasswordImage" />
-        </span>
-        <input
-          type="password"
-          name="password"
-          placeholder="비밀번호"
-          ref={passwordRef}
-          onChange={handleInputChange}
-          required
-        />
-      </LoginForm>
-      <LoginForm>
-        <span>
-          <img src={Check} alt="PasswordImage" />
-        </span>
-        <input
-          type="password"
-          name="password-confirm"
-          placeholder="비밀번호 확인"
-          ref={passwordConfirmRef}
-          onChange={passwordConfirm}
-          required
-        />
-      </LoginForm>
-      <Warning check={pwdConfirm}>{!pwdConfirm && <p>비밀번호가 일치하지 않습니다.</p>}</Warning>
-      <LoginForm>
-        <span>
-          <img src={Car} alt="branchImage" />
-        </span>
-        <input
-          type="text"
-          name="branchName"
-          placeholder="가맹점명"
-          ref={branchNameRef}
-          onChange={handleInputChange}
-          required
-        />
-      </LoginForm>
-      <LoginForm>
-        <span>
-          <img src={Ceo} alt="CeoImage" />
-        </span>
-        <input
-          type="text"
-          name="name"
-          placeholder="대표자명"
-          ref={nameRef}
-          onChange={handleInputChange}
-          required
-        />
-      </LoginForm>
-      <LoginForm>
-        <span>
-          <img src={Pencil} alt="IDImage" />
-        </span>
-        <input
-          type="text"
-          name="introduction"
-          placeholder="가맹점 소개"
-          onChange={handleInputChange}
-        />
-      </LoginForm>
-      <LoginForm>
-        <span>
-          <img src={Address} alt="AddressImage" />
-        </span>
-        <input
-          type="text"
-          name="address"
-          placeholder="지점 주소"
-          ref={addressRef}
-          onChange={handleInputChange}
-          value={branchRegister.address}
-          required
-        />
-      </LoginForm>
-      <PostBtn onClick={() => setPopup(true)}>우편번호 찾기</PostBtn>
-      {popup && (
-        <PostModal>
-          <DaumPostcode autoClose onComplete={handleComplete} />
-        </PostModal>
       )}
-      <Warning>{!isFormValid() && <p>모든 칸을 입력해주세요.</p>}</Warning>
-      <LoginButtonDiv>
-        <LoginBtn type="submit">회원가입 완료</LoginBtn>
-      </LoginButtonDiv>
-    </FormTag>
+    </>
   );
 };
 
