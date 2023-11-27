@@ -7,10 +7,9 @@ import CouponList from "./coupon";
 import { useContext, useEffect, useState } from "react";
 import { usePageMoving } from "../../components/usePageMoving";
 import { useParams } from "react-router-dom";
-import { ReqBranchCoupon, ReqBranchInfo, ReqBranchReview } from "../../apis/branch";
+import { ReqBranchCoupon, ReqBranchReview } from "../../apis/branch";
 import { ReqBranchName } from "../../apis/reservation";
 import { removeAuthHeader } from "../../apis/axiosConfig";
-import appContext from "../../AppContext";
 import AppContext from "../../AppContext";
 
 const BranchHome = () => {
