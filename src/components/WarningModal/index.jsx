@@ -7,7 +7,6 @@ import Checked from "../../assets/checked.png";
 const WarningModal = ({ content, content2, movePage }) => {
   const [openModal, setOpenModal] = useState(true);
 
-
   const modalHandle = () => {
     setOpenModal(!openModal);
   };
@@ -53,16 +52,16 @@ const ModalContent = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 80vw;
+  width: 100%;
 
   margin: auto;
   border-radius: 5px;
   padding: 20px;
   & > img {
     margin-top: auto;
-    width: 16vw;
+    width: 65px;
     margin: auto;
-    margin-bottom: 3vh;
+    margin-bottom: 20px;
   }
 
   & > p {
