@@ -50,8 +50,9 @@ const BranchHome = () => {
   useEffect(() => {
     async function getReview() {
       try {
-        const reviewResponse = await ReqBranchReview(param["*"]);
+        const reviewResponse = await ReqBranchReview(param.bid);
         console.log(reviewResponse);
+        console.log(param.bid);
         if (reviewResponse.status === 200) {
           setReview(reviewResponse.data.content);
         }
@@ -69,7 +70,7 @@ const BranchHome = () => {
       console.log(param);
       console.log(param.bid);
       try {
-        const couponResponse = await ReqBranchCoupon();
+        const couponResponse = await ReqBranchCoupon(param.bid);
         console.log("쿠폰",couponResponse);
         if (couponResponse.status === 200) {
           const couponData = couponResponse.data;
@@ -104,7 +105,7 @@ const BranchHome = () => {
         <HeadBtn>
         <UpdateBtn
           onClick={() => {
-          moveToBranchUpdate(param["*"]);
+          moveToBranchUpdate(param.bid);
         }}
           >
           정보수정
@@ -178,38 +179,6 @@ const LogoutBtn = styled(CommonButton)`
   text-align: center;
   //padding: auto;
   justify-content: center;
-`;
-
-const BranchCouponHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  width: 100%;
-`;
-
-const CouponCid = styled.div`
-  width: 5%;
-  margin-left: 5vw;
-  margin-right: 5vw;
-`;
-
-const CouponType = styled.div`
-  width: 35%;
-  margin-left: 5vw;
-  margin-right: 5vw;
-`;
-
-const CouponUser = styled.div`
-  width: 25%;
-  margin-left: 5vw;
-  margin-right: 5vw;
-`;
-
-const CouponPaymentDate = styled.div`
-  width: 35%;
-  margin-left: 6vw;
-  margin-right: 5vw;
 `;
 
 const UpdateBtn = styled.div`
