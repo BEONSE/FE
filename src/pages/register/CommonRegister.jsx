@@ -97,6 +97,24 @@ const CommonRegister = () => {
       ...prevState,
       [name]: value,
     }));
+
+    // 입력 필드에 기반한 동적 유효성 검사
+    switch (name) {
+      case "email":
+        validateEmail();
+        break;
+      case "password":
+        validatePassword();
+        break;
+      case "nickname":
+        validateNickname();
+        break;
+      case "name":
+        validateName();
+        break;
+         default:
+        break;
+    }
   };
 
   // 비밀번호 이중 검사
@@ -114,6 +132,52 @@ const CommonRegister = () => {
       commonRegister.address &&
       pwdConfirm
     );
+  };
+
+  // 유효성 검사 상태
+  const [validationErrors, setValidationErrors] = useState({
+    email: "",
+    password: "",
+    nickname: "",
+    name: "",
+  });
+
+  const [emailValid, setEmailValid] = useState(false);
+  const [passwordValid, setPasswordValid] = useState(false);
+  const [nameValid, setNameValid] = useState(false);
+  const [nicknameValid, setNicknameValid] = useState(false);
+
+
+  //이메일 유효성 검사
+  const validateEmail = () => {
+    setEmailValid(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(commonRegister.email) && commonRegister.email.length >= 6 && commonRegister.email.length < 30);
+    setValidationErrors((prevState) => ({
+      ...prevState,
+      email: emailValid ? "" : "유효한 이메일 주소를 입력하세요."
+    }));
+  }
+
+  //비밀번호 유효성 검사 : 4~12자리
+  const validatePassword = () => {
+    setPasswordValid(/^[a-zA-z0-9]{4,12}$/.test(commonRegister.password)) ;
+    setValidationErrors((prevState) => ({
+      ...prevState,
+      password: passwordValid ? "" : "영문자와 숫자를 포함하여 4~12자로 입력해주세요."
+    }))
+  }
+
+  // 닉네임 유효성 검사
+  const validateNickname = () => {
+    setNicknameValid(/^[가-힣A-Za-z0-9]{2,20}$/.test(commonRegister.nickname));
+    setValidationErrors((prevState) => ({
+      ...prevState, nickname: nicknameValid ? "" : "기호를 제외한 2자 ~ 20자로 입력해주세요." }));
+  };
+
+  // 이름 유효성 검사
+  const validateName = () => {
+    setNameValid( /^[가-힣]{2,10}$/.test(commonRegister.name));
+    setValidationErrors((prevState) => ({
+      ...prevState, name: nameValid ? "" : "한글로 2~ 10자로 입력해주세요." }));
   };
 
   // 회원가입 빈칸 시 focus 주기
@@ -182,8 +246,9 @@ const CommonRegister = () => {
             required
           />
         </LoginForm>
+        <Warning check={!emailValid}>{validationErrors.email}</Warning>
         <Warning check={!duplication}>
-          {duplication === 2 && <p>사용가능한 이메일입니다.</p>}
+          {duplication === 2 && <p>사용 가능한 이메일입니다.</p>}
           {duplication === 3 && <p>사용할 수 없는 이메일입니다.</p>}
         </Warning>
 
@@ -215,7 +280,7 @@ const CommonRegister = () => {
           />
         </LoginForm>
         <Warning check={pwdConfirm}>{!pwdConfirm && <p>비밀번호가 일치하지 않습니다.</p>}</Warning>
-
+        <Warning check={!passwordValid}>{validationErrors.password}</Warning>
         <LoginForm>
           <span>
             <img src={Pencil} alt="PasswordImage" />
@@ -229,6 +294,7 @@ const CommonRegister = () => {
             required
           />
         </LoginForm>
+        <Warning check={!nameValid}>{validationErrors.name}</Warning>
         <LoginForm>
           <span>
             <img src={LargeB} alt="PasswordImage" />
@@ -242,6 +308,8 @@ const CommonRegister = () => {
             required
           />
         </LoginForm>
+        <Warning check={!nicknameValid}>{validationErrors.nickname}</Warning>
+
         <LoginForm>
           <span>
             <img src={Address} alt="PasswordImage" />
@@ -254,6 +322,7 @@ const CommonRegister = () => {
             onChange={handleInputChange}
             value={commonRegister.address}
             required
+            readOnly
           />
         </LoginForm>
         <PostBtn onClick={() => setPopup(true)}>우편번호 찾기</PostBtn>

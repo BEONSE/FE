@@ -92,7 +92,30 @@ const BranchRegister = () => {
       ...prevState,
       [name]: value,
     }));
+
+    // 입력 필드에 기반한 동적 유효성 검사
+    switch (name) {
+      case "email":
+        validateEmail();
+        break;
+      case "password":
+        validatePassword();
+        break;
+      case "branchName":
+        validateBranchName();
+        break;
+      case "name":
+        validateName();
+        break;
+      case "introduction":
+        validateIntroduction();
+        break;
+      default:
+        break;
+    }
   };
+
+
 
   // 비밀번호 이중 검사
   const passwordConfirm = (e) => {
@@ -111,6 +134,60 @@ const BranchRegister = () => {
     );
   };
 
+// 유효성 검사 상태
+const [validationErrors, setValidationErrors] = useState({
+  email: "",
+  password: "",
+  branchName: "",
+  name: "",
+  introduction: "",
+});
+
+const [emailValid, setEmailValid] = useState(false);
+const [passwordValid, setPasswordValid] = useState(false);
+const [nameValid, setNameValid] = useState(false);
+const [branchnameValid, setBranchnameValid] = useState(false);
+const [introductionValid, setIntroductionValid] = useState(false);
+
+//이메일 유효성 검사
+  const validateEmail = () => {
+    setEmailValid(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(branchRegister.email)
+      && branchRegister.email.length >= 6 && branchRegister.email.length < 30);
+    setValidationErrors((prevState) => ({
+      ...prevState,
+      email: emailValid ? "" : "BEONSE_ 포함한 유효한 이메일 주소를 입력하세요."
+    }));
+  }
+
+  //비밀번호 유효성 검사 : 4~12자리
+  const validatePassword = () => {
+    setPasswordValid(/^[a-zA-z0-9]{4,12}$/.test(branchRegister.password)) ;
+    setValidationErrors((prevState) => ({
+      ...prevState,
+      password: passwordValid ? "" : "영문자와 숫자를 포함하여 4~12자로 입력해주세요."
+    }))
+  }
+
+  // 가맹점명 유효성 검사
+  const validateBranchName = () => {
+    setBranchnameValid(/^[가-힣A-Za-z0-9]{2,20}$/.test(branchRegister.branchName));
+    setValidationErrors((prevState) => ({
+      ...prevState, branchName: branchnameValid ? "" : "기호를 제외한 2자 ~ 20자로 입력해주세요." }));
+  };
+
+  // 이름 유효성 검사
+  const validateName = () => {
+    setNameValid( /^[가-힣]{2,10}$/.test(branchRegister.name));
+    setValidationErrors((prevState) => ({
+      ...prevState, name: nameValid ? "" : "한글로 2~ 10자로 입력해주세요." }));
+  };
+
+  // 소개란 유효성 검사
+  const validateIntroduction = () => {
+    setNameValid( branchRegister.introduction.length <= 1000);
+    setValidationErrors((prevState) => ({
+      ...prevState, name: nameValid ? "" : "1000자 이내로 입력해주세요." }));
+  };
   //빈 칸에 focus 주기
   const focusFirstEmptyField = () => {
     if (!branchRegister.email) {
@@ -205,6 +282,7 @@ const BranchRegister = () => {
             required
           />
         </LoginForm>
+        <Warning check={!emailValid}>{validationErrors.email}</Warning>
         <Warning check={!duplication}>
           {duplication === 2 && <p>사용가능한 이메일입니다.</p>}
           {duplication === 3 && <p>사용할 수 없는 이메일입니다.</p>}
@@ -236,6 +314,7 @@ const BranchRegister = () => {
             required
           />
         </LoginForm>
+        <Warning check={!passwordValid}>{validationErrors.password}</Warning>
         <Warning check={pwdConfirm}>{!pwdConfirm && <p>비밀번호가 일치하지 않습니다.</p>}</Warning>
         <LoginForm>
           <span>
@@ -250,6 +329,7 @@ const BranchRegister = () => {
             required
           />
         </LoginForm>
+        <Warning check={!branchnameValid}>{validationErrors.branchName}</Warning>
         <LoginForm>
           <span>
             <img src={Ceo} alt="CeoImage" />
@@ -263,6 +343,7 @@ const BranchRegister = () => {
             required
           />
         </LoginForm>
+        <Warning check={!nameValid}>{validationErrors.name}</Warning>
         <LoginForm>
           <span>
             <img src={Pencil} alt="IDImage" />
@@ -274,6 +355,7 @@ const BranchRegister = () => {
             onChange={handleInputChange}
           />
         </LoginForm>
+        <Warning check={!introductionValid}>{validationErrors.introduction}</Warning>
         <LoginForm>
           <span>
             <img src={Address} alt="AddressImage" />
@@ -286,6 +368,7 @@ const BranchRegister = () => {
             onChange={handleInputChange}
             value={branchRegister.address}
             required
+            readOnly
           />
         </LoginForm>
         <PostBtn onClick={() => setPopup(true)}>우편번호 찾기</PostBtn>

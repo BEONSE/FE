@@ -36,7 +36,12 @@ const CommentForm = ({ id }) => {
         <h4>{appContext.nickname || "로그인 후 댓글을 달 수 있어요..."}</h4>
         {appContext.nickname ? (
           <form onSubmit={submitCommentBtn}>
-            <InputForm placeholder="댓글을 남겨보세요!" onChange={textareaHandle} />
+            <InputForm
+              maxLength={1000}
+              minLength={1}
+              placeholder="댓글을 남겨보세요!"
+              onChange={textareaHandle}
+            />
             <CommentBtn type="submit">등록</CommentBtn>
           </form>
         ) : (

@@ -19,6 +19,8 @@ const IterationPoint = ({ price }) => {
   const formattedPoint = calcPoint.toLocaleString();
   const formattedPrice = calcPrice.toLocaleString();
 
+  const [modalOpen, setModalOpen] = useState(false);
+
   const openPay = () => {
     setPayModal(true);
   };
@@ -43,7 +45,7 @@ const IterationPoint = ({ price }) => {
         {price === 5 && <img src={Point3} alt="pointimg" />}
       </Points>
       {isPayModal && (
-        <PayModal clicked={closePay} formattedPrice={formattedPrice} price={calcPrice} />
+        <PayModal setModalOpen={setModalOpen} modalOpen={modalOpen} formattedPrice={formattedPrice} price={calcPrice} />
       )}
       {checkToken && <LoginModal setCheckToken={setCheckToken} checkToken={checkToken} />}
     </>

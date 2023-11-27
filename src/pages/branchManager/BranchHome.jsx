@@ -4,12 +4,13 @@ import GlobalStyle from "../../components/GlobalStyle";
 import { LoginAllDiv } from "./branchUpdate";
 import BranchReview from "./review";
 import CouponList from "./coupon";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { usePageMoving } from "../../components/usePageMoving";
 import { useParams } from "react-router-dom";
-import { ReqBranchCoupon, ReqBranchReview } from "../../apis/branch";
+import { ReqBranchCoupon, ReqBranchInfo, ReqBranchReview } from "../../apis/branch";
 import { ReqBranchName } from "../../apis/reservation";
 import { removeAuthHeader } from "../../apis/axiosConfig";
+import appContext from "../../AppContext";
 import AppContext from "../../AppContext";
 import Loading from "../../components/Loading";
 
@@ -131,8 +132,9 @@ const BranchHome = () => {
   useEffect(() => {
     async function getReview() {
       try {
-        const reviewResponse = await ReqBranchReview(param["*"]);
+        const reviewResponse = await ReqBranchReview(param.bid);
         console.log(reviewResponse);
+        console.log(param.bid);
         if (reviewResponse.status === 200) {
           setReview(reviewResponse.data.content);
         }
@@ -153,6 +155,8 @@ const BranchHome = () => {
       console.log(param);
       console.log(param.bid);
       try {
+        const couponResponse = await ReqBranchCoupon(param.bid);
+        console.log("쿠폰",couponResponse);
         const couponResponse = await ReqBranchCoupon();
         console.log("쿠폰", couponResponse);
         if (couponResponse.status === 200) {
@@ -278,38 +282,6 @@ const LogoutBtn = styled(CommonButton)`
   text-align: center;
   //padding: auto;
   justify-content: center;
-`;
-
-const BranchCouponHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  width: 100%;
-`;
-
-const CouponCid = styled.div`
-  width: 5%;
-  margin-left: 5vw;
-  margin-right: 5vw;
-`;
-
-const CouponType = styled.div`
-  width: 35%;
-  margin-left: 5vw;
-  margin-right: 5vw;
-`;
-
-const CouponUser = styled.div`
-  width: 25%;
-  margin-left: 5vw;
-  margin-right: 5vw;
-`;
-
-const CouponPaymentDate = styled.div`
-  width: 35%;
-  margin-left: 6vw;
-  margin-right: 5vw;
 `;
 
 const UpdateBtn = styled.div`

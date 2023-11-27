@@ -89,6 +89,43 @@ const MyInfoUpdate = () => {
       ...prevState,
       [name]: value,
     }));
+
+    // 입력 필드에 기반한 동적 유효성 검사
+    switch (name) {
+      case "password":
+        validatePassword();
+        break;
+      case "nickname":
+        validateNickname();
+        break;
+      default:
+        break;
+    }
+  };
+
+  // 유효성 검사 상태
+  const [validationErrors, setValidationErrors] = useState({
+    password: "",
+    nickname: "",
+  });
+
+  const [passwordValid, setPasswordValid] = useState(false);
+  const [nicknameValid, setNicknameValid] = useState(false);
+
+  //비밀번호 유효성 검사 : 4~12자리
+  const validatePassword = () => {
+    setPasswordValid(/^[a-zA-z0-9]{4,12}$/.test(commonUpdate.password)) ;
+    setValidationErrors((prevState) => ({
+      ...prevState,
+      password: passwordValid ? "" : "영문자와 숫자를 포함하여 4~12자로 입력해주세요."
+    }))
+  }
+
+  // 닉네임 유효성 검사
+  const validateNickname = () => {
+    setNicknameValid(/^[가-힣A-Za-z0-9]{2,20}$/.test(commonUpdate.nickname));
+    setValidationErrors((prevState) => ({
+      ...prevState, nickname: nicknameValid ? "" : "기호를 제외한 2자 ~ 20자로 입력해주세요." }));
   };
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -182,6 +219,7 @@ const MyInfoUpdate = () => {
             onChange={passwordConfirm}
           />
         </LoginForm>
+        <Warning check={!passwordValid}>{validationErrors.password}</Warning>
         <Warning check={pwdConfirm}>{!pwdConfirm && <p>비밀번호가 일치하지 않습니다.</p>}</Warning>
         <br />
         <LoginForm>
@@ -210,6 +248,7 @@ const MyInfoUpdate = () => {
           />
         </LoginForm>
         <br />
+        <Warning check={!nicknameValid}>{validationErrors.nickname}</Warning>
         <LoginForm>
           <span>
             <img src={Address} alt="PasswordImage" />
@@ -220,6 +259,7 @@ const MyInfoUpdate = () => {
             defaultValue={commonUpdate.address}
             placeholder="거주지"
             onChange={handleInputChange}
+            readOnly
           />
         </LoginForm>
         <PostBtn onClick={() => setPopup(true)}>우편번호 찾기</PostBtn>
