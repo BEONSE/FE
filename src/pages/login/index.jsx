@@ -61,6 +61,7 @@ const Login = ({ setHideHeaderFooter }) => {
         addAuthHeader(loginResponse.headers.accesstoken);
         // Context에 인증 내용 저장
         appContext.setNickname(loginResponse.data.nickname);
+        appContext.setRole(loginResponse.data.role);
         appContext.setAccessToken(loginResponse.headers.accesstoken);
         appContext.setRefreshToken(loginResponse.headers.refreshtoken);
         setRole(loginResponse.data.role);

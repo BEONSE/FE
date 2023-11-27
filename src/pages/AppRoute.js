@@ -12,8 +12,12 @@ import AdminManager from "./adminManager";
 import MyInfoUpdate from "./myPages/myInfo/MyInfoUpdate";
 import BranchManager from "./branchManager";
 import Board from "./board";
+import { useContext } from "react";
+import AppContext from "../AppContext";
 
 const AppRoute = ({ setHideHeaderFooter }) => {
+  const appContext = useContext(AppContext);
+
   return (
     <>
       <Routes>
@@ -34,7 +38,12 @@ const AppRoute = ({ setHideHeaderFooter }) => {
         />
         <Route path="/myinfo/update" element={<MyInfoUpdate />} />
 
-        <Route path="*" element={<Navigate to="/" />} />
+        {appContext.role === "ROLE_USER" && <Route path="*" element={<Navigate to="/" />} />}
+        {/* 브랜치 이동 처리 홈으로 bid 생각해보셈 */}
+        {appContext.role === "ROLE_BRANCH" && (
+          <Route path="*" element={<Navigate to="/branch" />} />
+        )}
+        {appContext.role === "ROLE_ADMIN" && <Route path="*" element={<Navigate to="/admin" />} />}
       </Routes>
     </>
   );

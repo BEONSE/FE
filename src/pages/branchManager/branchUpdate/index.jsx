@@ -16,6 +16,8 @@ import GlobalStyle from "../../../components/GlobalStyle";
 import ModalBranchUpdate from "./ModalBranchUpdate";
 import { ReqBranchInfo } from "../../../apis/branch";
 import { useNavigate, useParams } from "react-router-dom";
+import { usePageMoving } from "../../../components/usePageMoving";
+
 
 const BranchUpdate = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -23,6 +25,12 @@ const BranchUpdate = () => {
   const navigate = useNavigate;
   const editBtn = () => {
     setModalOpen(!modalOpen);
+  };
+
+  const { moveToBranchManager } = usePageMoving();
+  const params = useParams("bid");
+  const moveToBranchManageHome = () => {
+    moveToBranchManager(params.bid);
   };
 
   //비밀번호 확인
@@ -150,7 +158,8 @@ const BranchUpdate = () => {
   return (
     <>
       <GlobalStyle />
-      <BackMove content={"가맹점 홈으로"}/>
+      <BackMove movePage={moveToBranchManageHome} content={"가맹점 홈으로"} />
+
       <Title>{branchUpdate.branchName} 정보 수정 페이지</Title>
       <br />
       <EditForm>
