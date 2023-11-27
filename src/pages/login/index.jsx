@@ -22,6 +22,7 @@ const Login = ({ setHideHeaderFooter }) => {
 
   const [popupModal, setPopupModal] = useState(false);
   const [role, setRole] = useState("");
+  const [bid, setBid] = useState();
 
   // 로그인 정보 state
   const [loginUser, setLoginUser] = useState({
@@ -63,6 +64,7 @@ const Login = ({ setHideHeaderFooter }) => {
         appContext.setAccessToken(loginResponse.headers.accesstoken);
         appContext.setRefreshToken(loginResponse.headers.refreshtoken);
         setRole(loginResponse.data.role);
+        setBid(loginResponse.data.branchId);
       }
     } catch (err) {
       console.log(err);
@@ -133,7 +135,7 @@ const Login = ({ setHideHeaderFooter }) => {
         <WarningModal
           content={"로그인 성공!\n홈화면으로 이동합니다."}
           movePage={
-            (role === "ROLE_BRANCH" && moveToBranchManager) ||
+            (role === "ROLE_BRANCH" && moveToBranchManager(bid)) ||
             (role === "ROLE_USER" && moveToHome) ||
             (role === "ROLE_ADMIN" && moveToAdmin)
           }
