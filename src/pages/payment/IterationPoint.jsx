@@ -66,8 +66,7 @@ const Points = styled.div`
   align-items: center;
 
   & > img {
-    margin-top: 10vh
-  ;
+    margin-top: 10vh;
     width: 100%;
   }
 `;

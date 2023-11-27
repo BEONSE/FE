@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-import PersonImg from "../../../assets/person.png";
 import Menu from "../../../assets/kebab_menu.png";
 import React, { useContext, useEffect, useState } from "react";
 import CommentModal from "../CommentForm/CommentModal";
@@ -46,7 +45,8 @@ const MateComment = ({ comment, boardWriter }) => {
     <>
       <CommentGroup>
         <ProfileImage>
-          {comment.imageData ? (<img src={`data:image/png;base64,${comment.imageData}`} alt="userprofile" />) : (<img src={Basic} alt="기본 이미지" />)}
+          {comment.imageData ? (<img src={`data:image/png;base64,${comment.imageData}`} alt="userprofile" />) : (
+            <img src={Basic} alt="기본 이미지" />)}
         </ProfileImage>
         <Content>
           <ProfileContent>
@@ -107,12 +107,15 @@ const ProfileContent = styled.div`
   & > p {
     margin-left: 2vw;
     font-size: 13px;
+
     & > img {
       height: 2.5vh;
     }
   }
+
   & > div {
     margin-left: auto; /* div를 가장 오른쪽으로 이동 */
+
     & > img {
       cursor: pointer;
     }
@@ -121,6 +124,7 @@ const ProfileContent = styled.div`
 
 const Comment = styled.div`
   width: 100%;
+
   & > p {
     margin-bottom: 1vh;
   }

@@ -1,11 +1,8 @@
 import styled from "styled-components";
 import BackMove from "../../../components/backMove";
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ReqMyReservation } from "../../../apis/reservation";
-import { useState } from "react";
 import ReservationItem from "./ReservationItem";
-import { ReqMyPayment } from "../../../apis/point";
 import Loading from "../../../components/Loading";
 import { usePageMoving } from "../../../components/usePageMoving";
 
@@ -98,7 +95,7 @@ const MyReservation = () => {
           <Loading />
         </LoadDiv>
       }
-        { resList && resList.map((list) => <ReservationItem key={list.rvid} list={list} />)}
+      {resList && resList.map((list) => <ReservationItem key={list.rvid} list={list} />)}
       {isLoading2 && page != pageData.totalPageNo &&
         <LoadDiv>
           <Loading />

@@ -12,7 +12,8 @@ const CommentModal = ({ mcid, mateBoardMbid, toggleMenu, clickKebob }) => {
   return (
     <>
       <PopupMenu>
-        <p onClick={() => {}}>수정</p>
+        <p onClick={() => {
+        }}>수정</p>
         <p onClick={openModal}>삭제</p>
         {isRemoveModal && (
           <DeleteModal

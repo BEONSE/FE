@@ -21,6 +21,7 @@ const BranchInfo = () => {
 
   useEffect(() => {
     console.log(param.bid);
+
     async function getBranch() {
       try {
         const branchResponse = await ReqBranchInfo(param.bid);
@@ -111,6 +112,7 @@ const Address = styled.div`
 /* 지점사 영업 시간 Style */
 const OperationTime = styled.div`
   margin: auto;
+
   & > div {
     display: flex;
     justify-content: space-between;

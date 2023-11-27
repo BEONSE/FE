@@ -81,6 +81,7 @@ const ModalContent = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 3vh;
+
   & > img {
     height: 5vh;
     margin-bottom: 2vh;
@@ -88,6 +89,7 @@ const ModalContent = styled.div`
 
   & > p {
     font-size: 20px;
+
     & > span {
       font-weight: bold;
     }

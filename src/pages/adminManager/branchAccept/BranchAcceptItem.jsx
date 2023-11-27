@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import React from "react";
-import { CommonButton } from "../../../components/CommonButton";
 
 const BranchAcceptItem = ({ list }) => {
 
@@ -17,14 +16,13 @@ const BranchAcceptItem = ({ list }) => {
             <p>가맹점 주소 : {list.address}</p>
           </MemberContent>
           <ResultDiv>
-            <h3>{list.isApproval}</h3>
+            <H3 status={list.isApproval}>{list.isApproval}</H3>
           </ResultDiv>
         </LeftInfo>
         <Date>
           신청 날짜 : {list.createdAt}
         </Date>
       </ResultMemberGroup>
-      <Hr />
     </>
   );
 };
@@ -37,10 +35,10 @@ const ResultMemberGroup = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 1vh;
-  margin-bottom: 1vh;
+  margin-bottom: 3vh;
 
-  padding-left: 2vw;
-  padding-right: 2vw;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.146);
+  padding: 1vh 2vw 1vh 2vw;
 
   & > div {
     display: flex;
@@ -67,6 +65,18 @@ const MemberContent = styled.div`
 `;
 
 /* 날짜 Style */
+const ResultDiv = styled.div`
+  width: 20vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+`;
+
+const H3 = styled.h3`
+  color: ${({ status }) => (status === '승인' ? '#002fe6' : '#ff0202')}
+`
+
 const Date = styled.p`
   display: flex;
   justify-content: space-between;
@@ -75,24 +85,3 @@ const Date = styled.p`
   color: #8f8f8f;
 `;
 
-const Hr = styled.hr`
-  margin-top: 1vh;
-  margin-bottom: 1vh;
-`
-
-const ResultDiv = styled.div`
-  width: 20vw;
-  display: flex;
-  justify-content: space-around;
-`;
-
-const AcceptBtn = styled(CommonButton)`
-  width: 7vw;
-  /* 
-   height: 3vh; */
-  padding: 3px;
-
-  & + & {
-    background-color: gray;
-  }
-`;

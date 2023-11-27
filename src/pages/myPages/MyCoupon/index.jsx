@@ -22,15 +22,15 @@ const MyCoupon = () => {
   const [page, setPage] = useState(1);
   const [pageData, setPageData] = useState("");
   const loadMore = async () => {
-    setIsLoading2(true)
+    setIsLoading2(true);
     try {
       const couponsResponse = await ReqCouponList(page + 1);
-      console.log(couponsResponse.data)
+      console.log(couponsResponse.data);
       if (couponsResponse.data.content.length === 0) {
         setIsCouponEmpty(true);
       } else {
         setIsCoupons([...isCoupons, ...couponsResponse.data.content]);
-        setPageData(couponsResponse.data)
+        setPageData(couponsResponse.data);
         setPage(page + 1);
       }
     } catch (err) {
@@ -45,7 +45,7 @@ const MyCoupon = () => {
     try {
       const usedCouponsResponse = await ReqUsedCouponList(page + 1);
       console.log(usedCouponsResponse.data);
-      console.log('page', page)
+      console.log("page", page);
       if (usedCouponsResponse.data.content.length === 0) {
         setIsUseEmpty(true);
       } else {
@@ -62,7 +62,7 @@ const MyCoupon = () => {
 
   const throttle = (func, delay) => {
     let inThrottle;
-    return function () {
+    return function() {
       const args = arguments;
       const context = this;
       if (!inThrottle) {
@@ -229,8 +229,8 @@ const FilterSpan = styled.span`
   width: 100px;
   text-align: center;
   ${(props) =>
-    props.used &&
-    `
+          props.used &&
+          `
     border-radius: 0px 30px 30px 0px;
 `}
 `;
@@ -244,6 +244,7 @@ const Load = styled.div`
 // 쿠폰 보유 상태
 const StateBox = styled.div`
   margin-bottom: 20px;
+
   & > p {
     font-size: 20px;
     font-weight: bold;

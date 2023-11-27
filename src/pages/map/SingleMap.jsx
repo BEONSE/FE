@@ -39,8 +39,8 @@ const SingleMap = ({ isLat, isLng, branchName }) => {
       });
 
       const content =
-        '<div class="customoverlay" style="background-color: white; border: 2px solid #35cfee; border-radius:30px;">' +
-        '    <span class="title" style="padding:15px;">BEONSE ' +
+        "<div class=\"customoverlay\" style=\"background-color: white; border: 2px solid #35cfee; border-radius:30px;\">" +
+        "    <span class=\"title\" style=\"padding:15px;\">BEONSE " +
         branchName +
         "</span>" +
         "</div>";

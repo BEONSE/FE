@@ -25,7 +25,7 @@ const CurrentUserInfo = () => {
     async function getProfile() {
       try {
         const profileResponse = await ReqProfile();
-        console.log('반환', profileResponse);
+        console.log("반환", profileResponse);
         if (profileResponse.status === 200) {
           setCurrentUser({
             ...currentUser,
@@ -39,7 +39,7 @@ const CurrentUserInfo = () => {
         }
       } catch (err) {
         if (err.response.data.message === "토큰 시간 만료") {
-          alert("토큰이 만료되었습니다.")
+          alert("토큰이 만료되었습니다.");
         }
         removeAuthHeader();
         appContext.setAccessToken("");
@@ -47,6 +47,7 @@ const CurrentUserInfo = () => {
         console.log(err);
       }
     }
+
     getProfile();
   }, []);
 
@@ -54,7 +55,8 @@ const CurrentUserInfo = () => {
     <>
       <Infos>
         <ProfileImg>
-          {currentUser.image ? (<img src={`data:image/png;base64,${currentUser.image}`} alt="review" />) : (<img src={Basic} alt="기본 이미지" />)}
+          {currentUser.image ? (<img src={`data:image/png;base64,${currentUser.image}`} alt="review" />) : (
+            <img src={Basic} alt="기본 이미지" />)}
         </ProfileImg>
         <Profile>
           <Grade>
@@ -87,6 +89,7 @@ const Infos = styled.div`
 // 프로필 이미지
 const ProfileImg = styled.div`
   margin-right: 5vw;
+
   & > img {
     width: 16vw;
     border-radius: 50%;
@@ -102,6 +105,7 @@ const Profile = styled.div`
 const Grade = styled.div`
   display: flex;
   align-items: center;
+
   & > p,
   span {
     display: flex;
@@ -112,6 +116,7 @@ const Grade = styled.div`
       height: 2.5vh;
     }
   }
+
   & > p {
     margin-right: 1vh;
   }
@@ -120,6 +125,7 @@ const Grade = styled.div`
 // 보유 포인트
 const Point = styled.div`
   margin-top: 1vh;
+
   & > p,
   h1 {
     text-align: right;

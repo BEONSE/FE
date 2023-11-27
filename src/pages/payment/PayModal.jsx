@@ -143,7 +143,7 @@ const PayModal = ({ setModalOpen, modalOpen, formattedPrice, price }) => {
             <PayBtn isCancled onClick={closeModal}>
               취 소
             </PayBtn>
-            <PayBtn onClick={clickPayBtn}>결 제</PayBtn>
+            <PayBtn onClick={clickPayBtn} setAcceptModal={true}>결 제</PayBtn>
           </Buttons>
         </ModalContent>
       </Modal>

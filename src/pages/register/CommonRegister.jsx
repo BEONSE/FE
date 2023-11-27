@@ -1,4 +1,4 @@
-import { LoginForm, LoginButtonDiv, LoginBtn } from "../login";
+import { LoginBtn, LoginButtonDiv, LoginForm } from "../login";
 import { usePageMoving } from "../../components/usePageMoving";
 
 import Person from "../../assets/person.png";

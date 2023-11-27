@@ -17,6 +17,7 @@ const MyPoints = () => {
         console.log(err);
       }
     }
+
     getPoint();
   });
 

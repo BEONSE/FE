@@ -141,6 +141,7 @@ export default MateDetail;
 const GroupDiv = styled.div`
   width: 90vw;
   margin: auto;
+
   & > hr {
     outline: none;
     border: 1px solid #ececec;

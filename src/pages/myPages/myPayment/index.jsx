@@ -4,26 +4,25 @@ import React, { useEffect, useState } from "react";
 import { ReqMyPayment } from "../../../apis/point";
 import MyPaymentItem from "./MyPaymentItem";
 import Loading from "../../../components/Loading";
-import { tr } from "date-fns/locale";
 
 const MyPayment = () => {
   const [isEmpty, setIsEmpty] = useState(false);
-  const [isLoading, setIsLoading] = useState(true)
-  const [isLoading2, setIsLoading2] = useState(false)
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading2, setIsLoading2] = useState(false);
   const [paymentList, setPaymentList] = useState([]);
 // 페이지
   const [page, setPage] = useState(1);
   const [pageData, setPageData] = useState("");
   const loadMore = async () => {
-    setIsLoading2(true)
+    setIsLoading2(true);
     try {
       const response = await ReqMyPayment(page + 1);
       if (response.data.content.length === 0) {
         setIsEmpty(true);
       } else {
         setPaymentList([...paymentList, ...response.data.content]);
-        console.log(response.data)
-        setPageData(response.data)
+        console.log(response.data);
+        setPageData(response.data);
         setPage(page + 1);
       }
     } catch (err) {
@@ -35,7 +34,7 @@ const MyPayment = () => {
 
   const throttle = (func, delay) => {
     let inThrottle;
-    return function () {
+    return function() {
       const args = arguments;
       const context = this;
       if (!inThrottle) {
@@ -44,7 +43,7 @@ const MyPayment = () => {
         setTimeout(() => (inThrottle = false), delay);
       }
     };
-  }
+  };
 
   const handleScroll = () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
@@ -73,9 +72,9 @@ const MyPayment = () => {
         setPaymentList(paymentResponse.data.content);
       } catch (err) {
         alert(err);
-        setIsEmpty(true)
+        setIsEmpty(true);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
     }
 

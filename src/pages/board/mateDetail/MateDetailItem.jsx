@@ -73,6 +73,7 @@ const ContentGroup = styled.div`
   padding: 5%;
   border: 1px solid;
   box-shadow: 1px 1px 10px 0px rgba(0, 0, 0, 0.14);
+
   & > p {
     font-size: 14px;
     margin-bottom: 1vh;
@@ -86,10 +87,6 @@ const ContentGroup = styled.div`
   & > h3 {
     margin-bottom: 1.5vh;
   }
-
-  & > h4 {
-    text-align: right;
-  }
 `;
 
 const Profile = styled.div``;
@@ -98,6 +95,7 @@ const InnerProf = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 1vh;
+
   & > img {
     width: 13vw;
     border-radius: 50%;
@@ -106,6 +104,7 @@ const InnerProf = styled.div`
 
   & > p {
     margin-right: 1vw;
+
     & > img {
       height: 2.5vh;
     }

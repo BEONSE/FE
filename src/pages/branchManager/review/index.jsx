@@ -17,11 +17,12 @@ const BranchReview = ({ item }) => {
     <>
       {item && (
         <ReviewAllDiv>
-            <Profile>
-              <div>
-                <InnerProf>
-                  {item.memberImageData ? (<img src={`data:image/png;base64,${item.memberImageData}`} alt="review" />) : (<img src={Basic} alt="기본 이미지" />)}
-                  <Writer>
+          <Profile>
+            <div>
+              <InnerProf>
+                {item.memberImageData ? (<img src={`data:image/png;base64,${item.memberImageData}`} alt="review" />) : (
+                  <img src={Basic} alt="기본 이미지" />)}
+                <Writer>
                   <p>{item.writer}</p>
                   <Grade>
                     {item.grade === 1 && <img src={Grade1} alt="grade1" />}
@@ -37,7 +38,6 @@ const BranchReview = ({ item }) => {
               </div>
               <hr/>
             </Profile>
-
             <Content>
               {item.reviewImageData && (
                 <ReviewImage>
@@ -72,7 +72,7 @@ const Profile = styled.div`
   & > div > div > img {
     width: 8vw;
     border-radius: 50%;
-    margin-right: 2vw;    
+    margin-right: 2vw;
   }
 `;
 

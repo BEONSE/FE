@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import { ReqBranchNames } from "../../../apis/branch";
 import { ReqReviewBoardList } from "../../../apis/reviewBoard";
 import Loading from "../../../components/Loading";
-import { tr } from "date-fns/locale";
 
 const ReviewBoard = () => {
   const [branchNames, setBranchNames] = useState([]);

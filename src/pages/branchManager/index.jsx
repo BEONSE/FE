@@ -1,6 +1,6 @@
-import { Route, Routes, useNavigate, useParams } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import BranchUpdate from "./branchUpdate";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import BranchHome from "./BranchHome";
 
 const BranchManager = ({ setHideHeaderFooter }) => {

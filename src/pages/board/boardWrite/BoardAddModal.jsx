@@ -78,6 +78,7 @@ const ModalContent = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 2vh;
+
   & > img {
     height: 5vh;
     margin-bottom: 2vh;

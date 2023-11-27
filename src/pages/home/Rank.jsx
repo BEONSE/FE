@@ -28,6 +28,7 @@ const Rank = () => {
         setIsLoading(false);
       }
     }
+
     getRank();
   }, []);
   return (

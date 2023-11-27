@@ -121,8 +121,10 @@ const Login = ({ setHideHeaderFooter }) => {
           </LoginButtonDiv>
         </FormTag>
         <AddService>
-          <span onClick={() => {}}>아이디찾기 | </span>
-          <span onClick={() => {}}>비밀번호찾기 | </span>
+          <span onClick={() => {
+          }}>아이디찾기 | </span>
+          <span onClick={() => {
+          }}>비밀번호찾기 | </span>
           <span
             onClick={() => {
               moveToRegister();
@@ -159,6 +161,7 @@ export const LoginForm = styled.div`
   border-radius: 6px;
 
   box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.1);
+
   & > input {
     border-radius: 6px;
     border: none;
@@ -180,11 +183,13 @@ export const LoginForm = styled.div`
       padding: 12px;
       margin-right: 5px;
     }
+
     img {
       width: 20px;
       height: 20px;
     }
   }
+
   &:focus-within {
     outline: auto;
     outline-color: #68d0f3;
@@ -201,6 +206,7 @@ export const LoginAllDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   & > img {
     @media (min-width: 1171px) {
       height: 14vh;
@@ -242,6 +248,7 @@ export const LoginBtn = styled(CommonButton)`
 // 아이디찾기|비밀번호찾기|회원가입
 const AddService = styled.div`
   margin-top: 40px;
+
   & > span {
     cursor: pointer;
     font-family: "S-CoreDream-light";

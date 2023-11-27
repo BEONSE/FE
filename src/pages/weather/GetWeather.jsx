@@ -150,6 +150,7 @@ const CardView = styled.div`
   white-space: nowrap;
   margin-bottom: 2vh;
   overflow-x: auto;
+
   ::-webkit-scrollbar {
     display: none;
   }
@@ -174,6 +175,7 @@ const WeatherInfo = styled.div`
   justify-content: space-around;
   align-items: center;
   margin: 2vw;
+
   & > div {
     display: flex;
   }
@@ -211,6 +213,7 @@ const DateDiv = styled.div`
   font-size: 17px;
   align-items: flex-end;
   margin-bottom: 1vh;
+
   & > span {
     font-size: 21px;
   }

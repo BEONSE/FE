@@ -87,6 +87,7 @@ const SearchBar = styled.div`
   border: 1px solid #a0a0a0;
   border-radius: 5px;
   padding: 8px;
+
   &:focus-within {
     outline: auto;
     outline-color: #68d0f3;
@@ -118,6 +119,7 @@ const SearchBar = styled.div`
 const SerachBranch = styled.div`
   margin-top: 3vh;
   text-align: center;
+
   & > hr {
     outline: none;
     border: 1px solid #ececec;

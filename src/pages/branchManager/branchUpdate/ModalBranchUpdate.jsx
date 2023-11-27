@@ -6,7 +6,7 @@ import { ReqBranchUpdate } from "../../../apis/branch";
 import styled from "styled-components";
 import Pencil from "../../../assets/pencil.png";
 
-const ModalBranchUpdate = ({ param, branchUpdate, image}) => {
+const ModalBranchUpdate = ({ param, branchUpdate, image }) => {
   const [openModal, setOpenModal] = useState(true);
 
   //가맹점 메인으로 이동
@@ -38,14 +38,14 @@ const ModalBranchUpdate = ({ param, branchUpdate, image}) => {
     try {
       const formData = new FormData();
 
-      console.log(image)
+      console.log(image);
       if (image) {
         for (let i = 0; i < image.length; i++) {
           formData.append("image", image[i]);
         }
       }
       formData.append("branchRequestDTO", new Blob([JSON.stringify(branchUpdate)],
-          { type: "application/json", }),
+        { type: "application/json" }),
       );
       const branchInfoResponse = await ReqBranchUpdate(formData);
       console.log(branchInfoResponse);
@@ -58,7 +58,7 @@ const ModalBranchUpdate = ({ param, branchUpdate, image}) => {
 
   useEffect(() => {
     console.log(branchUpdate);
-  }, );
+  });
 
   return (
     <>
@@ -101,7 +101,7 @@ const ModalContent = styled.div`
     font-size: 18px;
     text-align: center;
     font-weight: bold;
-    
+
   }
 
   & > div {
