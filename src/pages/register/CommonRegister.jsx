@@ -280,7 +280,7 @@ const CommonRegister = () => {
 
 export default CommonRegister;
 
-const Warning = styled.div`
+export const Warning = styled.div`
   color: red;
   margin-top: ${(props) => (props.check ? 0 : "2vh")};
 `;

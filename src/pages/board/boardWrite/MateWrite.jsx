@@ -6,15 +6,19 @@ import BoardAddModal from "./BoardAddModal";
 import BackMove from "../../../components/backMove";
 import { ReqBranchNames } from "../../../apis/branch";
 import { usePageMoving } from "../../../components/usePageMoving";
+import { Warning } from "../../register/CommonRegister";
 
 /* 메이트 작성 컴포넌트 */
 const MateWrite = () => {
-
-  const {moveToMate} = usePageMoving();
+  const { moveToMate } = usePageMoving();
   const [clickBtn, setClickBtn] = useState(false);
   // 지점 배열
   const [branchNames, setBranchNames] = useState([]);
 
+  // 입력 유효성 검사
+  const [titleCheck, setTitleCheck] = useState(0);
+  const [contentCheck, setContentCheck] = useState(0);
+  const [branchCheck, setBranchCheck] = useState(false);
   // 메이트 게시판 내용 state
   const [writeMate, setWriteMate] = useState({
     title: "",
@@ -25,15 +29,38 @@ const MateWrite = () => {
   // input handler 함수
   const handleInput = (e) => {
     const { name, value } = e.target;
+    let titleWarning = 0;
+    let contentWarning = 0;
+
+    switch (name) {
+      case "title":
+        titleWarning = value.length < 3 ? 2 : value.length > 50 ? 1 : 0;
+        setTitleCheck(titleWarning);
+        break;
+      case "content":
+        contentWarning = value.length < 10 ? 2 : value.length > 1000 ? 1 : 0;
+        setContentCheck(contentWarning);
+        break;
+      default:
+        break;
+    }
+
     setWriteMate((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
 
+  useEffect(() => {
+    console.log(writeMate);
+  }, [writeMate]);
+
   // 지점 선택 handler
   const selectedHandler = (e) => {
-    setWriteMate({ branchName: e.target.value });
+    setWriteMate((prevState) => ({
+      ...prevState,
+      branchName: e.target.value,
+    }));
   };
 
   // 지점 이름 가져오기
@@ -54,7 +81,7 @@ const MateWrite = () => {
 
   return (
     <>
-      <BackMove movePage={moveToMate} content={"메이트 게시판"}/>
+      <BackMove movePage={moveToMate} content={"메이트 게시판"} />
       <PageTitle>🙋‍♂️MATE 게시판🙋‍♀️</PageTitle>
 
       <InputAllDiv>
@@ -63,10 +90,16 @@ const MateWrite = () => {
           <InputTitle
             type="text"
             name="title"
-            placeholder=" 제목"
+            placeholder=" 제목 (최소 3~50 글자)"
+            minLength={3}
+            maxLength={50}
             required
             onChange={handleInput}
           />
+          {titleCheck === 2 && <Warning check={titleCheck}>최소 3글자 이상 작성해주세요</Warning>}
+          {titleCheck === 1 && (
+            <Warning check={titleCheck}>최대 입력 가능 글자 수를 초과하였습니다.</Warning>
+          )}
           <SelectBox>
             <select onChange={selectedHandler} value={writeMate.branchName}>
               <option value={"defalut"}>지점 선택</option>
@@ -75,22 +108,30 @@ const MateWrite = () => {
               ))}
             </select>
           </SelectBox>
+          {branchCheck && <Warning>지점을 선택해주세요.</Warning>}
           <InputContent
             type="text"
-            placeholder=" 내용"
+            placeholder=" 내용 (최소 10글자 이상 작성해주세요.)"
             name="content"
+            minLength={10}
+            maxLength={1000}
             required
             onChange={handleInput}
           />
         </InputGroup>
+        {contentCheck === 2 && (
+          <Warning check={contentCheck}>최소 10글자 이상 작성해주세요.</Warning>
+        )}
+        {contentCheck === 1 && (
+          <Warning check={contentCheck}>최대 입력 가능 글자 수를 초과하였습니다.</Warning>
+        )}
         <Button
           onClick={() => {
-            if (
-              writeMate.title.trim() !== "" &&
-              writeMate.branchName.trim() !== "" &&
-              writeMate.content.trim() !== ""
-            ) {
+            if (writeMate.branchName.length > 0) {
+              console.log(writeMate);
               setClickBtn(true);
+            } else {
+              setBranchCheck(true);
             }
           }}
         >
