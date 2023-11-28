@@ -229,8 +229,10 @@ const BranchHome = () => {
         )}
         {couponEmpty && !reviewEmpty && <p>게시글을 찾을 수 없습니다.</p>}
         {selectedType === "coupon" && (
-          <>{coupon && coupon.content.map((list) => <CouponList key={list.cid} list={list} />)}</>
+          <>{coupon && coupon.map((list) => <CouponList key={list.cid} list={list} />)}</>
+          // <>{coupon && coupon.content.map((list) => <CouponList key={list.cid} list={list} />)}</>
         )}
+
         {isLoading2 && page != pageData.totalPageNo &&
           <LoadDiv>
             <Loading />
