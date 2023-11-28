@@ -46,7 +46,6 @@ const Sidebar = ({ clicked }) => {
               >
                 로그인/회원가입하러가기
               </h1>
-              {/* 로그인 후 유저 정보 띄워줘야됨 */}
             </LoginPositon>
           ) : (
             <LogoutPosition
