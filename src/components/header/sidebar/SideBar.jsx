@@ -3,8 +3,8 @@ import Dropdown from "./Dropdown";
 import { usePageMoving } from "../../usePageMoving";
 import { useContext } from "react";
 import AppContext from "../../../AppContext";
-import { removeAuthHeader } from "../../../apis/axiosConfig";
 import CurrentUserInfo from "../../../pages/login/CurrentUserInfo";
+import Logout from "../../Logout";
 
 const Sidebar = ({ clicked }) => {
   const appContext = useContext(AppContext);
@@ -23,15 +23,6 @@ const Sidebar = ({ clicked }) => {
     moveToMyReservation,
   } = usePageMoving();
 
-  const handleLogout = (e) => {
-    removeAuthHeader();
-
-    appContext.setAccessToken("");
-    appContext.setRefreshToken("");
-    moveToHome();
-    clicked();
-  };
-
   return (
     <>
       <ModalBackground onClick={clicked}>
@@ -48,12 +39,8 @@ const Sidebar = ({ clicked }) => {
               </h1>
             </LoginPositon>
           ) : (
-            <LogoutPosition
-              onClick={() => {
-                handleLogout();
-              }}
-            >
-              <p>로그아웃</p>
+            <LogoutPosition>
+              <Logout moveToPage={moveToHome} clicked={clicked} />
               <CurrentUserInfo />
             </LogoutPosition>
           )}

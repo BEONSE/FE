@@ -1,19 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import BranchAcceptList from "./branchAccept/BranchAcceptList";
 import PaymentList from "./payment/PaymentList";
 import BranchApproveList from "./branchApprove/BranchApproveList";
 import MemberList from "./allMember/MemberList";
+import GlobalStyle from "../../components/GlobalStyle";
+import Logout from "../../components/Logout";
+import { usePageMoving } from "../../components/usePageMoving";
 
-const AdminManager = () => {
+const AdminManager = ({ setHideHeaderFooter }) => {
   const [isApproval, setApproval] = useState(true);
   const [isAccept, setAccept] = useState(false);
   const [isMemberList, setMemberList] = useState(false);
   const [isPaymentList, setPaymentList] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState("approval");
 
+  const { moveToHome } = usePageMoving();
+
+  // Header Footer 숨기기
+  useEffect(() => {
+    setHideHeaderFooter(true);
+    return () => setHideHeaderFooter(false);
+  }, [setHideHeaderFooter]);
+
   return (
     <>
+      <GlobalStyle />
+      <LogoutPosition>
+        <Logout moveToPage={moveToHome} clicked={null} />
+      </LogoutPosition>
       <Menu>
         <MenuContent
           className={selectedMenu === "approval" ? "selected" : ""}
@@ -76,6 +91,12 @@ const AdminManager = () => {
 
 export default AdminManager;
 
+const LogoutPosition = styled.div`
+  text-align: right;
+  margin-top: 2vh;
+  margin-bottom: 3vh;
+`;
+
 const Menu = styled.div`
   display: flex;
   justify-content: space-around;
@@ -89,7 +110,7 @@ const MenuContent = styled.div`
     outline-color: #68d0f3;
     color: #56c7eb;
   }
-  
+
   &.selected {
     color: #56c7eb;
   }
@@ -98,4 +119,4 @@ const MenuContent = styled.div`
 const Hr = styled.hr`
   width: 90vw;
   margin: auto auto 2vh auto;
-`
+`;

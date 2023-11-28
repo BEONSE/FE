@@ -4,19 +4,15 @@ import GlobalStyle from "../../components/GlobalStyle";
 import { LoginAllDiv } from "./branchUpdate";
 import BranchReview from "./review";
 import CouponList from "./coupon";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { usePageMoving } from "../../components/usePageMoving";
 import { useParams } from "react-router-dom";
 import { ReqBranchCoupon, ReqBranchReview } from "../../apis/branch";
 import { ReqBranchName } from "../../apis/reservation";
-import { removeAuthHeader } from "../../apis/axiosConfig";
-import AppContext from "../../AppContext";
 import Loading from "../../components/Loading";
+import Logout from "../../components/Logout";
 
 const BranchHome = () => {
-
-  const appContext = useContext(AppContext);
-
   const { moveToBranchUpdate, moveToHome } = usePageMoving();
 
   const param = useParams("bid");
@@ -24,7 +20,6 @@ const BranchHome = () => {
   const [couponEmpty, setCouponEmpty] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoading2, setIsLoading2] = useState(false);
-
 
   // 클릭 상태
   const [selectedType, setSelectedType] = useState(null);
@@ -35,7 +30,7 @@ const BranchHome = () => {
   const [review, setReview] = useState();
 
   const [coupon, setCoupon] = useState();
-// 페이지
+  // 페이지
   const [page, setPage] = useState(1);
   const [pageData, setPageData] = useState("");
 
@@ -78,7 +73,7 @@ const BranchHome = () => {
 
   const throttle = (func, delay) => {
     let inThrottle;
-    return function() {
+    return function () {
       const args = arguments;
       const context = this;
       if (!inThrottle) {
@@ -177,14 +172,6 @@ const BranchHome = () => {
     }
   }, [selectedType]);
 
-  const handleLogout = (e) => {
-    removeAuthHeader();
-
-    appContext.setAccessToken("");
-    appContext.setRefreshToken("");
-
-    moveToHome();
-  };
   return (
     <>
       <GlobalStyle />
@@ -198,12 +185,7 @@ const BranchHome = () => {
             정보수정
           </UpdateBtn>
 
-          <LogoutBtn
-            onClick={() => {
-              handleLogout();
-            }}
-          >로그아웃
-          </LogoutBtn>
+          <Logout moveToPage={moveToHome} clicked={null} />
         </HeadBtn>
         <h2> {bname} 관리 페이지</h2>
 
@@ -213,11 +195,17 @@ const BranchHome = () => {
           </LoadDiv>
         ) : (
           <MemberType>
-            <TypeItem selected={selectedType === "review"} onClick={() => setSelectedType("review")}>
+            <TypeItem
+              selected={selectedType === "review"}
+              onClick={() => setSelectedType("review")}
+            >
               <span>리뷰</span>
               <hr />
             </TypeItem>
-            <TypeItem selected={selectedType === "coupon"} onClick={() => setSelectedType("coupon")}>
+            <TypeItem
+              selected={selectedType === "coupon"}
+              onClick={() => setSelectedType("coupon")}
+            >
               <span>쿠폰</span>
               <hr />
             </TypeItem>
@@ -231,11 +219,11 @@ const BranchHome = () => {
         {selectedType === "coupon" && (
           <>{coupon && coupon.content.map((list) => <CouponList key={list.cid} list={list} />)}</>
         )}
-        {isLoading2 && page != pageData.totalPageNo &&
+        {isLoading2 && page != pageData.totalPageNo && (
           <LoadDiv>
             <Loading />
           </LoadDiv>
-        }
+        )}
       </LoginAllDiv>
     </>
   );
@@ -290,6 +278,8 @@ const UpdateBtn = styled.div`
 
 const HeadBtn = styled.div`
   display: flex;
+  margin-top: 2vh;
+  margin-bottom: 3vh;
 `;
 
 const LoadDiv = styled.div`
