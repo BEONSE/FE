@@ -13,8 +13,8 @@ const IterationPoint = ({ price }) => {
   const [isPayModal, setPayModal] = useState(false);
   const [checkToken, setCheckToken] = useState(false);
 
-  const calcPoint = price * 11000;
-  const calcPrice = price * 10000;
+  const calcPoint = price * 10000;
+  const calcPrice = price * 11000;
 
   const formattedPoint = calcPoint.toLocaleString();
   const formattedPrice = calcPrice.toLocaleString();

@@ -53,19 +53,18 @@ const PayModal = ({ setModalOpen, modalOpen, formattedPrice, price }) => {
 
   useEffect(() => {
     console.log(reqCardInfo);
-  });
+  }, [reqCardInfo]);
 
   useEffect(() => {
     setReqCardInfo((prevValue) => ({
       ...prevValue,
       cardNumber: cardNum,
-      //cardNumber: reqCardInfo.cardNumber,
 
     }));
     console.log(reqCardInfo);
     console.log(cardNum);
     console.log(reqCardInfo.cardNumber);
-  }, {});
+  }, [cardNum, setReqCardInfo]);
 
   const selectedHandler = (e) => {
     setReqCardInfo((prevValue) => ({
@@ -73,6 +72,7 @@ const PayModal = ({ setModalOpen, modalOpen, formattedPrice, price }) => {
       cardName: e.target.value,
       cardNumber: cardNum,
     }));
+    setCardNum(e.target.value);
     console.log(e.target.value);
     console.log(cardNum);
   }

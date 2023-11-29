@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { CommonButton } from "../../../components/CommonButton";
 import React, { useEffect } from "react";
 import Grade1 from "../../../assets/grade1.png";
 import Grade2 from "../../../assets/grade2.png";
@@ -76,12 +75,6 @@ const Profile = styled.div`
   }
 `;
 
-/* 페이지 종류 Style */
-const PageTitle = styled.h2`
-  margin-top: 2vh;
-  text-align: center;
-`;
-
 const InnerProf = styled.div`
   display: flex;
   align-items: center;
@@ -111,16 +104,6 @@ const ReviewImage = styled.div`
     width: 100%;
     height: 100%;
     object-fit: contain;
-  }
-`;
-
-// 로그인 버튼 div
-export const LoginButtonDiv = styled.div`
-  width: 80%;
-  margin-top: 40px;
-
-  @media (min-width: 1171px) {
-    width: 30%;
   }
 `;
 
