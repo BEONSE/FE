@@ -88,19 +88,19 @@ const MyReservation = () => {
 
   return (
     <>
-      <BackMove movePage={moveToSearch} content={"지점 검색"}/>
-      <Title>예약 현황</Title>
-      {isLoading &&
+      <BackMove movePage={moveToSearch} content={"지점 검색"} />
+      <Title>예약 내역</Title>
+      {isLoading && (
         <LoadDiv>
           <Loading />
         </LoadDiv>
-      }
+      )}
       {resList && resList.map((list) => <ReservationItem key={list.rvid} list={list} />)}
-      {isLoading2 && page != pageData.totalPageNo &&
+      {isLoading2 && page != pageData.totalPageNo && (
         <LoadDiv>
           <Loading />
         </LoadDiv>
-      }
+      )}
     </>
   );
 };
