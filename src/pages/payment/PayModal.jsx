@@ -30,7 +30,7 @@ const PayModal = ({ setModalOpen, modalOpen, formattedPrice, price }) => {
     setModalOpen(!modalOpen);
   };
 
-  const [reqCardInfo, setReqCardInfo] = useState({
+    const [reqCardInfo, setReqCardInfo] = useState({
     paymentPrice: price,
     cardName: "",
     cardNumber: "",

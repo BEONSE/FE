@@ -55,7 +55,7 @@ const CurrentUserInfo = () => {
     <>
       <Infos>
         <ProfileImg>
-          {currentUser.image ? (<img src={`data:image/png;base64,${currentUser.image}`} alt="review" />) : (
+          {currentUser.image ? (<img src={`data:image/png;base64,${currentUser.image}`} alt="프로필 사진" />) : (
             <img src={Basic} alt="기본 이미지" />)}
         </ProfileImg>
         <Profile>
@@ -91,7 +91,7 @@ const ProfileImg = styled.div`
   margin-right: 5vw;
 
   & > img {
-    width: 16vw;
+    width: 25vw;
     border-radius: 50%;
     object-fit: cover;
   }

@@ -25,23 +25,24 @@ const MyInfoUpdate = () => {
     setPopup(false);
 
     let fullAddress = data.address;
-    let extraAddress = "";
+    // let extraAddress = "";
 
-    //도로명 주소
-    if (data.addressType === "R") {
-      // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-      if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
-        extraAddress += data.bname;
-      }
-      if (data.buildingName !== "" && data.apartment === "Y") {
-        extraAddress += extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-      }
-
-      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
-    }
+    // //도로명 주소
+    // if (data.addressType === "R") {
+    //   // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+    //   if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
+    //     extraAddress += data.bname;
+    //   }
+    //   if (data.buildingName !== "" && data.apartment === "Y") {
+    //     extraAddress += extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+    //   }
+    //
+    //   fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+    // }
 
     setCommonUpdate({
       ...commonUpdate,
+      image: "",
       address: fullAddress,
     });
   };
@@ -148,8 +149,9 @@ const MyInfoUpdate = () => {
             name: updateProfile.data.name,
             nickname: updateProfile.data.nickname,
             address: updateProfile.data.address,
-            image: updateProfile.data.image || preData.image,
+            image: updateProfile.data.imageData || preData.image,
           }));
+          console.log(updateProfile.data.imageData);
         }
       } catch (err) {
         console.log(err);
@@ -181,7 +183,8 @@ const MyInfoUpdate = () => {
           ) : (
             <img src={Basic} alt="profile" />
           )}
-          <input type="file" accept="image/jpg, image/jpeg, image/png" onChange={onLoadImage} />
+          <input id="input-file" type="file" accept="image/jpg, image/jpeg, image/png" onChange={onLoadImage} style={{ display: "none" }}/>
+          <label className="input-file-button" for="input-file">사진 선택</label>
         </ProfileImg>
         <LoginForm>
           <span>
@@ -364,17 +367,26 @@ const ProfileImg = styled.div`
 
   & > img {
     margin-bottom: 2vh;
-    width: 100%;
+    width: 32vw;
+    height: 40vw;
     border-radius: 50%;
     object-fit: cover;
+  }
+  
+  & > label {
+    margin-left: 2vw;
+    padding: 6px 25px;
+    background-color:#99e8f8;
+    border-radius: 4px;
+    cursor: pointer;
   }
 `;
 
 /* 페이지 종류 Style */
 const Title = styled.h2`
   text-align: center;
-  margin-top: 5vh;
-  margin-bottom: 5vh;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
 `;
 
 // 로그인 전체 DIV
