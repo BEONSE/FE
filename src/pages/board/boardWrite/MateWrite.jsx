@@ -86,7 +86,17 @@ const MateWrite = () => {
 
       <InputAllDiv>
         <hr />
+
         <InputGroup>
+          <SelectBox>
+            <select onChange={selectedHandler} value={writeMate.branchName}>
+              <option value={"defalut"}>지점 선택</option>
+              {branchNames.map((name) => (
+                <option value={`${name.branchName}`}>{name.branchName}</option>
+              ))}
+            </select>
+          </SelectBox>
+          {branchCheck && <Warning>지점을 선택해주세요.</Warning>}
           <InputTitle
             type="text"
             name="title"
@@ -100,15 +110,7 @@ const MateWrite = () => {
           {titleCheck === 1 && (
             <Warning check={titleCheck}>최대 입력 가능 글자 수를 초과하였습니다.</Warning>
           )}
-          <SelectBox>
-            <select onChange={selectedHandler} value={writeMate.branchName}>
-              <option value={"defalut"}>지점 선택</option>
-              {branchNames.map((name) => (
-                <option value={`${name.branchName}`}>{name.branchName}</option>
-              ))}
-            </select>
-          </SelectBox>
-          {branchCheck && <Warning>지점을 선택해주세요.</Warning>}
+
           <InputContent
             type="text"
             placeholder=" 내용 (최소 10글자 이상 작성해주세요.)"
