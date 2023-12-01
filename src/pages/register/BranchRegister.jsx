@@ -148,15 +148,22 @@ const [passwordValid, setPasswordValid] = useState(false);
 const [nameValid, setNameValid] = useState(false);
 const [branchnameValid, setBranchnameValid] = useState(false);
 const [introductionValid, setIntroductionValid] = useState(false);
+//소개란 글자 수
+  const [introductionCount, setIntroductionCount] = useState(0);
 
 //이메일 유효성 검사
   const validateEmail = () => {
     setEmailValid(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(branchRegister.email)
-      && branchRegister.email.length >= 6 && branchRegister.email.length < 30);
+      && branchRegister.email.length >= 6
+      && branchRegister.email.length < 30
+      && branchRegister.email.includes("beonse_"));
     setValidationErrors((prevState) => ({
       ...prevState,
-      email: emailValid ? "" : "BEONSE_ 포함한 유효한 이메일 주소를 입력하세요."
+      email: emailValid ? "" : "beonse_ 포함한 유효한 이메일 주소를 입력하세요.",
     }));
+
+    // 이메일 유효성 검사에 따라 중복 확인 버튼 활성화/비활성화 설정
+    setDuplication(emailValid ? 0 : 1);
   }
 
   //비밀번호 유효성 검사
@@ -167,6 +174,7 @@ const [introductionValid, setIntroductionValid] = useState(false);
       password: passwordValid ? "" : "영문자와 숫자를 포함하여 4~12자로 입력해주세요."
     }))
   }
+
 
   // 가맹점명 유효성 검사
   const validateBranchName = () => {
@@ -186,7 +194,19 @@ const [introductionValid, setIntroductionValid] = useState(false);
   const validateIntroduction = () => {
     setIntroductionValid( branchRegister.introduction.length <= 1000);
     setValidationErrors((prevState) => ({
-      ...prevState, name: introductionValid ? "" : "1000자 이내로 입력해주세요." }));
+      ...prevState, introduction: introductionValid ? "" : "1000자 이내로 입력해주세요." }));
+  };
+
+  // 소개란 글자수 세기 핸들러
+  const handleIntroductionChange = (e) => {
+    const { value } = e.target;
+    if (value.length <= 1000) {
+      setBranchRegister((prevState) => ({
+        ...prevState,
+        introduction: value,
+      }));
+      setIntroductionCount(value.length);
+    }
   };
   //빈 칸에 focus 주기
   const focusFirstEmptyField = () => {
@@ -227,6 +247,37 @@ const [introductionValid, setIntroductionValid] = useState(false);
     if (!isFormValid()) {
       focusFirstEmptyField();
       return;
+    }
+
+      //개별 필드 유효성 검사
+      if (!emailValid) {
+        emailRef.current.focus();
+        return;
+      }
+
+      if (!passwordValid) {
+        passwordRef.current.focus();
+        return;
+      }
+
+      if (!pwdConfirm) {
+        passwordConfirmRef.current.focus();
+        return;
+      }
+
+      if (!nameValid) {
+        nameRef.current.focus();
+        return;
+      }
+
+      if (!branchnameValid) {
+        branchNameRef.current.focus();
+        return;
+      }
+
+      if (!branchRegister.address) {
+        addressRef.current.focus();
+        return;
     }
     try {
       const response = await ReqBranchRegister(branchRegister);
@@ -287,7 +338,7 @@ const [introductionValid, setIntroductionValid] = useState(false);
           {duplication === 2 && <p>사용가능한 이메일입니다.</p>}
           {duplication === 3 && <p>사용할 수 없는 이메일입니다.</p>}
         </Warning>
-        <PostBtn onClick={handleCheckEmail}>중복 확인</PostBtn>
+        <PostBtn onClick={handleCheckEmail} disabled={duplication !== 0}>중복 확인</PostBtn>
         <LoginForm>
           <span>
             <img src={Key} alt="PasswordImage" />
@@ -344,17 +395,13 @@ const [introductionValid, setIntroductionValid] = useState(false);
           />
         </LoginForm>
         <Warning check={!nameValid}>{validationErrors.name}</Warning>
-        <LoginForm>
+        <IntroductionForm>
           <span>
             <img src={Pencil} alt="IDImage" />
           </span>
-          <input
-            type="text"
-            name="introduction"
-            placeholder="가맹점 소개"
-            onChange={handleInputChange}
-          />
-        </LoginForm>
+          <textarea name="introduction" onChange={handleIntroductionChange} placeholder="가맹점 소개" value={branchRegister.introduction}></textarea>
+        </IntroductionForm>
+        <CharCount>{`(${introductionCount}/1000)`}</CharCount>
         <Warning check={!introductionValid}>{validationErrors.introduction}</Warning>
         <LoginForm>
           <span>
@@ -398,6 +445,7 @@ export default BranchRegister;
 const Warning = styled.div`
   color: red;
   margin-top: ${(props) => (props.check ? 0 : "2vh")};
+  display: ${({ check }) => (check ? "red" : "none")};
 `;
 
 const PostModal = styled.div`
@@ -415,4 +463,44 @@ const PostBtn = styled(CommonButton)`
   padding-bottom: 15px;
   width: 80%;
   height: 80%;
+`;
+
+const IntroductionForm = styled.div`
+  width: 80%;
+  display: flex;
+  margin-top: 2vh;
+  border: 1px solid #ececec;
+  border-radius: 6px;
+
+  box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.1);
+
+  & > span {
+    @media (min-width: 1171px) {
+      padding: 15px;
+    }
+    @media (max-width: 1170px) {
+      padding: 12px;
+      margin-right: 5px;
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+    
+  & > textarea {
+    border-radius: 6px;
+    border: none;
+    resize: none;
+    width: 100%;
+    height: 20vh;
+
+    font-size: 15px;
+  }
+
+`
+const CharCount = styled.div`
+  margin-left: auto;
+  margin-right: 10vw;
 `;
