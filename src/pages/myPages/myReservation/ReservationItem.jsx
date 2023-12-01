@@ -19,7 +19,7 @@ const ReservationItem = ({ list }) => {
 
   // 디데이 계산
   const diffInTime = targetDate.getTime() - currentDate.getTime();
-  const diffInDays = Math.floor(diffInTime / (1000 * 3600 * 24));
+  const diffInDays = Math.floor(diffInTime / (1000 * 3600 * 24)) + 1;
 
   const [timeOver, setTimeOver] = useState(false);
 
@@ -36,17 +36,17 @@ const ReservationItem = ({ list }) => {
         </BranchName>
         <ResTime>
           <p>{list.reservationTime}</p>
-          <DDayBox finish={diffInDays}>
-            {diffInDays > 0 ? (
-              <h3>D-{diffInDays}</h3>
-            ) : diffInDays === -1 ? (
-              <h3>D-DAY</h3>
+          <DDayBox finish={diffInDays <= 0}>
+            {parseInt(diffInDays) === 0 ? (
+              <h3>예약 당일</h3>
+            ) : parseInt(diffInDays) >= 0 ? (
+              <h3>{parseInt(diffInDays)}일 전</h3>
             ) : (
               <h3>예약 만료</h3>
             )}
           </DDayBox>
         </ResTime>
-        <CancelButton over={timeOver}>예약 취소</CancelButton>
+        <CancelButton over={timeOver}>{diffInDays >= 0 ? "예약 취소" : "취소 불가"}</CancelButton>
       </ReserveAllDiv>
     </>
   );
@@ -84,6 +84,6 @@ const CancelButton = styled(CommonButton)`
 const DDayBox = styled.div`
   & > h3 {
     font-size: 20px;
-    color: ${(props) => (props.finish >= -1 ? "red" : "#cccccc")};
+    color: ${(props) => (!props.finish ? "red" : "#cccccc")};
   }
 `;

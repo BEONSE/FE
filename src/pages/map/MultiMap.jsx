@@ -65,8 +65,8 @@ const MultiMap = () => {
       bounds.extend(positions[i].latlng);
 
       const content =
-        "<div class=\"customoverlay\" style=\"background-color: white; border: 2px solid #35cfee; border-radius:30px;\">" +
-        "    <span class=\"title\" style=\"padding:15px;\">" +
+        '<div class="customoverlay" style="background-color: white; border: 2px solid #35cfee; border-radius:30px;">' +
+        '    <span class="title" style="padding:15px;">' +
         positions[i].title +
         "</span>" +
         "</div>";
@@ -80,8 +80,8 @@ const MultiMap = () => {
       });
 
       customOverlay.setMap(m_map);
-      (function(m_marker, customOverlay, index) {
-        kakao.maps.event.addListener(m_marker, "click", function() {
+      (function (m_marker, customOverlay, index) {
+        kakao.maps.event.addListener(m_marker, "click", function () {
           const clickedBid = isPosition[index].bid;
           navigate(`/search/${clickedBid}`);
         });
