@@ -6,6 +6,7 @@ import MultiMap from "../map/MultiMap";
 import styled from "styled-components";
 import BranchList from "./BranchList";
 import BackMove from "../../components/backMove";
+import { useEffect } from "react";
 
 const BranchSearch = () => {
   const [showSearch, setShowSearch] = useState(true);
@@ -25,6 +26,10 @@ const BranchSearch = () => {
   const searchReset = () => {
     setSearchKeyword("");
   };
+  useEffect(() => {
+    setSearchKeyword("점");
+    searchRequest();
+  }, []);
 
   // 키워드로 검색 요청하기
   const searchRequest = async () => {
@@ -47,7 +52,7 @@ const BranchSearch = () => {
   return (
     <>
       <SerachBranch>
-        <BackMove content={"홈으로"}/>
+        <BackMove content={"홈으로"} />
         <h1>지점 검색</h1>
         <KakaoMap id="multimap">
           <MultiMap />

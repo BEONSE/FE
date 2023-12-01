@@ -30,7 +30,7 @@ const MultiMap = () => {
     const m_mapContainer = document.getElementById("multimap"),
       m_mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 중심 좌표
-        level: 5, //지도의 레벨(확대, 축소 정도)
+        level: 9, //지도의 레벨(확대, 축소 정도)
       };
 
     const m_map = new kakao.maps.Map(m_mapContainer, m_mapOption);
@@ -42,7 +42,7 @@ const MultiMap = () => {
     }));
 
     // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
-    const bounds = new kakao.maps.LatLngBounds();
+    // const bounds = new kakao.maps.LatLngBounds();
 
     for (let i = 0; i < positions.length; i++) {
       // 마커 이미지
@@ -62,7 +62,7 @@ const MultiMap = () => {
 
       m_marker.setMap(m_map);
 
-      bounds.extend(positions[i].latlng);
+      // bounds.extend(positions[i].latlng);
 
       const content =
         '<div class="customoverlay" style="background-color: white; border: 2px solid #35cfee; border-radius:30px;">' +
@@ -93,9 +93,8 @@ const MultiMap = () => {
         map: m_map,
         position: locPosition,
       });
-
-      bounds.extend(locPosition);
-      m_map.setBounds(bounds);
+      // bounds.extend(locPosition);
+      // m_map.setBounds(bounds);
     };
 
     if (navigator.geolocation) {
@@ -108,6 +107,7 @@ const MultiMap = () => {
           let locPosition = new kakao.maps.LatLng(lat, lon);
 
           displayMarker(locPosition);
+          m_map.setCenter(locPosition);
         },
         (error) => {
           // 에러 처리
