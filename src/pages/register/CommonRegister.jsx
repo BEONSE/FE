@@ -51,20 +51,20 @@ const CommonRegister = () => {
     setPopup(false);
 
     let fullAddress = data.address;
-    let extraAddress = "";
-
-    //도로명 주소
-    if (data.addressType === "R") {
-      // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-      if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
-        extraAddress += data.bname;
-      }
-      if (data.buildingName !== "" && data.apartment === "Y") {
-        extraAddress += extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-      }
-
-      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
-    }
+  //   let extraAddress = "";
+  //
+  //   //도로명 주소
+  //   if (data.addressType === "R") {
+  //     // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+  //     if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
+  //       extraAddress += data.bname;
+  //     }
+  //     if (data.buildingName !== "" && data.apartment === "Y") {
+  //       extraAddress += extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+  //     }
+  //
+  //     fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+  //   }
 
     setCommonRegister({
       ...commonRegister,
@@ -155,7 +155,10 @@ const CommonRegister = () => {
       ...prevState,
       email: emailValid ? "" : "유효한 이메일 주소를 입력하세요."
     }));
-  }
+
+    // 이메일 유효성 검사에 따라 중복 확인 버튼 활성화/비활성화 설정
+    setDuplication(emailValid ? 0 : 1);
+  };
 
   //비밀번호 유효성 검사 : 4~12자리
   const validatePassword = () => {
@@ -215,6 +218,38 @@ const CommonRegister = () => {
       focusFirstEmptyField();
       return;
     }
+
+    // 개별 필드 유효성 검사
+    if (!emailValid) {
+      emailRef.current.focus();
+      return;
+    }
+
+    if (!passwordValid) {
+      passwordRef.current.focus();
+      return;
+    }
+
+    if (!pwdConfirm) {
+      passwordConfirmRef.current.focus();
+      return;
+    }
+
+    if (!nameValid) {
+      nameRef.current.focus();
+      return;
+    }
+
+    if (!nicknameValid) {
+      nicknameRef.current.focus();
+      return;
+    }
+
+    if (!commonRegister.address) {
+      addressRef.current.focus();
+      return;
+    }
+
     try {
       const response = await ReqCommonRegister(commonRegister);
       if (response.status === 200) {
@@ -252,7 +287,7 @@ const CommonRegister = () => {
           {duplication === 3 && <p>사용할 수 없는 이메일입니다.</p>}
         </Warning>
 
-        <PostBtn onClick={handleCheckEmail}>중복 확인</PostBtn>
+        <PostBtn onClick={handleCheckEmail} disabled={duplication !== 0}>중복 확인</PostBtn>
         <LoginForm>
           <span>
             <img src={Key} alt="PasswordImage" />
@@ -352,6 +387,7 @@ export default CommonRegister;
 export const Warning = styled.div`
   color: red;
   margin-top: ${(props) => (props.check ? 0 : "2vh")};
+  display: ${({ check }) => (check ? "red" : "none")};
 `;
 
 export const FormTag = styled.form`
