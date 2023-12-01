@@ -165,7 +165,6 @@ const BranchUpdate = () => {
 
       <BackMove movePage={moveToBranchManageHome} content={"가맹점 홈으로"} />
 
-
       <Title>{branchUpdate.branchName} 정보 수정 페이지</Title>
       <br />
       <EditForm>
@@ -415,23 +414,6 @@ export const LoginBtn = styled(CommonButton)`
 const Warning = styled.div`
   color: red;
   margin-top: ${(props) => (props.check ? 0 : "2vh")};
-`;
-
-const PostBtn = styled(CommonButton)`
-  margin-top: 5px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  width: 80%;
-  height: 80%;
-`;
-
-const PostModal = styled.div`
-  background: rgba(0, 0, 0, 0.25);
-  position: fixed;
-  left: 0;
-  top: 30%;
-  height: 100%;
-  width: 100%;
 `;
 
 const ImageBox = styled.div`

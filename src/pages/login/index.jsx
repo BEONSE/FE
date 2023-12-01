@@ -74,6 +74,7 @@ const Login = ({ setHideHeaderFooter }) => {
         // 이메일 불일치
         alert(errResult.errorMessage);
         loginEmailRef.current.focus();
+
       } else if (errResult.statusCode === 404) {
         // 비밀번호 불일치
         alert(errResult.errorMessage);
