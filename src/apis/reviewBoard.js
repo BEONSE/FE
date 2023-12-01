@@ -13,8 +13,9 @@ export function ReqReviewWrite(cid, formdata) {
     },
   });
 }
-
+ 
 // 내가 쓴 리뷰 목록
 export function ReqMyReview(page) {
   return axios.get(`/mypage/reviews`, { params: { page } });
 }
+

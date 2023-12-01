@@ -92,6 +92,8 @@ const AdminManager = ({ setHideHeaderFooter }) => {
 export default AdminManager;
 
 const LogoutPosition = styled.div`
+  width: 90vw;
+  margin: auto;
   text-align: right;
   margin-top: 2vh;
   margin-bottom: 3vh;

@@ -83,6 +83,7 @@ const ReviewWrite = () => {
       <InputAllDiv>
         <hr />
         <InputGroup>
+          <InputTitle type="text" name="bname" value={bname} disabled />
           <InputTitle
             type="text"
             name="title"
@@ -96,7 +97,6 @@ const ReviewWrite = () => {
           {titleCheck === 1 && (
             <Warning check={titleCheck}>최대 입력 가능 글자 수를 초과하였습니다.</Warning>
           )}
-          <InputTitle type="text" name="bname" value={bname} disabled />
 
           <InputContent
             type="text"

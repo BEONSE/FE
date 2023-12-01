@@ -17,7 +17,7 @@ const ReviewWriteModal = ({ cid, writeReview, image }) => {
     setModalIsOpen(false);
   };
 
-  // 등록하기 버튼
+  // 등록하기 버튼 
   const submitBtn = async () => {
     try {
       const formData = new FormData();

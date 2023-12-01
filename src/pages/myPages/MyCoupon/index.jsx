@@ -153,7 +153,7 @@ const MyCoupon = () => {
 
   return (
     <>
-      <BackMove content={"홈으로"}/>
+      <BackMove content={"홈으로"} />
       <HaveCouponAllDiv>
         <h1>쿠폰 현황 조회</h1>
 
@@ -166,9 +166,9 @@ const MyCoupon = () => {
             filter={selectedFilter === "yes"}
             onClick={() => setSelectedFilter("yes")}
           >
-            사용
+            사용 완료
           </FilterSpan>
-          {selectedFilter === "no" && <CountBox>보유 {fullCount} 개</CountBox>}
+          {selectedFilter === "no" && <CountBox>총 {fullCount} 장</CountBox>}
         </SelectBtn>
         {(selectedFilter === "no" ? isCoupons : usedCoupons).map((coupon) => (
           <HaveCouponItem key={coupon.cid} coupon={coupon} selectedFilter={selectedFilter} />
@@ -229,8 +229,8 @@ const FilterSpan = styled.span`
   width: 100px;
   text-align: center;
   ${(props) =>
-          props.used &&
-          `
+    props.used &&
+    `
     border-radius: 0px 30px 30px 0px;
 `}
 `;
