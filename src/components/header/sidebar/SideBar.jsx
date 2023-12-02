@@ -123,7 +123,7 @@ const Sidebar = ({ clicked }) => {
                 clicked();
               }}
             >
-              지점 검색
+              세차장 검색
             </p>
             <hr />
             <Dropdown clicked={clicked} />

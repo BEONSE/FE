@@ -26,7 +26,7 @@ const Dropdown = ({ clicked }) => {
                 clicked();
               }}
             >
-              지점 리뷰
+              세차장 리뷰
             </DropdownItem>
             <DropdownItem
               isOpen={isOpen}

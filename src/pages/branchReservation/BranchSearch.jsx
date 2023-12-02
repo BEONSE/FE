@@ -53,7 +53,7 @@ const BranchSearch = () => {
     <>
       <SerachBranch>
         <BackMove content={"홈으로"} />
-        <h1>지점 검색</h1>
+        <h1>세차장 검색</h1>
         <KakaoMap id="multimap">
           <MultiMap />
         </KakaoMap>
@@ -61,7 +61,7 @@ const BranchSearch = () => {
           <input
             ref={searchRef}
             onChange={inputHandler}
-            placeholder="지점 검색하기"
+            placeholder="가맹점 검색하기"
             value={searchKeyword}
           />
           <img
