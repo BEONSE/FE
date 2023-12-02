@@ -9,12 +9,14 @@ import BackMove from "../../../components/backMove";
 import Loading from "../../../components/Loading";
 import { tr } from "date-fns/locale";
 import { usePageMoving } from "../../../components/usePageMoving";
+import { CommonButton } from "../../../components/CommonButton";
 
 const MateDetail = () => {
-  const {moveToMate} = usePageMoving();
+  const { moveToMate } = usePageMoving();
   const mbid = useParams("id"); // pathVariable 가져오기
   const [detail, setDetail] = useState({}); // 게시글 정보
   const [comment, setComment] = useState([]); // 댓글 정보
+  const [commentClick, setCommentClick] = useState(false);
   // 글이 없을 경우
   const [isEmpty, setIsEmpty] = useState(false);
 
@@ -26,7 +28,7 @@ const MateDetail = () => {
   // 페이지
   const [page, setPage] = useState(1);
   const loadMore = async () => {
-    setIsLoading2(true)
+    setIsLoading2(true);
     try {
       const response = await ReqMateBoardComment(mbid.id, page + 1);
       if (response.data.content.length === 0) {
@@ -40,7 +42,7 @@ const MateDetail = () => {
     } finally {
       setIsLoading(false);
     }
-    setIsLoading2(false)
+    setIsLoading2(false);
   };
 
   const throttle = (func, delay) => {
@@ -91,14 +93,14 @@ const MateDetail = () => {
       try {
         const commentResponse = await ReqMateBoardComment(mbid.id);
         setComment(commentResponse.data.content);
-        setPageData(commentResponse.data)
+        setPageData(commentResponse.data);
         console.log("댓글", commentResponse.data.content);
       } catch (err) {
         console.log(err);
         console.log(err.response.data.statusCode);
         console.log(err.response.data.errorMessage);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
     }
     getDetail();
@@ -107,30 +109,39 @@ const MateDetail = () => {
 
   return (
     <>
-      <BackMove movePage={moveToMate} content={"메이트 게시판"}/>
+      <BackMove movePage={moveToMate} content={"메이트 게시판"} />
       {isLoading ? (
         <LoadDiv>
           <Loading />
         </LoadDiv>
       ) : (
-      <GroupDiv>
-        <MateDetailItem detail={detail} />
-        <CommentInfo>
-          <h3>댓글</h3>
-          <p>총 {pageData.totalRows} 개</p>
-        </CommentInfo>
-        <hr />
-        <br />
-        <CommentForm id={mbid.id} />
-        {comment.map((item) => (
-          <MateComment key={item.mcid} comment={item} boardWriter={detail.nickname} />
-        ))}
-        {isLoading2 && page != pageData.totalPageNo &&
-          <LoadDiv>
-            <Loading />
-          </LoadDiv>
-        }
-      </GroupDiv>
+        <GroupDiv>
+          <MateDetailItem detail={detail} />
+          <CommentInfo>
+            <h3>댓글</h3>
+            <p>총 {!pageData.totalRows ? 0 : pageData.totalRows} 개</p>
+          </CommentInfo>
+          <hr />
+          <br />
+          {!commentClick && (
+            <CommentBtn
+              onClick={() => {
+                setCommentClick(true);
+              }}
+            >
+              댓글 남기기
+            </CommentBtn>
+          )}
+          {commentClick && <CommentForm id={mbid.id} />}
+          {comment.map((item) => (
+            <MateComment key={item.mcid} comment={item} boardWriter={detail.nickname} />
+          ))}
+          {isLoading2 && page !== pageData.totalPageNo && (
+            <LoadDiv>
+              <Loading />
+            </LoadDiv>
+          )}
+        </GroupDiv>
       )}
     </>
   );
@@ -159,6 +170,10 @@ const CommentInfo = styled.div`
   & > p {
     margin-left: 3vw;
   }
+`;
+
+const CommentBtn = styled(CommonButton)`
+  margin-bottom: 2vh;
 `;
 
 const LoadDiv = styled.div`

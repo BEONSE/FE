@@ -70,7 +70,7 @@ const InputAllDiv = styled.div`
 const InputForm = styled.textarea`
   border: none;
   width: 100%;
-  height: 6vh;
+  height: 3vh;
   margin-top: 1vh;
 
   font-size: 14px;
