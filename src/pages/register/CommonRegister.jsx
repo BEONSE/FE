@@ -51,20 +51,6 @@ const CommonRegister = () => {
     setPopup(false);
 
     let fullAddress = data.address;
-  //   let extraAddress = "";
-  //
-  //   //도로명 주소
-  //   if (data.addressType === "R") {
-  //     // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-  //     if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
-  //       extraAddress += data.bname;
-  //     }
-  //     if (data.buildingName !== "" && data.apartment === "Y") {
-  //       extraAddress += extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-  //     }
-  //
-  //     fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
-  //   }
 
     setCommonRegister({
       ...commonRegister,
