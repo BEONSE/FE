@@ -38,3 +38,7 @@ export function ReqBranchUpdate(formData) {
     },
   });
 }
+
+export function ReqBranchReservation(bid, page) {
+  return axios.get(`/branches/${bid}/reservation`, { params: { page } });
+}
