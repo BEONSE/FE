@@ -386,11 +386,12 @@ const ProfileImg = styled.div`
     border-radius: 50%;
     object-fit: cover;
   }
-  
+
   & > label {
     margin-left: 2vw;
     padding: 6px 25px;
-    background-color:#99e8f8;
+    background-color:#36c036;
+    color: white;
     border-radius: 4px;
     cursor: pointer;
   }
@@ -462,4 +463,6 @@ const PostBtn = styled(CommonButton)`
   padding-bottom: 15px;
   width: 80%;
   height: 80%;
+  background-color:#36c036;
+  color: white;
 `;

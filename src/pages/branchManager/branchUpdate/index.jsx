@@ -485,12 +485,15 @@ const DeleteBtn = styled(CommonButton)`
   width: 20vw;
   margin-bottom: 0.5vh;
   margin-left: 70vw;
+  background-color: #f85151;
+  color: white;
 `;
 
 const PhotoBtn = styled.label`
   margin-left: 2vw;
   padding: 6px 25px;
-  background-color:#99e8f8;
+  background-color:#36c036;;
   border-radius: 4px;
   cursor: pointer;
+  color: white;
   `;
