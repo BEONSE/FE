@@ -10,7 +10,7 @@ const MyPayment = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoading2, setIsLoading2] = useState(false);
   const [paymentList, setPaymentList] = useState([]);
-// 페이지
+  // 페이지
   const [page, setPage] = useState(1);
   const [pageData, setPageData] = useState("");
   const loadMore = async () => {
@@ -34,7 +34,7 @@ const MyPayment = () => {
 
   const throttle = (func, delay) => {
     let inThrottle;
-    return function() {
+    return function () {
       const args = arguments;
       const context = this;
       if (!inThrottle) {
@@ -82,9 +82,9 @@ const MyPayment = () => {
   }, []);
   return (
     <>
-      <BackMove content={"홈으로"}/>
+      <BackMove content={"홈으로"} />
       <Title>
-        <h2>결제 페이지</h2>
+        <h2>결제 내역</h2>
       </Title>
       {isLoading ? (
         <LoadDiv>
@@ -98,11 +98,11 @@ const MyPayment = () => {
           ))}
         </AllPaymentList>
       )}
-      {isLoading2 && page != pageData.totalPageNo &&
+      {isLoading2 && page !== pageData.totalPageNo && (
         <LoadDiv>
           <Loading />
         </LoadDiv>
-      }
+      )}
     </>
   );
 };

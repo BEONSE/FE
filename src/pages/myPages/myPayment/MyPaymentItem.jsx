@@ -16,7 +16,6 @@ const MyPaymentItem = ({ list }) => {
         </Points>
         <PayInfo>
           <div>
-            {" "}
             {list.cardName} ({list.cardNumber.toString().slice(-4)})
           </div>
           <div> {list.paymentDate}</div>
