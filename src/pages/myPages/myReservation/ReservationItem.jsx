@@ -54,7 +54,7 @@ const ReservationItem = ({ list }) => {
 
 export default ReservationItem;
 
-const ReserveAllDiv = styled.div`
+export const ReserveAllDiv = styled.div`
   width: 90vw;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
   margin: auto;

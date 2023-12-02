@@ -7,10 +7,12 @@ import CouponList from "./coupon";
 import { useEffect, useState } from "react";
 import { usePageMoving } from "../../components/usePageMoving";
 import { useParams } from "react-router-dom";
-import { ReqBranchCoupon, ReqBranchReview } from "../../apis/branch";
+import { ReqBranchCoupon, ReqBranchReservation, ReqBranchReview } from "../../apis/branch";
 import { ReqBranchName } from "../../apis/reservation";
 import Loading from "../../components/Loading";
 import Logout from "../../components/Logout";
+import BranchReservation from "../branchReservation";
+import BranchReservationList from "./reservation";
 
 const BranchHome = () => {
   const { moveToBranchUpdate, moveToHome } = usePageMoving();
@@ -18,6 +20,7 @@ const BranchHome = () => {
   const param = useParams("bid");
   const [reviewEmpty, setReviewEmpty] = useState(false);
   const [couponEmpty, setCouponEmpty] = useState(false);
+  const [reservationEmpty, setReservationEmpty] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoading2, setIsLoading2] = useState(false);
 
@@ -30,6 +33,8 @@ const BranchHome = () => {
   const [review, setReview] = useState();
 
   const [coupon, setCoupon] = useState();
+
+  const [reservation, setReservation] = useState();
   // 페이지
   const [page, setPage] = useState(1);
   const [pageData, setPageData] = useState("");
@@ -71,6 +76,24 @@ const BranchHome = () => {
     }
   };
 
+  const loadMoreUsedReserve = async () => {
+    setIsLoading2(true);
+    try {
+      const reserveResponse = await ReqBranchReservation(page + 1);
+      if (reserveResponse.data.content.length === 0) {
+        setReservationEmpty(true);
+      } else {
+        setReservation([...reservation, ...reserveResponse.data.content]);
+        setPageData(reserveResponse.data);
+        setPage(page + 1);
+      }
+    } catch (err) {
+      // 오류 처리
+    } finally {
+      setIsLoading2(false);
+    }
+  };
+
   const throttle = (func, delay) => {
     let inThrottle;
     return function () {
@@ -93,6 +116,8 @@ const BranchHome = () => {
         loadMore();
       } else if (selectedType === "coupon") {
         loadMoreUsedCoupons();
+      } else if (selectedType === "reservation") {
+        loadMoreUsedReserve();
       }
     }
   };
@@ -172,6 +197,25 @@ const BranchHome = () => {
     }
   }, [selectedType]);
 
+  //예약 조회
+  useEffect(() => {
+    async function getReservation() {
+      try {
+        const reservationResponse = await ReqBranchReservation(param.bid);
+        console.log("예약", reservationResponse);
+        if(reservationResponse.status === 200) {
+          const reservationData = reservationResponse.data.content;
+          console.log(reservationData);
+          setReservation(reservationData);
+        }
+      } catch (err) {
+        console.log(err);
+      }finally {
+        setIsLoading(false);
+      }
+    }
+    getReservation();
+  }, [])
   return (
     <>
       <GlobalStyle />
@@ -209,15 +253,26 @@ const BranchHome = () => {
               <span>쿠폰</span>
               <hr />
             </TypeItem>
+            <TypeItem
+              selected={selectedType === "reservation"}
+              onClick={() => setSelectedType("reservation")}
+            >
+              <span>예약</span>
+              <hr />
+            </TypeItem>
           </MemberType>
         )}
-        {reviewEmpty && !couponEmpty && <p>게시글을 찾을 수 없습니다.</p>}
+        {reviewEmpty && !couponEmpty && !reservationEmpty && <p>게시글을 찾을 수 없습니다.</p>}
         {selectedType === "review" && (
           <>{review && review.map((item) => <BranchReview key={item.rbId} item={item} />)}</>
         )}
-        {couponEmpty && !reviewEmpty && <p>게시글을 찾을 수 없습니다.</p>}
+        {couponEmpty && !reviewEmpty && !reservationEmpty && <p>쿠폰을 찾을 수 없습니다.</p>}
         {selectedType === "coupon" && (
           <>{coupon && coupon.map((list) => <CouponList key={list.cid} list={list} />)}</>
+        )}
+        {reservationEmpty && !reviewEmpty && !couponEmpty && <p>예약을 찾을 수 없습니다.</p>}
+        {selectedType === "reservation" && (
+          <>{reservation && reservation.map((list) => <BranchReservationList key={list.rvid} list={list} />)}</>
         )}
         {isLoading2 && page != pageData.totalPageNo && (
           <LoadDiv>
@@ -233,7 +288,7 @@ export default BranchHome;
 
 const MemberType = styled.div`
   @media (min-width: 1171px) {
-    width: 30%;
+    width: 100%;
   }
   display: flex;
   justify-content: center;
@@ -245,7 +300,7 @@ const MemberType = styled.div`
 const TypeItem = styled.div`
   cursor: pointer;
 
-  width: 40vw;
+  width: 30vw;
 
   text-align: center;
   font-weight: ${({ selected }) => (selected ? "bold" : "null")};
@@ -258,16 +313,6 @@ const TypeItem = styled.div`
   }
 `;
 
-const LogoutBtn = styled(CommonButton)`
-  margin-top: 2vw;
-  margin-bottom: 2vw;
-  width: 16vw;
-  display: flex;
-  margin-left: 4vw;
-  text-align: center;
-  //padding: auto;
-  justify-content: center;
-`;
 
 const UpdateBtn = styled.div`
   color: gray;
