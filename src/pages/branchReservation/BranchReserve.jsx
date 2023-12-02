@@ -16,8 +16,7 @@ import { usePageMoving } from "../../components/usePageMoving";
 registerLocale("ko", ko);
 
 const BranchReserve = () => {
-
-  const {moveToReview} = usePageMoving();
+  const { moveToReview } = usePageMoving();
   const bid = useParams("bid");
   const [clickBtn, setClickBtn] = useState(false);
   // branch이름 가져오기
@@ -196,7 +195,7 @@ const BranchReserve = () => {
   return (
     <>
       <GlobalStyle />
-      <BackMove movePage={moveToReview} content={"리뷰 게시판"}/>
+      <BackMove movePage={moveToReview} content={"리뷰 게시판"} />
       <Reservation>
         <h1>{bname} 예약</h1>
         <CalendarWrap>
@@ -211,7 +210,14 @@ const BranchReserve = () => {
           ></DatePicker>
           <hr />
         </CalendarWrap>
-
+        <SelectDateTime>
+          <p>
+            {selectedDate.getFullYear()}-
+            {(selectedDate.getMonth() + 1 < 10 ? "0" : "") + (selectedDate.getMonth() + 1)}-
+            {(selectedDate.getDate() < 10 ? "0" : "") + selectedDate.getDate()}
+            {selectedTime && <span> {selectedTime}시</span>}
+          </p>
+        </SelectDateTime>
         <h2>시간 선택</h2>
         <TimeBox>
           <TimesCount>
@@ -337,13 +343,7 @@ const BranchReserve = () => {
           </TimesCount>
         </TimeBox>
         <br />
-        <SelectDateTime>
-          <p>예약 선택 날짜</p>
-          <p>
-            {selectedDate.getFullYear()}년{selectedDate.getMonth() + 1}월{selectedDate.getDate()}일
-            <spans> {selectedTime}시</spans>
-          </p>
-        </SelectDateTime>
+
         {selectedTime && (
           <CommonButton
             onClick={() => {
@@ -419,16 +419,21 @@ const Time = styled.p`
 
 // 선택 예약 날짜
 const SelectDateTime = styled.div`
-  width: 100%;
+  width: 80vw;
+  text-align: center;
+  background-color: aliceblue;
+  padding: 3%;
   margin-bottom: 20px;
 
   & > p {
-    font-size: 18px;
+    font-size: 23px;
   }
 `;
 
 // 달력 div
 const CalendarWrap = styled.div`
+  position: relative;
+  z-index: -1;
   & > hr {
     margin-top: 2vh;
     margin-bottom: 2vh;
@@ -501,7 +506,19 @@ const CalendarWrap = styled.div`
   .react-datepicker__day--outside-month.react-datepicker__day:nth-child(1) {
     color: #bebebe;
   }
+  // 오늘 이전의 토요일과 일요일에 대한 스타일
+  .react-datepicker__day--weekend {
+    color: #bebebe; /* 토요일과 일요일의 기본 스타일을 회색으로 지정합니다. */
+  }
 
+  .react-datepicker__day--weekend.react-datepicker__day--selected {
+    color: #000; /* 선택된 토요일과 일요일의 색상을 검정으로 유지합니다. */
+    background-color: #99e8f8; /* 선택된 토요일과 일요일의 배경색을 변경합니다. */
+  }
+
+  .react-datepicker__day--today.react-datepicker__day--weekend {
+    color: #bebebe; /* 현재 날짜 이전의 토요일과 일요일의 스타일을 회색으로 지정합니다. */
+  }
   // 하루
   .react-datepicker__day {
     display: flex;

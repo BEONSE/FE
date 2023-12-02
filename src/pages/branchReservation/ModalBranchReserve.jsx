@@ -55,9 +55,9 @@ const ModalBranchReserve = ({ userReservation, bid, branchname, setClickBtn }) =
         <ModalContent>
           {/* <img src={} alt="pencilimage" /> */}
           <p>
-            선택 지점 : <span>{branchname}</span>
+            <span>{branchname}</span>
           </p>
-          <h3>{userReservation.reservationTime}</h3>
+          <h3>{userReservation.reservationTime.toString().slice(0, -6)}시</h3>
           <p>예약을 하시겠습니까?</p>
           <div>
             <PayBtn isCancled onClick={closeModal}>
@@ -82,21 +82,18 @@ const ModalContent = styled.div`
   align-items: center;
   margin-top: 3vh;
 
-  & > img {
-    height: 5vh;
-    margin-bottom: 2vh;
-  }
-
   & > p {
     font-size: 20px;
 
     & > span {
       font-weight: bold;
+      font-size: 23px;
     }
   }
 
   & > h3 {
     color: red;
+    font-size: 22px;
   }
 
   & > div {
