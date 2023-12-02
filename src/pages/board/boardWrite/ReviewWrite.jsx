@@ -108,7 +108,8 @@ const ReviewWrite = () => {
             onChange={handleInput}
           />
 
-          <input type="file" accept="image/jpg, image/jpeg, image/png" onChange={onLoadImage} />
+          <input id="input-file" type="file" accept="image/jpg, image/jpeg, image/png" onChange={onLoadImage} style={{display:"none"}}/>
+          <PhotoBtn className="input-file-button" htmlFor="input-file">사진 선택</PhotoBtn>
         </InputGroup>
         {contentCheck === 2 && (
           <Warning check={contentCheck}>최소 10글자 이상 작성해주세요.</Warning>
@@ -199,3 +200,13 @@ const Button = styled(CommonButton)`
   margin-bottom: 6vh;
   font-size: 17px;
 `;
+
+const PhotoBtn = styled.label`
+  margin-left: 2vw;
+  padding: 6px 25px;
+  background-color:#36c036;;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+  width: 28vw;
+  `;

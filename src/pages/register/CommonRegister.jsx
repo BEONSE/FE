@@ -398,4 +398,6 @@ const PostBtn = styled(CommonButton)`
   padding-bottom: 15px;
   width: 80%;
   height: 80%;
+  background-color:#36c036;
+  color: white;
 `;
