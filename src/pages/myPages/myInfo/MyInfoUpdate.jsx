@@ -14,39 +14,26 @@ import { ReqProfile } from "../../../apis/auth";
 import ModalMyInfoUpdate from "./ModalMyInfoUpdate";
 
 import BackMove from "../../../components/backMove";
+import { Warning } from "../../register/CommonRegister";
 // import { useRef } from "react";
 
 const MyInfoUpdate = () => {
-
-
-  //다음 주소 모달
+  const [isModified, setIsModified] = useState(false);
+  const [warningMessage, setWarningMessage] = useState("");
+  const [hasError, setHasError] = useState(false);
+   //다음 주소 모달
   const [popup, setPopup] = useState(false);
   const handleComplete = (data) => {
     setPopup(false);
 
     let fullAddress = data.address;
-    // let extraAddress = "";
-
-    // //도로명 주소
-    // if (data.addressType === "R") {
-    //   // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-    //   if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
-    //     extraAddress += data.bname;
-    //   }
-    //   if (data.buildingName !== "" && data.apartment === "Y") {
-    //     extraAddress += extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-    //   }
-    //
-    //   fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
-    // }
-
+    
     setCommonUpdate({
       ...commonUpdate,
       image: "",
       address: fullAddress,
     });
   };
-
 
   // 이미지 정보
   const [image, setImage] = useState("");
@@ -91,6 +78,7 @@ const MyInfoUpdate = () => {
       [name]: value,
     }));
 
+    setIsModified(true);
     // 입력 필드에 기반한 동적 유효성 검사
     switch (name) {
       case "password":
@@ -129,10 +117,29 @@ const MyInfoUpdate = () => {
       ...prevState, nickname: nicknameValid ? "" : "기호를 제외한 2자 ~ 20자로 입력해주세요." }));
   };
 
+  // 회원정보 수정 폼 필드가 빈칸이 아닌지 및 유효성 검사
+  const isFormValid = () => {
+    return (
+      commonUpdate.password &&
+      commonUpdate.nickname &&
+      passwordValid &&
+      pwdConfirm &&
+      nicknameValid
+    );
+  };
+
   const [modalOpen, setModalOpen] = useState(false);
 
   const editBtn = () => {
-    setModalOpen(!modalOpen);
+    if (isModified && isFormValid()) {
+      setModalOpen(!modalOpen);
+    } else if (!isModified) {
+      setWarningMessage("변경된 정보가 없습니다.");
+      setHasError(true);
+    } else {
+      setWarningMessage("양식에 맞게 입력해주세요.");
+      setHasError(true);
+    }
   };
 
   useEffect(() => {
@@ -151,7 +158,7 @@ const MyInfoUpdate = () => {
             address: updateProfile.data.address,
             image: updateProfile.data.imageData || preData.image,
           }));
-          console.log(updateProfile.data.imageData);
+          console.log("profile update", commonUpdate);
         }
       } catch (err) {
         console.log(err);
@@ -279,6 +286,7 @@ const MyInfoUpdate = () => {
           >
             수정 완료
           </LoginBtn>
+          {hasError &&<CustomWarning hasError={true}>{warningMessage}</CustomWarning>}
         </LoginButtonDiv>
       </EditForm>
       {modalOpen && (
@@ -292,8 +300,14 @@ const MyInfoUpdate = () => {
     </>
   );
 };
-
 export default MyInfoUpdate;
+
+export const CustomWarning = styled.p`
+  color: red;
+  text-align: center;
+  margin-top: ${(props) => (props.hasError ? 0 : "2vh")};
+  display: ${({ hasError }) => (hasError ? "red" : "none")};
+`;
 
 // 로그인 입력 폼
 const EditForm = styled.div`
@@ -372,11 +386,12 @@ const ProfileImg = styled.div`
     border-radius: 50%;
     object-fit: cover;
   }
-  
+
   & > label {
     margin-left: 2vw;
     padding: 6px 25px;
-    background-color:#99e8f8;
+    background-color:#36c036;
+    color: white;
     border-radius: 4px;
     cursor: pointer;
   }
@@ -435,11 +450,6 @@ export const LoginBtn = styled(CommonButton)`
   font-size: 15px;
 `;
 
-const Warning = styled.div`
-  color: red;
-  margin-top: ${(props) => (props.check ? 0 : "2vh")};
-`;
-
 const PostModal = styled.div`
   background: rgba(0, 0.0, 0, 0.25);
   position: fixed;
@@ -453,4 +463,6 @@ const PostBtn = styled(CommonButton)`
   padding-bottom: 15px;
   width: 80%;
   height: 80%;
+  background-color:#36c036;
+  color: white;
 `;

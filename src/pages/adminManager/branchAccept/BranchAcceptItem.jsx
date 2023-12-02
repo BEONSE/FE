@@ -8,12 +8,13 @@ const BranchAcceptItem = ({ list }) => {
       <ResultMemberGroup>
         <LeftInfo>
           <MemberContent>
-            <h3>#{list.bid}</h3>
+            <p>#{list.bid}</p>
             <div>
-              <p>{list.nickname}</p>
+              <b><p>{list.nickname}</p></b>
               <p>대표 : {list.name}</p>
+              <p>가맹점 주소 : </p>
+              <p>{list.address}</p>
             </div>
-            <p>가맹점 주소 : {list.address}</p>
           </MemberContent>
           <ResultDiv>
             <H3 status={list.isApproval}>{list.isApproval}</H3>
@@ -56,11 +57,12 @@ const MemberContent = styled.div`
   display: flex;
   flex-direction: column;
 
-  & > div {
-    width: 60%;
-    display: flex;
-    justify-content: space-between;
+  & > p {
     margin-bottom: 1vh;
+  }
+
+  & > div {
+    display: grid;
   }
 `;
 

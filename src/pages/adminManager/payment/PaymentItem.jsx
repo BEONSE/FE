@@ -9,7 +9,7 @@ const PaymentItem = ({ list }) => {
       <PaymentGroup>
         <LeftInfo>
           <PaymentContent>
-            <h3>결제 코드 : {list.pid}</h3>
+            <p>결제 코드 : {list.pid}</p>
             <div>
               <p>ID : {list.nickname}</p>
               <p>회원 이름 : {list.name}</p>
@@ -62,15 +62,12 @@ const PaymentContent = styled.div`
   display: flex;
   flex-direction: column;
 
-  & > div {
-    width: 60%;
-    display: flex;
-    justify-content: space-between;
+  & > p {
     margin-bottom: 1vh;
+  }
 
-    &.payGroup {
-      width: 85%;
-    }
+  & > div {
+    display: grid;
   }
 
 `;

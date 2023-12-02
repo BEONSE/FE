@@ -17,17 +17,27 @@ import ModalBranchUpdate from "./ModalBranchUpdate";
 import { ReqBranchInfo } from "../../../apis/branch";
 import { useNavigate, useParams } from "react-router-dom";
 import { usePageMoving } from "../../../components/usePageMoving";
+import { CustomWarning } from "../../myPages/myInfo/MyInfoUpdate";
+import branchRegister, { CharCount, IntroductionForm } from "../../register/BranchRegister";
 
 
 const BranchUpdate = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const navigate = useNavigate();
-
-
+  const [isModified, setIsModified] = useState(false);
+  const [warningMessage, setWarningMessage] = useState("");
+  const [hasError, setHasError] = useState(false);
 
   const editBtn = () => {
-    setModalOpen(!modalOpen);
+      if (isModified && isFormValid()) {
+          setModalOpen(!modalOpen);
+      } else if (!isModified) {
+          setWarningMessage("변경된 정보가 없습니다.");
+          setHasError(true);
+      } else {
+          setWarningMessage("양식에 맞게 입력해주세요.");
+          setHasError(true);
+      }
   };
 
   const { moveToBranchManager } = usePageMoving();
@@ -44,6 +54,15 @@ const BranchUpdate = () => {
     setPwdConfirm(branchUpdate.password === e.target.value);
   };
 
+  const isFormValid = () => {
+    return (
+      branchUpdate.password &&
+      branchUpdate.introduction &&
+      passwordValid &&
+      pwdConfirm &&
+      introductionValid
+    );
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     console.log(name, value);
@@ -52,6 +71,7 @@ const BranchUpdate = () => {
       [name]: value,
     }));
 
+    setIsModified(true);
     // 입력 필드에 기반한 동적 유효성 검사
     switch (name) {
       case "password":
@@ -156,8 +176,45 @@ const BranchUpdate = () => {
   const validateIntroduction = () => {
     setIntroductionValid( branchUpdate.introduction.length <= 1000);
     setValidationErrors((prevState) => ({
-      ...prevState, name: introductionValid ? "" : "1000자 이내로 입력해주세요." }));
+      ...prevState, introduction: introductionValid ? "" : "1000자 이내로 입력해주세요." }));
   };
+
+    //소개란 글자 수
+    const [introductionCount, setIntroductionCount] = useState(0);
+    // 소개란 글자수 세기 핸들러
+    const handleIntroductionChange = (e) => {
+        const newText = e.target.value;
+        setIntroductionCount(newText.length);
+        setBranchUpdate((prevData) => {
+            if (newText.length <= 1000) {
+                return {
+                    ...prevData,
+                    introduction: newText,
+                };
+            }
+            return prevData;
+
+            // const { value } = e.target;
+            // if (value.length <= 1000) {
+            //     setBranchUpdate((prevState) => ({
+            //         ...prevState,
+            //         introduction: value,
+            //     }));
+            //     setIntroductionCount(value.length);
+            // }
+        });
+    };
+
+    // 이전 값 가져오기
+    const previousIntroduction = branchUpdate.introduction;
+
+// 이전 값이 있다면 설정
+    useEffect(() => {
+        if (previousIntroduction) {
+            setIntroductionCount(previousIntroduction.length);
+        }
+        console.log(previousIntroduction.length);
+    }, [previousIntroduction]);
 
   return (
     <>
@@ -246,28 +303,28 @@ const BranchUpdate = () => {
           />
         </LoginForm>
         <br />
-        <LoginForm>
+        <IntroductionForm>
           <span>
-            <img src={Pencil} alt="PencilImage" />
+            <img src={Pencil} alt="IDImage" />
           </span>
-          <input
-            type="text"
-            name="introduction"
-            defaultValue={branchUpdate.introduction}
-            placeholder="지점 소개"
-          />
-        </LoginForm>
+          <textarea name="introduction" onChange={handleIntroductionChange} placeholder="가맹점 소개" value={branchUpdate.introduction}></textarea>
+        </IntroductionForm>
+        <CharCount>{`(${introductionCount}/1000)`}</CharCount>
         <Warning check={!introductionValid}>{validationErrors.introduction}</Warning>
         <br />
         <input
+          id="input-file"
           type="file"
           name="image"
-          accept="image/*"
+          accept="image/jpg, image/jpeg, image/png"
           value=""
           placeholder="지점 소개 사진"
           multiple={true}
           onChange={onLoadImage}
+          style={{display:"none"}}
         />
+        <PhotoBtn className="input-file-button" htmlFor="input-file">사진 선택</PhotoBtn>
+        <br/>
         {branchUpdate.image.map((url, index) => (
           <>
             <ImageBox>
@@ -287,7 +344,6 @@ const BranchUpdate = () => {
         <br />
 
         <LoginButtonDiv>
-          {/* 입력 폼 다 안맞으면 버튼 안눌리게 만들기 */}
           <LoginBtn
             onClick={() => {
               editBtn();
@@ -295,6 +351,7 @@ const BranchUpdate = () => {
           >
             수정 완료
           </LoginBtn>
+          {hasError &&<CustomWarning hasError={true}>{warningMessage}</CustomWarning>}
         </LoginButtonDiv>
         <br />
       </EditForm>
@@ -428,4 +485,15 @@ const DeleteBtn = styled(CommonButton)`
   width: 20vw;
   margin-bottom: 0.5vh;
   margin-left: 70vw;
+  background-color: #f85151;
+  color: white;
 `;
+
+const PhotoBtn = styled.label`
+  margin-left: 2vw;
+  padding: 6px 25px;
+  background-color:#36c036;;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+  `;
