@@ -8,12 +8,13 @@ const MemberItem = ({ list }) => {
       <MemberGroup>
         <LeftInfo>
           <MemberContent>
-            <h3>#{list.mid}</h3>
+            <p>#{list.mid}</p>
             <div>
-              <p>ID : {list.nickname}</p>
+              <b><p>{list.nickname}</p></b>
               <p>회원 이름 : {list.name}</p>
+              <p>주소 : </p>
+              <p>{list.address}</p>
             </div>
-            <p>주소 : {list.address}</p>
           </MemberContent>
         </LeftInfo>
         <Date>
@@ -54,11 +55,12 @@ const MemberContent = styled.div`
   display: flex;
   flex-direction: column;
 
-  & > div {
-    width: 60%;
-    display: flex;
-    justify-content: space-between;
+  & > p {
     margin-bottom: 1vh;
+  }
+
+  & > div {
+    display: grid;
   }
 `;
 

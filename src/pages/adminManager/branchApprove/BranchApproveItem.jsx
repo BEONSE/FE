@@ -37,12 +37,13 @@ const BranchApproveItem = ({ list }) => {
       <ApproveGroup>
         <LeftInfo>
           <BranchContent>
-            <h3>#{list.bid}</h3>
+            <p>#{list.bid}</p>
             <div>
-              <p>{list.nickname}</p>
+              <b><p>{list.nickname}</p></b>
               <p>대표 : {list.name}</p>
+              <p>가맹점 주소 : </p>
+              <p>{list.address}</p>
             </div>
-            <p>가맹점 주소 : {list.address}</p>
           </BranchContent>
           <BtnDiv>
             <AcceptBtn onClick={acceptBtnHandle}>승인</AcceptBtn>
@@ -104,12 +105,13 @@ const BranchContent = styled.div`
   width: 65%;
   display: flex;
   flex-direction: column;
+  
+  & > p {
+    margin-bottom: 1vh;
+  }
 
   & > div {
-    width: 70%;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1vh;
+    display: grid;
   }
 `;
 
