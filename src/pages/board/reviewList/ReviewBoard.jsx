@@ -126,7 +126,7 @@ const ReviewBoard = () => {
     <>
       <BackMove content={"홈으로"} />
       <Title>
-        <h1>😎리뷰 게시판😎</h1>
+        <h2>✍️리뷰 게시판✍️</h2>
       </Title>
       <SelectBox>
         <select onChange={selectedHandler} value={selectBranch.branchName}>

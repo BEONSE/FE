@@ -34,7 +34,7 @@ const MyMate = () => {
 
   const throttle = (func, delay) => {
     let inThrottle;
-    return function() {
+    return function () {
       const args = arguments;
       const context = this;
       if (!inThrottle) {
@@ -96,18 +96,11 @@ const MyMate = () => {
           ))}
         </AllMyMate>
       )}
-      <H4>더보기</H4>
     </>
   );
 };
 
 export default MyMate;
-
-/* h4 Style */
-const H4 = styled.h4`
-  text-align: center;
-  margin-bottom: 2vh;
-`;
 
 // 목록 전체 div
 const AllMyMate = styled.div`

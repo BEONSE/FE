@@ -11,8 +11,7 @@ import AppContext from "../../AppContext";
 import LoginModal from "../../components/LoginModal";
 import { usePageMoving } from "../../components/usePageMoving";
 const PurchaseCoupon = () => {
-
-  const {moveToMyCoupon} = usePageMoving();
+  const { moveToMyCoupon } = usePageMoving();
   const appContext = useContext(AppContext);
   const [checkToken, setCheckToken] = useState(false);
 
@@ -73,7 +72,7 @@ const PurchaseCoupon = () => {
 
   return (
     <>
-      <BackMove movePage={moveToMyCoupon} content={"보유 쿠폰 조회"}/>
+      <BackMove movePage={moveToMyCoupon} content={"보유 쿠폰 조회"} />
       <CouponAllDiv>
         <TopImg></TopImg>
         <GetPoints>
@@ -86,9 +85,9 @@ const PurchaseCoupon = () => {
         <QuantityAllDiv>
           <Quantity>
             <p>
-              <span onClick={decreasePressHandler}>- </span>
+              {press > 1 && <span onClick={decreasePressHandler}>- </span>}
               <span> {press} </span>
-              <span onClick={increasePressHandler}> +</span>
+              {press < 5 && <span onClick={increasePressHandler}> +</span>}
             </p>
           </Quantity>
           <PurchaseBtn
@@ -105,9 +104,9 @@ const PurchaseCoupon = () => {
         <QuantityAllDiv>
           <Quantity>
             <p>
-              <span onClick={decreaseBubbleHandler}>- </span>
+              {bubble > 1 && <span onClick={decreaseBubbleHandler}>- </span>}
               <span> {bubble} </span>
-              <span onClick={increaseBubbleHandler}> +</span>
+              {bubble < 5 && <span onClick={increaseBubbleHandler}> +</span>}
             </p>
           </Quantity>
           <PurchaseBtn

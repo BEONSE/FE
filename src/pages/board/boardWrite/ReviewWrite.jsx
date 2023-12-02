@@ -78,7 +78,7 @@ const ReviewWrite = () => {
   return (
     <>
       <BackMove movePage={moveToMyCoupon} content={"보유 쿠폰 조회"} />
-      <PageTitle>리뷰 쓰기✍</PageTitle>
+      <PageTitle>✍️리뷰 쓰기✍</PageTitle>
 
       <InputAllDiv>
         <hr />

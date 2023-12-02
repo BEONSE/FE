@@ -6,14 +6,17 @@ import Grade3 from "../../../assets/grade3.png";
 import Basic from "../../../assets/profile.jpg";
 
 const ReviewItem = ({ review }) => {
-
   return (
     <>
       <ContentGroup>
         <Profile>
           <div>
             <InnerProf>
-              {review.memberImageData ? (<img src={`data:image/png;base64,${review.memberImageData}`} alt="review" />) : (<img src={Basic} alt="기본 이미지" />)}
+              {review.memberImageData ? (
+                <img src={`data:image/png;base64,${review.memberImageData}`} alt="review" />
+              ) : (
+                <img src={Basic} alt="기본 이미지" />
+              )}
 
               <Writer>
                 <p>{review.writer}</p>
@@ -23,11 +26,12 @@ const ReviewItem = ({ review }) => {
                   {review.grade === 3 && <img src={Grade3} alt="grade3" />}
                 </Grade>
               </Writer>
-
             </InnerProf>
             <TimeDiv>
               <div>작성일 {review.createdAt}</div>
-              <div>{review.createdAt !== review.modifiedAt && <div>수정일 {review.modifiedAt}</div>}</div>
+              <div>
+                {review.createdAt !== review.modifiedAt && <div>수정일 {review.modifiedAt}</div>}
+              </div>
             </TimeDiv>
           </div>
           <hr />
@@ -36,7 +40,7 @@ const ReviewItem = ({ review }) => {
         <Content>
           {review.reviewImageData && (
             <ReviewImage>
-              <img src={`data:image/png;base64,${review.reviewImageData}`}  alt="profile" />
+              <img src={`data:image/png;base64,${review.reviewImageData}`} alt="profile" />
             </ReviewImage>
           )}
           <p>{review.content}</p>
@@ -60,7 +64,7 @@ const Profile = styled.div`
   margin-left: 5vw;
   margin-right: 5vw;
   margin-bottom: 3vh;
-  
+
   & > div > div > img {
     width: 10vw;
     border-radius: 50%;
@@ -112,4 +116,7 @@ const Writer = styled.div`
   margin-left: 2vw;
   display: flex;
   text-align: center;
+  & > p {
+    margin-left: 5px;
+  }
 `;

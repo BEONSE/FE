@@ -34,7 +34,7 @@ const MyReview = () => {
 
   const throttle = (func, delay) => {
     let inThrottle;
-    return function() {
+    return function () {
       const args = arguments;
       const context = this;
       if (!inThrottle) {
@@ -97,7 +97,6 @@ const MyReview = () => {
           ))}
         </AllReviewList>
       )}
-      <H4>더보기</H4>
     </>
   );
 };
@@ -108,12 +107,6 @@ export default MyReview;
 const AllReviewList = styled.div`
   width: 90vw;
   margin: auto;
-`;
-
-/* h4 Style */
-const H4 = styled.h4`
-  text-align: center;
-  margin-bottom: 2vh;
 `;
 
 const LoadDiv = styled.div`
