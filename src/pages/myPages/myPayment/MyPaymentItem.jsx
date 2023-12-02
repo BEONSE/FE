@@ -4,26 +4,23 @@ import Point2 from "../../../assets/point2.png";
 import Point3 from "../../../assets/point3.png";
 
 const MyPaymentItem = ({ list }) => {
-
   return (
     <>
-
       <PaymentGroup>
-        <PaymentNum>
-          # {list.pid}
-        </PaymentNum>
+        <PaymentNum># {list.pid}</PaymentNum>
 
         <Points>
-          {list.paymentPrice === 10000 && <img src={Point1} alt="pointimg" />}
-          {list.paymentPrice === 30000 && <img src={Point2} alt="pointimg" />}
-          {list.paymentPrice === 50000 && <img src={Point3} alt="pointimg" />}
+          {list.paymentPrice === 11000 && <img src={Point1} alt="pointimg" />}
+          {list.paymentPrice === 33000 && <img src={Point2} alt="pointimg" />}
+          {list.paymentPrice === 55000 && <img src={Point3} alt="pointimg" />}
         </Points>
         <PayInfo>
-
-          <div> {list.cardName} ({list.cardNumber.toString().slice(-4)})</div>
+          <div>
+            {" "}
+            {list.cardName} ({list.cardNumber.toString().slice(-4)})
+          </div>
           <div> {list.paymentDate}</div>
         </PayInfo>
-
       </PaymentGroup>
     </>
   );
@@ -67,5 +64,3 @@ const PayInfo = styled.div`
   margin-left: 2vw;
   margin-right: 2vw;
 `;
-
-
