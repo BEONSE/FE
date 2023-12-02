@@ -465,7 +465,7 @@ const PostBtn = styled(CommonButton)`
   height: 80%;
 `;
 
-const IntroductionForm = styled.div`
+export const IntroductionForm = styled.div`
   width: 80%;
   display: flex;
   margin-top: 2vh;
@@ -500,7 +500,7 @@ const IntroductionForm = styled.div`
   }
 
 `
-const CharCount = styled.div`
+export const CharCount = styled.div`
   margin-left: auto;
   margin-right: 10vw;
 `;

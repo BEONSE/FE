@@ -79,7 +79,7 @@ const MyInfo = () => {
           <span>
             <img src={Key} alt="KeyImage" />
           </span>
-          <input type="password" placeholder="*****" />
+          <input type="password" placeholder="비밀번호 입력" />
         </LoginForm>
         <LoginButtonDiv>
           <LoginBtn onClick={moveToUpdate}>확인</LoginBtn>
