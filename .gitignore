@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/src/apis/axiosConfig.js
 /.pnp
 .pnp.js
 
