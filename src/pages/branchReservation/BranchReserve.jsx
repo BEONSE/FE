@@ -61,12 +61,15 @@ const BranchReserve = () => {
     console.log(bid["*"]);
   }, [bid]);
 
+  useEffect(() => {
+    console.log(userReservation);
+  }, [userReservation]);
+
   // 날짜 선택 시
   useEffect(() => {
     const selYear = selectedDate.getFullYear();
     const selMonth = (selectedDate.getMonth() + 1 < 10 ? "0" : "") + (selectedDate.getMonth() + 1);
     const selDay = (selectedDate.getDate() < 10 ? "0" : "") + selectedDate.getDate();
-    setUserReservation({ reservationTime: `${selYear}-${selMonth}-${selDay} ${parseTime}` });
 
     async function getSelectDayReserveState() {
       try {
@@ -84,6 +87,15 @@ const BranchReserve = () => {
 
     getSelectDayReserveState();
   }, [selectedDate, setSelectedDate]);
+
+  // 시간 선택 시
+  useEffect(() => {
+    const selYear = selectedDate.getFullYear();
+    const selMonth = (selectedDate.getMonth() + 1 < 10 ? "0" : "") + (selectedDate.getMonth() + 1);
+    const selDay = (selectedDate.getDate() < 10 ? "0" : "") + selectedDate.getDate();
+
+    setUserReservation({ reservationTime: `${selYear}-${selMonth}-${selDay} ${parseTime}` });
+  }, [selectedTime, parseTime]);
 
   const countReserveState = () => {
     reserveInfo.forEach((time) => {
@@ -184,7 +196,7 @@ const BranchReserve = () => {
       time12: 0,
     });
     countReserveState();
-  }, [reserveInfo, selectedDate]);
+  }, [reserveInfo]);
 
   // 브랜치 이름 가져오기
   useEffect(() => {
@@ -248,6 +260,7 @@ const BranchReserve = () => {
           </TimesCount>
           <TimesCount>
             <Time
+              count={reserveTime.time2}
               onClick={() => {
                 handleTimeClick("12:00:00");
               }}
@@ -258,6 +271,7 @@ const BranchReserve = () => {
           </TimesCount>
           <TimesCount>
             <Time
+              count={reserveTime.time3}
               onClick={() => {
                 handleTimeClick("13:00:00");
               }}
@@ -268,6 +282,7 @@ const BranchReserve = () => {
           </TimesCount>
           <TimesCount>
             <Time
+              count={reserveTime.time4}
               onClick={() => {
                 handleTimeClick("14:00:00");
               }}
@@ -278,6 +293,7 @@ const BranchReserve = () => {
           </TimesCount>
           <TimesCount>
             <Time
+              count={reserveTime.time5}
               onClick={() => {
                 handleTimeClick("15:00:00");
               }}
@@ -288,6 +304,7 @@ const BranchReserve = () => {
           </TimesCount>
           <TimesCount>
             <Time
+              count={reserveTime.time6}
               onClick={() => {
                 handleTimeClick("16:00:00");
               }}
@@ -298,6 +315,7 @@ const BranchReserve = () => {
           </TimesCount>
           <TimesCount>
             <Time
+              count={reserveTime.time7}
               onClick={() => {
                 handleTimeClick("17:00:00");
               }}
@@ -308,6 +326,7 @@ const BranchReserve = () => {
           </TimesCount>
           <TimesCount>
             <Time
+              count={reserveTime.time8}
               onClick={() => {
                 handleTimeClick("18:00:00");
               }}
@@ -318,6 +337,7 @@ const BranchReserve = () => {
           </TimesCount>
           <TimesCount>
             <Time
+              count={reserveTime.time9}
               onClick={() => {
                 handleTimeClick("19:00:00");
               }}
@@ -328,6 +348,7 @@ const BranchReserve = () => {
           </TimesCount>
           <TimesCount>
             <Time
+              count={reserveTime.time10}
               onClick={() => {
                 handleTimeClick("20:00:00");
               }}
@@ -338,6 +359,7 @@ const BranchReserve = () => {
           </TimesCount>
           <TimesCount>
             <Time
+              count={reserveTime.time11}
               onClick={() => {
                 handleTimeClick("21:00:00");
               }}
@@ -348,6 +370,7 @@ const BranchReserve = () => {
           </TimesCount>
           <TimesCount>
             <Time
+              count={reserveTime.time12}
               onClick={() => {
                 handleTimeClick("22:00:00");
               }}
