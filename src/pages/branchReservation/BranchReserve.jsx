@@ -169,8 +169,22 @@ const BranchReserve = () => {
   };
 
   useEffect(() => {
+    setReserveTime({
+      time1: 0,
+      time2: 0,
+      time3: 0,
+      time4: 0,
+      time5: 0,
+      time6: 0,
+      time7: 0,
+      time8: 0,
+      time9: 0,
+      time10: 0,
+      time11: 0,
+      time12: 0,
+    });
     countReserveState();
-  }, [reserveInfo]);
+  }, [reserveInfo, selectedDate]);
 
   // 브랜치 이름 가져오기
   useEffect(() => {
