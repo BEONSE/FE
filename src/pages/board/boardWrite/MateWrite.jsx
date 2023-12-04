@@ -82,7 +82,7 @@ const MateWrite = () => {
   return (
     <>
       <BackMove movePage={moveToMate} content={"메이트 게시판"} />
-      <PageTitle>🙋‍♂️MATE 게시판🙋‍♀️</PageTitle>
+      <PageTitle>🙋‍♂️메이트 게시판🙋‍♀️</PageTitle>
 
       <InputAllDiv>
         <hr />

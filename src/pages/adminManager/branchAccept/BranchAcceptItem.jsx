@@ -76,7 +76,7 @@ const ResultDiv = styled.div`
 `;
 
 const H3 = styled.h3`
-  color: ${({ status }) => (status === '승인' ? '#002fe6' : '#ff0202')}
+  color: ${({ status }) => (status === '가입 승인' ? '#002fe6' : '#ff0202')}
 `
 
 const Date = styled.p`

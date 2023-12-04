@@ -15,7 +15,7 @@ const MyReviewDetail = ({ data, setModalOpen, modalOpen }) => {
     content: {
       margin: "auto",
       width: "80vw",
-      height: "60vh",
+      height: "45vh",
       padding: "0",
       overflow: "auto",
     },
@@ -40,8 +40,8 @@ const MyReviewDetail = ({ data, setModalOpen, modalOpen }) => {
             <Profile>
               <div>
                 <TimeDiv>
-                  <p>작성일 {data.createdAt}</p>
-                  <p>수정일 {data.modifiedAt}</p>
+                  <div>작성일 {data.createdAt}</div>
+                  <div>{data.createdAt !== data.modifiedAt && <div>수정일 {data.modifiedAt}</div>}</div>
                 </TimeDiv>
               </div>
             </Profile>

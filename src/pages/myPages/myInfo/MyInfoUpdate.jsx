@@ -33,7 +33,7 @@ const MyInfoUpdate = () => {
       image: "",
       address: fullAddress,
     });
-  };
+   };
 
   // 이미지 정보
   const [image, setImage] = useState("");
