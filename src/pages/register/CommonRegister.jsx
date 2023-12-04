@@ -245,7 +245,6 @@ const CommonRegister = () => {
       const errResult = err.response.data;
       if (errResult.statusCode === 400) {
         // 이메일 중복
-        alert(errResult.errorMessage);
         emailRef.current.focus();
       }
     }

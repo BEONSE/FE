@@ -66,7 +66,7 @@ const BranchApproveList = () => {
         console.log(paymentResponse);
         setMemberList(paymentResponse.data.content);
       } catch (err) {
-        alert(err);
+        console.log(err);
         setIsEmpty(true)
       } finally {
         setIsLoading(false)

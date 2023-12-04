@@ -65,7 +65,7 @@ const MemberList = () => {
         console.log(memberResponse);
         setMemberList(memberResponse.data.content);
       } catch (err) {
-        alert(err);
+        console.log(err);
         setIsEmpty(true)
       } finally {
         setIsLoading(false)
