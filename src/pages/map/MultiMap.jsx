@@ -111,7 +111,7 @@ const MultiMap = () => {
         },
         (error) => {
           // 에러 처리
-          alert("현재 위치 못가져옴");
+          console.log("현재 위치 못가져옴");
           m_map.setCenter(positions[4].latlng);
         },
         {

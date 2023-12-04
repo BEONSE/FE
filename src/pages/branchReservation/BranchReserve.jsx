@@ -64,13 +64,13 @@ const BranchReserve = () => {
   // 날짜 선택 시
   useEffect(() => {
     const selYear = selectedDate.getFullYear();
-    const selMonth = selectedDate.getMonth() + 1;
-    const selDay = selectedDate.getDate();
+    const selMonth = (selectedDate.getMonth() + 1 < 10 ? "0" : "") + (selectedDate.getMonth() + 1);
+    const selDay = (selectedDate.getDate() < 10 ? "0" : "") + selectedDate.getDate();
     setUserReservation({ reservationTime: `${selYear}-${selMonth}-${selDay} ${parseTime}` });
 
     async function getSelectDayReserveState() {
       try {
-        console.log(`${selYear}-${selMonth}-${selDay}`);
+        console.log(`${selYear.toString().slice(-2)}-${selMonth}-${selDay}`);
         const rStateResponse = await ReqReservationState(
           bid["*"],
           `${selYear.toString().slice(-2)}-${selMonth}-${selDay}`,
@@ -83,7 +83,7 @@ const BranchReserve = () => {
     }
 
     getSelectDayReserveState();
-  }, [selectedDate, parseTime]);
+  }, [selectedDate, setSelectedDate]);
 
   const countReserveState = () => {
     reserveInfo.forEach((time) => {
@@ -212,10 +212,13 @@ const BranchReserve = () => {
         </CalendarWrap>
         <SelectDateTime>
           <p>
-            {selectedDate.getFullYear()}년{selectedDate.getMonth() + 1}월{selectedDate.getDate()}일
+            {selectedDate.getFullYear()}-
+            {(selectedDate.getMonth() + 1 < 10 ? "0" : "") + (selectedDate.getMonth() + 1)}-
+            {(selectedDate.getDate() < 10 ? "0" : "") + selectedDate.getDate()}
             {selectedTime && <span> {selectedTime}시</span>}
           </p>
         </SelectDateTime>
+
         <h2>시간 선택</h2>
         <TimeBox>
           <TimesCount>
