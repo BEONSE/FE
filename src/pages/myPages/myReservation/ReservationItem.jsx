@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { CommonButton } from "../../../components/CommonButton";
 import { useEffect, useState } from "react";
+import { CouponListForm } from "../../branchManager/coupon";
 
 const ReservationItem = ({ list }) => {
   // 문자열을 Date 객체로 변환
@@ -30,7 +31,7 @@ const ReservationItem = ({ list }) => {
 
   return (
     <>
-      <ReserveAllDiv>
+      <CouponListForm>
         <BranchName>
           <p>BEONSE {list.branchName}</p>
         </BranchName>
@@ -47,7 +48,7 @@ const ReservationItem = ({ list }) => {
           </DDayBox>
         </ResTime>
         <CancelButton over={timeOver}>{diffInDays >= 0 ? "예약 취소" : "취소 불가"}</CancelButton>
-      </ReserveAllDiv>
+      </CouponListForm>
     </>
   );
 };
