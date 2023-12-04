@@ -14,6 +14,7 @@ const PayModal = ({
   price,
   setModalContent,
   setModalState,
+  closePay
 }) => {
   const [openModal, setOpenModal] = useState(true);
   const [cardNum, setCardNum] = useState(""); // 카드 번호
@@ -35,6 +36,7 @@ const PayModal = ({
   const closeModal = () => {
     setOpenModal(false);
     setModalOpen(!modalOpen);
+    closePay();
   };
 
   const [reqCardInfo, setReqCardInfo] = useState({
