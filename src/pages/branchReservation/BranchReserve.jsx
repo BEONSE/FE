@@ -431,7 +431,6 @@ const SelectDateTime = styled.div`
 // 달력 div
 const CalendarWrap = styled.div`
   position: relative;
-  z-index: -1;
   & > hr {
     margin-top: 2vh;
     margin-bottom: 2vh;
@@ -442,7 +441,6 @@ const CalendarWrap = styled.div`
     width: 100%;
     font-size: 1.2em;
     font-family: "S-CoreDream-light";
-    z-index: 1;
   }
 
   // 달력 Header
