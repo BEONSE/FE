@@ -25,6 +25,14 @@ const WarningModal = ({ content, content2, movePage }) => {
       overflow: "hidden",
     },
   };
+
+  const handelMovePage = () => {
+    if (typeof movePage === "function") {
+      movePage();
+      modalHandle();
+    }
+  };
+
   return (
     <>
       <Modal
@@ -38,7 +46,7 @@ const WarningModal = ({ content, content2, movePage }) => {
           <p>{content}</p>
           <p>{content2}</p>
           <div>
-            <PayBtn onClick={movePage}>확 인</PayBtn>
+            <PayBtn onClick={handelMovePage}>확 인</PayBtn>
           </div>
         </ModalContent>
       </Modal>
