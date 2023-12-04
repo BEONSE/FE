@@ -1,15 +1,17 @@
 import { styled } from "styled-components";
-import { CommonButton } from "../../../components/CommonButton";
 import React, { useEffect, useState } from "react";
 import Loading from "../../../components/Loading";
 import { ReqWaitMember } from "../../../apis/auth";
 import BranchApproveItem from "./BranchApproveItem";
+import WarningModal from "../../../components/WarningModal";
 
 const BranchApproveList = () => {
   const [isEmpty, setIsEmpty] = useState(false);
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
   const [memberList, setMemberList] = useState([]);
-// 페이지
+  const [modalState, setModalState] = useState(false);
+  const [modalContent, setModalContent] = useState("");
+  // 페이지
   const [page, setPage] = useState(1);
   const loadMore = async () => {
     try {
@@ -38,7 +40,7 @@ const BranchApproveList = () => {
         setTimeout(() => (inThrottle = false), delay);
       }
     };
-  }
+  };
 
   const handleScroll = () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
@@ -67,9 +69,9 @@ const BranchApproveList = () => {
         setMemberList(paymentResponse.data.content);
       } catch (err) {
         console.log(err);
-        setIsEmpty(true)
+        setIsEmpty(true);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
     }
     getWaitMember();
@@ -77,6 +79,14 @@ const BranchApproveList = () => {
 
   return (
     <>
+      {modalState && (
+        <WarningModal
+          content={modalContent}
+          movePage={() => {
+            window.location.reload();
+          }}
+        />
+      )}
       {isLoading ? (
         <LoadDiv>
           <Loading />
@@ -85,7 +95,12 @@ const BranchApproveList = () => {
         <ApproveList>
           {isEmpty && <p>게시글을 찾을 수 없습니다.</p>}
           {memberList.map((list) => (
-            <BranchApproveItem key={list.mid} list={list} />
+            <BranchApproveItem
+              key={list.mid}
+              list={list}
+              setModalContent={setModalContent}
+              setModalState={setModalState}
+            />
           ))}
         </ApproveList>
       )}

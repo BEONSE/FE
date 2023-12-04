@@ -1,17 +1,17 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React from "react";
 import { CommonButton } from "../../../components/CommonButton";
 import { ReqAcceptMember, ReqRejectMember } from "../../../apis/auth";
 
-const BranchApproveItem = ({ list }) => {
-
+const BranchApproveItem = ({ list, setModalContent, setModalState }) => {
   const acceptBtnHandle = async () => {
     try {
       const acceptResponse = await ReqAcceptMember(list.mid);
       console.log(acceptResponse);
       if (acceptResponse.status === 200) {
-        alert('가입이 승인되었습니다.')
-        window.location.reload();
+        setModalContent("가입이 승인되었습니다.");
+        setModalState(true);
+        // window.location.reload();
       }
     } catch (err) {
       console.log(err);
@@ -23,13 +23,13 @@ const BranchApproveItem = ({ list }) => {
       const rejectResponse = await ReqRejectMember(list.mid);
       console.log(rejectResponse);
       if (rejectResponse.status === 200) {
-        alert('가입이 거절되었습니다.')
-        window.location.reload();
+        setModalContent("가입이 거절되었습니다.");
+        setModalState(true);
+        // window.location.reload();
       }
     } catch (err) {
       console.log(err);
     }
-
   };
 
   return (
@@ -39,7 +39,9 @@ const BranchApproveItem = ({ list }) => {
           <BranchContent>
             <p>#{list.bid}</p>
             <div>
-              <b><p>{list.nickname}</p></b>
+              <b>
+                <p>{list.nickname}</p>
+              </b>
               <p>대표 : {list.name}</p>
               <p>가맹점 주소 : </p>
               <p>{list.address}</p>
@@ -50,9 +52,7 @@ const BranchApproveItem = ({ list }) => {
             <AcceptBtn onClick={rejectBtnHandle}>거절</AcceptBtn>
           </BtnDiv>
         </LeftInfo>
-        <Date>
-          신청 날짜 : {list.createdAt}
-        </Date>
+        <Date>신청 날짜 : {list.createdAt}</Date>
       </ApproveGroup>
       <Hr />
     </>
@@ -73,7 +73,7 @@ const AcceptBtn = styled(CommonButton)`
   width: 15vw;
   height: 3vh;
   padding: 3px;
-  
+
   & + & {
     background-color: #c8c8c8;
   }
@@ -105,7 +105,7 @@ const BranchContent = styled.div`
   width: 65%;
   display: flex;
   flex-direction: column;
-  
+
   & > p {
     margin-bottom: 1vh;
   }
