@@ -7,7 +7,14 @@ import { ReqPaymentsByPoint } from "../../apis/point";
 import Modal from "react-modal";
 
 /* 결제 화면 Modal */
-const PayModal = ({ setModalOpen, modalOpen, formattedPrice, price }) => {
+const PayModal = ({
+  setModalOpen,
+  modalOpen,
+  formattedPrice,
+  price,
+  setModalContent,
+  setModalState,
+}) => {
   const [openModal, setOpenModal] = useState(true);
   const [cardNum, setCardNum] = useState(""); // 카드 번호
 
@@ -30,7 +37,7 @@ const PayModal = ({ setModalOpen, modalOpen, formattedPrice, price }) => {
     setModalOpen(!modalOpen);
   };
 
-    const [reqCardInfo, setReqCardInfo] = useState({
+  const [reqCardInfo, setReqCardInfo] = useState({
     paymentPrice: price,
     cardName: "",
     cardNumber: "",
@@ -42,8 +49,8 @@ const PayModal = ({ setModalOpen, modalOpen, formattedPrice, price }) => {
       const payResponse = await ReqPaymentsByPoint(reqCardInfo);
       console.log(payResponse);
       if (payResponse.data.statusCode === 200) {
-        alert(payResponse.data.successMessage);
-        window.location.reload();
+        setModalContent(payResponse.data.successMessage);
+        setModalState(true);
         closeModal();
       }
     } catch (err) {
@@ -59,7 +66,6 @@ const PayModal = ({ setModalOpen, modalOpen, formattedPrice, price }) => {
     setReqCardInfo((prevValue) => ({
       ...prevValue,
       cardNumber: cardNum,
-
     }));
     console.log(reqCardInfo);
     console.log(cardNum);
@@ -75,15 +81,17 @@ const PayModal = ({ setModalOpen, modalOpen, formattedPrice, price }) => {
     setCardNum(e.target.value);
     console.log(e.target.value);
     console.log(cardNum);
-  }
+  };
 
   return (
     <>
       <GlobalStyle />
-      <Modal isOpen={openModal}
-      onRequestClose={closeModal}
-      style={customStyles}
-      ariaHideApp={false}>
+      <Modal
+        isOpen={openModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        ariaHideApp={false}
+      >
         <ModalContent>
           <h2>카드 정보 입력</h2>
           <SelectBox>
@@ -144,7 +152,9 @@ const PayModal = ({ setModalOpen, modalOpen, formattedPrice, price }) => {
             <PayBtn isCancled onClick={closeModal}>
               취 소
             </PayBtn>
-            <PayBtn onClick={clickPayBtn} setAcceptModal={true}>결 제</PayBtn>
+            <PayBtn onClick={clickPayBtn} setAcceptModal={true}>
+              결 제
+            </PayBtn>
           </Buttons>
         </ModalContent>
       </Modal>
@@ -159,15 +169,14 @@ const ModalContent = styled.div`
   flex-direction: column;
   align-items: center;
   padding-top: 4vh;
-  
+
   & > h2 {
     margin-bottom: 2vh;
   }
 `;
 
 // 카드 정보 전체 div
-const CardInfo = styled.div`
-`;
+const CardInfo = styled.div``;
 
 /* 카드 번호 Style */
 const CardNumber = styled.div`
@@ -190,7 +199,7 @@ const CardPassword = styled.div`
 /* 결제 금액 Style */
 const PaymentPrice = styled.div`
   & > input {
-    padding:2%;
+    padding: 2%;
     width: 178px;
   }
 `;

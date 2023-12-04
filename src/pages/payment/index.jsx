@@ -9,12 +9,11 @@ import { usePageMoving } from "../../components/usePageMoving";
 
 /* 포인트 충전 컴포넌트 */
 const Payment = () => {
-
-  const {moveToBuyCoupon} = usePageMoving();
+  const { moveToBuyCoupon } = usePageMoving();
   return (
     <>
       <GlobalStyle />
-      <BackMove movePage={moveToBuyCoupon} content={"쿠폰 구매하기"}/>
+      <BackMove movePage={moveToBuyCoupon} content={"쿠폰 구매하기"} />
       <PointAllDiv>
         <Title></Title>
         <CurrentPoint>
