@@ -288,7 +288,6 @@ const [introductionValid, setIntroductionValid] = useState(false);
       const errResult = err.response.data;
       if (errResult.statusCode === 400) {
         // 닉네임(가맹점명) 중복
-        alert(errResult.errorMessage);
         branchNameRef.current.focus();
       }
     }

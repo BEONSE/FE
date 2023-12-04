@@ -43,7 +43,6 @@ const CurrentUserInfo = () => {
         }
       } catch (err) {
         if (err.response.data.message === "토큰 시간 만료") {
-          // alert("토큰이 만료되었습니다.");
           setModalState(true);
         }
         removeAuthHeader();
