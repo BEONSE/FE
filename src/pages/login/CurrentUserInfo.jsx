@@ -7,9 +7,13 @@ import Grade2 from "../../assets/grade2.png";
 import Grade3 from "../../assets/grade3.png";
 import { removeAuthHeader } from "../../apis/axiosConfig";
 import AppContext from "../../AppContext";
+import WarningModal from "../../components/WarningModal";
+import { usePageMoving } from "../../components/usePageMoving";
 
 const CurrentUserInfo = () => {
   const appContext = useContext(AppContext);
+  const [modalState, setModalState] = useState(false);
+  const { moveToLogin } = usePageMoving();
 
   const [currentUser, setCurrentUser] = useState({
     mid: 0,
@@ -39,7 +43,8 @@ const CurrentUserInfo = () => {
         }
       } catch (err) {
         if (err.response.data.message === "토큰 시간 만료") {
-          alert("토큰이 만료되었습니다.");
+          // alert("토큰이 만료되었습니다.");
+          setModalState(true);
         }
         removeAuthHeader();
         appContext.setAccessToken("");
@@ -53,10 +58,16 @@ const CurrentUserInfo = () => {
 
   return (
     <>
+      {modalState && (
+        <WarningModal content="로그인 시간이 만료되었습니다." movePage={moveToLogin} />
+      )}
       <Infos>
         <ProfileImg>
-          {currentUser.image ? (<img src={`data:image/png;base64,${currentUser.image}`} alt="프로필 사진" />) : (
-            <img src={Basic} alt="기본 이미지" />)}
+          {currentUser.image ? (
+            <img src={`data:image/png;base64,${currentUser.image}`} alt="프로필 사진" />
+          ) : (
+            <img src={Basic} alt="기본 이미지" />
+          )}
         </ProfileImg>
         <Profile>
           <Grade>
