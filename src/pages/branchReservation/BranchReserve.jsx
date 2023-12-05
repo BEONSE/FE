@@ -212,9 +212,7 @@ const BranchReserve = () => {
         </CalendarWrap>
         <SelectDateTime>
           <p>
-            {selectedDate.getFullYear()}-
-            {(selectedDate.getMonth() + 1 < 10 ? "0" : "") + (selectedDate.getMonth() + 1)}-
-            {(selectedDate.getDate() < 10 ? "0" : "") + selectedDate.getDate()}
+            {selectedDate.getFullYear()}년{selectedDate.getMonth() + 1}월{selectedDate.getDate()}일
             {selectedTime && <span> {selectedTime}시</span>}
           </p>
         </SelectDateTime>
@@ -506,19 +504,7 @@ const CalendarWrap = styled.div`
   .react-datepicker__day--outside-month.react-datepicker__day:nth-child(1) {
     color: #bebebe;
   }
-  // 오늘 이전의 토요일과 일요일에 대한 스타일
-  .react-datepicker__day--weekend {
-    color: #bebebe; /* 토요일과 일요일의 기본 스타일을 회색으로 지정합니다. */
-  }
 
-  .react-datepicker__day--weekend.react-datepicker__day--selected {
-    color: #000; /* 선택된 토요일과 일요일의 색상을 검정으로 유지합니다. */
-    background-color: #99e8f8; /* 선택된 토요일과 일요일의 배경색을 변경합니다. */
-  }
-
-  .react-datepicker__day--today.react-datepicker__day--weekend {
-    color: #bebebe; /* 현재 날짜 이전의 토요일과 일요일의 스타일을 회색으로 지정합니다. */
-  }
   // 하루
   .react-datepicker__day {
     display: flex;
@@ -543,11 +529,11 @@ const CalendarWrap = styled.div`
 
   /* day: 주말 날짜 */
 
-  .react-datepicker__day:nth-child(1) {
+  /* .react-datepicker__day:nth-child(1) {
     color: red;
   }
 
   .react-datepicker__day:nth-child(7) {
     color: #4848dd;
-  }
+  } */
 `;

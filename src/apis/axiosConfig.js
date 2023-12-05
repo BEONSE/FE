@@ -2,7 +2,6 @@ import axios from "axios";
 
 export const axios1 = axios.create({
   baseURL: "https://beonse.store:80/",
-  // baseURL: "http://localhost:8080",
 });
 
 export function addAuthHeader(accessToken) {

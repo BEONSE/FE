@@ -35,7 +35,7 @@ const ReservationItem = ({ list }) => {
           <p>BEONSE {list.branchName}</p>
         </BranchName>
         <ResTime>
-          <p>{list.reservationTime}</p>
+          <p>{list.reservationTime.toString().slice(0, -6)}시</p>
           <DDayBox finish={diffInDays <= 0}>
             {parseInt(diffInDays) === 0 ? (
               <h3>예약 당일</h3>
@@ -73,6 +73,9 @@ const BranchName = styled.div`
 const ResTime = styled.div`
   display: flex;
   justify-content: space-between;
+  & > p {
+    font-size: 20px;
+  }
 `;
 
 const CancelButton = styled(CommonButton)`
