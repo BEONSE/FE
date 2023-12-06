@@ -20,7 +20,9 @@ const HaveCouponItem = ({ coupon, selectedFilter }) => {
 
   // 지점 선택 handler
   const selectedHandler = (e) => {
-    setSelectBranch({ branchName: e.target.value });
+    if (e.target.value !== "default") {
+      setSelectBranch({ branchName: e.target.value });
+    }
   };
 
   // 지점 이름 가져오기
