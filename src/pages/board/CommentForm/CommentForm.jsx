@@ -18,7 +18,6 @@ const CommentForm = ({ id }) => {
     e.preventDefault();
     try {
       const commentResponse = await ReqAddComment(id, isComment);
-      console.log(commentResponse);
       window.location.reload();
     } catch (err) {
       console.log("댓글 등록 버튼 에러", err);

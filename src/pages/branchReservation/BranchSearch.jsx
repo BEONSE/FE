@@ -19,7 +19,6 @@ const BranchSearch = () => {
   // 검색 입력 감지 handler
   const inputHandler = (e) => {
     setSearchKeyword(e.target.value);
-    console.log(searchKeyword);
   };
 
   // 검색 입력 초기화
@@ -35,13 +34,11 @@ const BranchSearch = () => {
   const searchRequest = async () => {
     try {
       const searchResponse = await ReqBranchSearch(searchKeyword);
-      console.log("프렌치 서치", searchResponse);
       if (searchResponse.status === 200) {
         setIsBranchInfo(searchResponse.data);
       }
       setSearchResult(false);
     } catch (err) {
-      console.log(err);
       if (err.response.status === 404) {
         setSearchResult(true);
       }

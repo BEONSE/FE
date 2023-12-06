@@ -29,7 +29,6 @@ const CurrentUserInfo = () => {
     async function getProfile() {
       try {
         const profileResponse = await ReqProfile();
-        console.log("반환", profileResponse);
         if (profileResponse.status === 200) {
           setCurrentUser({
             ...currentUser,
@@ -48,7 +47,6 @@ const CurrentUserInfo = () => {
         removeAuthHeader();
         appContext.setAccessToken("");
         appContext.setRefreshToken("");
-        console.log(err);
       }
     }
 

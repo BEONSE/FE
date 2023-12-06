@@ -48,10 +48,7 @@ const GetWeather = () => {
       setFirstDayForecast(resForecast.data.list.slice(0, 8));
       setSecondDayForecast(resForecast.data.list.slice(8, 16));
       setThirdDayForecast(resForecast.data.list.slice(16, 24));
-
-      console.log(resForecast);
     } catch (error) {
-      console.error("Forecast fetching error:", error);
       setError(true);
     } finally {
       setIsLoading(false);

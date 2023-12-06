@@ -3,7 +3,6 @@ import { usePageMoving } from "../../../components/usePageMoving";
 import Grade1 from "../../../assets/grade1.png";
 import Grade2 from "../../../assets/grade2.png";
 import Grade3 from "../../../assets/grade3.png";
-import BackMove from "../../../components/backMove";
 import React from "react";
 /* 메이트 게시글 컴포넌트 */
 const MateItem = ({ list }) => {

@@ -65,10 +65,8 @@ const BranchApproveList = () => {
     async function getWaitMember() {
       try {
         const paymentResponse = await ReqWaitMember();
-        console.log(paymentResponse);
         setMemberList(paymentResponse.data.content);
       } catch (err) {
-        console.log(err);
         setIsEmpty(true);
       } finally {
         setIsLoading(false);

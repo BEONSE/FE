@@ -22,7 +22,7 @@ const MyBoard = () => {
   return (
     <>
       <GlobalStyle />
-      <BackMove content={"홈으로"}/>
+      <BackMove content={"홈으로"} />
       <BoardAllDiv>
         <h1>내가 쓴 게시글</h1>
         <MyBoardType>
@@ -37,8 +37,6 @@ const MyBoard = () => {
             <span>메이트 게시판</span>
             <hr />
           </TypeItem>
-          {/* <Route path="myreview" element={<MyReview />} />
-          <Route path="mymate" element={<MyMate />} /> */}
         </MyBoardType>
         {selectedType === "myreview" ? <MyReview /> : <MyMate />}
       </BoardAllDiv>

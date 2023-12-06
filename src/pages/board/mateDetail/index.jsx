@@ -7,7 +7,6 @@ import { ReqMateBoardComment, ReqMateBoardDetail } from "../../../apis/mateBoard
 import CommentForm from "../CommentForm/CommentForm";
 import BackMove from "../../../components/backMove";
 import Loading from "../../../components/Loading";
-import { tr } from "date-fns/locale";
 import { usePageMoving } from "../../../components/usePageMoving";
 import { CommonButton } from "../../../components/CommonButton";
 
@@ -94,11 +93,8 @@ const MateDetail = () => {
         const commentResponse = await ReqMateBoardComment(mbid.id);
         setComment(commentResponse.data.content);
         setPageData(commentResponse.data);
-        console.log("댓글", commentResponse.data.content);
       } catch (err) {
         console.log(err);
-        console.log(err.response.data.statusCode);
-        console.log(err.response.data.errorMessage);
       } finally {
         setIsLoading(false);
       }

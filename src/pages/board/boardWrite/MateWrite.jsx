@@ -51,10 +51,6 @@ const MateWrite = () => {
     }));
   };
 
-  useEffect(() => {
-    console.log(writeMate);
-  }, [writeMate]);
-
   // 지점 선택 handler
   const selectedHandler = (e) => {
     if (e.target.value !== "default") {
@@ -70,7 +66,6 @@ const MateWrite = () => {
     async function getBranchNames() {
       try {
         const namesResponse = await ReqBranchNames();
-        console.log("이름", namesResponse);
         if (namesResponse.status === 200) {
           setBranchNames(namesResponse.data);
         }
@@ -132,7 +127,6 @@ const MateWrite = () => {
         <Button
           onClick={() => {
             if (writeMate.branchName.length > 0) {
-              console.log(writeMate);
               setClickBtn(true);
             } else {
               setBranchCheck(true);

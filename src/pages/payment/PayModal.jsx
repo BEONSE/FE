@@ -14,7 +14,7 @@ const PayModal = ({
   price,
   setModalContent,
   setModalState,
-  closePay
+  closePay,
 }) => {
   const [openModal, setOpenModal] = useState(true);
   const [cardNum, setCardNum] = useState(""); // 카드 번호
@@ -49,7 +49,6 @@ const PayModal = ({
   const clickPayBtn = async () => {
     try {
       const payResponse = await ReqPaymentsByPoint(reqCardInfo);
-      console.log(payResponse);
       if (payResponse.data.statusCode === 200) {
         setModalContent(payResponse.data.successMessage);
         setModalState(true);
@@ -61,17 +60,10 @@ const PayModal = ({
   };
 
   useEffect(() => {
-    console.log(reqCardInfo);
-  }, [reqCardInfo]);
-
-  useEffect(() => {
     setReqCardInfo((prevValue) => ({
       ...prevValue,
       cardNumber: cardNum,
     }));
-    console.log(reqCardInfo);
-    console.log(cardNum);
-    console.log(reqCardInfo.cardNumber);
   }, [cardNum, setReqCardInfo]);
 
   const selectedHandler = (e) => {
@@ -81,8 +73,6 @@ const PayModal = ({
       cardNumber: cardNum,
     }));
     setCardNum(e.target.value);
-    console.log(e.target.value);
-    console.log(cardNum);
   };
 
   return (

@@ -68,7 +68,6 @@ const MyMate = () => {
     async function getMyMate() {
       try {
         const response = await ReqMyMate();
-        console.log(response.data.content);
         setMateList(response.data.content);
       } catch (err) {
         if (err.response.data.statusCode === 404 || err.response.data.statusCode === 401) {

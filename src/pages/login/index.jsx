@@ -54,7 +54,6 @@ const Login = ({ setHideHeaderFooter }) => {
     e.preventDefault();
     try {
       const loginResponse = await ReqLogin(loginUser);
-      console.log("로그인", loginResponse);
       if (loginResponse.status === 200) {
         setPopupModal(true);
         // 요청 공통 헤더에 추가
@@ -68,13 +67,11 @@ const Login = ({ setHideHeaderFooter }) => {
         setBid(loginResponse.data.branchId);
       }
     } catch (err) {
-      console.log(err);
       const errResult = err.response.data;
       if (errResult.statusCode === 400) {
         // 이메일 불일치
         alert(errResult.errorMessage);
         loginEmailRef.current.focus();
-
       } else if (errResult.statusCode === 404) {
         // 비밀번호 불일치
         alert(errResult.errorMessage);
@@ -122,10 +119,8 @@ const Login = ({ setHideHeaderFooter }) => {
           </LoginButtonDiv>
         </FormTag>
         <AddService>
-          <span onClick={() => {
-          }}>아이디찾기 | </span>
-          <span onClick={() => {
-          }}>비밀번호찾기 | </span>
+          <span onClick={() => {}}>아이디찾기 | </span>
+          <span onClick={() => {}}>비밀번호찾기 | </span>
           <span
             onClick={() => {
               moveToRegister();

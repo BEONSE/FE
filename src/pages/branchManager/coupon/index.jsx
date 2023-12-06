@@ -1,16 +1,8 @@
-import { useEffect } from "react";
 import styled from "styled-components";
 import PressCoupon from "../../../assets/presscoupon.png";
 import FormCoupon from "../../../assets/formcoupon.png";
 
 const CouponList = ({ list }) => {
-  useEffect(() => {
-    if (list) {
-      console.log(list);
-      console.log("c", list["type"]);
-    }
-  }, [list]);
-
   return (
     <>
       {list && (

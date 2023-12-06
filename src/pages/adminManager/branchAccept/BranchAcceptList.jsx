@@ -6,9 +6,9 @@ import BranchAcceptItem from "./BranchAcceptItem";
 
 const BranchAcceptList = () => {
   const [isEmpty, setIsEmpty] = useState(false);
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
   const [memberList, setMemberList] = useState([]);
-// 페이지
+  // 페이지
   const [page, setPage] = useState(1);
   const loadMore = async () => {
     try {
@@ -37,7 +37,7 @@ const BranchAcceptList = () => {
         setTimeout(() => (inThrottle = false), delay);
       }
     };
-  }
+  };
 
   const handleScroll = () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
@@ -62,13 +62,11 @@ const BranchAcceptList = () => {
     async function getResultMember() {
       try {
         const paymentResponse = await ReqResultMember();
-        console.log(paymentResponse);
         setMemberList(paymentResponse.data.content);
       } catch (err) {
-        console.log(err);
-        setIsEmpty(true)
+        setIsEmpty(true);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
     }
     getResultMember();

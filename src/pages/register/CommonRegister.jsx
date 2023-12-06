@@ -29,7 +29,6 @@ const CommonRegister = () => {
   const handleCheckEmail = async () => {
     try {
       const response = await ReqCheckEmail(commonRegister.email);
-      console.log(response.data);
       if (response.data.statusCode === 200) {
         setDuplication(2);
       }

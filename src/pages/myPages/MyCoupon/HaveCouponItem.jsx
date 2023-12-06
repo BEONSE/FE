@@ -30,7 +30,6 @@ const HaveCouponItem = ({ coupon, selectedFilter }) => {
     async function getBranchNames() {
       try {
         const namesResponse = await ReqBranchNames();
-        console.log("이름", namesResponse);
         if (namesResponse.status === 200) {
           setBranchNames(namesResponse.data);
         }
@@ -42,14 +41,10 @@ const HaveCouponItem = ({ coupon, selectedFilter }) => {
     getBranchNames();
   }, []);
 
-  useEffect(() => {
-    console.log(selectBranch.branchName);
-  }, [selectBranch]);
 
   const patchCoupon = async () => {
     try {
       const useReponse = await ReqUseCoupon(coupon.cid, selectBranch);
-      console.log(useReponse);
       if (useReponse.status === 200) {
         window.location.reload();
       }

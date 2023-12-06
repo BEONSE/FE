@@ -9,7 +9,6 @@ const MyPoints = () => {
     async function getPoint() {
       try {
         const pointResponse = await ReqPoints();
-        console.log(pointResponse);
         if (pointResponse.status === 200) {
           setMyPoint(pointResponse.data.point.toLocaleString());
         }

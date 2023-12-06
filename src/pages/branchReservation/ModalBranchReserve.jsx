@@ -33,9 +33,7 @@ const ModalBranchReserve = ({ userReservation, bid, branchname, setClickBtn }) =
   // 예약 버튼 클릭 시
   const handleClickReservation = async () => {
     try {
-      console.log(userReservation.reservationTime);
       const selectResponse = await ReqBranchReserve(bid["*"], userReservation);
-      console.log("선택날ㅉ", selectResponse);
       if (selectResponse.status === 200) {
         moveToMyReservation();
       }

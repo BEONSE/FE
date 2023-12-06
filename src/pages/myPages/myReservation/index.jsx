@@ -24,7 +24,6 @@ const MyReservation = () => {
         setIsEmpty(true);
       } else {
         setResList([...resList, ...response.data.content]);
-        console.log(response.data);
         setPageData(response.data);
         setPage(page + 1);
       }
@@ -71,7 +70,6 @@ const MyReservation = () => {
     async function getReservation() {
       try {
         const reserveResponse = await ReqMyReservation();
-        console.log(reserveResponse);
         if (reserveResponse.status === 200) {
           setResList(reserveResponse.data.content);
         }

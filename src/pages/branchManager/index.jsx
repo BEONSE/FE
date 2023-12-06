@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import BranchUpdate from "./branchUpdate";
 import React, { useEffect } from "react";
 import BranchHome from "./BranchHome";
-import BranchReservation from "../branchReservation";
 
 const BranchManager = ({ setHideHeaderFooter }) => {
   // Header Footer 숨기기

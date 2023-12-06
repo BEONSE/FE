@@ -11,7 +11,7 @@ import LoginModal from "../../../components/LoginModal";
 
 /* 메이트 게시판 List 컴포넌트 */
 const MateList = () => {
-  const { moveToWrite, moveToLogin } = usePageMoving();
+  const { moveToWrite } = usePageMoving();
 
   const appContext = useContext(AppContext);
   const [checkToken, setCheckToken] = useState(false);
@@ -41,7 +41,6 @@ const MateList = () => {
         setPageData(response.data);
         setPage(page + 1);
       }
-      console.log(pageData);
     } catch (err) {
       // 오류 처리
     } finally {
@@ -51,7 +50,7 @@ const MateList = () => {
 
   const throttle = (func, delay) => {
     let inThrottle;
-    return function() {
+    return function () {
       const args = arguments;
       const context = this;
       if (!inThrottle) {
@@ -94,7 +93,6 @@ const MateList = () => {
     async function getMateList() {
       try {
         const response = await ReqMateBoardList();
-        console.log(response.data);
         setMateList(response.data.content);
       } catch (err) {
         if (err.response.data.statusCode === 404 || err.response.data.statusCode === 401) {
@@ -110,7 +108,7 @@ const MateList = () => {
 
   return (
     <>
-      <BackMove content={"홈으로"}/>
+      <BackMove content={"홈으로"} />
       <PageTitle>👬 세차 메이트 👬</PageTitle>
       <Button onClick={writeBtnHandler}>글쓰기</Button>
       <hr />
@@ -127,11 +125,11 @@ const MateList = () => {
         </AllMateListDiv>
       )}
       {checkToken && <LoginModal setCheckToken={setCheckToken} checkToken={checkToken} />}
-      {isLoading2 && page != pageData.totalPageNo &&
+      {isLoading2 && page != pageData.totalPageNo && (
         <LoadDiv>
           <Loading />
         </LoadDiv>
-      }
+      )}
       {page === pageData.totalPageNo ? <br /> : <H4>더보기</H4>}
     </>
   );

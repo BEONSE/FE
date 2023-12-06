@@ -26,7 +26,6 @@ const ReservationItem = ({ list }) => {
 
   useEffect(() => {
     setTimeOver(diffInDays <= 0);
-    console.log(diffInDays);
   }, [diffInDays]);
 
   return (

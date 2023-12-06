@@ -28,7 +28,6 @@ const BranchRegister = () => {
   const handleCheckEmail = async () => {
     try {
       const response = await ReqCheckEmail(branchRegister.email);
-      console.log(response.data);
       if (response.data.statusCode === 200) {
         setDuplication(2);
       }
@@ -47,8 +46,6 @@ const BranchRegister = () => {
 
   const handleComplete = (data) => {
     setPopup(false);
-
-    console.log(data);
 
     let fullAddress = data.address;
 
@@ -305,8 +302,6 @@ const [introductionValid, setIntroductionValid] = useState(false);
       if (status === kakao.maps.services.Status.OK) {
         var coordsY = result[0].y;
         var coordsX = result[0].x;
-        console.log("위도", coordsY);
-        console.log("경도", coordsX);
         setBranchRegister((prevItem) => ({
           ...prevItem,
           lat: coordsY,

@@ -6,9 +6,9 @@ import PaymentItem from "./PaymentItem";
 
 const PaymentList = () => {
   const [isEmpty, setIsEmpty] = useState(false);
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
   const [paymentList, setPaymentList] = useState([]);
-// 페이지
+  // 페이지
   const [page, setPage] = useState(1);
   const loadMore = async () => {
     try {
@@ -37,7 +37,7 @@ const PaymentList = () => {
         setTimeout(() => (inThrottle = false), delay);
       }
     };
-  }
+  };
 
   const handleScroll = () => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
@@ -62,13 +62,11 @@ const PaymentList = () => {
     async function getPayments() {
       try {
         const paymentResponse = await ReqPayment();
-        console.log(paymentResponse);
         setPaymentList(paymentResponse.data.content);
       } catch (err) {
-        console.log(err);
-        setIsEmpty(true)
+        setIsEmpty(true);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
     }
     getPayments();

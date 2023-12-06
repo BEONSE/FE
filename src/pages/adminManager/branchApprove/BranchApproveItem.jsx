@@ -7,7 +7,6 @@ const BranchApproveItem = ({ list, setModalContent, setModalState }) => {
   const acceptBtnHandle = async () => {
     try {
       const acceptResponse = await ReqAcceptMember(list.mid);
-      console.log(acceptResponse);
       if (acceptResponse.status === 200) {
         setModalContent("가입이 승인되었습니다.");
         setModalState(true);
@@ -21,7 +20,6 @@ const BranchApproveItem = ({ list, setModalContent, setModalState }) => {
   const rejectBtnHandle = async () => {
     try {
       const rejectResponse = await ReqRejectMember(list.mid);
-      console.log(rejectResponse);
       if (rejectResponse.status === 200) {
         setModalContent("가입이 거절되었습니다.");
         setModalState(true);

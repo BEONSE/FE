@@ -21,7 +21,6 @@ const MyPayment = () => {
         setIsEmpty(true);
       } else {
         setPaymentList([...paymentList, ...response.data.content]);
-        console.log(response.data);
         setPageData(response.data);
         setPage(page + 1);
       }
@@ -68,10 +67,8 @@ const MyPayment = () => {
     async function getMyPayment() {
       try {
         const paymentResponse = await ReqMyPayment();
-        console.log(paymentResponse);
         setPaymentList(paymentResponse.data.content);
       } catch (err) {
-        console.log(err);
         setIsEmpty(true);
       } finally {
         setIsLoading(false);

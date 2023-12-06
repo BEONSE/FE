@@ -7,16 +7,12 @@ import Rank from "./Rank";
 import MainImage from "../../assets/MainBackgroundImage.jpg";
 import ArrowImg from "../../assets/arrow.png";
 import { usePageMoving } from "../../components/usePageMoving";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import AppContext from "../../AppContext";
 
 const Home = () => {
   const { moveToSearch } = usePageMoving();
   const appContext = useContext(AppContext);
-
-  useEffect(() => {
-    console.log(appContext.role);
-  }, []);
 
   return (
     <>

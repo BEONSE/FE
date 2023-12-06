@@ -1,7 +1,7 @@
 import Modal from "react-modal";
 import { PayBtn } from "../../payment/PayModal";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ReqUpdateProfile } from "../../../apis/auth";
 import { usePageMoving } from "../../../components/usePageMoving";
 
@@ -39,7 +39,6 @@ const ModalMyInfoUpdate = ({ commonUpdate, image, setModalOpen, modalOpen }) => 
 
       const userInfoResponse = await ReqUpdateProfile(formData);
       moveToHome();
-      console.log("userInfoRes", userInfoResponse);
       if (userInfoResponse.status === 200) {
         closeModal();
         moveToHome();
@@ -49,9 +48,6 @@ const ModalMyInfoUpdate = ({ commonUpdate, image, setModalOpen, modalOpen }) => 
     }
   };
 
-  useEffect(() => {
-    console.log(commonUpdate);
-  });
 
   return (
     <>
