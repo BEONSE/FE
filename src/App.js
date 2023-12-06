@@ -5,6 +5,7 @@ import Header from "./components/header";
 import AppRoute from "./pages/AppRoute";
 import { useState } from "react";
 import { addAuthHeader } from "./apis/axiosConfig";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const [hideHeaderFooter, setHideHeaderFooter] = useState(false);
@@ -20,6 +21,7 @@ function App() {
       {!hideHeaderFooter && <BlankDiv />}
       <Wrapper>
         <CompDiv>
+          <ScrollToTop />
           <AppRoute setHideHeaderFooter={setHideHeaderFooter} />
         </CompDiv>
         {!hideHeaderFooter && <Footer />}
