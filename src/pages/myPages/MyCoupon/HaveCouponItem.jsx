@@ -83,7 +83,7 @@ const HaveCouponItem = ({ coupon, selectedFilter }) => {
         <SelectBox>
           {selectedFilter === "no" && (
             <select onChange={selectedHandler} value={selectBranch.branchName}>
-              <option value={"defalut"}>지점 선택</option>
+              <option value={"default"}>지점 선택</option>
               {branchNames.map((name) => (
                 <option value={`${name.branchName}`}>{name.branchName}</option>
               ))}

@@ -130,7 +130,7 @@ const ReviewBoard = () => {
       </Title>
       <SelectBox>
         <select onChange={selectedHandler} value={selectBranch.branchName}>
-          <option value={"defalut"}>지점 선택</option>
+          <option value={"default"}>지점 선택</option>
           {branchNames.map((name) => (
             <option value={`${name.bid}`}>{name.branchName}</option>
           ))}
