@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { usePageMoving } from "../usePageMoving";
 import { useNavigate } from "react-router-dom";
 
-const BackMove = ({ movePage,content }) => {
-const {moveToHome} = usePageMoving();
+const BackMove = ({ movePage, content }) => {
+  const { moveToHome } = usePageMoving();
   const navigate = useNavigate();
   const move = () => {
     if (typeof movePage === "function") {

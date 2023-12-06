@@ -23,7 +23,6 @@ const BoardAddModal = ({ writeMate }) => {
     try {
       const response = await ReqReadMateBoard(writeMate);
       if (response.data.statusCode === 201) {
-        console.log(response.data.successMessage);
         moveToMate();
       }
     } catch (err) {

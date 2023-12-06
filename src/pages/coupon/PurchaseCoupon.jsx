@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { CommonButton } from "../../components/CommonButton";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import MyPoints from "../myPages/myPoints";
 import ModalPurchaseCoupon from "./ModalPurchaseCoupon";
 import FormCoupon from "../../assets/formcoupon.png";
@@ -63,12 +63,6 @@ const PurchaseCoupon = () => {
       setCheckToken(!checkToken);
     }
   };
-
-  useEffect(() => {
-    console.log(press);
-    console.log(bubble);
-    console.log(selectCoupon);
-  });
 
   return (
     <>

@@ -20,18 +20,15 @@ const BranchInfo = () => {
   const [branchImage, setBranchImage] = useState([]);
 
   useEffect(() => {
-    console.log(param.bid);
 
     async function getBranch() {
       try {
         const branchResponse = await ReqBranchInfo(param.bid);
-        console.log(branchResponse);
         if (branchResponse.status === 200) {
           setIsBranchInfo(branchResponse.data);
           setBranchImage(branchResponse.data.imageDTOS);
         }
       } catch (err) {
-        console.log(err);
       }
     }
 

@@ -29,7 +29,6 @@ const ReviewWriteModal = ({ cid, writeReview, image }) => {
 
       const writeResponse = await ReqReviewWrite(cid, formData);
       moveToMyCoupon();
-      console.log(writeResponse);
     } catch (err) {
       console.log(err);
     }

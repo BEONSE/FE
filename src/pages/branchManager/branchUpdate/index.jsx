@@ -15,11 +15,10 @@ import { ReqProfile } from "../../../apis/auth";
 import GlobalStyle from "../../../components/GlobalStyle";
 import ModalBranchUpdate from "./ModalBranchUpdate";
 import { ReqBranchInfo } from "../../../apis/branch";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { usePageMoving } from "../../../components/usePageMoving";
 import { CustomWarning } from "../../myPages/myInfo/MyInfoUpdate";
-import branchRegister, { CharCount, IntroductionForm } from "../../register/BranchRegister";
-
+import { CharCount, IntroductionForm } from "../../register/BranchRegister";
 
 const BranchUpdate = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -29,15 +28,15 @@ const BranchUpdate = () => {
   const [hasError, setHasError] = useState(false);
 
   const editBtn = () => {
-      if (isModified && isFormValid()) {
-          setModalOpen(!modalOpen);
-      } else if (!isModified) {
-          setWarningMessage("변경된 정보가 없습니다.");
-          setHasError(true);
-      } else {
-          setWarningMessage("양식에 맞게 입력해주세요.");
-          setHasError(true);
-      }
+    if (isModified && isFormValid()) {
+      setModalOpen(!modalOpen);
+    } else if (!isModified) {
+      setWarningMessage("변경된 정보가 없습니다.");
+      setHasError(true);
+    } else {
+      setWarningMessage("양식에 맞게 입력해주세요.");
+      setHasError(true);
+    }
   };
 
   const { moveToBranchManager } = usePageMoving();
@@ -65,7 +64,6 @@ const BranchUpdate = () => {
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setBranchUpdate((prevState) => ({
       ...prevState,
       [name]: value,
@@ -103,9 +101,7 @@ const BranchUpdate = () => {
       try {
         const multipartFormData = new FormData();
         const profileResponse = await ReqBranchInfo(param.bid, multipartFormData);
-        console.log(profileResponse);
         const response = await ReqProfile();
-        console.log(response);
         if (profileResponse.status === 200) {
           setBranchUpdate(() => ({
             ...branchUpdate,
@@ -117,8 +113,6 @@ const BranchUpdate = () => {
             image: profileResponse.data.imageDTOS.map((image) => image.imageData),
             introduction: profileResponse.data.introduction,
           }));
-          console.log(branchUpdate);
-          console.log(profileResponse.data.imageDTOS);
         }
       } catch (err) {
         console.log(err);
@@ -135,9 +129,7 @@ const BranchUpdate = () => {
 
     for (let i = 0; i < files.length; i++) {
       imageFiles[i] = files[i];
-      console.log("fileUrls[i]", imageFiles[i]);
     }
-    console.log("imageFiles", imageFiles);
   };
 
   const deleteImage = (index) => {
@@ -165,56 +157,57 @@ const BranchUpdate = () => {
 
   //비밀번호 유효성 검사
   const validatePassword = () => {
-    setPasswordValid(/^[a-zA-z0-9]{4,12}$/.test(branchUpdate.password)) ;
+    setPasswordValid(/^[a-zA-z0-9]{4,12}$/.test(branchUpdate.password));
     setValidationErrors((prevState) => ({
       ...prevState,
-      password: passwordValid ? "" : "영문자와 숫자를 포함하여 4~12자로 입력해주세요."
-    }))
-  }
+      password: passwordValid ? "" : "영문자와 숫자를 포함하여 4~12자로 입력해주세요.",
+    }));
+  };
 
   // 소개란 유효성 검사
   const validateIntroduction = () => {
-    setIntroductionValid( branchUpdate.introduction.length <= 1000);
+    setIntroductionValid(branchUpdate.introduction.length <= 1000);
     setValidationErrors((prevState) => ({
-      ...prevState, introduction: introductionValid ? "" : "1000자 이내로 입력해주세요." }));
+      ...prevState,
+      introduction: introductionValid ? "" : "1000자 이내로 입력해주세요.",
+    }));
   };
 
-    //소개란 글자 수
-    const [introductionCount, setIntroductionCount] = useState(0);
-    // 소개란 글자수 세기 핸들러
-    const handleIntroductionChange = (e) => {
-        const newText = e.target.value;
-        setIntroductionCount(newText.length);
-        setBranchUpdate((prevData) => {
-            if (newText.length <= 1000) {
-                return {
-                    ...prevData,
-                    introduction: newText,
-                };
-            }
-            return prevData;
+  //소개란 글자 수
+  const [introductionCount, setIntroductionCount] = useState(0);
+  // 소개란 글자수 세기 핸들러
+  const handleIntroductionChange = (e) => {
+    const newText = e.target.value;
+    setIntroductionCount(newText.length);
+    setBranchUpdate((prevData) => {
+      if (newText.length <= 1000) {
+        return {
+          ...prevData,
+          introduction: newText,
+        };
+      }
+      return prevData;
 
-            // const { value } = e.target;
-            // if (value.length <= 1000) {
-            //     setBranchUpdate((prevState) => ({
-            //         ...prevState,
-            //         introduction: value,
-            //     }));
-            //     setIntroductionCount(value.length);
-            // }
-        });
-    };
+      // const { value } = e.target;
+      // if (value.length <= 1000) {
+      //     setBranchUpdate((prevState) => ({
+      //         ...prevState,
+      //         introduction: value,
+      //     }));
+      //     setIntroductionCount(value.length);
+      // }
+    });
+  };
 
-    // 이전 값 가져오기
-    const previousIntroduction = branchUpdate.introduction;
+  // 이전 값 가져오기
+  const previousIntroduction = branchUpdate.introduction;
 
-// 이전 값이 있다면 설정
-    useEffect(() => {
-        if (previousIntroduction) {
-            setIntroductionCount(previousIntroduction.length);
-        }
-        console.log(previousIntroduction.length);
-    }, [previousIntroduction]);
+  // 이전 값이 있다면 설정
+  useEffect(() => {
+    if (previousIntroduction) {
+      setIntroductionCount(previousIntroduction.length);
+    }
+  }, [previousIntroduction]);
 
   return (
     <>
@@ -307,7 +300,12 @@ const BranchUpdate = () => {
           <span>
             <img src={Pencil} alt="IDImage" />
           </span>
-          <textarea name="introduction" onChange={handleIntroductionChange} placeholder="가맹점 소개" value={branchUpdate.introduction}></textarea>
+          <textarea
+            name="introduction"
+            onChange={handleIntroductionChange}
+            placeholder="가맹점 소개"
+            value={branchUpdate.introduction}
+          ></textarea>
         </IntroductionForm>
         <CharCount>{`(${introductionCount}/1000)`}</CharCount>
         <Warning check={!introductionValid}>{validationErrors.introduction}</Warning>
@@ -321,10 +319,12 @@ const BranchUpdate = () => {
           placeholder="지점 소개 사진"
           multiple={true}
           onChange={onLoadImage}
-          style={{display:"none"}}
+          style={{ display: "none" }}
         />
-        <PhotoBtn className="input-file-button" htmlFor="input-file">사진 선택</PhotoBtn>
-        <br/>
+        <PhotoBtn className="input-file-button" htmlFor="input-file">
+          사진 선택
+        </PhotoBtn>
+        <br />
         {branchUpdate.image.map((url, index) => (
           <>
             <ImageBox>
@@ -351,7 +351,7 @@ const BranchUpdate = () => {
           >
             수정 완료
           </LoginBtn>
-          {hasError &&<CustomWarning hasError={true}>{warningMessage}</CustomWarning>}
+          {hasError && <CustomWarning hasError={true}>{warningMessage}</CustomWarning>}
         </LoginButtonDiv>
         <br />
       </EditForm>
@@ -492,8 +492,8 @@ const DeleteBtn = styled(CommonButton)`
 const PhotoBtn = styled.label`
   margin-left: 2vw;
   padding: 6px 25px;
-  background-color:#36c036;;
+  background-color: #36c036;
   border-radius: 4px;
   cursor: pointer;
   color: white;
-  `;
+`;

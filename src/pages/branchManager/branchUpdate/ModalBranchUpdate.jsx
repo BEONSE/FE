@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PayBtn } from "../../payment/PayModal";
 import Modal from "react-modal";
 import { usePageMoving } from "../../../components/usePageMoving";
@@ -33,32 +33,26 @@ const ModalBranchUpdate = ({ param, branchUpdate, image }) => {
     setModalOpen(!modalOpen);
   };
 
-
   const editBtn = async () => {
     try {
       const formData = new FormData();
 
-      console.log(image);
       if (image) {
         for (let i = 0; i < image.length; i++) {
           formData.append("image", image[i]);
         }
       }
-      formData.append("branchRequestDTO", new Blob([JSON.stringify(branchUpdate)],
-        { type: "application/json" }),
+      formData.append(
+        "branchRequestDTO",
+        new Blob([JSON.stringify(branchUpdate)], { type: "application/json" }),
       );
       const branchInfoResponse = await ReqBranchUpdate(formData);
-      console.log(branchInfoResponse);
       closeModal();
       moveToBranchManager(param.bid);
     } catch (err) {
       console.log(err);
     }
   };
-
-  useEffect(() => {
-    console.log(branchUpdate);
-  });
 
   return (
     <>
@@ -101,7 +95,6 @@ const ModalContent = styled.div`
     font-size: 18px;
     text-align: center;
     font-weight: bold;
-
   }
 
   & > div {

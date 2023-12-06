@@ -68,8 +68,6 @@ const MyReview = () => {
     async function getMyReview() {
       try {
         const response = await ReqMyReview();
-        console.log(response.data.content);
-        console.log(response.data.content.reviewImageType);
         setReviewList(response.data.content);
       } catch (err) {
         if (err.response.data.statusCode === 404 || err.response.data.statusCode === 401) {

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import PayModal from "./PayModal";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import Point1 from "../../assets/point1.png";
 import Point2 from "../../assets/point2.png";
 import Point3 from "../../assets/point3.png";
@@ -43,11 +43,6 @@ const IterationPoint = ({ price }) => {
       setCheckToken(!checkToken);
     }
   };
-
-  useEffect(() => {
-    console.log(isPayModal);
-    console.log(modalState);
-  }, []);
 
   return (
     <>

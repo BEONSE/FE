@@ -57,14 +57,6 @@ const BranchReserve = () => {
     reservationTime: "",
   });
 
-  useEffect(() => {
-    console.log(bid["*"]);
-  }, [bid]);
-
-  useEffect(() => {
-    console.log(userReservation);
-  }, [userReservation]);
-
   // 날짜 선택 시
   useEffect(() => {
     const selYear = selectedDate.getFullYear();
@@ -73,13 +65,11 @@ const BranchReserve = () => {
 
     async function getSelectDayReserveState() {
       try {
-        console.log(`${selYear.toString().slice(-2)}-${selMonth}-${selDay}`);
         const rStateResponse = await ReqReservationState(
           bid["*"],
           `${selYear.toString().slice(-2)}-${selMonth}-${selDay}`,
         );
         setReserveInfo(rStateResponse.data);
-        console.log("선택쓰날짜 : ", rStateResponse);
       } catch (err) {
         console.log(err);
       }
@@ -100,7 +90,6 @@ const BranchReserve = () => {
   const countReserveState = () => {
     reserveInfo.forEach((time) => {
       const hour = parseInt(time.reservationTime.slice(11, 13)); // 시간 부분을 숫자로 변환
-      console.log(time.count);
       switch (hour) {
         case 11:
           setReserveTime((prevTime) => ({

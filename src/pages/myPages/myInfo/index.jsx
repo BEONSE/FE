@@ -11,7 +11,6 @@ import { CommonButton } from "../../../components/CommonButton";
 import React, { useEffect, useState } from "react";
 import { ReqProfile } from "../../../apis/auth";
 import BackMove from "../../../components/backMove";
-// import { ReqEmail } from "../../../apis/editInfo";
 
 const MyInfo = () => {
   const { moveToHome } = usePageMoving();
@@ -31,7 +30,6 @@ const MyInfo = () => {
     async function getProfile() {
       try {
         const profileResponse = await ReqProfile();
-        console.log(profileResponse);
         if (profileResponse.status === 200) {
           setCurrentUser({
             ...currentUser,

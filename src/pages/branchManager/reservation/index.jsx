@@ -1,15 +1,7 @@
 import { ReserveAllDiv } from "../../myPages/myReservation/ReservationItem";
-import { useEffect } from "react";
 import styled from "styled-components";
 
-const BranchReservationList = ({list}) => {
-  useEffect(() => {
-    if (list) {
-      console.log(list);
-      console.log("r", list["type"]);
-    }
-  }, [list]);
-
+const BranchReservationList = ({ list }) => {
   return (
     <>
       <ReserveAllDiv>
@@ -21,17 +13,16 @@ const BranchReservationList = ({list}) => {
           </ReserveTime>
           <div>&emsp;&emsp;{list.memberName}</div>
         </ReserveInfo>
-
       </ReserveAllDiv>
     </>
   );
-}
+};
 export default BranchReservationList;
 
 const ReserveRvid = styled.div`
   margin-left: 3vw;
   color: lightgray;
-  `;
+`;
 
 const ReserveTime = styled.div`
   display: flex;

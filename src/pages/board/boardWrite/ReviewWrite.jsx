@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import BackMove from "../../../components/backMove";
 import { CommonButton } from "../../../components/CommonButton";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import ReviewWriteModal from "./ReviewWriteModal";
 import { usePageMoving } from "../../../components/usePageMoving";
@@ -27,15 +27,6 @@ const ReviewWrite = () => {
   // 입력 유효성 검사
   const [titleCheck, setTitleCheck] = useState(0);
   const [contentCheck, setContentCheck] = useState(0);
-
-  useEffect(() => {
-    console.log(writeReview);
-  }, [writeReview]);
-
-  useEffect(() => {
-    console.log("cid", cid);
-    console.log(bname);
-  }, [cid, bname]);
 
   // input handler 함수
   const handleInput = (e) => {

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { CommonButton } from "../../components/CommonButton";
 import GlobalStyle from "../../components/GlobalStyle";
 import { LoginAllDiv } from "./branchUpdate";
 import BranchReview from "./review";
@@ -11,7 +10,6 @@ import { ReqBranchCoupon, ReqBranchReservation, ReqBranchReview } from "../../ap
 import { ReqBranchName } from "../../apis/reservation";
 import Loading from "../../components/Loading";
 import Logout from "../../components/Logout";
-import BranchReservation from "../branchReservation";
 import BranchReservationList from "./reservation";
 
 const BranchHome = () => {
@@ -43,7 +41,6 @@ const BranchHome = () => {
     setIsLoading2(true);
     try {
       const reviewResponse = await ReqBranchReview(param["*"], page + 1);
-      console.log(reviewResponse.data);
       if (reviewResponse.data.content.length === 0) {
         setReviewEmpty(true);
       } else {
@@ -137,7 +134,6 @@ const BranchHome = () => {
     async function getBranchName() {
       try {
         const bnameResponse = await ReqBranchName(param.bid);
-        console.log("이름", bnameResponse);
         setBname(bnameResponse.data);
       } catch (err) {
         console.log(err);
@@ -152,8 +148,6 @@ const BranchHome = () => {
     async function getReview() {
       try {
         const reviewResponse = await ReqBranchReview(param.bid);
-        console.log(reviewResponse);
-        console.log(param.bid);
         if (reviewResponse.status === 200) {
           setReview(reviewResponse.data.content);
         }
@@ -171,14 +165,10 @@ const BranchHome = () => {
   //쿠폰 가져오기
   useEffect(() => {
     async function getCoupon() {
-      console.log(param);
-      console.log(param.bid);
       try {
         const couponResponse = await ReqBranchCoupon();
-        console.log("쿠폰", couponResponse);
         if (couponResponse.status === 200) {
           const couponData = couponResponse.data.content;
-          console.log("couponData", couponData);
           setCoupon(couponData);
         }
       } catch (err) {
@@ -202,10 +192,8 @@ const BranchHome = () => {
     async function getReservation() {
       try {
         const reservationResponse = await ReqBranchReservation(param.bid);
-        console.log("예약", reservationResponse);
         if(reservationResponse.status === 200) {
           const reservationData = reservationResponse.data.content;
-          console.log(reservationData);
           setReservation(reservationData);
         }
       } catch (err) {

@@ -13,7 +13,6 @@ const MultiMap = () => {
     async function getBranchPosition() {
       try {
         const positionResponse = await ReqBranchPosition();
-        console.log(positionResponse);
         if (positionResponse.status === 200) {
           setIsPosition(positionResponse.data);
         }

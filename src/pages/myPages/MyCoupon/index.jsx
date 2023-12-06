@@ -18,14 +18,13 @@ const MyCoupon = () => {
   const [isCoupons, setIsCoupons] = useState([]);
   const [usedCoupons, setUsedCoupons] = useState([]);
   const [fullCount, setFullCount] = useState(0);
-// 페이지
+  // 페이지
   const [page, setPage] = useState(1);
   const [pageData, setPageData] = useState("");
   const loadMore = async () => {
     setIsLoading2(true);
     try {
       const couponsResponse = await ReqCouponList(page + 1);
-      console.log(couponsResponse.data);
       if (couponsResponse.data.content.length === 0) {
         setIsCouponEmpty(true);
       } else {
@@ -44,8 +43,6 @@ const MyCoupon = () => {
     setIsLoading2(true);
     try {
       const usedCouponsResponse = await ReqUsedCouponList(page + 1);
-      console.log(usedCouponsResponse.data);
-      console.log("page", page);
       if (usedCouponsResponse.data.content.length === 0) {
         setIsUseEmpty(true);
       } else {
@@ -62,7 +59,7 @@ const MyCoupon = () => {
 
   const throttle = (func, delay) => {
     let inThrottle;
-    return function() {
+    return function () {
       const args = arguments;
       const context = this;
       if (!inThrottle) {
@@ -116,13 +113,11 @@ const MyCoupon = () => {
     setIsLoading(true);
     try {
       const couponsResponse = await ReqCouponList();
-      console.log("쿠폰", couponsResponse);
       if (couponsResponse.status === 200) {
         setIsCoupons(couponsResponse.data.content);
         setFullCount(couponsResponse.data.totalRows);
       }
     } catch (err) {
-      console.log("미사용쿠폰 에러 ", err);
       if (err.response.data.statusCode === 404) {
         setIsCouponEmpty(true);
       }
@@ -136,8 +131,6 @@ const MyCoupon = () => {
     setIsLoading(true);
     try {
       const couponsResponse = await ReqUsedCouponList();
-      console.log("사용쿠폰", couponsResponse);
-      console.log("사용쿠폰", couponsResponse.data.content[0].branchName);
       if (couponsResponse.status === 200) {
         setUsedCoupons(couponsResponse.data.content);
       }
@@ -191,7 +184,7 @@ const MyCoupon = () => {
         )}
       </Load>
       <Load>
-        {isLoading2 && page != pageData.totalPageNo && (
+        {isLoading2 && page !== pageData.totalPageNo && (
           <>
             <Loading /> <p>불러오는 중...</p>
           </>

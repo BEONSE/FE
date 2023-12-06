@@ -1,17 +1,11 @@
 import styled from "styled-components";
-import React, { useEffect } from "react";
+import React from "react";
 import Grade1 from "../../../assets/grade1.png";
 import Grade2 from "../../../assets/grade2.png";
 import Grade3 from "../../../assets/grade3.png";
 import Basic from "../../../assets/profile.jpg";
 
 const BranchReview = ({ item }) => {
-  useEffect(() => {
-    if (item) {
-      console.log(item);
-      console.log("t", item["writer"]);
-    }
-  }, [item]);
   return (
     <>
       {item && (
@@ -19,8 +13,11 @@ const BranchReview = ({ item }) => {
           <Profile>
             <div>
               <InnerProf>
-                {item.memberImageData ? (<img src={`data:image/png;base64,${item.memberImageData}`} alt="review" />) : (
-                  <img src={Basic} alt="기본 이미지" />)}
+                {item.memberImageData ? (
+                  <img src={`data:image/png;base64,${item.memberImageData}`} alt="review" />
+                ) : (
+                  <img src={Basic} alt="기본 이미지" />
+                )}
                 <Writer>
                   <p>{item.writer}</p>
                   <Grade>
@@ -28,23 +25,25 @@ const BranchReview = ({ item }) => {
                     {item.grade === 2 && <img src={Grade2} alt="grade2" />}
                     {item.grade === 3 && <img src={Grade3} alt="grade3" />}
                   </Grade>
-                  </Writer>
-                </InnerProf>
-                <TimeDiv>
-                  <div>작성일 {item.createdAt}</div>
-                  <div>{item.createdAt !== item.modifiedAt && <div>수정일 {item.modifiedAt}</div>}</div>
-                </TimeDiv>
-              </div>
-              <hr/>
-            </Profile>
-            <Content>
-              {item.reviewImageData && (
-                <ReviewImage>
-                  <img src={`data:image/png;base64,${item.reviewImageData}`} alt="리뷰 이미지" />
-                </ReviewImage>
-              )}
-              <p>{item.content}</p>
-            </Content>
+                </Writer>
+              </InnerProf>
+              <TimeDiv>
+                <div>작성일 {item.createdAt}</div>
+                <div>
+                  {item.createdAt !== item.modifiedAt && <div>수정일 {item.modifiedAt}</div>}
+                </div>
+              </TimeDiv>
+            </div>
+            <hr />
+          </Profile>
+          <Content>
+            {item.reviewImageData && (
+              <ReviewImage>
+                <img src={`data:image/png;base64,${item.reviewImageData}`} alt="리뷰 이미지" />
+              </ReviewImage>
+            )}
+            <p>{item.content}</p>
+          </Content>
         </ReviewAllDiv>
       )}
     </>
@@ -79,7 +78,6 @@ const InnerProf = styled.div`
   display: flex;
   align-items: center;
   margin-left: 1vw;
-
 `;
 
 const TimeDiv = styled.div`
@@ -107,7 +105,6 @@ const ReviewImage = styled.div`
   }
 `;
 
-
 /* 등급 Style */
 const Grade = styled.p`
   margin-left: 2vw;
@@ -121,4 +118,3 @@ const Writer = styled.div`
   display: flex;
   text-align: center;
 `;
-

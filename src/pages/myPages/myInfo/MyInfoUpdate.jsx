@@ -72,7 +72,6 @@ const MyInfoUpdate = () => {
   // const input 입력 감지 handler
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setCommonUpdate((prevState) => ({
       ...prevState,
       [name]: value,
@@ -147,7 +146,6 @@ const MyInfoUpdate = () => {
       try {
         const multipartFormData = new FormData();
         const updateProfile = await ReqProfile(multipartFormData);
-        console.log("res", updateProfile);
         if (updateProfile.status === 200) {
           setCommonUpdate((preData) => ({
             ...commonUpdate,
@@ -158,7 +156,6 @@ const MyInfoUpdate = () => {
             address: updateProfile.data.address,
             image: updateProfile.data.imageData || preData.image,
           }));
-          console.log("profile update", commonUpdate);
         }
       } catch (err) {
         console.log(err);

@@ -32,7 +32,6 @@ const ModalPurchaseCoupon = ({ selectCoupon, setModalOpen, modalOpen }) => {
       if (couponResponse.status === 200) {
         closeModal();
       }
-      console.log(couponResponse);
     } catch (err) {
       console.log(err);
     }

@@ -41,7 +41,6 @@ const ReviewBoard = () => {
         setPageData(response.data);
         setPage(page + 1);
       }
-      console.log(pageData);
     } catch (err) {
       // 오류 처리
     } finally {
@@ -81,16 +80,11 @@ const ReviewBoard = () => {
     };
   }, [handleScroll]);
 
-  useEffect(() => {
-    console.log(selectBranch.branchName);
-  }, [selectBranch]);
-
   // 지점 이름 가져오기
   useEffect(() => {
     async function getBranchNames() {
       try {
         const namesResponse = await ReqBranchNames();
-        console.log("이름", namesResponse);
         if (namesResponse.status === 200) {
           setBranchNames(namesResponse.data);
         }
@@ -113,9 +107,7 @@ const ReviewBoard = () => {
     try {
       const response = await ReqReviewBoardList(selectBranch.branchName);
       setReviewList(response.data.content);
-      console.log(response.data);
     } catch (err) {
-      console.log(err);
       if (err.response.data.statusCode === 404 || err.response.data.statusCode === 401) {
         setIsEmpty(true);
       }
