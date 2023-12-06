@@ -7,8 +7,7 @@ import Loading from "../../../components/Loading";
 import { usePageMoving } from "../../../components/usePageMoving";
 
 const MyReservation = () => {
-
-  const {moveToSearch} = usePageMoving();
+  const { moveToSearch } = usePageMoving();
   const [resList, setResList] = useState([]);
   const [isEmpty, setIsEmpty] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -38,7 +37,7 @@ const MyReservation = () => {
 
   const throttle = (func, delay) => {
     let inThrottle;
-    return function() {
+    return function () {
       const args = arguments;
       const context = this;
       if (!inThrottle) {
@@ -67,6 +66,7 @@ const MyReservation = () => {
       window.removeEventListener("scroll", handleScrollThrottle);
     };
   }, [handleScroll]);
+
   useEffect(() => {
     async function getReservation() {
       try {
@@ -84,7 +84,7 @@ const MyReservation = () => {
     }
 
     getReservation();
-  }, []);
+  }, [resList]);
 
   return (
     <>
@@ -96,7 +96,7 @@ const MyReservation = () => {
         </LoadDiv>
       )}
       {resList && resList.map((list) => <ReservationItem key={list.rvid} list={list} />)}
-      {isLoading2 && page != pageData.totalPageNo && (
+      {isLoading2 && page !== pageData.totalPageNo && (
         <LoadDiv>
           <Loading />
         </LoadDiv>
