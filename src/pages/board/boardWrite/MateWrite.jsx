@@ -57,10 +57,12 @@ const MateWrite = () => {
 
   // 지점 선택 handler
   const selectedHandler = (e) => {
-    setWriteMate((prevState) => ({
-      ...prevState,
-      branchName: e.target.value,
-    }));
+    if (e.target.value !== "default") {
+      setWriteMate((prevState) => ({
+        ...prevState,
+        branchName: e.target.value,
+      }));
+    }
   };
 
   // 지점 이름 가져오기

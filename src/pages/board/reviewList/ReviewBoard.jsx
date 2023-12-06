@@ -23,7 +23,9 @@ const ReviewBoard = () => {
 
   // 지점 선택 handler
   const selectedHandler = (e) => {
-    setSelectBranch({ branchName: e.target.value });
+    if (e.target.value !== "default") {
+      setSelectBranch({ branchName: e.target.value });
+    }
   };
 
   // 페이지
