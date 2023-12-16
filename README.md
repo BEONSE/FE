@@ -1,71 +1,78 @@
-# Getting Started with Create React App
+# 0. 팀
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![image](https://github.com/BEONSE/FE/assets/66876922/f81ea2cf-416e-46ec-b330-30f521585e22)
 
-## Available Scripts
+# 1. 프로젝트 주제
 
-In the project directory, you can run:
+모바일 쿠폰 서비스를 이용한 셀프 세차장 이용 웹사이트
 
-### `yarn start`
+# 2. 프로젝트 개요
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## **1. 문제점**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+셀프 세차장을 이용 시에는 회원 카드가 필수이다. 하지만 회원 카드를 깜빡하고 미 소지하고 갔을 경우 재발급 비용이 발생하게 되고, 회원 카드에 금액을 충전한 다음에 회원 카드로만 세차 시스템을 이용할 수 있다는 것에 불편함을 느끼게 되었다.
 
-### `yarn test`
+## **2. 해결 방안**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+따라서 쿠폰 시스템을 도입하여 실물 회원 카드를 제거해 회원 카드 없이 세차장을 이용할 수 있게 하고, 예약 시스템을 통해 세차장 혼잡도를 확인해 불필요한 대기 시간을 감소 시키는 것으로 이 프로젝트를 기획하게 되었다.
 
-### `yarn build`
+# 3. 기술 스택
+![image](https://github.com/BEONSE/FE/assets/66876922/720f204f-af41-4818-b968-770b9a70e95c)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# 4. 구현 범위
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### [구매자]
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- 구매자 권한의 회원 가입
+- 구매자 정보 수정 (부분 수정 가능)
+- 카테고리 별 제품 목록 확인
+- 원하는 상품 장바구니 추가
+- 장바구니 선택 삭제/전체 삭제
+- 장바구니를 통해 원하는 제품 선택 결제 가능
+- 결제 시 배송 메세지와 배송 정보, 선택한 제품 확인 가능
+- 결제한 상품 주문 내역 확인
 
-### `yarn eject`
+### [판매자]
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- 판매자 권한의 회원 가입
+- 판매자 정보 수정 (부분 수정 가능)
+- 카테고리 별 상품 등록
+- 등록 상품 정보 수정 (부분 수정 가능)
+- 등록 상품 정보(이미지, 상품명, 카테고리, 가격, 재고 등) 출력
+- 등록 상품 삭제
+- 등록 제품 별 매출 및 판매 수량 확인
+- 총 매출 및 판매 수량 확인
+- 제품을 주문한 고객들의 정보 확인
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### [일반회원]
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- 회원가입 및 로그인, 로그아웃
+- 가맹점 검색
+- 가맹점 예약
+- 리뷰 게시판
+- 메이트 게시판
+- 회원 정보 수정
+- 내가 쓴 게시글 목록
+- 쿠폰 구매/사용
+- 포인트 충전
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### [가맹점]
 
-## Learn More
+- 회원가입 및 로그인, 로그아웃
+- 리뷰 모아보기
+- 사용된 쿠폰 모아보기
+- 가맹점 정보 수정
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### [관리자]
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- 가맹점 승인처리
+- 전체 회원 조회
+- 전체 결제 내역
 
-### Code Splitting
+# 5. 화면 구성
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### [일반 회원]
+![image](https://github.com/BEONSE/FE/assets/66876922/af4ce0da-9813-4bd2-835a-e567b833702d)
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-"# FE" 
+### [가맹점/관리자]
+![image](https://github.com/BEONSE/FE/assets/66876922/ccef4fdc-a782-4e68-9435-bbe12c06ae8f)
